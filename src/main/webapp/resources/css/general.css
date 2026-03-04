@@ -1,7 +1,15 @@
 
 :root {
+
+    --radius-16: 16px;
+    --container-padding: 2rem;
     --thiner-border: rgba(255, 255, 255, 0.3);
+    --thiner-border-sec: rgba(55, 65, 81, 0.2);
+
     --white-color: #ffffff;
+    --text-gray: rgb(55 65 81);
+    --title-gray: rgb(17 24 39);
+
     --primary-font-family: 'Arial', sans-serif;
 }
 
@@ -10,7 +18,13 @@ body{
     padding: 0;
     font-family: var(--primary-font-family);
 }
+p, h1, h2, h3, h4, h5{
+    margin: 0;
+}
 .nav-bar{
+    /* position: sticky;
+    top: 0;
+    left: 0; */
     display: flex;
 }
 .logo-container{
@@ -95,6 +109,9 @@ HERO SECTION
     height: 100vh;
     width: 100%;
     background-image: url("#{resource['imgs:luanda.jpg']}");
+    background-color: rgba(17, 24, 39, 0.386); 
+    /* This mixes the image and the color */
+    background-blend-mode: multiply;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
@@ -129,4 +146,114 @@ HERO SECTION
     height: 50px;
     border-radius: 50px;
     border: 1px solid var(--white-color);
+}
+
+
+
+/* 
+=================================
+
+=================================
+*/
+.home-section .title{
+   font-size: 2.6rem;
+   margin-bottom: .8rem;
+}
+
+.home-section .subtitle{
+    font-size: 1.2rem;
+    line-height: 2rem;
+    width: 90%;
+}
+/*========================
+NEWS
+========================== 
+ */
+
+ .news-section,
+ .consular-services-section{
+    padding: 4rem 6rem;
+ }
+ .news-section .cards-container{
+    display: flex;
+    width: 100%;
+    gap: 6rem;
+    list-style: none;
+    padding: 0;
+    margin: 3rem auto 6rem;
+ }
+.card{
+    flex: 1;
+    cursor: pointer;
+    color: var(--text-gray);
+}
+.news-section img{
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+.news-section .card .title{
+    width: 96%;
+    margin: 1rem 0;
+    color: var(--title-gray);
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+.news-section .card .title span{
+    margin-left: 1rem;
+    font-size: 2rem;
+}
+.news-section .card .title span .pi{
+    font-size: 1.2rem;
+}
+
+.title-icon{
+    display: flex;
+    align-items: center;
+}
+.transparent-button.ui-button{
+    width: 12%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    padding: .8rem;
+
+}
+/*========================
+SERVICES
+========================== 
+ */
+.consular-services-section{
+    /* border: 2px solid red; */
+}
+
+.consular-services-section 
+.cards-container{
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style: none;
+}
+.consular-services-section 
+.card{
+    border-radius: 8px;
+    justify-content: space-between;
+    align-items: center;
+    flex: 30%;
+    padding: 2rem 4rem;
+    display: flex;
+    border: 1px solid var(--thiner-border-sec);
+}
+
+.consular-services-section 
+.icon-container{
+    border-radius: 50px;
+    width: 50px;
+    padding: .8rem;
+    border: 1px solid var(--thiner-border-sec);
+
 }
