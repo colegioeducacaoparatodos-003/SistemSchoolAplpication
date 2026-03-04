@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <ui:insert name="titulo">Login</ui:insert>
+    </title>
+    <h:outputStylesheet name="general.css" library="css" />
+    <!-- <h:outputStylesheet name="general.js" library="js" /> -->
+    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+
+</h:head>
+
+<h:body>
+    <header class="nav-bar">
+        <div class="logo-container items">
+            <h1>Angola</h1>
+        </div>
+        <div class="nav-content">
+            <div class="utility-bar items">
+                <p:button  value="Success" styleClass="ui-button-outlined rounded-button" />
+            </div>
+
+            <div class="main-nav items">
+                <div class="nav-links">
+                    <p:commandButton class="menu-button" id="btnTravel" value="Travel to Angola" type="button" icon="pi pi-chevron-down"
+                        iconPos="right" />
+                    <p:overlayPanel for="btnTravel" style="width:350px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </p:overlayPanel>
+
+                    <p:commandButton class="menu-button" id="btnEmbassy" value="Embassy" type="button" icon="pi pi-chevron-down"
+                        iconPos="right" />
+                    <p:overlayPanel for="btnEmbassy" style="width:350px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </p:overlayPanel>
+
+                    <p:commandButton class="menu-button" id="btnAngola" value="Angola" type="button" icon="pi pi-chevron-down"
+                        iconPos="right" />
+                    <p:overlayPanel for="btnAngola" style="width:350px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </p:overlayPanel>
+
+                    <p:commandButton class="menu-button" id="btnPress" value="Press Room" type="button" icon="pi pi-chevron-down"
+                        iconPos="right" />
+                    <p:overlayPanel for="btnPress" style="width:350px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </p:overlayPanel>
+
+                    <p:commandButton class="menu-button" id="btnTimeline" value="Timeline" type="button" icon="pi pi-chevron-down"
+                        iconPos="right" />
+                    <p:overlayPanel for="btnTimeline" style="width:350px">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </p:overlayPanel>
+                </div>
+
+                <div class="search-container">
+                    <span class="ui-input-icon-right">
+                        <i class="pi pi-search" />
+                        <p:inputText placeholder="Search" />
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+
+    <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true">
+    <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</p:dialog>
+</h:body>
+
+</html>

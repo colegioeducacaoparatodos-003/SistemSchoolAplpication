@@ -1,0 +1,132 @@
+
+:root {
+    --thiner-border: rgba(255, 255, 255, 0.3);
+    --white-color: #ffffff;
+    --primary-font-family: 'Arial', sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: var(--primary-font-family);
+}
+.nav-bar{
+    display: flex;
+}
+.logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18%;
+    padding: 1.4rem;
+   border: 1px solid var(--thiner-border);
+}
+.nav-content{
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+}
+
+.utility-bar{
+    padding: 1.4rem;
+    border-bottom: 0;
+    border-left: 0;
+    text-align: right;
+    border: 1px solid var(--thiner-border);
+    border-bottom: none;
+    border-left: none;
+}
+.main-nav{
+    display: flex;
+    gap: 2rem;
+    padding: 1.4rem;
+   border: 1px solid var(--thiner-border);
+    border-left: none;
+}
+.nav-links{
+    
+    width: 76%;
+    display: flex;
+    gap: 2rem;
+}
+.rounded-button.ui-button.rounded-button{
+    color: var(--white-color);
+    border: 1px solid var(--white-color)
+}
+.menu-button.ui-button{
+    font-weight: 600;
+}
+.menu-button.ui-button,
+.menu-button.ui-button.ui-state-hover,
+.menu-button.ui-button:active,
+.menu-button.ui-button:focus{
+    background: none;
+    border: none;
+    box-shadow: none ;
+    outline: none ;
+}
+.fake-input-container{
+    width: 24%;
+}
+.fake-input{
+
+}
+.search-container{
+    width: 24%;
+}
+
+ .search-container .ui-input-icon-right {
+    width: 100%;
+    height: 100%;
+ }
+.search-container .ui-inputfield {
+    border-radius: 14px;
+    width: 100%;
+}
+
+/* 
+==============================
+HERO SECTION
+===============================
+*/
+
+.hero-section{
+    color: var(--white-color);
+    height: 100vh;
+    width: 100%;
+    background-image: url("#{resource['imgs:luanda.jpg']}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.hero-content{
+    display: flex;
+    flex-direction: column;
+    margin: 6rem 0 0 6rem;
+    width: fit-content;
+    max-width: 50%;
+}
+.title{
+    font-size: 3rem;
+}
+.hero-content h1, 
+.hero-content p{
+    margin: .4rem;
+}
+.hero-content .text{
+    font-size: 1.4rem;
+    line-height: 2rem;
+}
+
+.fixed-message-action{
+
+    color: var(--white-color);
+    position: fixed;
+    top: 90%;
+    right: 2%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 1px solid var(--white-color);
+}
