@@ -10,7 +10,7 @@
     </title>
     <!-- <h:outputStylesheet name="login.css" library="css" /> -->
     <h:outputStylesheet name="general.css" library="css" />
-    <!-- <h:outputStylesheet name="general.js" library="js" /> -->
+    <h:outputScript name="general.js" library="js" />
     <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
 
@@ -18,19 +18,7 @@
 </h:head>
 
 <h:body>
-    <div class="hero-section">
-        <ui:include src="./components/public/nav-bar.xhtml" />
-        <div class="hero-content">
-            <h1 class="title">Angola Embassy</h1>
-            <h1 class="title">Wellcome to Angola-Argentina Portal</h1>
-            <p class="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt earum ut nobis sint consequuntur ipsa quae
-                nostrum cumque porro esse.</p>
-        </div>
-        <!-- <div class="fixed-message-action">
-            kkkk
-        </div> -->
-        
-    </div>
+    <ui:include src="./components/public/hero.xhtml" />
     <ui:include src="./components/public/news-and-announcements.xhtml" />
     <ui:include src="./components/public/consular-services.xhtml" />
     <ui:include src="./components/public/footer.xhtml" />
