@@ -31,8 +31,11 @@ li {
 }
 
 .nav-bar {
+    padding: .6rem 6rem;
     display: flex;
-    border: 1px solid var(--thiner-border);
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid var(--thiner-border); */
 
 }
 
@@ -41,7 +44,7 @@ li {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 900;
     color: var(--title-gray) !important;
     background-color: var(--white-color);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -52,18 +55,18 @@ li {
 }
 
 .logo-container {
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
     width: 18%;
-    padding: 1.4rem;
+    padding: 1.4rem; */
 }
 
 .nav-content {
-    width: 88%;
+    /* width: 88%; */
     display: flex;
-    flex-direction: column;
-    border-left: 1px solid var(--thiner-border);
+    /* flex-direction: column; */
+    /* border-left: 1px solid var(--thiner-border); */
 }
 
 .utility-bar {
@@ -77,17 +80,18 @@ li {
 }
 
 .main-nav {
-    display: flex;
     gap: 2rem;
+    display: flex;
+    justify-content: space-around;
     padding: 1.4rem;
-    border-top: 1px solid var(--thiner-border);
-    border-bottom: none;
+    /* border-top: 1px solid var(--thiner-border); */
+    /* border-bottom: none; */
     /* border: 1px solid red; */
 }
 
 .nav-links {
 
-    width: 76%;
+    /* width: 76%; */
     display: flex;
     gap: 2rem;
 }
@@ -124,9 +128,6 @@ li {
 
 .fake-input {}
 
-.search-container {
-    width: 24%;
-}
 
 .search-container .ui-input-icon-right {
     width: 100%;
@@ -150,7 +151,6 @@ HERO SECTION
     width: 100%;
     background-image: url("#{resource['imgs:luanda.jpg']}");
     background-color: rgba(17, 24, 39, 0.386);
-    /* This mixes the image and the color */
     background-blend-mode: multiply;
     background-repeat: no-repeat;
     background-position: center;
@@ -170,7 +170,7 @@ HERO SECTION
 }
 
 .support-fixed-nav-bar {
-    padding-top: 170px;
+    padding-top: 86px;
 }
 
 .title {
@@ -188,7 +188,6 @@ HERO SECTION
 }
 
 .fixed-message-action {
-
     color: var(--white-color);
     position: fixed;
     top: 90%;
@@ -293,7 +292,6 @@ NEWS
     margin: 0 auto;
     display: flex;
     padding: .8rem;
-
 }
 
 /*========================
@@ -322,8 +320,12 @@ SERVICES
     display: flex;
     border: 1px solid var(--thiner-border-sec);
 }
-
+.consular-services-section .card:hover 
+.icon-container{
+    transform: translateX(20px);
+}
 .consular-services-section .icon-container {
+    transition: transform 0.3s ease-out;
     border-radius: 50px;
     width: 50px;
     padding: .8rem;

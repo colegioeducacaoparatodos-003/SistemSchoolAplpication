@@ -5,7 +5,7 @@
 <h:head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+   
     <h:outputStylesheet name="general.css" library="css" />
     <h:outputScript name="general.js" library="js" />
     <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -58,28 +58,12 @@
                     </p:overlayPanel>
                 </div>
 
-              
                 <div class="search-container">
-                    <!-- <span class="ui-input-icon-right">
+                    <span class="ui-input-icon-right">
                         <i class="pi pi-search" />
                         <p:inputText placeholder="Search" />
-                    </span> -->
-                    <h:form id="langForm">
-                      <div class="language-switcher">
-                          <p:selectOneMenu id="language" value="#{languageBean.localeCode}" onchange="submit()"
-                              valueChangeListener="#{languageBean.countryLocaleCodeChanged}" styleClass="embassy-select">
-  
-                              <f:selectItem itemLabel="English" itemValue="en" />
-                              <f:selectItem itemLabel="Português" itemValue="pt" />
-                              <f:selectItem itemLabel="Español" itemValue="es" />
-  
-                              <p:column>
-                                  <span class="flag-icon lang-#{languageBean.localeCode}"></span>
-                                  <!-- #{languageBean.localeCode} -->
-                              </p:column>
-                          </p:selectOneMenu>
-                      </div>
-                  </h:form>
+                    </span>
+
                 </div>
             </div>
 
