@@ -28,7 +28,7 @@ function stickNaveBarOnScroll() {
     var $headerElements = $('.nav-content, .main-nav');
 
     $(window).on('scroll', function () {
-        if ($(this).scrollTop() > 140) {
+        if ($(this).scrollTop() > 80) {
             console.log('hero');
             $homeNavBar.addClass('fixed-nav-bar');
             $heroContent.addClass('support-fixed-nav-bar');

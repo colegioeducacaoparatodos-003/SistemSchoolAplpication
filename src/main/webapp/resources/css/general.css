@@ -164,13 +164,13 @@ HERO SECTION
 .hero-content {
     display: flex;
     flex-direction: column;
-    margin: 6rem 0 0 6rem;
+    margin: 6rem 0 0 5.4rem;
     width: fit-content;
     max-width: 50%;
 }
 
 .support-fixed-nav-bar {
-    padding-top: 86px;
+    padding-top: 100px;
 }
 
 .title {
