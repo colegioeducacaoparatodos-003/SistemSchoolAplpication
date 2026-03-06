@@ -6,6 +6,12 @@
     --thiner-border-sec: rgba(55, 65, 81, 0.2);
 
     --white-color: #ffffff;
+    
+    --angola-red: #DA291C;
+    --angola-yellow: #F7D117;
+    --angola-black: #000000;
+    --angola-white: #FFFFFF;
+
     --text-gray: rgb(55 65 81);
     --title-gray: rgb(17 24 39);
 
@@ -55,11 +61,26 @@ li {
 }
 
 .logo-container {
-    /* display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 18%;
-    padding: 1.4rem; */
+    display: flex;
+    align-items: center; 
+    gap: 1.5rem;        
+}
+
+.logo-divider {
+    width: 1px;
+    height: 50px;       
+    background-color: #A0A0A0; 
+}
+
+.logo, .insignia {
+    height: 60px;      
+    width: auto;       
+    display: block;
+}
+
+/* If the insignia is naturally more "round", you might want it slightly smaller */
+.insignia {
+    height: 55px; 
 }
 
 .nav-content {
@@ -146,17 +167,41 @@ HERO SECTION
 */
 
 .hero-section {
-    color: var(--white-color);
+    position: relative;
     height: 100vh;
     width: 100%;
-    background-image: url("#{resource['imgs:luanda.jpg']}");
-    background-color: rgba(17, 24, 39, 0.386);
-    background-blend-mode: multiply;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+    overflow: hidden;
+    color: var(--white-color);
 }
 
+#hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover; 
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 24, 39, 0.50); 
+    z-index: 1;
+}
+
+.hero-content-container {
+    position: relative;
+    z-index: 2;
+    /* Maintain your existing flex/alignment styles here */
+}
 .hero-content-container {
     width: 100%;
 }
