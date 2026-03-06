@@ -17,7 +17,7 @@ public class Document {
     private Long id;
 
     private String referenceType;
-    //ASSENT | CONTRACT | EMPLOYER | PAYROLL | OTHER
+    // ASSENT | CONTRACT | EMPLOYER | PAYROLL | OTHER
 
     private String referenceId;
 
