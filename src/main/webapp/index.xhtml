@@ -26,12 +26,11 @@
     <!-- <ui:include src="./components/public/angolan-leaders.xhtml" /> -->
     <ui:include src="./components/public/footer.xhtml" />
 
-    <h:panelGroup class="custom-icon-container" id="basic">
+    <!-- <h:panelGroup class="custom-icon-container" id="basic">
         <i class="pi pi-comments custom-icon"></i>
-        <!-- <i class="pi pi-comment custom-icon"></i> -->
-    </h:panelGroup>
+    </h:panelGroup> -->
 
-    <p:overlayPanel for="basic" style="width:350px">
+    <!-- <p:overlayPanel for="basic" style="width:350px">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
             magna aliqua.
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -43,50 +42,11 @@
             sapiente nihil facere. Possimus laudantium corrupti animi voluptatem sunt suscipit doloribus ipsa. Doloribus
             animi saepe a vitae vel!
         </p>
-    </p:overlayPanel>
-    <!-- <div class="chat-fab" onclick="PF('chatDlg').show()">
-</div> -->
+    </p:overlayPanel> -->
+  
 
-    <!-- <p:dialog widgetVar="chatDlg" header="false" modal="false" 
-          resizable="false" closable="false" showEffect="fade"
-          styleClass="custom-chat-window" position="right,bottom">
+    <p:scrollTop threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
     
-    <div class="chat-header">
-        <div class="header-left">
-            <p:graphicImage name="logo.png" style="width:40px;"/>
-            <div>
-                <div class="hi-text">Hi there</div>
-                <div class="help-text">How can we help?</div>
-            </div>
-        </div>
-        <div class="header-right">
-            <span class="contact-pill">
-                <i class="pi pi-phone"></i> Contact Us: 109
-            </span>
-            <p:commandLink onclick="PF('chatDlg').hide()">
-                <i class="pi pi-minus-circle"></i>
-            </p:commandLink>
-        </div>
-    </div>
-
-    <div class="chat-body">
-        <div class="disclaimer-box">
-            <i class="pi pi-info-circle"></i>
-            <p>This chatbot is intended for informational purposes...</p>
-        </div>
-        
-        <div class="bot-msg">
-            Hi, How can I help you?
-        </div>
-    </div>
-
-    <div class="chat-footer">
-        <p:inputText placeholder="Type your message here" />
-        <p:commandLink styleClass="send-btn">
-            <i class="pi pi-send"></i>
-        </p:commandLink>
-    </div>
-</p:dialog> -->
 </h:body>
 
 </html>
