@@ -26,35 +26,34 @@
                 Senior diplomatic and government officials representing the Republic of Angola abroad.
             </p>
         </div>
-        <p:carousel value="#{['1','2','3','4']}" var="item" numVisible="3" numScroll="1" 
-            circular="true" autoplayInterval="5000" responsive="true">
-    
-    <div class="member-card">
-        <div class="member-card-content">
-            <div class="member-image-container">
-                <img class="member-image" src="../../resources/imgs/governement/g8.jpeg" alt=""/>
-                <!-- <p:graphicImage name="imgs/profile_placeholder.jpg" styleClass="member-image" /> -->
-            </div>
+        <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" var="imgName" numVisible="3" numScroll="1"
+            circular="true" autoplayInterval="5000" responsive="true" styleClass="mission-carousel">
 
-            <div class="member-info">
-                <h4 class="member-name">Ambassador Name</h4>
-                <h6 class="member-role">Plenipotentiary Ambassador</h6>
-                
-                <p class="member-bio">
-                    Dedicated to strengthening bilateral relations and providing 
-                    consular support to the Angolan community.
-                </p>
+            <div class="member-card">
+                <div class="member-card-content">
+                    <div class="member-image-container">
+                        <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
+                            alt="Diplomatic Staff" />
+                    </div>
 
-                <!-- <div class="member-socials">
-                    <p:commandButton type="button" icon="pi pi-envelope" 
-                                     styleClass="rounded-button ui-button-secondary mr-2" />
-                    <p:commandButton type="button" icon="pi pi-linkedin" 
-                                     styleClass="rounded-button ui-button-info" />
-                </div> -->
+                    <div class="member-info">
+                        <h4 class="member-name">
+                            #{imgName == 'p4.jpg' ? 'H.E. Azevedo Xavier Francisco' :
+                            imgName == 'p1.jpg' ? 'Minister Counsellor' :
+                            imgName == 'p2.jpg' ? 'First Secretary' :
+                            imgName == 'p3.jpg' ? 'Second Secretary' : 'Consular Attaché'}
+                        </h4>
+                        <h6 class="member-role">
+                            #{imgName == 'p1.jpg' ? 'Ambassador Plenipotentiary' : 'Diplomatic Mission Member'}
+                        </h6>
+
+                        <p class="member-bio">
+                            Committed to fostering the strategic partnership between Angola and Argentina.
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</p:carousel>
+        </p:carousel>
     </main>
 
 
