@@ -2,7 +2,8 @@ $(document).ready(function () {
     AOS.init({
         duration: 300,
     });
-    stickNaveBarOnScroll()
+    stickNaveBarOnScroll();
+    handleContactForm();
 
 })
 //THIS HANDLES THE STICKY NAVBAR ON SCROLL
@@ -31,4 +32,22 @@ function stickNaveBarOnScroll() {
 
 };
 
+
+function handleContactForm() {
+    const overlay = $(".contactFormOverLay");
+
+    const openOverlay = () => {
+        overlay.css("right", "0");
+        $("body").css("overflow", "hidden"); // 🔒 bloqueia scroll
+    };
+
+    const closeOverlay = () => {
+        overlay.css("right", "-100%");
+        $("body").css("overflow", ""); // 🔓 restaura scroll
+    };
+
+    $("#openContactForm").on("click", openOverlay);
+    $("#closeContactForm, .contactFormOverLay").on("click", closeOverlay);
+    $(".contactForm").on("click", e => e.stopPropagation()); 
+}
 
