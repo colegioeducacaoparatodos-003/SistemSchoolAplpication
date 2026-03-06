@@ -15,19 +15,23 @@
 </h:head>
 
 <h:body>
-    <div class="hero-section">
+   <div class="hero-section">
+    <video autoplay="autoplay" muted="muted" loop="loop" id="hero-video">
+        <source src="#{resource['videos:hero-bg.mp4']}" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="hero-overlay">
         <ui:include src="./nav-bar.xhtml" />
         <div class="hero-content-container">
-        <div class="hero-content">
-            <h1 class="title">Angola Embassy</h1>
-            <h1 class="title">Wellcome to Angola-Argentina Portal</h1>
-            <p class="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt earum ut nobis sint
-                consequuntur ipsa quae
-                nostrum cumque porro esse.</p>
+            <div class="hero-content">
+                <h1 class="title">Angola Embassy</h1>
+                <h1 class="title">Welcome to Angola-Argentina Portal</h1>
+                <p class="text">Discover investment opportunities and consular services between Angola and Argentina.</p>
+            </div>
         </div>
-        </div>
-       
     </div>
+</div>
 </h:body>
 
 </html>

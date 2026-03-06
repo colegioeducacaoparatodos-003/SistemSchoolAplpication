@@ -15,8 +15,12 @@
 
 <h:body>
     <header class="nav-bar">
-        <div class="logo-container items">
-            <h1>Angola</h1>
+        <div class="logo-container">
+            <img class="logo" src="../../resources/imgs/logo_governo.png" alt=""/>            
+           
+             <div class="logo-divider"></div>
+            <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
+        
         </div>
         <div class="nav-content">
             <!-- <div class="utility-bar items">
@@ -65,20 +69,20 @@
                         <p:inputText placeholder="Search" />
                     </span> -->
                     <h:form id="langForm">
-                      <div class="language-switcher">
-                          <p:selectOneMenu id="language" value="#{languageBean.localeCode}" onchange="submit()"
+                      <!-- <div class="language-switcher"> -->
+                          <p:selectOneMenu class="language-switcher" id="language" value="#{languageBean.localeCode}" onchange="submit()"
                               valueChangeListener="#{languageBean.countryLocaleCodeChanged}" styleClass="embassy-select">
   
-                              <f:selectItem itemLabel="English" itemValue="en" />
-                              <f:selectItem itemLabel="Português" itemValue="pt" />
-                              <f:selectItem itemLabel="Español" itemValue="es" />
+                              <f:selectItem itemLabel="En" itemValue="en" />
+                              <f:selectItem itemLabel="Pr" itemValue="pt" />
+                              <f:selectItem itemLabel="Sp" itemValue="es" />
   
                               <p:column>
                                   <span class="flag-icon lang-#{languageBean.localeCode}"></span>
                                   <!-- #{languageBean.localeCode} -->
                               </p:column>
                           </p:selectOneMenu>
-                      </div>
+                      <!-- </div> -->
                   </h:form>
                 </div>
             </div>
