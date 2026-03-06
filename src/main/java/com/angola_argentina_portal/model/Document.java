@@ -8,16 +8,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name = "documents")
+@Table(name = "document")
 public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long pkDocument;
 
     private String referenceType;
-    //ASSENT | CONTRACT | EMPLOYER | PAYROLL | OTHER
+    // ASSET | CONTRACT | EMPLOYEE | PAYROLL | OTHER
 
     private String referenceId;
 
@@ -32,15 +33,18 @@ public class Document {
 
     private LocalDate uploadDate;
 
-    private int fkUser;
-    // Getters and Setters
+    private String fkUser;
 
-    public Long getId() {
-        return id;
+    public Document() {
+        super();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getPkDocument() {
+        return pkDocument;
+    }
+
+    public void setPkDocument(Long pkDocument) {
+        this.pkDocument = pkDocument;
     }
 
     public String getReferenceType() {
@@ -107,12 +111,9 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-    public int getFkUser() {
+    public String getFkUser() {
         return fkUser;
     }
 
-    public void setFkUser(int fkUser) {
-        this.fkUser = fkUser;
-    }
 
 }
