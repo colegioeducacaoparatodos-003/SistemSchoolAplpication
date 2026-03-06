@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    AOS.init({
+        duration: 300,
+    });
     stickNaveBarOnScroll()
 
 })
@@ -27,3 +30,5 @@ function stickNaveBarOnScroll() {
 
 
 };
+
+
