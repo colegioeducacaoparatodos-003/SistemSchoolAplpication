@@ -167,8 +167,8 @@ li {
 }
 
 .custom-scrolltop.ui-scrolltop{
-    width: 3.4rem ;
-    height: 3.4rem ;
+    width: 56px;
+    height: 56px;
     background: var(--angola-red) ;
 }
 .custom-scrolltop.ui-scrolltop:hover{
@@ -619,13 +619,15 @@ CONTACT
     z-index: 2;
     cursor: pointer;
     bottom: 90px;
-    right: 10px;
+    right: 22px;
     position: fixed;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     
-    background: var(--angola-yellow);
+    /* background: var(--angola-yellow); */
+    background: var(--title-gray) ;
+
     border: 3px solid #fff;
     box-shadow: 0 0 0 1px #d1d9e6; /* Subtle outer ring simulation */
     
