@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <ui:insert name="titulo">Login</ui:insert>
+    </title>
+    <h:outputStylesheet name="login.css" library="css" />
+    <h:outputStylesheet name="general.css" library="css" />
+
+
+
+</h:head>
+
+<h:body>
+
+    <main class="home-section random-subjects-section">
+        <div class="buttons-container">
+            <h1 class="title">
+                Official Representatives
+            </h1>
+            <p class="subtitle">
+                Senior diplomatic and government officials representing the Republic of Angola abroad.
+            </p>
+        </div>
+        <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" var="imgName" numVisible="3" numScroll="1"
+            circular="true" autoplayInterval="5000" responsive="true" styleClass="mission-carousel">
+
+            <div class="member-card">
+                <div class="member-card-content">
+                    <div class="member-image-container">
+                        <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
+                            alt="Diplomatic Staff" />
+                    </div>
+
+                    <div class="member-info">
+                        <h4 class="member-name">
+                            #{imgName == 'p4.jpg' ? 'H.E. Azevedo Xavier Francisco' :
+                            imgName == 'p1.jpg' ? 'Minister Counsellor' :
+                            imgName == 'p2.jpg' ? 'First Secretary' :
+                            imgName == 'p3.jpg' ? 'Second Secretary' : 'Consular Attaché'}
+                        </h4>
+                        <h6 class="member-role">
+                            #{imgName == 'p1.jpg' ? 'Ambassador Plenipotentiary' : 'Diplomatic Mission Member'}
+                        </h6>
+
+                        <p class="member-bio">
+                            Committed to fostering the strategic partnership between Angola and Argentina.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </p:carousel>
+    </main>
+
+
+</h:body>
+
+</html>

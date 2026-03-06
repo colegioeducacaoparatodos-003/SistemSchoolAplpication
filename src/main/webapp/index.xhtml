@@ -6,29 +6,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-        <ui:insert name="titulo">Login</ui:insert>
+        <ui:insert name="titulo">Angola Embassy</ui:insert>
     </title>
     <!-- <h:outputStylesheet name="login.css" library="css" /> -->
     <h:outputStylesheet name="general.css" library="css" />
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <h:outputScript name="general.js" library="js" />
-    <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
-
 
 </h:head>
 
 <h:body>
     <ui:include src="./components/public/hero.xhtml" />
+    <ui:include src="./components/public/contactForm.xhtml" />
     <ui:include src="./components/public/consular-services.xhtml" />
     <ui:include src="./components/public/news-and-announcements.xhtml" />
     <ui:include src="./components/public/random-subjects.xhtml" />
+    <ui:include src="./components/public/carousel.xhtml" />
     <!-- <ui:include src="./components/public/informative-notes.xhtml" /> -->
     <!-- <ui:include src="./components/public/angolan-leaders.xhtml" /> -->
     <ui:include src="./components/public/footer.xhtml" />
 
-    <!-- <h:panelGroup class="custom-icon-container" id="basic">
+    <h:panelGroup class="custom-icon-container" id="openContactForm">
         <i class="pi pi-comments custom-icon"></i>
-    </h:panelGroup> -->
+    </h:panelGroup>
 
     <!-- <p:overlayPanel for="basic" style="width:350px">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
