@@ -288,7 +288,6 @@ HERO SECTION
 
 .home-section .subtitle {
     font-size: 1.2rem;
-    line-height: 2rem;
     width: 90%;
 }
 
@@ -449,6 +448,9 @@ SERVICES
     text-decoration: underline;
     color: var(--angola-yellow);
 }
+.consular-services-section .subtitle {
+    line-height: 2rem;
+}
 .consular-services-section .card:hover 
 .icon-container{
     transform: translateX(20px);
@@ -499,9 +501,9 @@ RANDOM SUBJECTS
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
-        "a a a a b b"
-        "c c d d d d"
-        "e e e e f f";
+        "a a b b b b"
+        "c c c c d d";
+        /* "e e e e f f"; */
     gap: 2rem;
 
     list-style: none;
@@ -525,13 +527,13 @@ RANDOM SUBJECTS
     grid-area: d;
 }
 
-.image.e {
+/* .image.e {
     grid-area: e;
 }
 
 .image.f {
     grid-area: f;
-}
+} */
 
 .images-container img {
     width: 100%;
@@ -550,7 +552,7 @@ RANDOM SUBJECTS
 } */
 .image-description{
     color: var(--white-color);
-    font-size: 2.4rem;
+    font-size: 1rem;
     padding: 2rem 1rem;
     bottom: 0;
     background: 
@@ -561,6 +563,15 @@ RANDOM SUBJECTS
     width: 100%;
 }
 
+.image-description p strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--angola-yellow); /* Uses the yellow from the logo for the name */
+    margin-bottom: 2px;
+}
+.image-description .title {
+    font-size: 1.4rem;
+}
 /* 
 ============================
 FOOTER
@@ -649,3 +660,73 @@ FOOTER
     color: white;
     font-size: 2rem;
 } */
+
+
+/* 
+================================
+CAROUSEL
+===============================
+*/
+
+/* Container styling */
+.member-card {
+    padding: 1rem;
+    text-align: center;
+}
+
+.member-card-content {
+    cursor: pointer;
+    background: var(--angola-white);
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    padding: 2rem 1rem;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.member-card-content:hover {
+    /* border-color: var(--angola-red); */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Image styling - circular for profiles */
+.member-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid #f8f8f8;
+}
+
+/* Typography */
+.member-name {
+    color: var(--angola-black);
+    font-weight: 700;
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.member-role {
+    color: var(--angola-yellow); /* Using the official red for titles */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.member-bio {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding: 0 10px;
+}
+
+/* PrimeFaces Carousel Navigation Overrides */
+.ui-carousel-dot-item .ui-state-active {
+    background-color: var(--angola-red) !important;
+}
+
+.ui-carousel-prev, .ui-carousel-next {
+    color: var(--angola-black) !important;
+}
