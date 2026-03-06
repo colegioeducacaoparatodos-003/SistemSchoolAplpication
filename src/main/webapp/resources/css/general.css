@@ -394,14 +394,25 @@ NEWS
     align-items: center;
 }
 
-.transparent-button.ui-button {
-    width: 12%;
+.red-button.ui-button{
+    text-transform: uppercase;
+    background-color: var(--angola-red) !important;
+}
+.red-button.ui-button:hover{
+    background-color: var(--angola-red-hover) !important;
+}
+
+.transparent-button.ui-button,
+.red-button.ui-button {
+    width: 16%;
     justify-content: center;
     align-items: center;
     text-align: center;
     margin: 0 auto;
     display: flex;
     padding: .8rem;
+    border: none;
+    font-size: 1.4rem;
 }
 
 /*========================
