@@ -232,18 +232,44 @@ HERO SECTION
 .hero-content-container {
     position: relative;
     z-index: 2;
+     width: 100%;
+     display: flex;
+     flex-direction: row;
+     padding:5.4rem;
     /* Maintain your existing flex/alignment styles here */
 }
-.hero-content-container {
-    width: 100%;
-}
+
+
 
 .hero-content {
     display: flex;
     flex-direction: column;
-    margin: 6rem 0 0 5.4rem;
+   /* margin: 6rem 0 0 5.4rem;*/
+  
     width: fit-content;
     max-width: 45%;
+   
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.15); /* transparência */
+    backdrop-filter: blur(10px); /* efeito vidro */
+    -webkit-backdrop-filter: blur(10px); /* suporte Safari */
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.hero-updates {
+    width: 50%;
+    display: flex;
+    justify-content: end; /* centraliza horizontalmente */
+    align-items: flex-end; /* coloca em baixo */
+     /* padding-bottom: 30px; espaço do fundo */
+   
 }
 
 .support-fixed-nav-bar {
@@ -291,6 +317,86 @@ HERO SECTION
     font-size: 1.2rem;
     width: 90%;
 }
+
+
+
+.discover-angola-section{
+    background-image: url('../../resources/imgs/discover/beautiful-landscape.jpg');
+    background-size: cover;
+    background-position: center;
+
+    width:100%;
+    height:80vh;
+
+    border-radius:4px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+    overflow:hidden;
+    padding: 4rem 6rem;
+}
+
+.discover-angola-section-title{
+    display:flex;
+    flex-direction:row;
+    gap: 1rem;
+    width: 100%;
+    height: 20%;
+}
+
+.discover-angola-section-title-text{   
+    border-left: 1.5px solid #A0A0A0; 
+    padding-left: 2rem;
+}
+
+
+
+.discover-angola-section-title h1{
+   color: #f8f8f8;
+   font-size: 2.5rem;
+}
+
+.discover-angola-section-title i{
+   color: var(--angola-red);
+   font-size: 2.5rem;
+   align-content: center;
+}
+
+
+/* OVERLAY */
+.discover-angola-section::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background: rgba(0,0,0,0.45); /* intensidade do overlay */
+
+    z-index:1;
+}
+
+/* Conteúdo acima do overlay */
+.discover-angola-section > *{
+    position:relative;
+    z-index:1;
+}
+
+.discover-angola-section-options{
+    display:flex;
+    flex-direction:row;
+     align-items: center;
+     justify-content: center;
+    gap: 2rem;
+     width: 100%;
+    height: 90%;
+}
+
 
 /*========================
 NEWS
@@ -394,17 +500,20 @@ NEWS
     align-items: center;
 }
 
-.red-button.ui-button{
+.red-button.ui-button,
+.descover-button.ui-button{
     text-transform: uppercase;
     background-color: var(--angola-red) !important;
 }
-.red-button.ui-button:hover{
+
+.red-button.ui-button:hover,
+.descover-button.ui-button:hover{
     background-color: var(--angola-red-hover) !important;
 }
 
 .transparent-button.ui-button,
 .red-button.ui-button {
-    width: 16%;
+    width: 30%;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -412,8 +521,37 @@ NEWS
     display: flex;
     padding: .8rem;
     border: none;
+    font-size: 1rem;
+}
+
+.languageSelector.ui-menu.ui-menubar,
+.languageSelector .ui-menubutton .ui-button{
+    background-color: transparent;
+    border: none;
+}
+
+.languageSelector  .ui-button.ui-button-icon-only .ui-icon{
+    color:  var(--angola-red) !important;
     font-size: 1.4rem;
 }
+
+
+.descover-button.ui-button {
+  /*  width: 50%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    
+  
+    font-size: 1rem;*/
+    margin-top: 1rem;
+    width: 50%;
+    padding: .5rem;
+    border: none;
+}
+
 
 /*========================
 SERVICES
@@ -446,8 +584,9 @@ SERVICES
 }
 .consular-services-section .card:hover 
 {
-    text-decoration: underline;
-    color: var(--angola-yellow);
+    text-decoration: none;
+    color: #000000;
+    background-color: #DA291C;
 }
 .consular-services-section .subtitle {
     line-height: 2rem;

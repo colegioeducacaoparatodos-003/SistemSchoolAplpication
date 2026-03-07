@@ -15,17 +15,26 @@
 <h:body>
    <div class="hero-section">
     <video autoplay="autoplay" muted="muted" loop="loop" id="hero-video">
-        <source src="#{resource['videos:hero-bg.mp4']}" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src="#{resource['videos:hero-sl.mp4']}" type="video/mp4" />
+         Your browser does not support the video tag.
     </video>
 
     <div class="hero-overlay">
         <ui:include src="./nav-bar.xhtml" />
         <div class="hero-content-container">
             <div class="hero-content">
-                <h1 data-aos="zoom-in" data-aos-delay="300" class="title">Angola Embassy</h1>
-                <h1 data-aos="zoom-in" data-aos-delay="300" class="title">Welcome to Angola-Argentina Portal</h1>
-                <p data-aos="fade-right" data-aos-delay="500" class="text">Discover investment opportunities and consular services between Angola and Argentina.</p>
+                <h1 data-aos="zoom-in" data-aos-delay="500" class="title">Angola Embassy</h1>
+                <h1 data-aos="zoom-in" data-aos-delay="500" class="title">Welcome to Angola-Argentina Portal</h1>
+                <p data-aos="fade-right" data-aos-delay="700" class="text">Discover investment opportunities and consular services between Angola and Argentina.</p>
+                <span data-aos="fade-right" data-aos-delay="700"><p:button  value="Read all news" styleClass=" descover-button" /></span>
+            </div>
+            <div class="hero-updates">
+                
+                
+                    <div data-aos="fade-up" data-aos-delay="1000" data-aos-duration="2000"  class="glass">
+                        Conteúdo aqui
+                    </div>
+                 
             </div>
         </div>
     </div>
