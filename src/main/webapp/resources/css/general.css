@@ -438,6 +438,14 @@ HERO SECTION
     /* O primeiro não precisa de margem negativa */
 }
 
+.mission-carousel.ui-carousel .ui-carousel-indicators .ui-carousel-indicator button{
+    border-radius: 4px;
+}
+
+.mission-carousel.ui-carousel .ui-carousel-indicators .ui-carousel-indicator.ui-state-highlight button{
+    background: var(--angola-yellow);
+    color: #fff;
+}
 
 .discover-angola-section{
     background-image: url('../../resources/imgs/discover/namibe-desert-sea.png');
@@ -796,7 +804,7 @@ RANDOM SUBJECTS
 
 .images-container img {
     width: 100%;
-    height: 600px;
+    height: 450px;
     object-fit: cover;
     display: block;
 }
