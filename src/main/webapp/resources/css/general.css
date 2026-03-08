@@ -53,7 +53,11 @@ li {
     /* border: 1px solid var(--thiner-border); */
 
 }
-
+.row{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
 .fixed-nav-bar {
     position: fixed;
     top: 0;
@@ -318,10 +322,125 @@ HERO SECTION
     width: 90%;
 }
 
+.embassies-angola-section{
+  
+    width:100%;
+    height:80vh;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap: 2rem;
+    padding: 4rem 6rem;
+}
+
+.embassies-angola-section-flag{
+    height: 50%;
+    border-radius: 4px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.embassies-angola-section-flag img{
+   width: 100%;
+   height: 100%;
+}
+
+.embassies-carousel{
+    width:100%;
+    height:300px;
+    perspective:1000px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.embassies-carousel-track{
+    width:200px;
+    height:200px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation: rotateCarousel 35s linear infinite;
+}
+
+.embassies-angola-section-flag{
+    position:absolute;
+    width:120px;
+    height:80px;
+    left:40px;
+    top:60px;
+}
+
+.embassies-angola-section-flag img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+/* POSIÇÃO DOS ITENS NO CÍRCULO */
+
+.embassies-angola-section-flag:nth-child(1){
+    transform: rotateY(0deg) translateZ(250px);
+}
+
+.embassies-angola-section-flag:nth-child(2){
+    transform: rotateY(60deg) translateZ(250px);
+}
+
+.embassies-angola-section-flag:nth-child(3){
+    transform: rotateY(120deg) translateZ(250px);
+}
+
+.embassies-angola-section-flag:nth-child(4){
+    transform: rotateY(180deg) translateZ(250px);
+}
+
+.embassies-angola-section-flag:nth-child(5){
+    transform: rotateY(240deg) translateZ(250px);
+}
+
+.embassies-angola-section-flag:nth-child(6){
+    transform: rotateY(300deg) translateZ(250px);
+}
+
+/* ANIMAÇÃO */
+
+@keyframes rotateCarousel{
+    from{
+        transform: rotateY(0deg);
+    }
+    to{
+        transform: rotateY(360deg);
+    }
+}
+
+
+.avatar-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.avatar-group img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #ececec;
+
+    margin-left: -15px;
+    box-shadow: 0 0 0 1px #ececec;
+
+}
+
+.avatar-group img:first-child {
+    margin-left: 0;
+    /* O primeiro não precisa de margem negativa */
+}
 
 
 .discover-angola-section{
-    background-image: url('../../resources/imgs/discover/beautiful-landscape.jpg');
+    background-image: url('../../resources/imgs/discover/namibe-desert-sea.png');
     background-size: cover;
     background-position: center;
 

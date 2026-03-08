@@ -22,6 +22,7 @@
     <h:body>
         <ui:include src="./components/public/hero.xhtml" />
         <ui:include src="./components/public/contactForm.xhtml" />
+        <ui:include src="./components/public/embassies.xhtml" />
         <ui:include src="./components/public/consular-services.xhtml" />
         <ui:include src="./components/public/news-and-announcements.xhtml" />
         <ui:include src="./components/public/random-subjects.xhtml" />
@@ -52,6 +53,40 @@
 
         <p:scrollTop threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
         
+<script >
+        const cards = document.querySelectorAll(".flag-card");
+let index = 0;
+
+function updateCarousel(){
+
+    cards.forEach(card=>{
+        card.className="flag-card";
+    });
+
+    cards[index].classList.add("center");
+
+    cards[(index-1+cards.length)%cards.length].classList.add("left1");
+    cards[(index+1)%cards.length].classList.add("right1");
+
+    cards[(index-2+cards.length)%cards.length].classList.add("left2");
+    cards[(index+2)%cards.length].classList.add("right2");
+}
+
+document.querySelector(".next").onclick=()=>{
+    index=(index+1)%cards.length;
+    updateCarousel();
+}
+
+document.querySelector(".prev").onclick=()=>{
+    index=(index-1+cards.length)%cards.length;
+    updateCarousel();
+}
+
+updateCarousel();
+    </script>
+
+
+
     </h:body>
 </f:view>
 
