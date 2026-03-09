@@ -16,11 +16,13 @@
 <h:body>
     <header class="nav-bar">
         <div class="logo-container">
-            <img class="logo" src="../../resources/imgs/logo_governo.png" alt=""/>            
-           
+             <p:link outcome="/index">
+                <img class="logo" src="../../resources/imgs/logo_governo.png" alt=""/>            
+             </p:link>
              <div class="logo-divider"></div>
-            <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
-        
+             <p:link outcome="/index"> 
+                <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
+             </p:link>
         </div>
         <div class="nav-content">
             <!-- <div class="utility-bar items">
@@ -30,7 +32,7 @@
             <div class="main-nav">
                 <div class="nav-links">
                     <h:panelGroup id="btnEmbassy" styleClass="nav-link">
-                        <h:outputText value="Embassy Presentation" />
+                        <h:outputText value="#{msg.embassyPresentation}" />
                         <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
                     </h:panelGroup>
                     <p:overlayPanel for="btnEmbassy" style="width:350px">
@@ -38,7 +40,7 @@
                     </p:overlayPanel>
 
                     <h:panelGroup id="btnConsular" styleClass="nav-link">
-                        <h:outputText value="Consular Services" />
+                        <h:outputText value="#{msg.consularServices}" />
                         <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
                     </h:panelGroup>
                     <p:overlayPanel for="btnConsular" style="width:350px">
@@ -46,7 +48,7 @@
                     </p:overlayPanel>
 
                     <h:panelGroup id="btnNews" styleClass="nav-link">
-                        <h:outputText value="Official News and Announcements" />
+                        <h:outputText value="#{msg.officialNewsAnnouncements}" />
                         <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
                     </h:panelGroup>
                     <p:overlayPanel for="btnNews" style="width:350px">
@@ -54,7 +56,7 @@
                     </p:overlayPanel>
 
                     <h:panelGroup id="btnEvents" styleClass="nav-link">
-                        <h:outputText value="Calendar and Events" />
+                        <h:outputText value="#{msg.calendarEvents}" />
                         <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
                     </h:panelGroup>
                     <p:overlayPanel for="btnEvents" style="width:350px">
@@ -70,18 +72,28 @@
                     </span> -->
                     <h:form id="langForm">
                       <!-- <div class="language-switcher"> -->
-                          <p:selectOneMenu class="language-switcher" id="language" value="#{languageBean.localeCode}" onchange="submit()"
-                              valueChangeListener="#{languageBean.countryLocaleCodeChanged}" styleClass="embassy-select">
-  
-                              <f:selectItem itemLabel="En" itemValue="en" />
-                              <f:selectItem itemLabel="Pr" itemValue="pt" />
-                              <f:selectItem itemLabel="Sp" itemValue="es" />
-  
-                              <p:column>
-                                  <span class="flag-icon lang-#{languageBean.localeCode}"></span>
-                                  <!-- #{languageBean.localeCode} -->
-                              </p:column>
-                          </p:selectOneMenu>
+
+                         <p:menubar class="languageSelector" hideDelay="1000">
+
+                            <f:facet name="end">
+                                <!-- desktop button -->
+                        
+                                <p:menuButton styleClass="languageBtn" icon="pi pi-fw pi-globe">
+                                    <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}" ajax="false"
+                                        update="@all" process="@this" />
+
+                                    <p:menuitem value="English" action="#{languageController.setLanguage('en')}" ajax="false"
+                                        update="@all" process="@this" />
+                                    <p:menuitem value="Español" action="#{languageController.setLanguage('es')}" ajax="false"
+                                        update="@all" process="@this" />
+                                </p:menuButton>
+
+                                <!-- mobile button -->
+                                <p:commandButton style="display: none;" id="openMobileMenu" icon="pi pi-bars" styleClass="loginBtn open-menu-button"
+                                    type="button" />
+                            </f:facet>
+                          </p:menubar>
+                        
                       <!-- </div> -->
                   </h:form>
                 </div>

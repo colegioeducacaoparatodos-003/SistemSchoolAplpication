@@ -2,54 +2,92 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <ui:insert name="titulo">Angola Embassy</ui:insert>
-    </title>
-    <!-- <h:outputStylesheet name="login.css" library="css" /> -->
-    <h:outputStylesheet name="general.css" library="css" />
+<f:view locale="#{languageController.locale}">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            <ui:insert name="titulo">Angola Embassy</ui:insert>
+        </title>
+        <!-- <h:outputStylesheet name="login.css" library="css" /> -->
+        <h:outputStylesheet name="general.css" library="css" />
+        
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        
+        <h:outputScript name="general.js" library="js" />
+
+    </h:head>
+
+    <h:body>
+        <ui:include src="./components/public/hero.xhtml" />
+        <ui:include src="./components/public/contactForm.xhtml" />
+        <ui:include src="./components/public/embassies.xhtml" />
+        <ui:include src="./components/public/consular-services.xhtml" />
+        <ui:include src="./components/public/news-and-announcements.xhtml" />
+        <ui:include src="./components/public/random-subjects.xhtml" />
+        <ui:include src="./components/public/discover.xhtml" />
+        <ui:include src="./components/public/carousel.xhtml" />
+        <!-- <ui:include src="./components/public/informative-notes.xhtml" /> -->
+        <!-- <ui:include src="./components/public/angolan-leaders.xhtml" /> -->
+        <ui:include src="./components/public/footer.xhtml" />
+
+        <h:panelGroup class="custom-icon-container" id="openContactForm">
+            <i class="pi pi-comments custom-icon"></i>
+        </h:panelGroup>
+
+        <!-- <p:overlayPanel for="basic" style="width:350px">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quae quibusdam at ipsam quaerat optio numquam,
+                quidem in atque et ut assumenda rem quisquam tenetur suscipit explicabo, quam deserunt dicta, quos eveniet
+                sapiente nihil facere. Possimus laudantium corrupti animi voluptatem sunt suscipit doloribus ipsa. Doloribus
+                animi saepe a vitae vel!
+            </p>
+        </p:overlayPanel> -->
     
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <h:outputScript name="general.js" library="js" />
 
-</h:head>
+        <p:scrollTop threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
+        
+<script >
+        const cards = document.querySelectorAll(".flag-card");
+let index = 0;
 
-<h:body>
-    <ui:include src="./components/public/hero.xhtml" />
-    <ui:include src="./components/public/contactForm.xhtml" />
-    <ui:include src="./components/public/consular-services.xhtml" />
-    <ui:include src="./components/public/news-and-announcements.xhtml" />
-    <ui:include src="./components/public/random-subjects.xhtml" />
-    <ui:include src="./components/public/carousel.xhtml" />
-    <!-- <ui:include src="./components/public/informative-notes.xhtml" /> -->
-    <!-- <ui:include src="./components/public/angolan-leaders.xhtml" /> -->
-    <ui:include src="./components/public/footer.xhtml" />
+function updateCarousel(){
 
-    <h:panelGroup class="custom-icon-container" id="openContactForm">
-        <i class="pi pi-comments custom-icon"></i>
-    </h:panelGroup>
+    cards.forEach(card=>{
+        card.className="flag-card";
+    });
 
-    <!-- <p:overlayPanel for="basic" style="width:350px">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quae quibusdam at ipsam quaerat optio numquam,
-            quidem in atque et ut assumenda rem quisquam tenetur suscipit explicabo, quam deserunt dicta, quos eveniet
-            sapiente nihil facere. Possimus laudantium corrupti animi voluptatem sunt suscipit doloribus ipsa. Doloribus
-            animi saepe a vitae vel!
-        </p>
-    </p:overlayPanel> -->
-  
+    cards[index].classList.add("center");
 
-    <p:scrollTop threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
-    
-</h:body>
+    cards[(index-1+cards.length)%cards.length].classList.add("left1");
+    cards[(index+1)%cards.length].classList.add("right1");
+
+    cards[(index-2+cards.length)%cards.length].classList.add("left2");
+    cards[(index+2)%cards.length].classList.add("right2");
+}
+
+document.querySelector(".next").onclick=()=>{
+    index=(index+1)%cards.length;
+    updateCarousel();
+}
+
+document.querySelector(".prev").onclick=()=>{
+    index=(index-1+cards.length)%cards.length;
+    updateCarousel();
+}
+
+updateCarousel();
+    </script>
+
+
+
+    </h:body>
+</f:view>
 
 </html>

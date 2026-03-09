@@ -121,17 +121,5 @@ public class Document {
         return fkUser;
     }
 
-    public void setFkUser(int fkUser) {
-        this.fkUser = fkUser;
-    }
-
-    public UploadedFile getUploadedFile() {
-        return uploadedFile;
-    }
-
-    public void setUploadedFile(UploadedFile uploadedFile) {
-        this.uploadedFile = uploadedFile;
-    }
-
 
 }

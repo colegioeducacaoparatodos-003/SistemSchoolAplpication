@@ -15,17 +15,34 @@
 <h:body>
    <div class="hero-section">
     <video autoplay="autoplay" muted="muted" loop="loop" id="hero-video">
-        <source src="#{resource['videos:hero-bg.mp4']}" type="video/mp4" />
-        Your browser does not support the video tag.
+        <source src="#{resource['videos:hero-sl.mp4']}" type="video/mp4" />
+         Your browser does not support the video tag.
     </video>
 
     <div class="hero-overlay">
         <ui:include src="./nav-bar.xhtml" />
         <div class="hero-content-container">
             <div class="hero-content">
-                <h1 data-aos="zoom-in" data-aos-delay="300" class="title">Angola Embassy</h1>
-                <h1 data-aos="zoom-in" data-aos-delay="300" class="title">Welcome to Angola-Argentina Portal</h1>
-                <p data-aos="fade-right" data-aos-delay="500" class="text">Discover investment opportunities and consular services between Angola and Argentina.</p>
+                <h1 data-aos="zoom-in" data-aos-delay="500" class="title">#{msg.angolaEmbassy}</h1>
+                <h1 data-aos="zoom-in" data-aos-delay="500" class="title">#{msg.welcomeToAngola}</h1>
+                <p data-aos="fade-right" data-aos-delay="700" class="text">#{msg.investmentAndConsular}</p>
+                <span data-aos="fade-right" data-aos-delay="700"><p:button  value="#{msg.discover}" styleClass=" descover-button" /></span>
+            </div>
+            <div class="hero-updates">
+                
+                
+                    <div data-aos="fade-up" data-aos-delay="1000" data-aos-duration="2000" style="text-align: center;"  class="glass row">
+                        <div class="avatar-group">
+                            <img src="../../resources/imgs/embassies/Flag_of_Angola.svg.png" alt="Avatar 1" />
+                            <img src="../../resources/imgs/embassies/Flag_of_Argentina.svg.png" alt="Avatar 2"/>
+                            <img src="../../resources/imgs/embassies/Flag_of_Bolivia1.png" alt="Avatar 3"/>
+                            <img src="../../resources/imgs/embassies/Flag_of_Chile1.png" alt="Avatar 4"/>
+                            <img src="../../resources/imgs/embassies/Flag_of_Paraguay.svg" alt="Avatar 5"/>
+                            <img src="../../resources/imgs/embassies/Flag_of_Uruguai.png" alt="Avatar 6"/>
+
+                        </div>
+                    </div>
+                 
             </div>
         </div>
     </div>
