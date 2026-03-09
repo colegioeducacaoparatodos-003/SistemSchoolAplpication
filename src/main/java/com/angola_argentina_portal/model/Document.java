@@ -2,11 +2,15 @@ package com.angola_argentina_portal.model;
 
 import java.time.LocalDate;
 
+import org.primefaces.model.file.UploadedFile;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
 
 @Entity
 @Table(name = "document")
@@ -14,12 +18,12 @@ public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pkDocument;
+    private int pkDocument;
 
     private String referenceType;
     // ASSET | CONTRACT | EMPLOYEE | PAYROLL | OTHER
 
-    private String referenceId;
+    private int referenceId;
 
     private String documentType;
     // CONTRACT | INVOICE | MANUAL | PHOTO | REPORT
@@ -28,21 +32,24 @@ public class Document {
     private String filePath;
     private String contentType;
 
-    private Long fileSize;
+    private long fileSize;
 
     private LocalDate uploadDate;
 
-    private String fkUser;
+    private int fkUser;
+
+    @Transient
+    private UploadedFile uploadedFile;
 
     public Document() {
         super();
     }
 
-    public Long getPkDocument() {
+    public int getPkDocument() {
         return pkDocument;
     }
 
-    public void setPkDocument(Long pkDocument) {
+    public void setPkDocument(int pkDocument) {
         this.pkDocument = pkDocument;
     }
 
@@ -54,11 +61,11 @@ public class Document {
         this.referenceType = referenceType;
     }
 
-    public String getReferenceId() {
+    public int getReferenceId() {
         return referenceId;
     }
 
-    public void setReferenceId(String referenceId) {
+    public void setReferenceId(int referenceId) {
         this.referenceId = referenceId;
     }
 
@@ -94,11 +101,11 @@ public class Document {
         this.contentType = contentType;
     }
 
-    public Long getFileSize() {
+    public long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Long fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 
@@ -110,8 +117,9 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-    public String getFkUser() {
+    public int getFkUser() {
         return fkUser;
     }
+
 
 }
