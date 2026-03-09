@@ -14,6 +14,7 @@ function stickNaveBarOnScroll() {
     var $languageSwitcher = $('.language-switcher.ui-selectonemenu .ui-selectonemenu-label, .language-switcher.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon');
     var $heroContent = $('.hero-content-container');
     var $headerElements = $('.nav-content, .main-nav');
+    var $publicPagesContent = $('.news-page-container, show-news-page');
 
     $(window).on('scroll', function () {
         if ($(this).scrollTop() > 80) {
@@ -21,18 +22,20 @@ function stickNaveBarOnScroll() {
             $heroContent.addClass('support-fixed-nav-bar');
             $languageSwitcher.addClass('change-color');
             $headerElements.addClass('change-header-elements-border-color');
+            $publicPagesContent.addClass('public-page-support-nav-bar');
         } else {
             $homeNavBar.removeClass('fixed-nav-bar');
             $heroContent.removeClass('support-fixed-nav-bar');
             $languageSwitcher.removeClass('change-color');
             $headerElements.removeClass('change-header-elements-border-color');
+            $publicPagesContent.removeClass('public-page-support-nav-bar');
         }
     });
 
 
 };
 
-
+//this handles the left side dialog in home page
 function handleContactForm() {
     const overlay = $(".contactFormOverLay");
 
