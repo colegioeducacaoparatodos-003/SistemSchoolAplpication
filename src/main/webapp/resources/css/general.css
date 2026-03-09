@@ -48,6 +48,11 @@ li {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+    color: var(--text-gray);
+}
+
 ul,
 ol {
     list-style: none;
@@ -1211,15 +1216,23 @@ SHOW NEWS
 ==============================
 */
 
+#showNewsForm {
+    background: linear-gradient(to bottom,
+            #ffffff 0%,
+            #f1f4f6 100%);
 
-.show-news-page {
+}
+
+.show-news-page-content {
     /* border: 2px solid red; */
     display: flex;
     gap: 2rem;
     color: var(--text-gray);
-    background: linear-gradient(to bottom,
-            #ffffff 0%,
-            #f1f4f6 100%);
+}
+
+body .ui-breadcrumb {
+    border: none;
+    padding: 2rem 0;
 }
 
 .show-news-page .content-body {
@@ -1307,11 +1320,11 @@ SHOW NEWS
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; 
+    gap: 1.5rem;
 }
 
 .show-news-page .support-section .card {
-    display: flex;         
+    display: flex;
     align-items: center;
     gap: 1rem;
     cursor: pointer;
@@ -1323,27 +1336,28 @@ SHOW NEWS
 }
 
 .show-news-page .support-section .card .image {
-    flex-shrink: 0;       
-    height: 90px;       
-    width: 90px;          
+    flex-shrink: 0;
+    height: 90px;
+    width: 90px;
     overflow: hidden;
-    border-radius: 12px;   
+    border-radius: 12px;
 }
 
 .show-news-page .support-section .card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;    
+    object-fit: cover;
 }
+
 .show-news-page .support-section .content {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0.2rem 0;     
+    padding: 0.2rem 0;
 }
 
 .show-news-page .support-section .content .date {
-    color: #99aab5;        
+    color: #99aab5;
     font-size: 0.9rem;
     margin: 0;
 }
@@ -1353,6 +1367,7 @@ SHOW NEWS
     font-weight: 400;
     color: var(--title-gray);
 }
+
 .show-news-page .support-section .content .title {
     font-weight: 500;
     line-height: 1.3;
