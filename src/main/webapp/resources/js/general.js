@@ -14,7 +14,7 @@ function stickNaveBarOnScroll() {
     var $languageSwitcher = $('.language-switcher.ui-selectonemenu .ui-selectonemenu-label, .language-switcher.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon');
     var $heroContent = $('.hero-content-container');
     var $headerElements = $('.nav-content, .main-nav');
-    var $publicPagesContent = $('.news-page-container, show-news-page');
+    var $publicPagesContent = $('.news-page-container, .show-news-page');
 
     $(window).on('scroll', function () {
         if ($(this).scrollTop() > 80) {
