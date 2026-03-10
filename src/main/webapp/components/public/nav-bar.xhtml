@@ -16,13 +16,13 @@
 <h:body>
     <header class="nav-bar">
         <div class="logo-container">
-             <p:link outcome="/index">
-                <img class="logo" src="../../resources/imgs/logo_governo.png" alt=""/>            
-             </p:link>
-             <div class="logo-divider"></div>
-             <p:link outcome="/index"> 
-                <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
-             </p:link>
+            <p:link outcome="/index">
+                <img class="logo" src="../../resources/imgs/logo_governo.png" alt="" />
+            </p:link>
+            <div class="logo-divider"></div>
+            <p:link outcome="/index">
+                <img class="insignia" src="../../resources/imgs/insignia.png" alt="" />
+            </p:link>
         </div>
         <div class="nav-content">
             <!-- <div class="utility-bar items">
@@ -30,72 +30,88 @@
             </div> -->
 
             <div class="main-nav">
-                <div class="nav-links">
-                    <h:panelGroup id="btnEmbassy" styleClass="nav-link">
-                        <h:outputText value="#{msg.embassyPresentation}" />
-                        <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
-                    </h:panelGroup>
-                    <p:overlayPanel for="btnEmbassy" style="width:350px">
-                        <p>Information about the Embassy's mission and history in Argentina.</p>
-                    </p:overlayPanel>
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <span>Embassy Presentation</span>
+                        <i class="pi pi-chevron-down"></i>
 
-                    <h:panelGroup id="btnConsular" styleClass="nav-link">
-                        <h:outputText value="#{msg.consularServices}" />
-                        <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
-                    </h:panelGroup>
-                    <p:overlayPanel for="btnConsular" style="width:350px">
-                        <p>Details regarding visas, passports, and legal documentation.</p>
-                    </p:overlayPanel>
+                        <div class="dropdown-content">
+                            <ul class="sub-nav-links">
+                                <li class="sub-nav-link">Ambassadors</li>
+                                <li class="sub-nav-link">General Information</li>
+                            </ul>
+                        </div>
+                    </li>
 
-                    <h:panelGroup id="btnNews" styleClass="nav-link">
-                        <h:outputText value="#{msg.officialNewsAnnouncements}" />
-                        <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
-                    </h:panelGroup>
-                    <p:overlayPanel for="btnNews" style="width:350px">
-                        <p>Stay updated with the latest diplomatic releases and government updates.</p>
-                    </p:overlayPanel>
+                    <li class="dropdown">
+                        <span>Consular Services</span>
+                        <i class="pi pi-chevron-down"></i>
 
-                    <h:panelGroup id="btnEvents" styleClass="nav-link">
-                        <h:outputText value="#{msg.calendarEvents}" />
-                        <i class="pi pi-chevron-down" style="margin-left: 5px;"></i>
-                    </h:panelGroup>
-                    <p:overlayPanel for="btnEvents" style="width:350px">
-                        <p>Explore upcoming cultural events, holidays, and official meetings.</p>
-                    </p:overlayPanel>
-                </div>
+                        <div class="dropdown-content">
+                            <ul class="sub-nav-links">
+                                <li class="sub-nav-link">Consular services;</li>
+                                <li class="sub-nav-link">Visas</li>
+                                <li class="sub-nav-link">Passports available</li>
+                                <li class="sub-nav-link">Other</li>
+                            </ul>
+                        </div>
+                    </li>
 
-              
+                    <li class="dropdown">
+                        <span>Official News e Announcements</span>
+                        <i class="pi pi-chevron-down"></i>
+
+                        <div class="dropdown-content">
+                            <p>Stay updated with the latest diplomatic releases and government updates.</p>
+                        </div>
+                    </li>
+
+                    <li class="dropdown">
+                        <span>Calendar Events</span>>
+                        <i class="pi pi-chevron-down"></i>
+
+                        <div class="dropdown-content">
+                            <p>Explore upcoming cultural events, holidays, and official meetings.</p>
+                        </div>
+                    </li>
+
+
+
+                </ul>
+
+
                 <div class="search-container">
                     <!-- <span class="ui-input-icon-right">
                         <i class="pi pi-search" />
                         <p:inputText placeholder="Search" />
                     </span> -->
                     <h:form id="langForm">
-                      <!-- <div class="language-switcher"> -->
+                        <!-- <div class="language-switcher"> -->
 
                          <p:menubar class="language-selector" hideDelay="1000">
 
+
                             <f:facet name="end">
                                 <!-- desktop button -->
-                        
-                                <p:menuButton styleClass="languageBtn" icon="pi pi-fw pi-globe">
-                                    <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}" ajax="false"
-                                        update="@all" process="@this" />
 
-                                    <p:menuitem value="English" action="#{languageController.setLanguage('en')}" ajax="false"
-                                        update="@all" process="@this" />
-                                    <p:menuitem value="Español" action="#{languageController.setLanguage('es')}" ajax="false"
-                                        update="@all" process="@this" />
+                                <p:menuButton styleClass="languageBtn" icon="pi pi-fw pi-globe">
+                                    <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}"
+                                        ajax="false" update="@all" process="@this" />
+
+                                    <p:menuitem value="English" action="#{languageController.setLanguage('en')}"
+                                        ajax="false" update="@all" process="@this" />
+                                    <p:menuitem value="Español" action="#{languageController.setLanguage('es')}"
+                                        ajax="false" update="@all" process="@this" />
                                 </p:menuButton>
 
                                 <!-- mobile button -->
-                                <p:commandButton style="display: none;" id="openMobileMenu" icon="pi pi-bars" styleClass="loginBtn open-menu-button"
-                                    type="button" />
+                                <p:commandButton style="display: none;" id="openMobileMenu" icon="pi pi-bars"
+                                    styleClass="loginBtn open-menu-button" type="button" />
                             </f:facet>
-                          </p:menubar>
-                        
-                      <!-- </div> -->
-                  </h:form>
+                        </p:menubar>
+
+                        <!-- </div> -->
+                    </h:form>
                 </div>
             </div>
 
