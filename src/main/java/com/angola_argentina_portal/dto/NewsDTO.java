@@ -1,61 +1,32 @@
-package com.angola_argentina_portal.model;
+package com.angola_argentina_portal.dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import com.angola_argentina_portal.dto.NewsStatus;
+public class NewsDTO {
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
-import java.util.Objects;
+    private Long id;
+    private String title;
+    private String subtitle;
+    private String summary;
+    private String content;
+    private String imageUrl;
+    private String thumbnailUrl;
+    private String author;
+    private String category;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime publishedAt;
+    private NewsStatus status;
+    private Long views;
 
-@Entity
-@Table(name = "news")
-public class News {
-    
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
 
-private String title;
-private String subtitle;
-
-@Column(length = 500)
-private String summary;
-
-@Lob
-private String content;
-
-private String imageUrl;
-private String thumbnailUrl;
-
-private String author;
-
-private String category;
-
-private LocalDateTime createdAt;
-private LocalDateTime updatedAt;
-private LocalDateTime publishedAt;
-
-@Enumerated(EnumType.STRING)
-private NewsStatus status;
-
-private Long views;
-
-    // Getters and Setters
-
-    public News() {
+    public NewsDTO() {
     }
 
-    public News(Long id, String title, String subtitle, String summary, String content, String imageUrl, String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt, NewsStatus status, Long views) {
+    public NewsDTO(Long id, String title, String subtitle, String summary, String content, String imageUrl, String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt, NewsStatus status, Long views) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -184,72 +155,72 @@ private Long views;
         this.views = views;
     }
 
-    public News id(Long id) {
+    public NewsDTO id(Long id) {
         setId(id);
         return this;
     }
 
-    public News title(String title) {
+    public NewsDTO title(String title) {
         setTitle(title);
         return this;
     }
 
-    public News subtitle(String subtitle) {
+    public NewsDTO subtitle(String subtitle) {
         setSubtitle(subtitle);
         return this;
     }
 
-    public News summary(String summary) {
+    public NewsDTO summary(String summary) {
         setSummary(summary);
         return this;
     }
 
-    public News content(String content) {
+    public NewsDTO content(String content) {
         setContent(content);
         return this;
     }
 
-    public News imageUrl(String imageUrl) {
+    public NewsDTO imageUrl(String imageUrl) {
         setImageUrl(imageUrl);
         return this;
     }
 
-    public News thumbnailUrl(String thumbnailUrl) {
+    public NewsDTO thumbnailUrl(String thumbnailUrl) {
         setThumbnailUrl(thumbnailUrl);
         return this;
     }
 
-    public News author(String author) {
+    public NewsDTO author(String author) {
         setAuthor(author);
         return this;
     }
 
-    public News category(String category) {
+    public NewsDTO category(String category) {
         setCategory(category);
         return this;
     }
 
-    public News createdAt(LocalDateTime createdAt) {
+    public NewsDTO createdAt(LocalDateTime createdAt) {
         setCreatedAt(createdAt);
         return this;
     }
 
-    public News updatedAt(LocalDateTime updatedAt) {
+    public NewsDTO updatedAt(LocalDateTime updatedAt) {
         setUpdatedAt(updatedAt);
         return this;
     }
 
-    public News publishedAt(LocalDateTime publishedAt) {
+    public NewsDTO publishedAt(LocalDateTime publishedAt) {
         setPublishedAt(publishedAt);
         return this;
     }
 
-    public News status(NewsStatus status) {
+    public NewsDTO status(NewsStatus status) {
         setStatus(status);
         return this;
     }
 
-    public News views(Long views) {
+    public NewsDTO views(Long views) {
         setViews(views);
         return this;
     }
@@ -283,5 +254,5 @@ private Long views;
             ", views='" + getViews() + "'" +
             "}";
     }
-
+    
 }
