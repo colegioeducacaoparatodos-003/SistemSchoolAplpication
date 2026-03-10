@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.service;
 
+import org.slf4j.Logger;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,34 +24,12 @@ public class NewService {
 
     // Retorna todas as notícias
     public List<NewsDTO> getAllNews() {
+
+        List<News> news = newsRepository.findAll();
+        
         return newsRepository.findAll()
                 .stream()
                 .map(NewsMapper::toDTO)
                 .collect(Collectors.toList());
-    }
-
-    // Notícias por status
-    public List<NewsDTO> getNewsByStatus(NewsStatus status) {
-        return newsRepository.findAllByStatus(status)
-                .stream()
-                .map(NewsMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    // Pesquisar notícias pelo título
-    public List<NewsDTO> searchNewsByTitle(String keyword) {
-        return newsRepository.searchByTitle(keyword)
-                .stream()
-                .map(NewsMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    // Top notícias por visualizações
-    public List<NewsDTO> getTopNewsByViews() {
-        return newsRepository.findTopByViews()
-                .stream()
-                .map(NewsMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-    
+    }   
 }
