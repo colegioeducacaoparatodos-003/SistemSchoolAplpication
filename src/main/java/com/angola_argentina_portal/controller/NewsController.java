@@ -1,7 +1,11 @@
 package com.angola_argentina_portal.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.angola_argentina_portal.model.News;
@@ -10,57 +14,30 @@ import com.angola_argentina_portal.service.NewsService;
 @Controller
 public class NewsController {
 
-    @Autowired
-    private NewsService newsService;
+    private final NewsService service;
 
-    public String save(@RequestBody News news) {
-        try {
-            newsService.save(news);
-            return "News saved successfully!";
-        } catch (Exception e) {
-            return "Error saving news: " + e.getMessage();
-        }
+    public NewsController(NewsService service) {
+        this.service = service;
     }
 
-    public String update(@RequestBody News news) {
-        try {
-            newsService.update(news, news.getId());
-            return "News updated successfully!";
-        } catch (Exception e) {
-            return "Error updating news: " + e.getMessage();
-        }
+    @GetMapping
+    public List<News> getAllPublishedNews() {
+        return service.getPublishedNews();
     }
 
-    public String delete(Long id) {
-        try {
-            newsService.delete(id);
-            return "News deleted successfully!";
-        } catch (Exception e) {
-            return "Error deleting news: " + e.getMessage();
-        }
+    @GetMapping("/category/{category}")
+    public List<News> getNewsByCategory(@PathVariable String category) {
+        return service.getNewsByCategory(category);
     }
 
-    public ResponseEntity<News> findById(Long id) {
-        try {
-            News news = newsService.getById(id);
-            if (news != null) {
-                return ResponseEntity.ok(news);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
+    @GetMapping("/{id}")
+    public News getNewsById(@PathVariable Long id) {
+        return service.getNewsById(id).orElseThrow();
     }
 
-    public ResponseEntity<Iterable<News>> findAll() {
-        try {
-            Iterable<News> newsList = newsService.getAll();
-            return ResponseEntity.ok(newsList);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
+    @GetMapping("/latest")
+    public List<News> getLatestNews() {
+        return service.getLatestNews();
     }
-
 
 }

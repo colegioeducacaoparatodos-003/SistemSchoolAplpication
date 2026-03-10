@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,30 +12,38 @@ import com.angola_argentina_portal.repository.NewsRepository;
 @Service
 public class NewsService {
 
-    @Autowired
-    private NewsRepository newsRepository;
+    private final NewsRepository repository;
 
-    public String save(News news) {
-        newsRepository.save(news);
-        return "News saved successfully";
+    public NewsService(NewsRepository repository) {
+        this.repository = repository;
     }
 
-    public String update(News news, Long id) {
-        newsRepository.save(news);
-        return "News updated successfully";
+    /**
+     * Buscar todas as notícias publicadas
+     */
+    public List<News> getPublishedNews() {
+        return repository.findPublishedNews();
     }
 
-    public String delete(Long id) {
-        newsRepository.deleteById(id);
-        return "News deleted successfully";
+    /**
+     * Buscar notícias por categoria
+     */
+    public List<News> getNewsByCategory(String category) {
+        return repository.findByCategory(category);
     }
 
-    public List<News> getAll() {
-        return newsRepository.findAll();
+    /**
+     * Buscar notícia por ID
+     */
+    public Optional<News> getNewsById(Long id) {
+        return repository.findNewsById(id);
     }
 
-    public News getById(Long id) {
-        return newsRepository.findById(id).orElse(null);
+    /**
+     * Buscar últimas notícias
+     */
+    public List<News> getLatestNews() {
+        return repository.findLatestNews();
     }
 
     
