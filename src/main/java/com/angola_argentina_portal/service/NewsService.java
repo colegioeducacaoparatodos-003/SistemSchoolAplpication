@@ -15,23 +15,26 @@ public class NewsService {
     private NewsRepository newsRepository;
 
     public String save(News news) {
+        newsRepository.save(news);
         return "News saved successfully";
     }
 
     public String update(News news, Long id) {
+        newsRepository.save(news);
         return "News updated successfully";
     }
 
     public String delete(Long id) {
+        newsRepository.deleteById(id);
         return "News deleted successfully";
     }
 
     public List<News> getAll() {
-        return null;
+        return newsRepository.findAll();
     }
 
     public News getById(Long id) {
-        return null;
+        return newsRepository.findById(id).orElse(null);
     }
 
     
