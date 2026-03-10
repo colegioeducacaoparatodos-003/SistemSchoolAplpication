@@ -16,7 +16,7 @@ import jakarta.inject.Named;
 @ViewScoped
 public class DocumentController {
 
-    private static final long serialVersionUID = 1L;
+
 
     private Document document = new Document();
 
