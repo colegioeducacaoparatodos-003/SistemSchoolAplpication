@@ -7,7 +7,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>
-            <ui:insert name="titulo">Login</ui:insert>
+            <ui:insert name="titulo">Signup</ui:insert>
         </title>
 
         <h:outputStylesheet name="general.css" library="css" />
@@ -26,18 +26,13 @@
                     <p:link outcome="/index">
                         <img class="logo" src="../../resources/imgs/logo_governo.png" alt="" />
                     </p:link>
-                    <!-- <div class="logo-divider"></div>
-             <p:link outcome="/index"> 
-                <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
-             </p:link> -->
+                   
                 </div>
                 <h:form id="langForm">
-                    <!-- <div class="language-switcher"> -->
 
                     <p:menubar class="language-selector" hideDelay="1000">
 
                         <f:facet name="end">
-                            <!-- desktop button -->
 
                             <p:menuButton styleClass="languageBtn" icon="pi pi-fw pi-globe">
                                 <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}"
@@ -49,20 +44,17 @@
                                     ajax="false" update="@all" process="@this" />
                             </p:menuButton>
 
-                            <!-- mobile button -->
                             <p:commandButton style="display: none;" id="openMobileMenu" icon="pi pi-bars"
                                 styleClass="loginBtn open-menu-button" type="button" />
                         </f:facet>
                     </p:menubar>
 
-                    <!-- </div> -->
                 </h:form>
             </header>
             <h:form id="loginForm">
                 <img class="insignia" src="../../resources/imgs/insignia.png" alt="" />
 
-                <!-- <h1>Wellcome back</h1> -->
-                <h2>Access the Embassy Portal Dashboard</h2>
+                <h2>Login to your account</h2>
 
                 <div class="form-group">
                     <p:outputLabel styleClass="block" value="Email" />
@@ -82,7 +74,6 @@
 
                 <div class="login-button-container links">
                     <h:link class="link" value="Forgot your password?" />
-                    <h:link class="link" value="Sing up" />
                 </div>
                 <div class="login-button-container">
                     <p:commandButton styleClass="btn-primary login-button" value="Login" ajax="false" />

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+
+    <meta charset="UTF-8" />
+    <title>
+        <ui:insert name="titulo">Dashboard</ui:insert>
+    </title>
+
+    <h:outputStylesheet name="general.css" library="css" />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <h:outputScript name="general.js" library="js" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+
+    <script>
+
+
+    </script>
+</h:head>
+
+<f:view locale="#{languageController.locale}">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <h:outputStylesheet name="general.css" library="css" />
+
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        <h:outputScript name="general.js" library="js" />
+
+    </h:head>
+
+    <h:body>
+        <h:form class="menuForm">
+
+            <nav class="dashboard-menu">
+                <p:menuButton styleClass="select-language languageBtn" icon="pi pi-fw pi-globe">
+                    <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}" ajax="false"
+                        update="@all" process="@this" />
+
+                    <p:menuitem value="English" action="#{languageController.setLanguage('en')}" ajax="false"
+                        update="@all" process="@this" />
+                    <p:menuitem value="Español" action="#{languageController.setLanguage('es')}" ajax="false"
+                        update="@all" process="@this" />
+                </p:menuButton>
+                <!-- AVATAR -->
+                <p:avatar label="P" styleClass="mr-2" size="large" shape="circle" />
+
+
+            </nav>
+        </h:form>
+    </h:body>
+</f:view>
+
+</html>

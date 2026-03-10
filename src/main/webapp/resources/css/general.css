@@ -701,6 +701,8 @@ NEWS
     font-size: 1rem;
 }
 
+.dashboard-menu .ui-button,
+.dashboard-menu .ui-menubutton .ui-button,
 .language-selector.ui-menu.ui-menubar,
 .language-selector .ui-menubutton .ui-button
 {
@@ -708,6 +710,9 @@ NEWS
     border: none;
 }
 
+.dashboard-menu .ui-menubutton .ui-button,
+.dashboard-menu .ui-menubutton .ui-button.ui-state-focus,
+.dashboard-menu .ui-menubutton .ui-button.ui-state-active,
 .language-selector .ui-menubutton .ui-button,
 .language-selector .ui-menubutton .ui-button.ui-state-focus,
 .language-selector .ui-menubutton .ui-button.ui-state-active {
@@ -716,11 +721,14 @@ NEWS
     transform: none;
     background-image: none; /* Removes gradient shifts if present */
 }
+.dashboard-menu .ui-button.ui-button-icon-only .ui-icon,
 .nav-bar .language-selector .ui-button.ui-button-icon-only .ui-icon
 {
     color: var(--angola-red);
 }
-.language-selector .ui-button.ui-button-icon-only .ui-icon{
+.dashboard-menu .ui-button.ui-button-icon-only .ui-icon,
+.language-selector .ui-button.ui-button-icon-only .ui-icon
+{
     font-size: 1.4rem;
 }
 
@@ -1477,6 +1485,14 @@ body .ui-inputfield {
     width: 30%;
 }
 
+
+.auth-container .links {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    margin-bottom: 1rem;
+}
+
 /* Primary button */
 .btn-primary.ui-button {
     width: 100%;
@@ -1514,4 +1530,57 @@ body .ui-inputfield {
 .copyright {
     font-size: 12px;
     color: #9ca3af;
+}
+
+
+
+/* 
+=============================
+DASHBOARD
+============================
+*/
+
+.dashbord-layout{
+    display: grid;
+    grid-template-columns: 20% auto;
+    height: 100vh;
+    /* border: 3px solid blue; */
+}
+
+.layout-side-bar-container{
+    border: 2px solid red;
+}
+
+.layout-content-container{
+    /* width: 80%; */
+    border: 2px solid yellow;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100% !important;
+  overflow-y: auto;
+  /* Adiciona barra de rolagem vertical quando necessário */
+  scrollbar-width: thin;
+  /* Para Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+  /* Para Firefox */
+}
+
+.side-bar.ui-menu {
+  width: 100%;
+  border: none;
+  /* background-color: var(--gray); */
+  padding: 0rem;
+}
+
+.layout-menu-container nav{
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .4rem;
+    justify-content: right;
+    border: 2px solid orange;
 }
