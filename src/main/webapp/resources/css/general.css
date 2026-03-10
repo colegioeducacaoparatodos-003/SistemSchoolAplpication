@@ -701,16 +701,29 @@ NEWS
     font-size: 1rem;
 }
 
-.languageSelector.ui-menu.ui-menubar,
-.languageSelector .ui-menubutton .ui-button {
+.language-selector.ui-menu.ui-menubar,
+.language-selector .ui-menubutton .ui-button
+{
     background-color: transparent;
     border: none;
 }
 
-.languageSelector .ui-button.ui-button-icon-only .ui-icon {
-    color: var(--angola-red) !important;
+.language-selector .ui-menubutton .ui-button,
+.language-selector .ui-menubutton .ui-button.ui-state-focus,
+.language-selector .ui-menubutton .ui-button.ui-state-active {
+    outline: none;
+    box-shadow: none;
+    transform: none;
+    background-image: none; /* Removes gradient shifts if present */
+}
+.nav-bar .language-selector .ui-button.ui-button-icon-only .ui-icon
+{
+    color: var(--angola-red);
+}
+.language-selector .ui-button.ui-button-icon-only .ui-icon{
     font-size: 1.4rem;
 }
+
 
 
 .descover-button.ui-button {
@@ -1405,6 +1418,9 @@ AUTH
 
 .auth-container .logo-container {
     width: 20%;
+}
+.auth-container .insignia{
+    height: 80px;
 }
 
 .auth-container .logo-container {
