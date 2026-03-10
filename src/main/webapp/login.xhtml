@@ -20,7 +20,7 @@
     </h:head>
 
     <h:body>
-        <div class="auth-container">
+        <div class="auth-container login">
             <header>
                 <div class="logo-container">
                     <p:link outcome="/index">
@@ -66,9 +66,9 @@
 
                 <div class="form-group">
                     <p:outputLabel styleClass="block" value="Email" />
-                    
+
                     <p:inputText />
-                    
+
                 </div>
 
                 <div class="form-group">
@@ -82,7 +82,7 @@
 
                 <div class="login-button-container links">
                     <h:link class="link" value="Forgot your password?" />
-                    <h:link class="link" value="Sing up" />
+                    <p class="link" id="openContactForm">Sing up</p>
                 </div>
                 <div class="login-button-container">
                     <p:commandButton styleClass="btn-primary login-button" value="Login" ajax="false" />
@@ -104,6 +104,7 @@
 
             </div>
         </div>
+        <ui:include src="./components/dashboard/sign-up-dialog.xhtml"/>
     </h:body>
 </f:view>
 

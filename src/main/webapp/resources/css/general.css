@@ -1006,15 +1006,22 @@ CONTACT
 
 .contactForm {
     background-color: var(--white-color);
-    /* background-color: #ffffff; */
     right: 0;
-    height: 100%;
+    /* width: fit-content; */
+    /* max-width: 50%; */
     width: 50%;
+    height: 100%;
     position: absolute;
-    /* border: 3px solid blue; */
     padding: 2rem;
     overflow-y: auto;
 }
+.signup .contactForm {
+    width: 30%;
+}
+.login .contactForm {
+    width: 50%;
+}
+
 
 .logo-contact {
     margin-top: 2rem;
@@ -1458,11 +1465,20 @@ AUTH
     /* border: 2px solid blue; */
 }
 
+.login .form-group {
+    width: 30%;
+    
+}
+.signup .form-group {
+    width: 100%;
+    
+}
 .form-group {
     width: 30%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    
 }
 
 .form-group .ui-input-icon-left,
@@ -1480,9 +1496,17 @@ body .ui-inputfield {
 }
 
 
+.login-button-container,
+.signup-button-container {
+    height: 3rem;
+}
 .login-button-container {
     height: 3rem;
     width: 30%;
+}
+.signup-button-container {
+    height: 3rem;
+    width: 100%;
 }
 
 
@@ -1492,6 +1516,30 @@ body .ui-inputfield {
     gap: .4rem;
     margin-bottom: 1rem;
 }
+.link{
+    cursor: pointer;
+    color: var(--text-gray);
+}
+
+
+/* CUSTOMIZED UPLOAD FILE */
+.ui-fileupload-simple {
+    display: block !important;
+}
+
+.ui-fileupload-simple .ui-button {
+    width: 100% !important;
+    background: transparent !important;
+    color: #333;
+    border: 1px dashed #ced4da;
+}
+
+.ui-fileupload-simple .ui-button:hover {
+    background: transparent !important;
+    color: #333;
+    border: 1px dashed #2196f3;
+}
+
 
 /* Primary button */
 .btn-primary.ui-button {
