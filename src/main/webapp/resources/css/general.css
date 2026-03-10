@@ -1380,3 +1380,122 @@ body .ui-breadcrumb {
     margin-top: 5px;
     text-transform: capitalize;
 }
+
+
+
+/* 
+========================================
+AUTH
+========================================
+*/
+
+.auth-container {
+    width: 100%;
+    /* border: 2px solid red; */
+}
+
+.auth-container header {
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+    background-color: var(--angola-red);
+    padding: 1rem 2rem;
+
+}
+
+.auth-container .logo-container {
+    width: 20%;
+}
+
+.auth-container .logo-container {
+    width: 20%;
+}
+
+.auth-container h1,
+.auth-container h2 {
+    font-size: 1.4rem;
+    color: var(--text-gray);
+}
+
+.auth-container h2 {
+    margin: .8rem 0;
+}
+
+.auth-container #loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 3rem auto;
+    /* width: 40%; */
+    padding: .8rem;
+
+    /* border: 2px solid blue; */
+}
+
+.form-group {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.form-group .ui-input-icon-left,
+body .ui-input-icon-right {
+    width: 100%;
+}
+
+label {
+    font-size: 0.875rem;
+    margin-bottom: 0.3rem;
+}
+
+body .ui-inputfield {
+    width: 100%;
+}
+
+
+.login-button-container {
+    height: 3rem;
+    width: 30%;
+}
+
+/* Primary button */
+.btn-primary.ui-button {
+    width: 100%;
+    height: 100%;
+    background-color: var(--angola-red);
+    border: none;
+    padding: .3rem;
+    font-weight: 600;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    /* margin-top: 1rem; */
+}
+
+.btn-primary.ui-button:hover {
+
+    background-color: var(--angola-red-hover);
+}
+
+
+.auth-footer {
+    margin-top: 40px;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.security-notice {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #9ca3af;
+}

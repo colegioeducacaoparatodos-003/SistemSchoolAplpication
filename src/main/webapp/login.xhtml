@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view locale="#{languageController.locale}">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            <ui:insert name="titulo">Login</ui:insert>
+        </title>
+
+        <h:outputStylesheet name="general.css" library="css" />
+
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        <h:outputScript name="general.js" library="js" />
+
+    </h:head>
+
+    <h:body>
+        <div class="auth-container">
+            <header>
+                <div class="logo-container">
+                    <p:link outcome="/index">
+                        <img class="logo" src="../../resources/imgs/logo_governo.png" alt="" />
+                    </p:link>
+                    <!-- <div class="logo-divider"></div>
+             <p:link outcome="/index"> 
+                <img class="insignia" src="../../resources/imgs/insignia.png" alt=""/>
+             </p:link> -->
+                </div>
+                <h:form id="langForm">
+                    <!-- <div class="language-switcher"> -->
+
+                    <p:menubar class="languageSelector" hideDelay="1000">
+
+                        <f:facet name="end">
+                            <!-- desktop button -->
+
+                            <p:menuButton styleClass="languageBtn" icon="pi pi-fw pi-globe">
+                                <p:menuitem value="Português" action="#{languageController.setLanguage('pt')}"
+                                    ajax="false" update="@all" process="@this" />
+
+                                <p:menuitem value="English" action="#{languageController.setLanguage('en')}"
+                                    ajax="false" update="@all" process="@this" />
+                                <p:menuitem value="Español" action="#{languageController.setLanguage('es')}"
+                                    ajax="false" update="@all" process="@this" />
+                            </p:menuButton>
+
+                            <!-- mobile button -->
+                            <p:commandButton style="display: none;" id="openMobileMenu" icon="pi pi-bars"
+                                styleClass="loginBtn open-menu-button" type="button" />
+                        </f:facet>
+                    </p:menubar>
+
+                    <!-- </div> -->
+                </h:form>
+            </header>
+            <h:form id="loginForm">
+                <img class="insignia" src="../../resources/imgs/insignia.png" alt="" />
+
+                <!-- <h1>Wellcome back</h1> -->
+                <h2>Login to your account</h2>
+
+                <div class="form-group">
+                    <p:outputLabel styleClass="block" value="Email" />
+                    <span class="ui-input-icon-left">
+                        <i class="pi pi-search" />
+                        <p:inputText placeholder="Search" />
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel styleClass="block" value="Password" />
+                    <span class="ui-input-icon-left">
+                        <i class="pi pi-search" />
+                        <p:password id="password" styleClass="block" redisplay="true" toggleMask="true"
+                            required="true" />
+                    </span>
+                </div>
+
+                <div class="login-button-container links">
+                    <h:link class="link" value="Forgot your password" />
+                </div>
+                <div class="login-button-container">
+                    <p:commandButton styleClass="btn-primary login-button" value="Login" ajax="false" />
+                </div>
+            </h:form>
+            <div class="auth-footer">
+
+                <p class="security-notice">
+                    This system is the official digital platform of the Embassy of the Republic of Angola.
+                    Access is restricted to authorized users only. Unauthorized access or misuse of this
+                    system may result in disciplinary action and legal prosecution. All activities may be
+                    monitored and recorded.
+                </p>
+
+                <p class="copyright">
+                    © <span id="currentYear"></span> Government of the Republic of Angola – Embassy Portal.
+                    All rights reserved.
+                </p>
+
+            </div>
+        </div>
+    </h:body>
+</f:view>
+
+</html>

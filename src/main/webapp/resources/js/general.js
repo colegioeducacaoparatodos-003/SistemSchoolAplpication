@@ -5,7 +5,11 @@ $(document).ready(function () {
     stickNaveBarOnScroll();
     handleContactForm();
 
+    const year = new Date().getFullYear();
+    $("#currentYear").text(year);
+
 })
+
 //THIS HANDLES THE STICKY NAVBAR ON SCROLL
 function stickNaveBarOnScroll() {
 
