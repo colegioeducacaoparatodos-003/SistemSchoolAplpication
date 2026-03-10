@@ -1,18 +1,13 @@
 package com.angola_argentina_portal.model;
 
-import java.time.LocalDateTime;
-
-import org.primefaces.model.file.UploadedFile;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import java.util.Objects;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "person")
@@ -25,41 +20,26 @@ public class Person {
     private String middleName;
     private String lastName;
     private String phone;
-    private String address;
-    private String city;
-    private Double latitude;
-    private Double longitude;
-    private int fkUser;
     private String imagePerson;
-
-    @Transient
-    private UploadedFile imagePersonUtil;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private String email;
-    private String documentNumber;
-    private String documentType;
     private boolean active = true;
 
     public Person() {
-        super();
     }
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+    public Person(int pkPerson, String firstName, String middleName, String lastName, String phone, String imagePerson, String email, boolean active) {
+        this.pkPerson = pkPerson;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.imagePerson = imagePerson;
+        this.email = email;
+        this.active = active;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    // Getters and Setters
     public int getPkPerson() {
-        return pkPerson;
+        return this.pkPerson;
     }
 
     public void setPkPerson(int pkPerson) {
@@ -67,7 +47,7 @@ public class Person {
     }
 
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -75,7 +55,7 @@ public class Person {
     }
 
     public String getMiddleName() {
-        return middleName;
+        return this.middleName;
     }
 
     public void setMiddleName(String middleName) {
@@ -83,7 +63,7 @@ public class Person {
     }
 
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -91,142 +71,105 @@ public class Person {
     }
 
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public int getFkUser() {
-        return fkUser;
-    }
-
-    public void setFkUser(int fkUser) {
-        this.fkUser = fkUser;
-    }
-
     public String getImagePerson() {
-        return imagePerson;
+        return this.imagePerson;
     }
 
     public void setImagePerson(String imagePerson) {
         this.imagePerson = imagePerson;
     }
 
-    public UploadedFile getImagePersonUtil() {
-        return imagePersonUtil;
-    }
-
-    public void setImagePersonUtil(UploadedFile imagePersonUtil) {
-        this.imagePersonUtil = imagePersonUtil;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public void setDocumentNumber(String documentNumber) {
-        this.documentNumber = documentNumber;
-    }
-
-    public String getDocumentType() {
-        return documentType;
-    }
-
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
-    }
-
     public boolean isActive() {
-        return active;
+        return this.active;
+    }
+
+    public boolean getActive() {
+        return this.active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
     }
 
-    // Métodos auxiliares
-    public String getFullName() {
-        if (middleName != null && !middleName.isEmpty()) {
-            return firstName + " " + middleName + " " + lastName;
-        }
-        return firstName + " " + lastName;
+    public Person pkPerson(int pkPerson) {
+        setPkPerson(pkPerson);
+        return this;
     }
 
-    public String getInitials() {
-        String initials = "";
-        if (firstName != null && !firstName.isEmpty()) {
-            initials += firstName.charAt(0);
-        }
-        if (lastName != null && !lastName.isEmpty()) {
-            initials += lastName.charAt(0);
-        }
-        return initials.toUpperCase();
+    public Person firstName(String firstName) {
+        setFirstName(firstName);
+        return this;
+    }
+
+    public Person middleName(String middleName) {
+        setMiddleName(middleName);
+        return this;
+    }
+
+    public Person lastName(String lastName) {
+        setLastName(lastName);
+        return this;
+    }
+
+    public Person phone(String phone) {
+        setPhone(phone);
+        return this;
+    }
+
+    public Person imagePerson(String imagePerson) {
+        setImagePerson(imagePerson);
+        return this;
+    }
+
+    public Person email(String email) {
+        setEmail(email);
+        return this;
+    }
+
+    public Person active(boolean active) {
+        setActive(active);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      return EqualsBuilder.reflectionEquals(this, o);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pkPerson, firstName, middleName, lastName, phone, imagePerson, email, active);
     }
 
     @Override
     public String toString() {
-        return "Person [pkPerson=" + pkPerson + ", firstName=" + firstName + ", middleName=" + middleName
-                + ", lastName=" + lastName + ", phone=" + phone + ", address=" + address + ", city=" + city
-                + ", latitude=" + latitude + ", longitude=" + longitude + ", fkUser=" + fkUser + ", imagePerson="
-                + imagePerson + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", email=" + email
-                + ", documentNumber=" + documentNumber + ", documentType=" + documentType + ", active=" + active + "]";
+        return "{" +
+            " pkPerson='" + getPkPerson() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", middleName='" + getMiddleName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", phone='" + getPhone() + "'" +
+            ", imagePerson='" + getImagePerson() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", active='" + isActive() + "'" +
+            "}";
     }
+    
+
+
 }

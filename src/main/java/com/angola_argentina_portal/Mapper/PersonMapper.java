@@ -1,4 +1,4 @@
-package com.angola_argentina_portal.Mapper;
+package com.angola_argentina_portal.mapper;
 
 import org.springframework.stereotype.Component;
 
@@ -8,7 +8,6 @@ import com.angola_argentina_portal.model.Person;
 @Component
 public class PersonMapper {
 
-    
     // Converte Person para PersonResponseDTO
     public PersonDTO.PersonResponseDTO toResponseDTO(Person person) {
         if (person == null) {
@@ -21,20 +20,12 @@ public class PersonMapper {
         dto.setMiddleName(person.getMiddleName());
         dto.setLastName(person.getLastName());
         dto.setPhone(person.getPhone());
-        dto.setAddress(person.getAddress());
-        dto.setCity(person.getCity());
-        dto.setLatitude(person.getLatitude());
-        dto.setLongitude(person.getLongitude());
-        dto.setFkUser(person.getFkUser());
         dto.setImagePerson(person.getImagePerson());
-        dto.setCreatedAt(person.getCreatedAt());
-        dto.setUpdatedAt(person.getUpdatedAt());
+
         dto.setEmail(person.getEmail());
-        dto.setDocumentNumber(person.getDocumentNumber());
-        dto.setDocumentType(person.getDocumentType());
+
         dto.setActive(person.isActive());
-        dto.setFullName(person.getFullName());
-        dto.setInitials(person.getInitials());
+
 
         return dto;
     }
@@ -50,19 +41,10 @@ public class PersonMapper {
         person.setMiddleName(dto.getMiddleName());
         person.setLastName(dto.getLastName());
         person.setPhone(dto.getPhone());
-        person.setAddress(dto.getAddress());
-        person.setCity(dto.getCity());
-        person.setLatitude(dto.getLatitude());
-        person.setLongitude(dto.getLongitude());
         person.setImagePerson(dto.getImagePerson());
 
-        if (dto.getFkUser() != null) {
-            person.setFkUser(dto.getFkUser());
-        }
 
         person.setEmail(dto.getEmail());
-        person.setDocumentNumber(dto.getDocumentNumber());
-        person.setDocumentType(dto.getDocumentType());
         person.setActive(dto.isActive());
 
         return person;
@@ -90,38 +72,10 @@ public class PersonMapper {
             person.setPhone(dto.getPhone());
         }
 
-        if (dto.getAddress() != null) {
-            person.setAddress(dto.getAddress());
-        }
-
-        if (dto.getCity() != null) {
-            person.setCity(dto.getCity());
-        }
-
-        if (dto.getLatitude() != null) {
-            person.setLatitude(dto.getLatitude());
-        }
-
-        if (dto.getLongitude() != null) {
-            person.setLongitude(dto.getLongitude());
-        }
-
-        if (dto.getFkUser() != null) {
-            person.setFkUser(dto.getFkUser());
-        }
-
         if (dto.getEmail() != null) {
             person.setEmail(dto.getEmail());
         }
-
-        if (dto.getDocumentNumber() != null) {
-            person.setDocumentNumber(dto.getDocumentNumber());
-        }
-
-        if (dto.getDocumentType() != null) {
-            person.setDocumentType(dto.getDocumentType());
-        }
-
+        
         if (dto.getActive() != null) {
             person.setActive(dto.getActive());
         }
@@ -132,4 +86,5 @@ public class PersonMapper {
 
         // updatedAt será automaticamente atualizado pelo @PreUpdate
     }
+
 }
