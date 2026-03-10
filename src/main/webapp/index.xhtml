@@ -9,7 +9,7 @@
         <title>
             <ui:insert name="titulo">Angola Embassy</ui:insert>
         </title>
-        <!-- <h:outputStylesheet name="login.css" library="css" /> -->
+        
         <h:outputStylesheet name="general.css" library="css" />
         
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -36,56 +36,8 @@
             <i class="pi pi-comments custom-icon"></i>
         </h:panelGroup>
 
-        <!-- <p:overlayPanel for="basic" style="width:350px">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quae quibusdam at ipsam quaerat optio numquam,
-                quidem in atque et ut assumenda rem quisquam tenetur suscipit explicabo, quam deserunt dicta, quos eveniet
-                sapiente nihil facere. Possimus laudantium corrupti animi voluptatem sunt suscipit doloribus ipsa. Doloribus
-                animi saepe a vitae vel!
-            </p>
-        </p:overlayPanel> -->
-    
-
         <p:scrollTop threshold="100" styleClass="custom-scrolltop" icon="pi pi-arrow-up" />
         
-<script >
-        const cards = document.querySelectorAll(".flag-card");
-let index = 0;
-
-function updateCarousel(){
-
-    cards.forEach(card=>{
-        card.className="flag-card";
-    });
-
-    cards[index].classList.add("center");
-
-    cards[(index-1+cards.length)%cards.length].classList.add("left1");
-    cards[(index+1)%cards.length].classList.add("right1");
-
-    cards[(index-2+cards.length)%cards.length].classList.add("left2");
-    cards[(index+2)%cards.length].classList.add("right2");
-}
-
-document.querySelector(".next").onclick=()=>{
-    index=(index+1)%cards.length;
-    updateCarousel();
-}
-
-document.querySelector(".prev").onclick=()=>{
-    index=(index-1+cards.length)%cards.length;
-    updateCarousel();
-}
-
-updateCarousel();
-    </script>
-
-
 
     </h:body>
 </f:view>

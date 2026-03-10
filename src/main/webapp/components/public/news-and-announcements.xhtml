@@ -10,70 +10,79 @@
     </title>
     <h:outputStylesheet name="login.css" library="css" />
     <h:outputStylesheet name="general.css" library="css" />
-  
+
 
 
 </h:head>
 
 <h:body>
 
-   <main class="news-section">
-        <h1 data-aos="fade-right" data-aos-delay="300"  class="title">Angolan current affairs</h1>
-        <p data-aos="fade-right" data-aos-delay="500"  class="subtitle">Details of upcoming events and ongoing initiatives can be found here</p>
-       
-        <div class="height-light">
-            <img data-aos="zoom-in" data-aos-delay="800" src="../../resources/imgs/governement/g8.jpeg" alt=""/>
-            <div data-aos="fade-right" data-aos-delay="1000"  class="image-description">
-                     <p class="date">04/03/2026</p>
+    <main class="news-section">
+        <h1 data-aos="fade-right" data-aos-delay="300" class="title">Angolan current affairs</h1>
+        <p data-aos="fade-right" data-aos-delay="500" class="subtitle">Details of upcoming events and ongoing
+            initiatives can be found here</p>
+        <a href="./show-news.xhtml">
+            <div class="height-light">
+                <img data-aos="zoom-in" data-aos-delay="800" src="../../resources/imgs/governement/g8.jpeg" alt="" />
+                <div data-aos="fade-right" data-aos-delay="1000" class="image-description">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        eRegister your travels for peace of mind
+                        <!-- <span>
+                              <i class="pi pi-arrow-right"></i>
+                          </span> -->
+                    </h4>
+                    <p class="category">Announceme</p>
+                </div>
+            </div>
+
+        </a>
+        <ul class="cards-container">
+            <a href="./show-news.xhtml">
+                <li class="card" data-aos="fade-up" data-aos-delay="1200">
+                    <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                    <div class="content">
+                        <p class="date">04/03/2026</p>
                         <h4 class="title">
                             eRegister your travels for peace of mind
-                            <!-- <span>
-                                <i class="pi pi-arrow-right"></i>
-                            </span> -->
+                            <span><i class="pi pi-arrow-right"></i></span>
                         </h4>
-                    <p class="category">Announceme</p>
-            </div>
-        </div>
-        <ul class="cards-container">
-    <li class="card" data-aos="fade-up" data-aos-delay="1200">
-        <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-        <div class="content">
-            <p class="date">04/03/2026</p>
-            <h4 class="title">
-                eRegister your travels for peace of mind
-                <span><i class="pi pi-arrow-right"></i></span>
-            </h4>
-            <p class="category">Announcement</p>
-        </div>
-    </li>
-    
-    <li class="card" data-aos="fade-up" data-aos-delay="1400">
-        <img src="../../resources/imgs/governement/g3.jpeg" alt="" />
-        <div class="content">
-            <p class="date">04/03/2026</p>
-            <h4 class="title">
-                eRegister your travels for peace of mind
-                <span><i class="pi pi-arrow-right"></i></span>
-            </h4>
-            <p class="category">Announcement</p>
-        </div>
-    </li>
+                        <p class="category">Announcement</p>
+                    </div>
+                </li>
+            </a>
 
-    <li class="card" data-aos="fade-up" data-aos-delay="1600">
-        <img src="../../resources/imgs/governement/g4.jpeg" alt="" />
-        <div class="content">
-            <p class="date">04/03/2026</p>
-            <h4 class="title">
-                eRegister your travels for peace of mind
-                <span><i class="pi pi-arrow-right"></i></span>
-            </h4>
-            <p class="category">Announcement</p>
-        </div>
-    </li>
-</ul>
-        
-        <p:button  value="Read all news" styleClass="ui-button red-button" />
-   </main>
+            <a href="./show-news.xhtml">
+                <li class="card" data-aos="fade-up" data-aos-delay="1400">
+                    <img src="../../resources/imgs/governement/g3.jpeg" alt="" />
+                    <div class="content">
+                        <p class="date">04/03/2026</p>
+                        <h4 class="title">
+                            eRegister your travels for peace of mind
+                            <span><i class="pi pi-arrow-right"></i></span>
+                        </h4>
+                        <p class="category">Announcement</p>
+                    </div>
+                </li>
+            </a>
+
+            <a href="./show-news.xhtml">
+                <li class="card" data-aos="fade-up" data-aos-delay="1600">
+                    <img src="../../resources/imgs/governement/g4.jpeg" alt="" />
+                    <div class="content">
+                        <p class="date">04/03/2026</p>
+                        <h4 class="title">
+                            eRegister your travels for peace of mind
+                            <span><i class="pi pi-arrow-right"></i></span>
+                        </h4>
+                        <p class="category">Announcement</p>
+                    </div>
+                </li>
+            </a>
+        </ul>
+
+        <p:button outcome="news" value="Read all news" styleClass="ui-button red-button" />
+    </main>
 
 
 </h:body>
