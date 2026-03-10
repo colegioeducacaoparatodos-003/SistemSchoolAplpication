@@ -3,7 +3,6 @@ package com.angola_argentina_portal.model;
 import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.checkerframework.checker.units.qual.C;
 
 import com.angola_argentina_portal.dto.NewsStatus;
 

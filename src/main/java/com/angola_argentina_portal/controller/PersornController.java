@@ -7,5 +7,4 @@ import jakarta.inject.Named;
 @ViewScoped
 public class PersornController {
 
-
 }
