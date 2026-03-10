@@ -15,7 +15,6 @@ import jakarta.persistence.Transient;
 @Entity
 @Table(name = "document")
 public class Document {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pkDocument;
@@ -121,5 +120,17 @@ public class Document {
         return fkUser;
     }
 
+    public void setFkUser(int fkUser) {
+        this.fkUser = fkUser;
+    }
 
+    public UploadedFile getUploadedFile() {
+        return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
+    }
+
+    // getters and setters
 }

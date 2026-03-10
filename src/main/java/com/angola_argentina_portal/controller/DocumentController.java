@@ -1,12 +1,65 @@
 package com.angola_argentina_portal.controller;
 
+import java.time.LocalDate;
+
+import org.primefaces.model.LazyDataModel;
+
+import com.angola_argentina_portal.dto.DocumentTableDTO;
+import com.angola_argentina_portal.model.Document;
+import com.angola_argentina_portal.service.DocumentService;
+
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
 @ViewScoped
 public class DocumentController {
 
-    
-    
+    private static final long serialVersionUID = 1L;
+
+    private Document document = new Document();
+
+    private LazyDataModel<DocumentTableDTO> lazyModel;
+
+    private String referenceType;
+    private int referenceId;
+
+    @Inject
+    private DocumentService service;
+
+    //@Inject
+    //private UserController loginController;
+
+    public void prepare(String refType, int refId) {
+        this.referenceType = refType;
+        this.referenceId = refId;
+
+        // this.lazyModel = new DocumentLazyModel(
+        // service, referenceType, referenceId);
+    }
+
+    public void upload() {
+        try {
+            document.setReferenceType(referenceType);
+            document.setReferenceId(referenceId);
+            document.setUploadDate(LocalDate.now());
+            // document.setFkUser(loginController.getLoggedUserId());
+
+            // aqui assumes que o ficheiro já foi salvo no filesystem
+            service.upload(document);
+            document = new Document();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public LazyDataModel<DocumentTableDTO> getLazyModel() {
+        return lazyModel;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
 }
