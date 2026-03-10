@@ -189,31 +189,48 @@ NAVBAR
     border-radius: 0 0 4px 4px;
 }
 
+/* the hover of dropdown gos here */
+.dropdown:hover .dropdown-content {
+    animation-name: fadeDonwToUp;
+    animation-duration: .2s;
+    display: block;
+}
 
-/* Estilização de cada item da lista */
+/* style of each sub-na-link */
 .sub-nav-link {
     padding: 12px 20px;
-    color: #4a5568; /* Cinza escuro, leitura fácil */
+    color: #4a5568;
+    /* Cinza escuro, leitura fácil */
     font-size: 0.9rem;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
-    border-bottom: 1px solid #edf2f7; /* Linha divisória fina */
+    border-bottom: 1px solid #edf2f7;
+    /* Linha divisória fina */
 }
 
-/* Efeito Hover (passar o mouse) */
+/* hover effect to small animation */
 .sub-nav-link:hover {
-    background-color: #f7fafc; /* Um cinza bem clarinho */
-}
-
-/* the hover of dropdown gos here */
-.dropdown:hover .dropdown-content {
-    display: block;
+    background-color: #f7fafc;
+    /* Um cinza bem clarinho */
 }
 
 /* small adjust on icon */
 .pi-chevron-down {
     margin-left: 5px;
     font-size: 12px;
+}
+
+/* animations of the nav-links */
+@keyframes fadeDonwToUp {
+    0% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }
 
 /* finish here the menu'sCSS *
