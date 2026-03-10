@@ -51,6 +51,19 @@ function handleContactForm() {
 
     $("#openContactForm").on("click", openOverlay);
     $("#closeContactForm, .contactFormOverLay").on("click", closeOverlay);
-    $(".contactForm").on("click", e => e.stopPropagation()); 
+    $(".contactForm").on("click", e => e.stopPropagation());
 }
+
+//this code helps the CSS on nav-links'hover
+$(document).ready(function(){
+
+    $(".nav-link").mouseenter(function(){
+        $(this).find(".nav-links-group").css("display","flex");
+    });
+
+    $(".nav-link").mouseleave(function(){
+        $(this).find(".nav-links-group").css("display","none");
+    });
+
+});
 

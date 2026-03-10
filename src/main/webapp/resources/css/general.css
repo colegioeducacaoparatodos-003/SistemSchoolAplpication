@@ -149,24 +149,93 @@ NAVBAR
     display: flex;
     justify-content: space-around;
     padding: 1rem;
+    flex-direction: row;
     /* border-top: 1px solid var(--thiner-border); */
     /* border-bottom: none; */
     /* border: 1px solid red; */
 }
 
 .nav-links {
-
-    /* width: 76%; */
+    padding: 0;
+    margin: 0;
     display: flex;
-    gap: 2rem;
+    gap: 20px;
+
 }
 
-.nav-link {
+/*the container of the link tha is a dropdown */
+.dropdown {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    background-color: transparent;
+    font-weight: 600;
     display: flex;
     align-items: center;
-    font-weight: 600;
-    cursor: pointer;
 }
+
+/*the style of the content of the dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white-color);
+    color: var(--text-gray);
+    width: 350px;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border-radius: 0 0 4px 4px;
+}
+
+/* the hover of dropdown gos here */
+.dropdown:hover .dropdown-content {
+    animation-name: fadeDonwToUp;
+    animation-duration: .2s;
+    display: block;
+}
+
+/* style of each sub-na-link */
+.sub-nav-link {
+    padding: 12px 20px;
+    color: #4a5568;
+    /* Cinza escuro, leitura fácil */
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border-bottom: 1px solid #edf2f7;
+    /* Linha divisória fina */
+}
+
+/* hover effect to small animation */
+.sub-nav-link:hover {
+    background-color: #f7fafc;
+    /* Um cinza bem clarinho */
+}
+
+/* small adjust on icon */
+.pi-chevron-down {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+/* animations of the nav-links */
+@keyframes fadeDonwToUp {
+    0% {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+/* finish here the menu'sCSS *
+
+/* width: 76%; */
 
 .rounded-button.ui-button.rounded-button {
     color: var(--white-color);
