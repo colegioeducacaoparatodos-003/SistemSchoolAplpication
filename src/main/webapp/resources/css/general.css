@@ -773,8 +773,7 @@ NEWS
 .dashboard-menu .ui-button,
 .dashboard-menu .ui-menubutton .ui-button,
 .language-selector.ui-menu.ui-menubar,
-.language-selector .ui-menubutton .ui-button
-{
+.language-selector .ui-menubutton .ui-button {
     background-color: transparent;
     border: none;
 }
@@ -788,16 +787,17 @@ NEWS
     outline: none;
     box-shadow: none;
     transform: none;
-    background-image: none; /* Removes gradient shifts if present */
+    background-image: none;
+    /* Removes gradient shifts if present */
 }
+
 .dashboard-menu .ui-button.ui-button-icon-only .ui-icon,
-.nav-bar .language-selector .ui-button.ui-button-icon-only .ui-icon
-{
+.nav-bar .language-selector .ui-button.ui-button-icon-only .ui-icon {
     color: var(--angola-red);
 }
+
 .dashboard-menu .ui-button.ui-button-icon-only .ui-icon,
-.language-selector .ui-button.ui-button-icon-only .ui-icon
-{
+.language-selector .ui-button.ui-button-icon-only .ui-icon {
     font-size: 1.4rem;
 }
 
@@ -1084,9 +1084,11 @@ CONTACT
     padding: 2rem;
     overflow-y: auto;
 }
+
 .signup .contactForm {
     width: 30%;
 }
+
 .login .contactForm {
     width: 50%;
 }
@@ -1487,6 +1489,7 @@ AUTH
 */
 
 .auth-container {
+    padding-bottom: 1rem;
     width: 100%;
     /* border: 2px solid red; */
 }
@@ -1503,7 +1506,8 @@ AUTH
 .auth-container .logo-container {
     width: 20%;
 }
-.auth-container .insignia{
+
+.auth-container .insignia {
     height: 80px;
 }
 
@@ -1521,7 +1525,9 @@ AUTH
     margin: .8rem 0;
 }
 
-.auth-container #loginForm {
+.auth-container #loginForm,
+.auth-container #signupForm
+{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1533,25 +1539,47 @@ AUTH
 
     /* border: 2px solid blue; */
 }
+.auth-container #signupForm {
+    width: 40%;
+
+    /* border: 2px solid blue; */
+}
 
 .login .form-group {
     width: 30%;
-    
+
 }
+
 .signup .form-group {
     width: 100%;
-    
+
 }
+
 .form-group {
-    width: 30%;
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
-    
+
+}
+.single-form-group {
+    width: 30%;
+}
+.dual-form-group {
+    width: 100%;
 }
 
-.form-group .ui-input-icon-left,
-body .ui-input-icon-right {
+.dual-inputs-container {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+
+    /* border: 3px solid red; */
+}
+
+.auth-container .ui-input-icon-left, body .ui-input-icon-right{
     width: 100%;
 }
 
@@ -1569,10 +1597,19 @@ body .ui-inputfield {
 .signup-button-container {
     height: 3rem;
 }
+
 .login-button-container {
+    height: 3rem;
+}
+#loginForm .login-button-container {
     height: 3rem;
     width: 30%;
 }
+#signupForm .login-button-container {
+    margin: .8rem 0;
+    width: 100%;
+}
+
 .signup-button-container {
     height: 3rem;
     width: 100%;
@@ -1585,7 +1622,8 @@ body .ui-inputfield {
     gap: .4rem;
     margin-bottom: 1rem;
 }
-.link{
+
+.link {
     cursor: pointer;
     color: var(--text-gray);
 }
@@ -1657,43 +1695,43 @@ DASHBOARD
 ============================
 */
 
-.dashbord-layout{
+.dashbord-layout {
     display: grid;
     grid-template-columns: 20% auto;
     height: 100vh;
     /* border: 3px solid blue; */
 }
 
-.layout-side-bar-container{
+.layout-side-bar-container {
     border: 2px solid red;
 }
 
-.layout-content-container{
+.layout-content-container {
     /* width: 80%; */
     border: 2px solid yellow;
 }
 
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100% !important;
-  overflow-y: auto;
-  /* Adiciona barra de rolagem vertical quando necessário */
-  scrollbar-width: thin;
-  /* Para Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
-  /* Para Firefox */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100% !important;
+    overflow-y: auto;
+    /* Adiciona barra de rolagem vertical quando necessário */
+    scrollbar-width: thin;
+    /* Para Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+    /* Para Firefox */
 }
 
 .side-bar.ui-menu {
-  width: 100%;
-  border: none;
-  /* background-color: var(--gray); */
-  padding: 0rem;
+    width: 100%;
+    border: none;
+    /* background-color: var(--gray); */
+    padding: 0rem;
 }
 
-.layout-menu-container nav{
+.layout-menu-container nav {
     display: flex;
     align-items: center;
     gap: .8rem;

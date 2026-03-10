@@ -20,13 +20,13 @@
     </h:head>
 
     <h:body>
-        <div class="auth-container">
+        <div class="auth-container auth-signup">
             <header>
                 <div class="logo-container">
                     <p:link outcome="/index">
                         <img class="logo" src="../../resources/imgs/logo_governo.png" alt="" />
                     </p:link>
-                   
+
                 </div>
                 <h:form id="langForm">
 
@@ -51,33 +51,62 @@
 
                 </h:form>
             </header>
-            <h:form id="loginForm">
+            <h:form id="signupForm">
                 <img class="insignia" src="../../resources/imgs/insignia.png" alt="" />
 
-                <h2>Login to your account</h2>
+                <h2>Create account</h2>
 
-                <div class="form-group">
-                    <p:outputLabel styleClass="block" value="Email" />
-                    
-                    <p:inputText />
-                    
+                <div class="dual-inputs-container">
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="First Name" for="fname" />
+                        <p:inputText id="fname" required="true" />
+                    </div>
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="Middle Name" for="mname" />
+                        <p:inputText id="mname" />
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <p:outputLabel styleClass="block" value="Password" />
-                    <span class="ui-input-icon-left">
-                        <i class="pi pi-search" />
-                        <p:password id="password" styleClass="block" redisplay="true" toggleMask="true"
-                            required="true" />
+                <div class="dual-inputs-container">
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="Last Name" for="lname" />
+                        <p:inputText id="lname" required="true" />
+                    </div>
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="Email" for="email" />
+                        <p:inputText id="email" required="true" />
+                    </div>
+                </div>
+
+                <div class="dual-inputs-container">
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="Password" for="pwd1" />
+                        <p:password id="pwd1" toggleMask="true" match="pwd2" required="true" />
+                    </div>
+                    <div class="dual-form-group">
+                        <p:outputLabel styleClass="block" value="Confirm Password" for="pwd2" />
+                        <p:password id="pwd2" toggleMask="true" required="true" />
+                    </div>
+                </div>
+
+
+                <div class="dual-form-group upload-group">
+                    <p:outputLabel value="Image" styleClass="upload-label" />
+                    <span class="ui-input-icon-left transparentUploadFile upload-container">
+                        <p:fileUpload id="fileUpload" mode="simple" skinSimple="true"
+                            allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" label="Upload an image"
+                            styleClass="upload-button" />
                     </span>
                 </div>
 
-                <div class="login-button-container links">
-                    <h:link class="link" value="Forgot your password?" />
-                </div>
                 <div class="login-button-container">
                     <p:commandButton styleClass="btn-primary login-button" value="Login" ajax="false" />
                 </div>
+
+                 <div class="login-button-container links">
+                    <h:link class="link" outcome="login" value="Go back to Login Page" />
+                </div>
+                  
             </h:form>
             <div class="auth-footer">
 
