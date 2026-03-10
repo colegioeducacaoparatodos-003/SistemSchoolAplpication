@@ -14,52 +14,53 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import java.util.Objects;
 
 @Entity
 @Table(name = "news")
 public class News {
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+private String title;
+private String subtitle;
 
-    private String title;
-    private String subTitle;
+@Column(length = 500)
+private String summary;
 
-    @Column(length = 500)
-    private String sammary;
+@Lob
+private String content;
 
-    private String imageUrl;
-    private String thumbnailUrl;
-    private String author;
-    private String category;
+private String imageUrl;
+private String thumbnailUrl;
 
+private String author;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime publishedAt;
+private String category;
 
-    @Enumerated(EnumType.STRING)
-    private NewsStatus status;
+private LocalDateTime createdAt;
+private LocalDateTime updatedAt;
+private LocalDateTime publishedAt;
 
-    private Long views;
+@Enumerated(EnumType.STRING)
+private NewsStatus status;
+
+private Long views;
 
     // Getters and Setters
 
     public News() {
     }
 
-    public News(Long id, String title, String subTitle, 
-        String sammary, String imageUrl, String thumbnailUrl, 
-        String author, String category, LocalDateTime createdAt, 
-        LocalDateTime updatedAt, LocalDateTime publishedAt, 
-        NewsStatus status, Long views) {
+    public News(Long id, String title, String subtitle, String summary, String content, String imageUrl, String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt, NewsStatus status, Long views) {
         this.id = id;
         this.title = title;
-        this.subTitle = subTitle;
-        this.sammary = sammary;
+        this.subtitle = subtitle;
+        this.summary = summary;
+        this.content = content;
         this.imageUrl = imageUrl;
         this.thumbnailUrl = thumbnailUrl;
         this.author = author;
@@ -87,20 +88,28 @@ public class News {
         this.title = title;
     }
 
-    public String getSubTitle() {
-        return this.subTitle;
+    public String getSubtitle() {
+        return this.subtitle;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public String getSammary() {
-        return this.sammary;
+    public String getSummary() {
+        return this.summary;
     }
 
-    public void setSammary(String sammary) {
-        this.sammary = sammary;
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getImageUrl() {
@@ -185,13 +194,18 @@ public class News {
         return this;
     }
 
-    public News subTitle(String subTitle) {
-        setSubTitle(subTitle);
+    public News subtitle(String subtitle) {
+        setSubtitle(subtitle);
         return this;
     }
 
-    public News sammary(String sammary) {
-        setSammary(sammary);
+    public News summary(String summary) {
+        setSummary(summary);
+        return this;
+    }
+
+    public News content(String content) {
+        setContent(content);
         return this;
     }
 
@@ -247,7 +261,7 @@ public class News {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, subTitle, sammary, imageUrl, thumbnailUrl, author, category, createdAt, updatedAt, publishedAt, status, views);
+        return Objects.hash(id, title, subtitle, summary, content, imageUrl, thumbnailUrl, author, category, createdAt, updatedAt, publishedAt, status, views);
     }
 
     @Override
@@ -255,8 +269,9 @@ public class News {
         return "{" +
             " id='" + getId() + "'" +
             ", title='" + getTitle() + "'" +
-            ", subTitle='" + getSubTitle() + "'" +
-            ", sammary='" + getSammary() + "'" +
+            ", subtitle='" + getSubtitle() + "'" +
+            ", summary='" + getSummary() + "'" +
+            ", content='" + getContent() + "'" +
             ", imageUrl='" + getImageUrl() + "'" +
             ", thumbnailUrl='" + getThumbnailUrl() + "'" +
             ", author='" + getAuthor() + "'" +
@@ -269,5 +284,4 @@ public class News {
             "}";
     }
 
-    
 }

@@ -21,22 +21,53 @@ public class Person {
     private String lastName;
     private String phone;
     private String imagePerson;
+    private String password;
+    private String confPasswor;
     private String email;
     private boolean active = true;
 
     public Person() {
     }
 
-    public Person(int pkPerson, String firstName, String middleName, String lastName, String phone, String imagePerson, String email, boolean active) {
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfPasswor() {
+        return this.confPasswor;
+    }
+
+    public void setConfPasswor(String confPasswor) {
+        this.confPasswor = confPasswor;
+    }
+
+    public Person(int pkPerson, String firstName, String middleName, String lastName, String phone, String imagePerson, String password, String confPasswor, String email, boolean active) {
         this.pkPerson = pkPerson;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.phone = phone;
         this.imagePerson = imagePerson;
+        this.password = password;
+        this.confPasswor = confPasswor;
         this.email = email;
         this.active = active;
     }
+
+    public Person password(String password) {
+        setPassword(password);
+        return this;
+    }
+
+    public Person confPasswor(String confPasswor) {
+        setConfPasswor(confPasswor);
+        return this;
+    }
+
 
     public int getPkPerson() {
         return this.pkPerson;
