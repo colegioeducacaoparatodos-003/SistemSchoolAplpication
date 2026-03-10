@@ -9,52 +9,34 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.angola_argentina_portal.dto.NewsStatus;
 import com.angola_argentina_portal.model.News;
 
 import jakarta.transaction.Transactional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
+// Buscar todas as notícias de um determinado status
+    @Query("SELECT n FROM News n WHERE n.status = :status ORDER BY n.publishedAt DESC")
+    List<News> findAllByStatus(@Param("status") NewsStatus status);
 
-        @Query(value = """
-                        SELECT *
-                        FROM news
-                        WHERE status = 'PUBLISHED'
-                        ORDER BY published_at DESC
-                        """, nativeQuery = true)
-        List<News> findPublishedNews();
+    // Buscar notícias por autor
+    @Query("SELECT n FROM News n WHERE n.author = :author ORDER BY n.createdAt DESC")
+    List<News> findAllByAuthor(@Param("author") String author);
 
-        @Query(value = """
-                        SELECT *
-                        FROM news
-                        WHERE category = :category
-                        AND status = 'PUBLISHED'
-                        ORDER BY published_at DESC
-                        """, nativeQuery = true)
-        List<News> findByCategory(@Param("category") String category);
+    // Buscar notícias por categoria
+    @Query("SELECT n FROM News n WHERE n.category = :category ORDER BY n.createdAt DESC")
+    List<News> findAllByCategory(@Param("category") String category);
 
-        @Query(value = """
-                        SELECT *
-                        FROM news
-                        WHERE id = :id
-                        """, nativeQuery = true)
-        Optional<News> findNewsById(@Param("id") Long id);
+    // Buscar notícias com título contendo uma palavra (LIKE)
+    @Query("SELECT n FROM News n WHERE LOWER(n.title) LIKE LOWER(CONCAT('%', :keyword, '%')) ORDER BY n.createdAt DESC")
+    List<News> searchByTitle(@Param("keyword") String keyword);
 
-        @Query(value = """
-                        SELECT *
-                        FROM news
-                        WHERE status = 'PUBLISHED'
-                        ORDER BY published_at DESC
-                        LIMIT 5
-                        """, nativeQuery = true)
-        List<News> findLatestNews();
+    // Buscar as notícias mais vistas
+    @Query("SELECT n FROM News n ORDER BY n.views DESC")
+    List<News> findTopByViews();
 
-        @Modifying
-        @Transactional
-        @Query(value = """
-                        UPDATE news
-                        SET views = views + 1
-                        WHERE id = :id
-                        """, nativeQuery = true)
-        void incrementViews(@Param("id") Long id);
+    // Custom query nativa (SQL) caso queira usar SQL direto
+    @Query(value = "SELECT * FROM news n WHERE n.status = :status ORDER BY n.published_at DESC", nativeQuery = true)
+    List<News> findAllByStatusNative(@Param("status") String status);
 }
