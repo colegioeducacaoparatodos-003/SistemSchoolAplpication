@@ -2,7 +2,7 @@ package com.angola_argentina_portal.dto;
 
 import java.time.LocalDate;
 
-public class DocumentDTO {
+public class DocumentTableDTO {
 
     private int pkDocument;
     private String documentType;
@@ -11,7 +11,7 @@ public class DocumentDTO {
     private LocalDate uploadDate;
     private String uploadedBy;
 
-    public DocumentDTO(
+    public DocumentTableDTO(
             int pkDocument,
             String documentType,
             String fileName,
@@ -26,7 +26,6 @@ public class DocumentDTO {
         this.uploadDate = uploadDate;
         this.uploadedBy = uploadedBy;
     }
-
 
     public int getPkDocument() {
         return pkDocument;
@@ -62,7 +61,7 @@ public class DocumentDTO {
 
     public LocalDate getUploadDate() {
         return uploadDate;
-    } 
+    }
 
     public void setUploadDate(LocalDate uploadDate) {
         this.uploadDate = uploadDate;
