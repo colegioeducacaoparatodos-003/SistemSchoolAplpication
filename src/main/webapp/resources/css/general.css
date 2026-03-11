@@ -1006,7 +1006,7 @@ INDEX SERVICES
 
 .consular-services-section .card:hover,
 .consular-services-section a:hover {
-    color: #000000;
+    color: var(--white-color);
     background-color: #DA291C;
 }
 
@@ -1014,8 +1014,12 @@ INDEX SERVICES
     line-height: 2rem;
 }
 
+.consular-services-section .card:hover .icon-container {
+    border-color: var(--white-color);
+}
 .consular-services-section a:hover .icon-container {
     transform: translateX(20px);
+    border-color: var(--white-color);
 }
 
 .consular-services-section .icon-container {
