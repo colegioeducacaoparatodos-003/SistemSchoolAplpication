@@ -16,10 +16,9 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
-
 // Buscar todas as notícias de um determinado status
     @Query("SELECT n FROM defaultdb.news;")
-    List<News> findAll(@Param("news") NewsStatus status);
+    List<News> findAllByStatus(@Param("news") NewsStatus status);
 
     // Buscar notícias por autor
     @Query("SELECT n FROM News n WHERE n.author = :author ORDER BY n.createdAt DESC")
