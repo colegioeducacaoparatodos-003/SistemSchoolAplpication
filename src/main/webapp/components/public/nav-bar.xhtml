@@ -11,6 +11,97 @@
     <!-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
 
+    <style>
+        .travel-dropdown{
+    width: 320px;
+    padding:10px;
+}
+
+.travel-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+    padding:6px;
+    border-radius:6px;
+    cursor:pointer;
+    transition: background 0.3s;
+}
+
+.travel-item:hover{
+    background:#f5f5f5;
+}
+
+.travel-text{
+    font-size:15px;
+    font-weight:500;
+}
+
+.travel-img img{
+    width:100px;
+    height:75px;
+    object-fit:cover;
+    border-radius:5px;
+}
+
+
+.news-dropdown{
+    width:420px;
+    padding:12px;
+}
+
+/* COLUNAS */
+.news-columns{
+    display:grid;
+    grid-template-columns: 40% 60%;
+    gap:0.1rem;
+    align-items:stretch;
+}
+
+/* garantir mesma altura */
+.news-columns > div{
+   
+   
+    padding:10px;
+}
+
+/* listas */
+.news-columns ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+     border-top:1px solid #c00;
+}
+
+.news-columns li{
+    padding:6px 0;
+    cursor:pointer;
+    font-size:15px;
+    font-weight: normal;
+}
+
+.news-columns li:hover{
+    color:#c00;
+}
+
+/* IMAGENS */
+.news-images{
+    display:grid;
+    grid-template-columns:40% 60%;
+    margin-top:12px;
+    gap:0.1rem;
+}
+
+.news-images img{
+    width:100%;
+    height:80px;
+  
+    border-radius:6px;
+     background-size: cover;
+    background-position: center;
+}
+    </style>
+
 </h:head>
 
 <h:body>
@@ -57,21 +148,99 @@
                         </div>
                     </li>
 
+                    
                     <li class="dropdown">
-                        <span>Official News e Announcements</span>
-                        <i class="pi pi-chevron-down"></i>
+    <span>Official News e Announcements</span>
+    <i class="pi pi-chevron-down"></i>
 
-                        <div class="dropdown-content">
-                            <p>Stay updated with the latest diplomatic releases and government updates.</p>
-                        </div>
-                    </li>
+    <div class="dropdown-content news-dropdown">
+
+        <!-- COLUNAS -->
+        <div class="news-columns">
+
+            <!-- coluna 40% -->
+            <div class="news-col-left">
+                <h4>Embassy</h4>
+                <ul>
+                    <li>Announcements</li>
+                    <li>Gallery</li>
+                </ul>
+            </div>
+
+            <!-- coluna 60% -->
+            <div class="news-col-right">
+                 <h4>Media</h4>
+                <ul>
+                    <li>News</li>
+                    <li>Angolan Media</li>
+                    <li>Multimedia</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- IMAGENS -->
+        <div class="news-images">
+
+            <div class="img-left">
+               
+            </div>
+
+            <div class="img-right">
+                <img src="../../resources/imgs/agencia_angola_press_cover.jfif"/>
+            </div>
+
+        </div>
+
+    </div>
+</li>
 
                     <li class="dropdown">
-                        <span>Calendar Events</span>>
+                        <span>Calendar and Events</span>
                         <i class="pi pi-chevron-down"></i>
 
                         <div class="dropdown-content">
                             <p>Explore upcoming cultural events, holidays, and official meetings.</p>
+                        </div>
+                    </li>
+
+                    
+                    <li class="dropdown">
+                        <span>Traveling to Angola</span>
+                        <i class="pi pi-chevron-down"></i>
+
+                        <div class="dropdown-content travel-dropdown">
+
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>Travel Agencies</span>
+                                </div>
+
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/gir-travelling.jpg" />
+                                </div>
+                            </div>
+
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>Airlines</span>
+                                </div>
+
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/taag.png" />
+                                </div>
+                            </div>
+
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>Hotels</span>
+                                </div>
+
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/intercontinental.png" />
+                                </div>
+                            </div>
+
                         </div>
                     </li>
 
