@@ -848,9 +848,14 @@ SERVICES
     display: flex;
     border: 1px solid var(--thiner-border-sec);
 }
+.link-for-page-list{
+   text-decoration: underline;
+}
+.link-for-page-list:hover{
+   text-decoration: underline;
+}
 
 .consular-services-section .card:hover {
-    text-decoration: none;
     color: #000000;
     background-color: #DA291C;
 }

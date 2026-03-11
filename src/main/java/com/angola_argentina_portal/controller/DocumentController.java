@@ -31,6 +31,15 @@ public class DocumentController {
     //@Inject
     //private UserController loginController;
 
+     public String loadDocumentPage() {
+        try {
+            // loadLazy();
+        } catch (Exception e) {
+            // FacesMessageUtil.errorMessage("Erro " + e.getMessage());
+            e.printStackTrace();
+        }
+        return "/management/documents.xhtml?faces-redirect=true";
+    }
     public void prepare(String refType, int refId) {
         this.referenceType = refType;
         this.referenceId = refId;
