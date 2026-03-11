@@ -223,36 +223,5 @@ public class NewsDTO {
     public NewsDTO views(Long views) {
         setViews(views);
         return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, subtitle, summary, content, imageUrl, thumbnailUrl, author, category, createdAt, updatedAt, publishedAt, status, views);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", subtitle='" + getSubtitle() + "'" +
-            ", summary='" + getSummary() + "'" +
-            ", content='" + getContent() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", thumbnailUrl='" + getThumbnailUrl() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", category='" + getCategory() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", updatedAt='" + getUpdatedAt() + "'" +
-            ", publishedAt='" + getPublishedAt() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", views='" + getViews() + "'" +
-            "}";
-    }
-    
+    }    
 }

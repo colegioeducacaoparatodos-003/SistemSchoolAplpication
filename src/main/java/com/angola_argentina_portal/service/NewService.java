@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.service;
 
+import org.apache.commons.compress.harmony.unpack200.bytecode.forms.NewClassRefForm;
 import org.slf4j.Logger;
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +20,13 @@ import com.angola_argentina_portal.repository.NewsRepository;
 @Service
 public class NewService {
 
-@Autowired
-    private NewsRepository newsRepository;
+    
+    private final NewsRepository newsRepository;
+
+    public NewService (NewsRepository repository){
+        this.newsRepository = repository;
+    }
+
 
     // Retorna todas as notícias
     public List<NewsDTO> getAllNews() {
