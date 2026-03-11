@@ -2,8 +2,6 @@ package com.angola_argentina_portal.model;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-
 import com.angola_argentina_portal.dto.NewsStatus;
 
 import jakarta.persistence.Column;
@@ -15,62 +13,45 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "news")
 public class News {
-    
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
 
-private String title;
-private String subtitle;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@Column(length = 500)
-private String summary;
+    private String title;
+    private String subtitle;
 
-@Lob
-private String content;
+    @Column(length = 500)
+    private String summary;
 
-private String imageUrl;
-private String thumbnailUrl;
+    @Lob
+    private String content;
 
-private String author;
+    private String imageUrl;
+    private String thumbnailUrl;
 
-private String category;
+    private String author;
 
-private LocalDateTime createdAt;
-private LocalDateTime updatedAt;
-private LocalDateTime publishedAt;
+    private String category;
 
-@Enumerated(EnumType.STRING)
-private NewsStatus status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime publishedAt;
 
-private Long views;
+    @Enumerated(EnumType.STRING)
+    private NewsStatus status;
 
-    // Getters and Setters
+    private Long views;
+
 
     public News() {
+        super();
     }
 
-    public News(Long id, String title, String subtitle, String summary, String content, String imageUrl, String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt, NewsStatus status, Long views) {
-        this.id = id;
-        this.title = title;
-        this.subtitle = subtitle;
-        this.summary = summary;
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.thumbnailUrl = thumbnailUrl;
-        this.author = author;
-        this.category = category;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.publishedAt = publishedAt;
-        this.status = status;
-        this.views = views;
-    }
 
     public Long getId() {
         return this.id;
@@ -182,106 +163,6 @@ private Long views;
 
     public void setViews(Long views) {
         this.views = views;
-    }
-
-    public News id(Long id) {
-        setId(id);
-        return this;
-    }
-
-    public News title(String title) {
-        setTitle(title);
-        return this;
-    }
-
-    public News subtitle(String subtitle) {
-        setSubtitle(subtitle);
-        return this;
-    }
-
-    public News summary(String summary) {
-        setSummary(summary);
-        return this;
-    }
-
-    public News content(String content) {
-        setContent(content);
-        return this;
-    }
-
-    public News imageUrl(String imageUrl) {
-        setImageUrl(imageUrl);
-        return this;
-    }
-
-    public News thumbnailUrl(String thumbnailUrl) {
-        setThumbnailUrl(thumbnailUrl);
-        return this;
-    }
-
-    public News author(String author) {
-        setAuthor(author);
-        return this;
-    }
-
-    public News category(String category) {
-        setCategory(category);
-        return this;
-    }
-
-    public News createdAt(LocalDateTime createdAt) {
-        setCreatedAt(createdAt);
-        return this;
-    }
-
-    public News updatedAt(LocalDateTime updatedAt) {
-        setUpdatedAt(updatedAt);
-        return this;
-    }
-
-    public News publishedAt(LocalDateTime publishedAt) {
-        setPublishedAt(publishedAt);
-        return this;
-    }
-
-    public News status(NewsStatus status) {
-        setStatus(status);
-        return this;
-    }
-
-    public News views(Long views) {
-        setViews(views);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, subtitle, summary, content, imageUrl, thumbnailUrl, author, category, createdAt, updatedAt, publishedAt, status, views);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", subtitle='" + getSubtitle() + "'" +
-            ", summary='" + getSummary() + "'" +
-            ", content='" + getContent() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", thumbnailUrl='" + getThumbnailUrl() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", category='" + getCategory() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", updatedAt='" + getUpdatedAt() + "'" +
-            ", publishedAt='" + getPublishedAt() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", views='" + getViews() + "'" +
-            "}";
     }
 
 }

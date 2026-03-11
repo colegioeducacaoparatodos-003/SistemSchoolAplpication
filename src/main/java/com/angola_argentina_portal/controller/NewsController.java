@@ -27,6 +27,7 @@ public class NewsController {
     public String loadNewsPage() {
         try {
             // loadLazy();
+            
         } catch (Exception e) {
             // FacesMessageUtil.errorMessage("Erro " + e.getMessage());
             e.printStackTrace();
