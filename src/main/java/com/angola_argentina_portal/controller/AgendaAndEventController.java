@@ -19,18 +19,18 @@ import jakarta.inject.Named;
 @Controller
 @Named
 @ViewScoped
-public class NewsController {
+public class AgendaAndEventController {
 
     @Autowired
     // private NewService newService;
 
-    public String loadNewsPage() {
+    public String loadAgendaAndEventPage() {
         try {
             // loadLazy();
         } catch (Exception e) {
             // FacesMessageUtil.errorMessage("Erro " + e.getMessage());
             e.printStackTrace();
         }
-        return "/management/news.xhtml?faces-redirect=true";
+        return "/management/agenda-and-events.xhtml?faces-redirect=true";
     }
 }

@@ -49,13 +49,17 @@
                         <img class="logo" src="../../resources/imgs/logo_governo.png" alt="" />
                     </p:menuitem>
 
-                    <p:menuitem class="sidebar_element" value="News" icon="pi pi-fw pi-megaphone" />
+                    <p:menuitem class="sidebar_element" value="News" icon="pi pi-fw pi-megaphone" 
+                    action="#{newsController.loadNewsPage}"/>
 
-                    <p:menuitem class="sidebar_element" value="Documents" icon="pi pi-fw pi-file-pdf" />
+                    <p:menuitem class="sidebar_element" value="Documents" icon="pi pi-fw pi-file-pdf" 
+                    action="#{documentController.loadDocumentPage}"/>
 
-                    <p:menuitem class="sidebar_element" value="Announcements" icon="pi pi-fw pi-bell" />
+                    <p:menuitem class="sidebar_element" value="Announcements" icon="pi pi-fw pi-bell" 
+                    action="#{announcementController.loadAnnouncementPage}"/>
 
-                    <p:menuitem class="sidebar_element" value="Agenda and Events" icon="pi pi-fw pi-calendar" />
+                    <p:menuitem class="sidebar_element" value="Agenda and Events" icon="pi pi-fw pi-calendar" 
+                    action="#{agendaAndEventController.loadAgendaAndEventPage}"/>
 
                 </p:tieredMenu>
                 <!-- <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" outcome="login" /> -->

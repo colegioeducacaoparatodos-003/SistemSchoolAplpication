@@ -19,18 +19,18 @@ import jakarta.inject.Named;
 @Controller
 @Named
 @ViewScoped
-public class NewsController {
+public class AnnouncementController {
 
     @Autowired
     // private NewService newService;
 
-    public String loadNewsPage() {
+    public String loadAnnouncementPage() {
         try {
             // loadLazy();
         } catch (Exception e) {
             // FacesMessageUtil.errorMessage("Erro " + e.getMessage());
             e.printStackTrace();
         }
-        return "/management/news.xhtml?faces-redirect=true";
+        return "/management/announcements.xhtml?faces-redirect=true";
     }
 }
