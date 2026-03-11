@@ -1,36 +1,16 @@
 package com.angola_argentina_portal.mapper;
 
-import com.angola_argentina_portal.dto.NewsDTO;
+import java.time.LocalDateTime;
+
+import com.angola_argentina_portal.dto.NewsDTO.CreateNewsDTO;
 import com.angola_argentina_portal.model.News;
 
 public class NewsMapper {
 
-    public static NewsDTO toDTO(News news) {
-        if (news == null) return null;
-
-        return new NewsDTO(
-                news.getId(),
-                news.getTitle(),
-                news.getSubtitle(),
-                news.getSummary(),
-                news.getContent(),
-                news.getImageUrl(),
-                news.getThumbnailUrl(),
-                news.getAuthor(),
-                news.getCategory(),
-                news.getCreatedAt(),
-                news.getUpdatedAt(),
-                news.getPublishedAt(),
-                news.getStatus(),
-                news.getViews()
-        );
-    }
-
-    public static News toEntity(NewsDTO dto) {
-        if (dto == null) return null;
+        public static News toEntity(CreateNewsDTO dto){
 
         News news = new News();
-        news.setId(dto.getId());
+
         news.setTitle(dto.getTitle());
         news.setSubtitle(dto.getSubtitle());
         news.setSummary(dto.getSummary());
@@ -39,11 +19,9 @@ public class NewsMapper {
         news.setThumbnailUrl(dto.getThumbnailUrl());
         news.setAuthor(dto.getAuthor());
         news.setCategory(dto.getCategory());
-        news.setCreatedAt(dto.getCreatedAt());
-        news.setUpdatedAt(dto.getUpdatedAt());
-        news.setPublishedAt(dto.getPublishedAt());
         news.setStatus(dto.getStatus());
-        news.setViews(dto.getViews());
+        news.setCreatedAt(LocalDateTime.now());
+        news.setViews(0L);
 
         return news;
     }

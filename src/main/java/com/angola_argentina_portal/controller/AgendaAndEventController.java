@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.angola_argentina_portal.dto.NewsDTO;
 import com.angola_argentina_portal.dto.NewsStatus;
-import com.angola_argentina_portal.model.News;
-import com.angola_argentina_portal.service.NewService;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;

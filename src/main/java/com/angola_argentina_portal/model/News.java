@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 @Table(name = "news")
 public class News {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +36,6 @@ public class News {
     private String thumbnailUrl;
 
     private String author;
-
     private String category;
 
     private LocalDateTime createdAt;
@@ -47,10 +47,10 @@ public class News {
 
     private Long views;
 
-
     public News() {
         super();
     }
+
 
 
     public Long getId() {
@@ -164,5 +164,6 @@ public class News {
     public void setViews(Long views) {
         this.views = views;
     }
+    
 
 }
