@@ -18,42 +18,63 @@
 <h:body>
 
     <main class="home-section random-subjects-section">
+
         <div class="buttons-container">
+
             <h1 class="title">
-                Official Representatives
+                #{msg.officialRepresentatives}
             </h1>
+
             <p class="subtitle">
-                Senior diplomatic and government officials representing the Republic of Angola abroad.
+                #{msg.officialRepresentativesSubtitle}
             </p>
+
         </div>
+
         <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" var="imgName" numVisible="3" numScroll="1"
             circular="true" autoplayInterval="5000" responsive="true" styleClass="mission-carousel">
 
             <div class="member-card">
+
                 <div class="member-card-content">
+
                     <div class="member-image-container">
                         <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
-                            alt="Diplomatic Staff" />
+                            alt="#{msg.diplomaticStaff}" />
                     </div>
 
                     <div class="member-info">
+
                         <h4 class="member-name">
-                            #{imgName == 'p4.jpg' ? 'H.E. Azevedo Xavier Francisco' :
-                            imgName == 'p1.jpg' ? 'Minister Counsellor' :
-                            imgName == 'p2.jpg' ? 'First Secretary' :
-                            imgName == 'p3.jpg' ? 'Second Secretary' : 'Consular Attaché'}
+
+                            #{imgName == 'p4.jpg' ? msg.heAzevedoXavierFrancisco :
+                            imgName == 'p1.jpg' ? msg.ministerCounsellor :
+                            imgName == 'p2.jpg' ? msg.firstSecretary :
+                            imgName == 'p3.jpg' ? msg.secondSecretary :
+                            msg.consularAttache}
+
                         </h4>
+
                         <h6 class="member-role">
-                            #{imgName == 'p1.jpg' ? 'Ambassador Plenipotentiary' : 'Diplomatic Mission Member'}
+
+                            #{imgName == 'p1.jpg'
+                            ? msg.ambassadorPlenipotentiary
+                            : msg.diplomaticMissionMember}
+
                         </h6>
 
                         <p class="member-bio">
-                            Committed to fostering the strategic partnership between Angola and Argentina.
+                            #{msg.memberBioDiplomatic}
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </p:carousel>
+
     </main>
 
 

@@ -1861,18 +1861,25 @@ DASHBOARD
 
 .dashbord-layout {
     display: grid;
-    grid-template-columns: 20% auto;
+    grid-template-columns: 18% auto;
     height: 100vh;
+    overflow: hidden;
     /* border: 3px solid blue; */
 }
-
-.layout-side-bar-container {
-    border: 2px solid red;
+.dashbord-layout .logo
+{
+    height: 40px;
 }
 
 .layout-content-container {
+    padding: 0 1rem;
+    height: 100%;
     /* width: 80%; */
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
+}
+.layout-side-bar-container {
+    box-shadow: var(--shadow-1);
+    /* border: 2px solid red; */
 }
 
 .sidebar {
@@ -1881,25 +1888,70 @@ DASHBOARD
     height: 100%;
     width: 100% !important;
     overflow-y: auto;
-    /* Adiciona barra de rolagem vertical quando necessário */
     scrollbar-width: thin;
-    /* Para Firefox */
     scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
-    /* Para Firefox */
+}
+/* Side bar */
+.side-bar.ui-menu {
+  
+
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0rem;
+    /* border: 2px solid blue; */
 }
 
-.side-bar.ui-menu {
-    width: 100%;
-    border: none;
-    /* background-color: var(--gray); */
-    padding: 0rem;
-}
+
+
 
 .layout-menu-container nav {
+    height: 10%;
     display: flex;
     align-items: center;
     gap: .8rem;
     padding: .4rem;
     justify-content: right;
     border: 2px solid orange;
+
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text,
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon,
+.sidebar-overlay .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text,
+.sidebar-overlay .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
+  font-weight: 500;
+  color: var(--angola-black);
+}
+
+.side-bar.ui-menu .ui-menuitem-link {
+  font-size: 0.9rem;
+  display: flex;
+  padding: .8rem !important;
+  align-items: center;
+  gap: 1rem;
+}
+
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover{
+    background-color: var(--angola-red);
+}
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-text,
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-icon
+{
+    color: var(--white-color);
+}
+
+.side-bar.ui-menu .ui-menu-list .ui-menuitem.ui-menuitem:hover .ui-menuitem-link {
+  /* background-color: #000 !important; */
+  color: #fbc02d !important;
+  padding: 1rem 0;
+}
+
+.layout-children-container{
+    border: 2px solid red;
+    height: 90%;
+    overflow-y: auto;
 }

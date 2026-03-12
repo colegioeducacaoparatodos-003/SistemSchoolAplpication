@@ -7,7 +7,7 @@
     </f:metadata>
 
     <ui:define name="titulo">
-        News
+        #{msg.news}
     </ui:define>
 
 
@@ -20,165 +20,118 @@
         <h:body>
             <h:form id="newsForm">
 
-                <section class="news-page-container">
-                    <div class="title-container">
-                        <h1 class="title">Current affaires</h1>
-                    </div>
-                    <ul class="filters">
-                        <li class="filter active"><i class="pi pi-th-large"></i> All News</li>
-                        <li class="filter"><i class="pi pi-info-circle"></i> Consular</li>
-                        <li class="filter"><i class="pi pi-megaphone"></i> Press Releases</li>
-                        <li class="filter"><i class="pi pi-briefcase"></i> Trade &amp; Economy</li>
-                        <li class="filter"><i class="pi pi-calendar"></i> Events</li>
-                        <li class="filter"><i class="pi pi-book"></i> Education</li>
-                    </ul>
+               <section class="news-page-container">
 
-                    <ul class="cards-container">
+    <div class="title-container">
+        <h1 class="title">#{msg.currentAffaires}</h1>
+    </div>
 
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
+    <ul class="filters">
+        <li class="filter active"><i class="pi pi-th-large"></i> #{msg.allNews}</li>
+        <li class="filter"><i class="pi pi-info-circle"></i> #{msg.consular}</li>
+        <li class="filter"><i class="pi pi-megaphone"></i> #{msg.pressReleases}</li>
+        <li class="filter"><i class="pi pi-briefcase"></i> #{msg.tradeAndEconomy}</li>
+        <li class="filter"><i class="pi pi-calendar"></i> #{msg.events}</li>
+        <li class="filter"><i class="pi pi-book"></i> #{msg.education}</li>
+    </ul>
 
-                            </li>
-                        </a>
-                        
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
+    <ul class="cards-container">
 
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
+        <a href="./show-news.xhtml">
+            <li class="card">
+                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
+                <div class="content">
+                    <p class="date">04/03/2026</p>
+                    <h4 class="title">
+                        #{msg.highlightTravelRegistration}
+                        <span><i class="pi pi-arrow-right"></i></span>
+                    </h4>
+                    <p class="category">#{msg.announcements}</p>
+                </div>
+            </li>
+        </a>
 
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
+    </ul>
 
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        eRegister your travels for peace of mind
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">Announcement</p>
-                                </div>
-
-                            </li>
-                        </a>
-
-                    </ul>
-                </section>
+</section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>

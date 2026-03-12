@@ -38,7 +38,7 @@ public class NewsController implements Serializable {
             e.printStackTrace();
         }
 
-        return "/news/news.xhtml?faces-redirect=true";
+        return "/management/news.xhtml?faces-redirect=true";
     }
 
         public void save(){
