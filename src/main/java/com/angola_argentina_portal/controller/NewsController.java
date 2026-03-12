@@ -33,31 +33,21 @@ public class NewsController implements Serializable {
     @Inject
     private NewsLazyModel lazyModel;
 
+    /*
+     * ---------------- LOAD PAGE ----------------
+     */
     public String loadNewsPage() {
         try {
-            lazyModel = new NewsLazyModel(newsService); // instancia lazy
+
+            lazyModel = new NewsLazyModel(newsService);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias", e.getMessage()));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias",
+                            e.getMessage()));
             e.printStackTrace();
         }
         return "/management/news.xhtml?faces-redirect=true";
     }
-    /*
-     * ---------------- LOAD PAGE ----------------
-     * public String loadNewsPage() {
-     * try {
-     * 
-     * lazyModel = new NewsLazyModel(newsService);
-     * } catch (Exception e) {
-     * FacesContext.getCurrentInstance().addMessage(null,
-     * new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias",
-     * e.getMessage()));
-     * e.printStackTrace();
-     * }
-     * return "/management/news.xhtml?faces-redirect=true";
-     * }
-     */
 
     public NewsLazyModel getLazyModel() {
         if (lazyModel == null) {
@@ -89,27 +79,9 @@ public class NewsController implements Serializable {
         }
     }
 
-    public void add() {
-        try {
-            newsService.save(new CreateNewsDTO(
-                    news.getTitle(),
-                    news.getSubtitle(),
-                    news.getSummary(),
-                    news.getContent(),
-                    news.getAuthor(),
-                    news.getCategory(),
-                    news.getStatus(),
-                    news.getImageUrl(),
-                    news.getThumbnailUrl()));
-
-            lazyModel = new NewsLazyModel(newsService);
-            news = new News();
-
-            addMessage(FacesMessage.SEVERITY_INFO, "Notícia", "Notícia criada com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
-            addMessage(FacesMessage.SEVERITY_ERROR, "Notícia", e.getMessage());
-        }
+    public void save() {
+        newsService.save(news);
+        news = new News();
     }
 
     public void saveUpdate() {

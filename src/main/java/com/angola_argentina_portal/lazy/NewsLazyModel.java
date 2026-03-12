@@ -2,6 +2,10 @@ package com.angola_argentina_portal.lazy;
 
 import com.angola_argentina_portal.dto.NewsTableDTO;
 import com.angola_argentina_portal.service.NewsService;
+
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
@@ -11,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class NewsLazyModel extends LazyDataModel<NewsTableDTO> {
 

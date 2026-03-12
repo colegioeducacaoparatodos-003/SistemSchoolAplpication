@@ -30,10 +30,9 @@ public class NewsService {
         this.repository = newsRepository;
     }
 
-    // Salvar notícia
-    public void save(CreateNewsDTO dto) {
-        News news = NewsMapper.toEntity(dto);
-        repository.save(news);
+
+    public News save(News news) {
+        return repository.save(news);
     }
 
     // Atualizar notícia
