@@ -9,6 +9,7 @@ public class NewsTableDTO {
     private String subtitle;
     private String summary;
     private String author;
+    private String category;
     private LocalDateTime publishedAt;
     private String status;
     private Long views;
@@ -16,22 +17,18 @@ public class NewsTableDTO {
     public NewsTableDTO(Long id,
             String title,
             String subtitle,
-            String summary,
             String author,
-            LocalDateTime publishedAt,
-            String status,
-            Long views) {
-
+            String category,
+              Enum status,
+            LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
-        this.summary = summary;
         this.author = author;
-        this.publishedAt = publishedAt;
-        this.status = status;
-        this.views = views;
+        this.category = category;
+         this.status = status.toString();
+        this.publishedAt = createdAt; // ou crie um campo createdAt se preferir
     }
-
 
     public Long getId() {
         return this.id;
@@ -71,6 +68,13 @@ public class NewsTableDTO {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public LocalDateTime getPublishedAt() {
