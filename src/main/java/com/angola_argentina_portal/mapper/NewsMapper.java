@@ -2,7 +2,7 @@ package com.angola_argentina_portal.mapper;
 
 import java.time.LocalDateTime;
 
-import com.angola_argentina_portal.dto.NewsDTO.CreateNewsDTO;
+import com.angola_argentina_portal.dto.CreateNewsDTO;
 import com.angola_argentina_portal.model.News;
 
 public class NewsMapper {

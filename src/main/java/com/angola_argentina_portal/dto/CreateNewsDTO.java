@@ -2,8 +2,9 @@ package com.angola_argentina_portal.dto;
 
 import java.time.LocalDateTime;
 
-public class NewsDTO {
+public class CreateNewsDTO {
 
+    
         private Long id;
         private String title;
         private String subtitle;
@@ -17,7 +18,7 @@ public class NewsDTO {
         private LocalDateTime publishedAt;
         private Long views;
 
-        public NewsDTO() {
+        public CreateNewsDTO() {
             super();
         }
 
@@ -117,7 +118,5 @@ public class NewsDTO {
         public void setViews(Long views) {
             this.views = views;
         }
-
-    
 
 }

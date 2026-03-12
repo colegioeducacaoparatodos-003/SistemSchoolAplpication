@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.angola_argentina_portal.dto.NewsDTO.CreateNewsDTO;
-import com.angola_argentina_portal.dto.NewsDTO.ResponseNewsDTO;
-import com.angola_argentina_portal.dto.NewsDTO.UpdateNewsDTO;
+import com.angola_argentina_portal.dto.CreateNewsDTO;
+import com.angola_argentina_portal.dto.ResponseNewsDTO;
+import com.angola_argentina_portal.dto.UpdateNewsDTO;
 import com.angola_argentina_portal.mapper.NewsMapper;
 import com.angola_argentina_portal.model.News;
 import com.angola_argentina_portal.repository.NewsRepository;
@@ -16,8 +16,12 @@ import com.angola_argentina_portal.repository.NewsRepository;
 @Service
 public class NewsService {
 
-        @Autowired
+
     private NewsRepository repository;
+
+    public NewsService(NewsRepository newsRepository){
+        this.repository = newsRepository;
+    }
 
 
     public void save(CreateNewsDTO dto){
@@ -53,14 +57,14 @@ public class NewsService {
     }
 
 
-   /*public List<ResponseNewsDTO> getAllNews(){
+   public List<ResponseNewsDTO> getAllNews(){
 
         List<Object[]> results = repository.findNewsDTO();
 
         return results.stream()
                 .map(obj -> {
 
-                    NewsResponseDTO dto = new NewsResponseDTO();
+                    ResponseNewsDTO dto = new ResponseNewsDTO();
 
                     dto.setId(((Number)obj[0]).longValue());
                     dto.setTitle((String) obj[1]);
@@ -73,6 +77,6 @@ public class NewsService {
                     return dto;
 
                 }).toList();
-    }*/
+    }
 
 }
