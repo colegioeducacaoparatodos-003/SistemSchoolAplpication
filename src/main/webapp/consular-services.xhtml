@@ -21,77 +21,73 @@
             <h:form id="newsForm">
 
                 <section class="consular-services-page-container">
-                    <!-- <div class="title-container">
-                        <h1 class="title">Consular Services</h1>
-                    </div> -->
-                    <!-- <p:breadCrumb>
-                        <p:menuitem outcome="index" value="Home" />
-                        <p:menuitem outcome="consular-services" value="Cosular Services" />
 
-                    </p:breadCrumb> -->
                     <div class="content-container">
+
                         <h:panelGroup class="side-bar">
-                            <h2>Consular Services</h2>
+                            <h2>#{msg.consularServices}</h2>
 
                             <div class="check-boxes-container">
 
-                                <p:selectBooleanCheckbox itemLabel="Passport Services" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.passportServices}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Visa Applications" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.visaApplications}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Legalization &amp; Attestation" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.legalizationAttestation}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Emergency Travel Documents" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.emergencyTravelDocuments}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Birth &amp; Marriage Registration" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.birthMarriageRegistration}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Citizenship &amp; Nationality" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.citizenshipNationality}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Notary Services" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.notaryServices}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Police Clearance Certificates" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.policeClearanceCertificates}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Repatriation Assistance" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.repatriationAssistance}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Overseas Voting Registration" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.overseasVotingRegistration}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Identification Cards (ID)" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.identificationCardsID}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Social Security &amp; Pensions" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.socialSecurityPensions}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Death Registration &amp; Transport" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.deathRegistrationTransport}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Affidavits &amp; Declarations" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.affidavitsDeclarations}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Change of Name/Status" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.changeOfNameStatus}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Translation Services" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.translationServices}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Child Adoption Services" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.childAdoptionServices}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="Power of Attorney" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.powerOfAttorney}" />
                                 <p:divider />
 
-                                <p:selectBooleanCheckbox itemLabel="General Inquiries" />
+                                <p:selectBooleanCheckbox itemLabel="#{msg.generalInquiries}" />
+
                             </div>
                         </h:panelGroup>
+
                         <h:panelGroup class="body">
                             <div class="card">
                                 <div class="bookmark-container">
@@ -99,25 +95,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -125,25 +121,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -151,25 +147,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -177,25 +173,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -203,25 +199,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -229,25 +225,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -255,25 +251,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -281,25 +277,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -307,25 +303,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -333,25 +329,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -359,25 +355,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -385,25 +381,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -411,25 +407,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -437,25 +433,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -463,25 +459,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -489,25 +485,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -515,25 +511,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -541,25 +537,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -567,25 +563,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -593,25 +589,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -619,25 +615,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -645,25 +641,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -671,25 +667,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -697,25 +693,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -723,25 +719,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -749,25 +745,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -775,25 +771,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -801,25 +797,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -827,25 +823,25 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                             <div class="card">
                                 <div class="bookmark-container">
@@ -853,28 +849,30 @@
                                 </div>
 
                                 <h4 class="service-title">
-                                    Apply for Amending Location of International Engineering Consulting Office
+                                    #{msg.applyAmendingLocation}
                                 </h4>
 
                                 <div class="info-row">
                                     <i class="pi pi-building"></i>
-                                    <span class="label">Service Provider:</span>
-                                    <span class="value">Ministry of Municipality</span>
+                                    <span class="label">#{msg.serviceProviderLabel}</span>
+                                    <span class="value">#{msg.serviceProviderValue}</span>
                                 </div>
 
                                 <div class="info-row">
                                     <i class="pi pi-file-edit"></i>
-                                    <span class="label">Service Mode:</span>
-                                    <span class="value">Offline</span>
+                                    <span class="label">#{msg.serviceModeLabel}</span>
+                                    <span class="value">#{msg.serviceModeValue}</span>
                                 </div>
 
                                 <p class="description">
-                                    The consulting offices of companies registered in the international engineering
-                                    consulting offices register may submit a request to the Engineers and Engineeri...
+                                    #{msg.serviceDescription}
                                 </p>
+
                             </div>
                         </h:panelGroup>
+
                     </div>
+
                 </section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
