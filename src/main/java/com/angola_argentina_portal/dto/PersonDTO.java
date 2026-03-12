@@ -5,14 +5,21 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class PersonDTO {
+
     // DTO para criação
     public static class CreatePersonDTO {
         private String firstName;
         private String middleName;
         private String lastName;
         private String phone;
+        private String address;
+        private String city;
+        private Double latitude;
+        private Double longitude;
+        private Integer fkUser;
         private String email;
-
+        private String documentNumber;
+        private String documentType;
         private boolean active = true;
         private String imagePerson;
 
@@ -40,7 +47,7 @@ public class PersonDTO {
         public void setLastName(String lastName) {
             this.lastName = lastName;
         }
-        
+
         public String getPhone() {
             return phone;
         }
@@ -49,12 +56,68 @@ public class PersonDTO {
             this.phone = phone;
         }
 
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public Double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(Double latitude) {
+            this.latitude = latitude;
+        }
+
+        public Double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(Double longitude) {
+            this.longitude = longitude;
+        }
+
+        public Integer getFkUser() {
+            return fkUser;
+        }
+
+        public void setFkUser(Integer fkUser) {
+            this.fkUser = fkUser;
+        }
+
         public String getEmail() {
             return email;
-        }  
+        }
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getDocumentNumber() {
+            return documentNumber;
+        }
+
+        public void setDocumentNumber(String documentNumber) {
+            this.documentNumber = documentNumber;
+        }
+
+        public String getDocumentType() {
+            return documentType;
+        }
+
+        public void setDocumentType(String documentType) {
+            this.documentType = documentType;
         }
 
         public boolean isActive() {
@@ -217,14 +280,23 @@ public class PersonDTO {
 
     // DTO para resposta
     public static class PersonResponseDTO {
-        private int pkPerson;
+        private Integer pkPerson;
         private String firstName;
         private String middleName;
         private String lastName;
         private String phone;
+        private String address;
+        private String city;
+        private Double latitude;
+        private Double longitude;
+        private int fkUser;
         private String imagePerson;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
         private String email;
-        private boolean active = true;
+        private String documentNumber;
+        private String documentType;
+        private boolean active;
         private String fullName;
         private String initials;
 
@@ -232,11 +304,12 @@ public class PersonDTO {
         }
 
         public PersonResponseDTO(Integer pkPerson, String firstName, String middleName, String lastName,
-             String imagePerson) {
+                String documentNumber, String imagePerson) {
             this.pkPerson = pkPerson;
             this.firstName = firstName;
             this.middleName = middleName;
             this.lastName = lastName;
+            this.documentNumber = documentNumber;
             this.imagePerson = imagePerson;
         }
 
@@ -281,6 +354,46 @@ public class PersonDTO {
             this.phone = phone;
         }
 
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public Double getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(Double latitude) {
+            this.latitude = latitude;
+        }
+
+        public Double getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(Double longitude) {
+            this.longitude = longitude;
+        }
+
+        public int getFkUser() {
+            return fkUser;
+        }
+
+        public void setFkUser(int fkUser) {
+            this.fkUser = fkUser;
+        }
+
         public String getImagePerson() {
             return imagePerson;
         }
@@ -289,12 +402,44 @@ public class PersonDTO {
             this.imagePerson = imagePerson;
         }
 
+        public LocalDateTime getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public LocalDateTime getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setUpdatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+
         public String getEmail() {
             return email;
         }
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getDocumentNumber() {
+            return documentNumber;
+        }
+
+        public void setDocumentNumber(String documentNumber) {
+            this.documentNumber = documentNumber;
+        }
+
+        public String getDocumentType() {
+            return documentType;
+        }
+
+        public void setDocumentType(String documentType) {
+            this.documentType = documentType;
         }
 
         public boolean isActive() {
@@ -333,7 +478,8 @@ public class PersonDTO {
         private String lastName;
         private String phone;
         private String email;
-
+        private String city;
+        private String documentNumber;
         private Boolean active;
         private Integer fkUser;
         private Date createdAfter;
@@ -372,6 +518,22 @@ public class PersonDTO {
             this.email = email;
         }
 
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getDocumentNumber() {
+            return documentNumber;
+        }
+
+        public void setDocumentNumber(String documentNumber) {
+            this.documentNumber = documentNumber;
+        }
+
         public Boolean getActive() {
             return active;
         }
@@ -404,5 +566,4 @@ public class PersonDTO {
             this.createdBefore = createdBefore;
         }
     }
-
 }
