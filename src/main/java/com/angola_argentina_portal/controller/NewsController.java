@@ -41,7 +41,7 @@ public class NewsController implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias", e.getMessage()));
             e.printStackTrace();
         }
-        return "/services/news/news.xhtml?faces-redirect=true";
+        return "/management/news.xhtml?faces-redirect=true";
     }
 
     public NewsLazyModel getLazyModel() {
