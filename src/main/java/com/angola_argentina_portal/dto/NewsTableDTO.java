@@ -19,7 +19,7 @@ public class NewsTableDTO {
             String subtitle,
             String author,
             String category,
-              Enum status,
+            Enum status,
             LocalDateTime createdAt) {
         this.id = id;
         this.title = title;

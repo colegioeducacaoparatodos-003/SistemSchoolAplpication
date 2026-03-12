@@ -9,9 +9,14 @@ import org.springframework.data.domain.Sort;
 import com.angola_argentina_portal.dto.NewsTableDTO;
 import com.angola_argentina_portal.service.NewsService;
 
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
+
 import java.util.List;
 import java.util.Map;
 
+@Named
+@ViewScoped
 public class NewsLazyModel extends LazyDataModel<NewsTableDTO> {
 
     private final NewsService service;

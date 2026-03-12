@@ -13,6 +13,7 @@ import com.angola_argentina_portal.dto.NewsTableDTO;
 import com.angola_argentina_portal.model.News;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
+
     // -------------------------------
     // Método para Lazy Loading sem filtros
     // -------------------------------
@@ -30,4 +31,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             FROM News n
             """)
     List<Object[]> findNewsDTO();
+
+    
 }
