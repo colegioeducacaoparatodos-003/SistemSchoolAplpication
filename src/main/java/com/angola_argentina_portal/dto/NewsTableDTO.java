@@ -8,18 +8,30 @@ public class NewsTableDTO {
     private String title;
     private String subtitle;
     private String summary;
-    private String content;
-    private String imageUrl;
-    private String thumbnailUrl;
     private String author;
-    private String category;
-    private NewsStatus status;
     private LocalDateTime publishedAt;
+    private String status;
     private Long views;
 
-    public NewsTableDTO() {
-        super();
+    public NewsTableDTO(Long id,
+            String title,
+            String subtitle,
+            String summary,
+            String author,
+            LocalDateTime publishedAt,
+            String status,
+            Long views) {
+
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.summary = summary;
+        this.author = author;
+        this.publishedAt = publishedAt;
+        this.status = status;
+        this.views = views;
     }
+
 
     public Long getId() {
         return this.id;
@@ -53,30 +65,6 @@ public class NewsTableDTO {
         this.summary = summary;
     }
 
-    public String getContent() {
-        return this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getThumbnailUrl() {
-        return this.thumbnailUrl;
-    }
-
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
-    }
-
     public String getAuthor() {
         return this.author;
     }
@@ -85,28 +73,20 @@ public class NewsTableDTO {
         this.author = author;
     }
 
-    public String getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public NewsStatus getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(NewsStatus status) {
-        this.status = status;
-    }
-
     public LocalDateTime getPublishedAt() {
         return this.publishedAt;
     }
 
     public void setPublishedAt(LocalDateTime publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getViews() {
