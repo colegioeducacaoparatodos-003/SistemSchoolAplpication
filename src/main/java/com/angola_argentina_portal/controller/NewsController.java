@@ -101,6 +101,7 @@ public class NewsController implements Serializable {
             e.printStackTrace();
             addMessage(FacesMessage.SEVERITY_ERROR, "Notícia", e.getMessage());
         }
+    }
 
     public void save() {
         newsService.save(news);
