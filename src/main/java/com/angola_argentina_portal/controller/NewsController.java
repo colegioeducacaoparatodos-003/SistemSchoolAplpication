@@ -24,6 +24,7 @@ public class NewsController implements Serializable {
 
     private News news = new News();
     private UpdateNewsDTO editDto = new UpdateNewsDTO();
+    private ResponseNewsDTO responseNewsDTO = new ResponseNewsDTO();
     private Long selectedId;
 
     @Inject
@@ -32,18 +33,20 @@ public class NewsController implements Serializable {
     @Inject
     private NewsLazyModel lazyModel;
 
-    /* ---------------- LOAD PAGE ---------------- */
+    /*
+     * ---------------- LOAD PAGE ----------------
+     */
     public String loadNewsPage() {
         try {
+
             lazyModel = new NewsLazyModel(newsService);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias", e.getMessage()));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias",
+                            e.getMessage()));
             e.printStackTrace();
         }
         return "/management/news.xhtml?faces-redirect=true";
-
-        // return "/services/news/news.xhtml?faces-redirect=true";
     }
 
     public NewsLazyModel getLazyModel() {
@@ -99,6 +102,9 @@ public class NewsController implements Serializable {
             addMessage(FacesMessage.SEVERITY_ERROR, "Notícia", e.getMessage());
         }
 
+    public void save() {
+        newsService.save(news);
+        news = new News();
     }
 
     public void saveUpdate() {
