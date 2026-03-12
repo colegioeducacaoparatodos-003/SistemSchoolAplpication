@@ -52,74 +52,74 @@
                 </h:form>
             </header>
             <h:form id="signupForm">
+
                 <img class="insignia" src="../../resources/imgs/insignia.png" alt="" />
 
-                <h2>Create account</h2>
+                <h2>#{msg.createAccount}</h2>
 
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="First Name" for="fname" />
+                        <p:outputLabel styleClass="block" value="#{msg.firstName}" for="fname" />
                         <p:inputText id="fname" required="true" />
                     </div>
+
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="Middle Name" for="mname" />
+                        <p:outputLabel styleClass="block" value="#{msg.middleName}" for="mname" />
                         <p:inputText id="mname" />
                     </div>
                 </div>
 
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="Last Name" for="lname" />
+                        <p:outputLabel styleClass="block" value="#{msg.lastName}" for="lname" />
                         <p:inputText id="lname" required="true" />
                     </div>
+
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="Email" for="email" />
+                        <p:outputLabel styleClass="block" value="#{msg.email}" for="email" />
                         <p:inputText id="email" required="true" />
                     </div>
                 </div>
 
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="Password" for="pwd1" />
+                        <p:outputLabel styleClass="block" value="#{msg.password}" for="pwd1" />
                         <p:password id="pwd1" toggleMask="true" match="pwd2" required="true" />
                     </div>
+
                     <div class="dual-form-group">
-                        <p:outputLabel styleClass="block" value="Confirm Password" for="pwd2" />
+                        <p:outputLabel styleClass="block" value="#{msg.confirmPassword}" for="pwd2" />
                         <p:password id="pwd2" toggleMask="true" required="true" />
                     </div>
                 </div>
 
-
                 <div class="dual-form-group upload-group">
-                    <p:outputLabel value="Image" styleClass="upload-label" />
+                    <p:outputLabel value="#{msg.image}" styleClass="upload-label" />
+
                     <span class="ui-input-icon-left transparentUploadFile upload-container">
                         <p:fileUpload id="fileUpload" mode="simple" skinSimple="true"
-                            allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" label="Upload an image"
+                            allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" label="#{msg.uploadImage}"
                             styleClass="upload-button" />
                     </span>
                 </div>
 
                 <div class="login-button-container">
-                    <p:commandButton styleClass="btn-primary login-button" value="Login" ajax="false" />
+                    <p:commandButton styleClass="btn-primary login-button" value="#{msg.createAccount}" ajax="false" />
                 </div>
 
-                 <div class="login-button-container links">
-                    <h:link class="link" outcome="login" value="Go back to Login Page" />
+                <div class="login-button-container links">
+                    <h:link class="link" outcome="login" value="#{msg.goBackToLogin}" />
                 </div>
-                  
+
             </h:form>
             <div class="auth-footer">
 
                 <p class="security-notice">
-                    This system is the official digital platform of the Embassy of the Republic of Angola.
-                    Access is restricted to authorized users only. Unauthorized access or misuse of this
-                    system may result in disciplinary action and legal prosecution. All activities may be
-                    monitored and recorded.
+                    #{msg.securityNoticeText}
                 </p>
 
                 <p class="copyright">
-                    © <span id="currentYear"></span> Government of the Republic of Angola – Embassy Portal.
-                    All rights reserved.
+                    © <span id="currentYear"></span> #{msg.embassyPortalCopyright}
                 </p>
 
             </div>
