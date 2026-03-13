@@ -53,10 +53,18 @@
                         update="@all" process="@this" />
                 </p:menuButton>
                 <!-- AVATAR -->
-                <p:avatar label="P" styleClass="mr-2" size="large" shape="circle" />
+                <p:avatar id="menuBarAvatar"  label="PC" styleClass="avatar" size="large" shape="circle" />
 
 
             </nav>
+
+
+        <p:overlayPanel for="menuBarAvatar" style="width:350px">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </p:overlayPanel>
         </h:form>
     </h:body>
 </f:view>

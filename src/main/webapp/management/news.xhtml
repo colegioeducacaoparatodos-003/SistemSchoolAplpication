@@ -52,18 +52,23 @@
                     <h:outputText value="#{item.category}" />
                 </p:column>
 
+                <p:column headerText="Publishe">
+                    <!-- <h:outputText value="#{item.publishedAt}">
+                        <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText> -->
+                </p:column>
                 <p:column headerText="Published At">
                     <h:outputText value="#{item.publishedAt}">
                         <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
                     </h:outputText>
                 </p:column>
 
-                <!-- <p:column headerText="Preview" exportable="false">
-        <p:graphicImage value="#{item.image_url}" 
-                        rendered="#{not empty item.image_url}" 
+                <p:column headerText="Preview" exportable="false">
+        <p:graphicImage value="/news_images/#{item.imageUrl}" 
+                        rendered="#{not empty item.imageUrl}" 
                         style="width: 50px; height: auto; border-radius: 4px;"/>
-        <h:outputText value="No Image" rendered="#{empty item.image_url}" style="color: #ccc; font-style: italic" />
-    </p:column> -->
+        <h:outputText value="No Image" rendered="#{empty item.imageUrl}" style="color: #ccc; font-style: italic" />
+    </p:column>
 
                 <p:column headerText="Actions">
                     <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
@@ -77,6 +82,6 @@
         </h:form>
         <ui:include src="./news/news-create.xhtml" />
 
-       
+
     </ui:define>
 </ui:composition>
