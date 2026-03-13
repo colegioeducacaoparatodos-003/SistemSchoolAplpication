@@ -79,30 +79,6 @@ public class NewsController implements Serializable {
         }
     }
 
-    public void add() {
-        try {
-            newsService.save(new CreateNewsDTO(
-                    news.getTitle(),
-                    news.getSubtitle(),
-                    news.getSummary(),
-                    news.getContent(),
-                    news.getAuthor(),
-                    news.getCategory(),
-                    news.getStatus(),
-                    news.getImageUrl(),
-                    news.getThumbnailUrl()
-            ));
-
-            lazyModel = new NewsLazyModel(newsService);
-            news = new News();
-
-            addMessage(FacesMessage.SEVERITY_INFO, "Notícia", "Notícia criada com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
-            addMessage(FacesMessage.SEVERITY_ERROR, "Notícia", e.getMessage());
-        }
-    }
-
     public void save() {
         newsService.save(news);
         news = new News();
