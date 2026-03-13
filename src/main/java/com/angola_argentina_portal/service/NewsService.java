@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,8 @@ public class NewsService {
             news.setImageUrlUtil(null);
         }
 
+        news.setCreatedAt(LocalDateTime.now());
+        news.setPublishedAt(LocalDateTime.now());
         news.setImageUrl(newNameFile);
         return repository.save(news);
     }
