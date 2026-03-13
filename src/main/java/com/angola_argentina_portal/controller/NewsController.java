@@ -6,8 +6,11 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+
+import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.dto.CreateNewsDTO;
 import com.angola_argentina_portal.dto.UpdateNewsDTO;
@@ -30,7 +33,7 @@ public class NewsController implements Serializable {
     @Inject
     private NewsService newsService;
 
-    @Inject
+    // @Inject
     private NewsLazyModel lazyModel;
 
     /*
@@ -79,9 +82,10 @@ public class NewsController implements Serializable {
         }
     }
 
-    public void save() {
+    public void save() throws IOException {
         newsService.save(news);
         news = new News();
+        lazyModel = new NewsLazyModel(newsService);
     }
 
     public void saveUpdate() {
@@ -152,4 +156,5 @@ public class NewsController implements Serializable {
     public void setNewsService(NewsService newsService) {
         this.newsService = newsService;
     }
+
 }
