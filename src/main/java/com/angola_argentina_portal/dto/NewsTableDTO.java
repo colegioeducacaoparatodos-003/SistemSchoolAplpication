@@ -10,9 +10,40 @@ public class NewsTableDTO {
     private String summary;
     private String author;
     private String category;
+    private LocalDateTime createdAt;
     private LocalDateTime publishedAt;
     private String status;
     private Long views;
+
+    public NewsTableDTO(Long id, Long views, String title, String subtitle,
+            String summary, String author, String category,
+            LocalDateTime createdAt, LocalDateTime publishedAt,
+            String status) {
+
+        this.id = id;
+        this.views = views;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.summary = summary;
+        this.author = author;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.publishedAt = publishedAt;
+        this.status = status;
+    }
+
+    public NewsTableDTO(Long id, String title, String subtitle, String summary, String author, String category,
+            LocalDateTime publishedAt, String status, Long views) {
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.summary = summary;
+        this.author = author;
+        this.category = category;
+        this.publishedAt = publishedAt;
+        this.status = status;
+        this.views = views;
+    }
 
     public NewsTableDTO(Long id,
             String title,
@@ -26,7 +57,7 @@ public class NewsTableDTO {
         this.subtitle = subtitle;
         this.author = author;
         this.category = category;
-         this.status = status.toString();
+        this.status = status.toString();
         this.publishedAt = createdAt; // ou crie um campo createdAt se preferir
     }
 
@@ -69,6 +100,7 @@ public class NewsTableDTO {
     public void setAuthor(String author) {
         this.author = author;
     }
+
     public String getCategory() {
         return this.category;
     }
@@ -99,6 +131,14 @@ public class NewsTableDTO {
 
     public void setViews(Long views) {
         this.views = views;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
 }

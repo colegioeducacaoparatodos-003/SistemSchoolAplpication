@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import com.angola_argentina_portal.dto.CreateNewsDTO;
 import com.angola_argentina_portal.dto.NewsTableDTO;
 import com.angola_argentina_portal.dto.ResponseNewsDTO;
 import com.angola_argentina_portal.dto.UpdateNewsDTO;
+import com.angola_argentina_portal.interfaces.NewsTableProjetion;
+import com.angola_argentina_portal.io.Assistant;
+import com.angola_argentina_portal.io.FileImage;
 import com.angola_argentina_portal.mapper.NewsMapper;
 import com.angola_argentina_portal.model.News;
 import com.angola_argentina_portal.repository.NewsRepository;
@@ -30,8 +34,20 @@ public class NewsService {
         this.repository = newsRepository;
     }
 
+    public News save(News news) throws IOException {
 
-    public News save(News news) {
+        FileImage acessImage = new FileImage();
+        Assistant assistant = new Assistant();
+        String newNameFile = "default.png"; // Default image nam
+
+        if (news.getImageUrlUtil() != null) {
+            newNameFile = "0" + assistant.novoNome(news.getImageUrlUtil().getContentType());
+            acessImage.salvarArquivo(news.getImageUrlUtil(), "news_images", newNameFile);
+        } else {
+            news.setImageUrlUtil(null);
+        }
+
+        news.setImageUrl(newNameFile);
         return repository.save(news);
     }
 
@@ -81,14 +97,22 @@ public class NewsService {
     // MÉTODOS PARA LAZY LOADING
     // ---------------------
 
-    public Page<NewsTableDTO> findLazy(int page, int size, Sort sort) {
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return repository.findAllForTable(pageable); // supondo que seu repository tem esse método
-    }
-
     public Page<NewsTableDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
+
         Pageable pageable = PageRequest.of(page, size, sort);
-        // Aqui você poderia adicionar lógica de filtros usando Specification ou QueryDSL
-        return repository.findAllForTable(pageable);
+
+        Page<NewsTableProjetion> projections = repository.findAllForTable(pageable);
+
+        return projections.map(p -> new NewsTableDTO(
+                p.getId(),
+                p.getViews(),
+                p.getTitle(),
+                p.getSubtitle(),
+                p.getSummary(),
+                p.getAuthor(),
+                p.getCategory(),
+                p.getCreatedAt(),
+                p.getPublishedAt(),
+                p.getStatus()));
     }
 }
