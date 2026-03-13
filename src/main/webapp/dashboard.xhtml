@@ -3,9 +3,9 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions"
     id="maintenanceKpiSidebar">
 
-  <f:metadata>
-    <!-- <f:event type="preRenderView" listener="#{userController.ensureLoggedIn}" /> -->
-</f:metadata>
+    <f:metadata>
+        <!-- <f:event type="preRenderView" listener="#{userController.ensureLoggedIn}" /> -->
+    </f:metadata>
 
 
     <ui:define name="titulo">
@@ -15,6 +15,31 @@
     <ui:define name="content">
         <h:form id="dashboardForm">
             <h1>Angola Embassy</h1>
+
+
+            <p:commandButton value="Create News" type="button" icon="pi pi-external-link"
+                onclick="PF('createDialog').show()" />
+
+            <p:dialog styleClass="large-dialog" widgetVar="createDialog" minHeight="40" width="350"
+                showEffect="fade" modal="true" closeOnEscape="true">
+                <p:scrollPanel mode="native" style="width: 100%;">
+
+                    <h:outputText class="label-for-input" value="Title" />
+                   
+                        <p:inputText  />
+
+                    <h:outputText class="label-for-input" value="Content" />
+                    <p:textEditor widgetVar="editor1" secure='false' value="#{editorView.text}" height="200px" />
+                    <p class="m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt
+                        ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </p:scrollPanel>
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

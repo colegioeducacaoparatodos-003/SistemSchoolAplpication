@@ -1955,3 +1955,23 @@ DASHBOARD
     height: 90%;
     overflow-y: auto;
 }
+
+/*
+===============================
+DIALOGS
+===============================
+*/
+
+.large-dialog.ui-dialog{
+    width: 40% !important;
+    height: 80vh;
+}
+.large-dialog .ui-scrollpanel{
+   border: none;
+   padding: 0;
+}
+
+.label-for-input {
+    display: block;
+  margin-top: .4rem;
+}
