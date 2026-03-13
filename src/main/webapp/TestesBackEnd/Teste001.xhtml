@@ -1,34 +1,51 @@
-<ui:composition template="./components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions"
-    id="maintenanceKpiSidebar">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <f:metadata>
-    <!-- <f:event type="preRenderView" listener="#{userController.ensureLoggedIn}" /> -->
-</f:metadata>
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <ui:insert name="titulo">Angola Embassy</ui:insert>
+    </title>
+
+</h:head>
+
+<h:body>
+
+    <script>
+        //<![CDATA[
+        function start() {
+            PF('statusDialog').show();
+        }
+
+        function stop() {
+            PF('statusDialog').hide();
+        }
+        //]]>
+    </script>
+
+    <div class="card">
 
 
-    <ui:define name="titulo">
-        Dashboard
-    </ui:define>
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false"
+            resizable="false">
+            <i class="pi pi-spinner pi-spin" style="font-size:3rem"></i>
+        </p:dialog>
 
-    <ui:define name="content">
-        <h:form id="dashboardForm">
-            <h1>Angola Embassy</h1>
+        <h:form>
+            <p:commandButton value="Download" ajax="true" onclick="PrimeFaces.monitorDownload(start, stop);"
+                icon="pi pi-arrow-down" styleClass="mr-2">
+                <p:fileDownload value="#{fileController.downloadFile}" />
+            </p:commandButton>
+
+            <p:commandButton value="Download" icon="pi pi-arrow-down" styleClass="ui-button-outlined">
+                <p:fileDownload value="#{fileController.downloadFile}" />
+            </p:commandButton>
         </h:form>
-    </ui:define>
-</ui:composition>
+    </div>
 
-<p:dataTable value="#{newsController.lazyModel}" var="news"
-             lazy="true" paginator="true" rows="10"
-             rowKey="#{news.id}">
-    <p:column headerText="Título">
-        #{news.title}
-    </p:column>
-    <p:column headerText="Autor">
-        #{news.author}
-    </p:column>
-    <p:column headerText="Data">
-        #{news.publishedAt}
-    </p:column>
-</p:dataTable>
+
+</h:body>
+
+</html>
