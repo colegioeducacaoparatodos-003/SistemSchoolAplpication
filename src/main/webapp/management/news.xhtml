@@ -22,7 +22,7 @@
                 font-weight: 400;
             }
         </style>
-        <h:form id="dashboardTable"  >
+        <h:form id="dashboardTable">
             <h:panelGroup class="header">
                 <h1 class="title">News</h1>
 
@@ -52,18 +52,23 @@
                     <h:outputText value="#{item.category}" />
                 </p:column>
 
+                <p:column headerText="Publishe">
+                    <!-- <h:outputText value="#{item.publishedAt}">
+                        <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText> -->
+                </p:column>
                 <p:column headerText="Published At">
                     <h:outputText value="#{item.publishedAt}">
                         <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
                     </h:outputText>
                 </p:column>
 
-                <!-- <p:column headerText="Preview" exportable="false">
-        <p:graphicImage value="#{item.imageUrlUtil}" 
-                        rendered="#{not empty item.imageUrlUtil}" 
-                        style="width: 50px; height: auto; border-radius: 4px;"/>
-        <h:outputText value="No Image" rendered="#{empty item.imageUrlUtil}" style="color: #ccc; font-style: italic" />
-    </p:column> -->
+                <p:column headerText="Preview" exportable="false">
+                    <p:graphicImage value="/news_images/#{item.imageUrl}" rendered="#{not empty item.imageUrl}"
+                        style="width: 50px; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageUrl}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column>
 
                 <p:column headerText="Actions">
                     <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
@@ -75,8 +80,8 @@
 
             </p:dataTable>
         </h:form>
+        <ui:include src="./news/news-create.xhtml" />
 
-        <ui:include src="news-create.xhtml" />
-       
+
     </ui:define>
 </ui:composition>
