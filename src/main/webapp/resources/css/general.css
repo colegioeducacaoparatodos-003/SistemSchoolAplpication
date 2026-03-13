@@ -1951,8 +1951,9 @@ DASHBOARD
 }
 
 .layout-children-container{
+    margin-top: 1rem;
     border: 2px solid red;
-    height: 90%;
+    height: 89%;
     overflow-y: auto;
 }
 

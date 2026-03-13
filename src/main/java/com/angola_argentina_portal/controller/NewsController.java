@@ -30,7 +30,7 @@ public class NewsController implements Serializable {
     @Inject
     private NewsService newsService;
 
-    @Inject
+    // @Inject
     private NewsLazyModel lazyModel;
 
     /*
