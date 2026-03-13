@@ -14,11 +14,12 @@ public class NewsTableDTO {
     private LocalDateTime publishedAt;
     private String status;
     private Long views;
+    private String imageUrl;
 
     public NewsTableDTO(Long id, Long views, String title, String subtitle,
             String summary, String author, String category,
             LocalDateTime createdAt, LocalDateTime publishedAt,
-            String status) {
+            String status, String imageUrl) {
 
         this.id = id;
         this.views = views;
@@ -30,6 +31,7 @@ public class NewsTableDTO {
         this.createdAt = createdAt;
         this.publishedAt = publishedAt;
         this.status = status;
+        this.imageUrl = imageUrl;
     }
 
     public NewsTableDTO(Long id, String title, String subtitle, String summary, String author, String category,
@@ -139,6 +141,14 @@ public class NewsTableDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
 }
