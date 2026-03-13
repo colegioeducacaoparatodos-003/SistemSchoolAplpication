@@ -116,6 +116,7 @@ public class NewsService {
                 p.getCategory(),
                 p.getCreatedAt(),
                 p.getPublishedAt(),
-                p.getStatus()));
+                p.getStatus(),
+                p.getImageUrl()));
     }
 }

@@ -58,9 +58,11 @@ ul,
 ol {
     list-style: none;
 }
-body .ui-breadcrumb .ui-breadcrumb-items li:first-child a.ui-icon-home{
+
+body .ui-breadcrumb .ui-breadcrumb-items li:first-child a.ui-icon-home {
     font-size: var(--breadcrumb-items-size);
 }
+
 .ui-breadcrumb .ui-breadcrumb-items {
     font-size: var(--breadcrumb-items-size);
 }
@@ -68,6 +70,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:first-child a.ui-icon-home{
 body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-breadcrumb-options):before {
     font-size: .8rem;
 }
+
 .news-section,
 .consular-services-section,
 .random-subjects-section,
@@ -812,6 +815,9 @@ NEWS
     font-size: 1.4rem;
 }
 
+.dashboard-menu .avatar {
+    cursor: pointer;
+}
 
 
 .descover-button.ui-button {
@@ -852,14 +858,15 @@ NEWS
     position: sticky;
     left: 0;
     top: 10%;
-    align-self: flex-start; /*crucial for fixing*/
+    align-self: flex-start;
+    /*crucial for fixing*/
     background-color: var(--angola-red);
     padding: 2rem;
     color: var(--white-color);
     width: 30%;
 }
 
-.check-boxes-container{
+.check-boxes-container {
     width: 100%;
     margin-top: 2rem;
 }
@@ -869,7 +876,8 @@ NEWS
     font-size: 1.2rem;
     width: 100%;
 }
-.check-boxes-container .ui-chkbox .ui-chkbox-label{
+
+.check-boxes-container .ui-chkbox .ui-chkbox-label {
     width: 100%;
 }
 
@@ -1017,6 +1025,7 @@ INDEX SERVICES
 .consular-services-section .card:hover .icon-container {
     border-color: var(--white-color);
 }
+
 .consular-services-section a:hover .icon-container {
     transform: translateX(20px);
     border-color: var(--white-color);
@@ -1866,18 +1875,19 @@ DASHBOARD
     overflow: hidden;
     /* border: 3px solid blue; */
 }
-.dashbord-layout .logo
-{
+
+.dashbord-layout .logo {
     height: 40px;
 }
 
 .layout-content-container {
-    padding: 0 1rem;
     height: 100%;
     /* width: 80%; */
     /* border: 2px solid yellow; */
 }
+
 .layout-side-bar-container {
+    /* border-right: 1px solid var(--thiner-border-sec); */
     box-shadow: var(--shadow-1);
     /* border: 2px solid red; */
 }
@@ -1891,15 +1901,15 @@ DASHBOARD
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
 }
-/* Side bar */
-.side-bar.ui-menu {
-  
 
+/*========================
+SIDER BAR
+=========================*/
+.side-bar.ui-menu {
     width: 100%;
     height: 100%;
     border: none;
     padding: 0rem;
-    /* border: 2px solid blue; */
 }
 
 
@@ -1910,9 +1920,9 @@ DASHBOARD
     display: flex;
     align-items: center;
     gap: .8rem;
-    padding: .4rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--thiner-border-sec);
     justify-content: right;
-    /* border: 2px solid orange; */
 
     position: sticky;
     left: 0;
@@ -1923,38 +1933,40 @@ DASHBOARD
 .side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon,
 .sidebar-overlay .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text,
 .sidebar-overlay .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-icon {
-  font-weight: 500;
-  color: var(--angola-black);
+    font-weight: 500;
+    color: var(--angola-black);
 }
 
 .side-bar.ui-menu .ui-menuitem-link {
-  font-size: 0.9rem;
-  display: flex;
-  padding: .8rem !important;
-  align-items: center;
-  gap: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    padding: .8rem !important;
+    align-items: center;
+    gap: 1rem;
 }
 
-.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover{
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover {
     background-color: var(--angola-red);
 }
+
 .side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-text,
-.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-icon
-{
+.side-bar.ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover .ui-menuitem-icon {
     color: var(--white-color);
 }
 
-.side-bar.ui-menu .ui-menu-list .ui-menuitem.ui-menuitem:hover .ui-menuitem-link {
-  /* background-color: #000 !important; */
-  color: #fbc02d !important;
-  padding: 1rem 0;
+.side-bar .logout-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
-.layout-children-container{
+.layout-children-container {
+    padding: 0 1rem;
     margin-top: 1rem;
     /* border: 2px solid red; */
     height: 89%;
     overflow-y: auto;
+
 }
 
 /*
@@ -1965,44 +1977,48 @@ DIALOGS
 
 
 .create-button.ui-button,
-.save-button.ui-button{
+.save-button.ui-button {
     background-color: var(--angola-red);
     color: var(--white-color);
     border: none;
     box-shadow: none;
 }
-.save-button.ui-button{
+
+.save-button.ui-button {
     margin-top: .8rem;
     width: 100%;
 }
+
 .create-button.ui-button.ui-state-hover,
-.save-button.ui-button.ui-state-hover
-{
+.save-button.ui-button.ui-state-hover {
     background-color: var(--angola-red-hover);
 }
-.create-news-dialog.ui-dialog{
+
+.create-news-dialog.ui-dialog {
     width: 40% !important;
     height: 75vh !important;
 }
 
-.create-news-dialog.ui-dialog .ui-dialog-titlebar
-{
-   padding: 1.5rem 1.5rem 0;
+.create-news-dialog.ui-dialog .ui-dialog-titlebar {
+    padding: 1.5rem 1.5rem 0;
 }
+
 .create-news-dialog.ui-dialog .ui-dialog-content {
     height: 64vh !important;
     overflow: hidden;
 }
+
 .create-news-dialog .ui-tabs .ui-tabs-panels .ui-tabs-panel {
-   padding: 0;
-   overflow-y: auto;
+    padding: 0;
+    overflow-y: auto;
 }
 
-.create-news-dialog .ui-scrollpanel{
-   width:100%; 
-   height: 410px; 
-   border: none;
+.create-news-dialog .ui-scrollpanel {
+    width: 100%;
+    height: 410px;
+    border: none;
 }
+
 .label-for-input {
     margin-top: .8rem;
     display: block;
