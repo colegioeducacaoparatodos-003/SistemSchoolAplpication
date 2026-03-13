@@ -22,10 +22,9 @@ public class FileController {
     @Inject
     private FileService fileService;
 
-    @Inject
+    
     private FileLazyModel lazyModel;
 
-    @Inject
     private StreamedContent downloadFile;
 
     private String filterFileName;
