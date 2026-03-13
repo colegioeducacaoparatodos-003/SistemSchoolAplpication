@@ -6,6 +6,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class NewsController implements Serializable {
         }
     }
 
-    public void save() {
+    public void save() throws IOException {
         newsService.save(news);
         news = new News();
     }

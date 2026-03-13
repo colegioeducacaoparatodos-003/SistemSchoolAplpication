@@ -13,14 +13,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
 import java.util.Objects;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.primefaces.model.file.UploadedFile;
 
 @Entity
 @Table(name = "news")
 public class News {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,9 @@ public class News {
     private String content;
 
     private String imageUrl;
+
+    @Transient
+    private UploadedFile imageUrlUtil;
     private String thumbnailUrl;
 
     private String author;
@@ -53,8 +58,6 @@ public class News {
     public News() {
         super();
     }
-
-
 
     public Long getId() {
         return this.id;
@@ -168,7 +171,9 @@ public class News {
         this.views = views;
     }
 
-    public News(Long id, String title, String subtitle, String summary, String content, String imageUrl, String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt, NewsStatus status, Long views) {
+    public News(Long id, String title, String subtitle, String summary, String content, String imageUrl,
+            String thumbnailUrl, String author, String category, LocalDateTime createdAt, LocalDateTime updatedAt,
+            LocalDateTime publishedAt, NewsStatus status, Long views) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -255,35 +260,43 @@ public class News {
         return this;
     }
 
+    public UploadedFile getImageUrlUtil() {
+        return imageUrlUtil;
+    }
+
+    public void setImageUrlUtil(UploadedFile imageUrlUtil) {
+        this.imageUrlUtil = imageUrlUtil;
+    }
+
     @Override
     public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, subtitle, summary, content, imageUrl, thumbnailUrl, author, category, createdAt, updatedAt, publishedAt, status, views);
+        return Objects.hash(id, title, subtitle, summary, content, imageUrl, thumbnailUrl, author, category, createdAt,
+                updatedAt, publishedAt, status, views);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", subtitle='" + getSubtitle() + "'" +
-            ", summary='" + getSummary() + "'" +
-            ", content='" + getContent() + "'" +
-            ", imageUrl='" + getImageUrl() + "'" +
-            ", thumbnailUrl='" + getThumbnailUrl() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", category='" + getCategory() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", updatedAt='" + getUpdatedAt() + "'" +
-            ", publishedAt='" + getPublishedAt() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", views='" + getViews() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", subtitle='" + getSubtitle() + "'" +
+                ", summary='" + getSummary() + "'" +
+                ", content='" + getContent() + "'" +
+                ", imageUrl='" + getImageUrl() + "'" +
+                ", thumbnailUrl='" + getThumbnailUrl() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", category='" + getCategory() + "'" +
+                ", createdAt='" + getCreatedAt() + "'" +
+                ", updatedAt='" + getUpdatedAt() + "'" +
+                ", publishedAt='" + getPublishedAt() + "'" +
+                ", status='" + getStatus() + "'" +
+                ", views='" + getViews() + "'" +
+                "}";
     }
-    
 
 }
