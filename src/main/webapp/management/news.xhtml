@@ -22,7 +22,7 @@
                 font-weight: 400;
             }
         </style>
-        <h:form id="dashboardTable" enctype="multipart/form-data">
+        <h:form id="dashboardTable">
             <h:panelGroup class="header">
                 <h1 class="title">News</h1>
 
@@ -64,11 +64,11 @@
                 </p:column>
 
                 <p:column headerText="Preview" exportable="false">
-        <p:graphicImage value="/news_images/#{item.imageUrl}" 
-                        rendered="#{not empty item.imageUrl}" 
-                        style="width: 50px; height: auto; border-radius: 4px;"/>
-        <h:outputText value="No Image" rendered="#{empty item.imageUrl}" style="color: #ccc; font-style: italic" />
-    </p:column>
+                    <p:graphicImage value="/news_images/#{item.imageUrl}" rendered="#{not empty item.imageUrl}"
+                        style="width: 50px; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageUrl}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column>
 
                 <p:column headerText="Actions">
                     <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
