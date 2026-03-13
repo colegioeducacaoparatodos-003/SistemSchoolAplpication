@@ -1963,16 +1963,47 @@ DIALOGS
 ===============================
 */
 
-.large-dialog.ui-dialog{
-    width: 40% !important;
-    height: 80vh;
+
+.create-button.ui-button,
+.save-button.ui-button{
+    background-color: var(--angola-red);
+    color: var(--white-color);
+    border: none;
+    box-shadow: none;
 }
-.large-dialog .ui-scrollpanel{
-   border: none;
-   padding: 0;
+.save-button.ui-button{
+    margin-top: .8rem;
+    width: 100%;
+}
+.create-button.ui-button.ui-state-hover,
+.save-button.ui-button.ui-state-hover
+{
+    background-color: var(--angola-red-hover);
+}
+.create-news-dialog.ui-dialog{
+    width: 40% !important;
+    height: 75vh !important;
 }
 
+.create-news-dialog.ui-dialog .ui-dialog-titlebar
+{
+   padding: 1.5rem 1.5rem 0;
+}
+.create-news-dialog.ui-dialog .ui-dialog-content {
+    height: 64vh !important;
+    overflow: hidden;
+}
+.create-news-dialog .ui-tabs .ui-tabs-panels .ui-tabs-panel {
+   padding: 0;
+   overflow-y: auto;
+}
+
+.create-news-dialog .ui-scrollpanel{
+   width:100%; 
+   height: 410px; 
+   border: none;
+}
 .label-for-input {
+    margin-top: .8rem;
     display: block;
-  margin-top: .4rem;
 }
