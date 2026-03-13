@@ -1912,7 +1912,7 @@ DASHBOARD
     gap: .8rem;
     padding: .4rem;
     justify-content: right;
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
 
     position: sticky;
     left: 0;
@@ -1952,7 +1952,7 @@ DASHBOARD
 
 .layout-children-container{
     margin-top: 1rem;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     height: 89%;
     overflow-y: auto;
 }

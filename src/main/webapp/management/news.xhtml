@@ -35,9 +35,8 @@
 
 
 
-            <p:dataTable value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true" paginatorPosition="bottom"
-                rows="10"
-                emptyMessage="No data found..."
+            <p:dataTable value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
+                paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                 rowsPerPageTemplate="5,10,20">
@@ -71,13 +70,13 @@
         <h:outputText value="No Image" rendered="#{empty item.thumbnailUrl}" style="color: #ccc; font-style: italic" />
     </p:column> -->
 
-    <p:column headerText="Actions">
-            <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
+                <p:column headerText="Actions">
+                    <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
 
-<p:button icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-danger" />
+                    <p:button icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-danger" />
 
-<p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
-    </p:column>
+                    <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
+                </p:column>
 
             </p:dataTable>
 
@@ -89,7 +88,6 @@
                     <p:tab title="General">
                         <p:scrollPanel mode="native">
                             <div class="form-section">
-                                <h3>Basic Information</h3>
 
                                 <h:outputText class="label-for-input" value="Title" />
                                 <p:inputText value="#{newsController.news.title}" styleClass="w-full" />
@@ -132,7 +130,6 @@
                         <p:scrollPanel mode="native">
 
                             <div class="form-section">
-                                <h3>Summary</h3>
                                 <h:outputText class="label-for-input" value="Short Summary" />
                                 <p:inputTextarea value="#{newsController.news.summary}" autoResize="false" rows="4"
                                     maxlength="500" counter="summaryCounter" counterTemplate="{0} characters remaining"
@@ -141,7 +138,6 @@
                             </div>
 
                             <div class="form-section">
-                                <h3>Main Body</h3>
                                 <p:textEditor widgetVar="editor1" value="#{newsController.news.content}" secure="false"
                                     height="250px" />
                             </div>
