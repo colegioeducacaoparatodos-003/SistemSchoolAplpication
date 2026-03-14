@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
@@ -165,7 +164,7 @@ public class UserController implements Serializable {
         } catch (RuntimeException e) {
             logger.error("Falha no login para email: {}", loginEmail, e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
-                    "Email ou senha inválidos. Por favor, tente novamente.");
+                    "Email ou senha invalidos. Por favor, tente novamente.");
 
             // Limpar senha por segurança
             loginPassword = null;
@@ -204,79 +203,6 @@ public class UserController implements Serializable {
         }
 
         return sb.toString();
-    }
-
-    public String loadSettingsPage() {
-        return "/settings.xhtml?faces-redirect=true";
-    }
-
-    public String loginEmployeePortal() {
-        try {
-            logger.info("Tentativa de login com email: {}", loginEmail);
-
-            validateLoginData();
-
-            // Criar DTO de login
-            UserDTO.LoginDTO loginDTO = new UserDTO.LoginDTO();
-            loginDTO.setEmail(loginEmail.trim());
-            loginDTO.setPassword(loginPassword);
-
-            // Autenticar
-            UserDTO.UserResponseDTO authenticatedUser = userService.authenticate(loginDTO);
-
-            // Armazenar usuário na sessão
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            Map<String, Object> sessionMap = externalContext.getSessionMap();
-            sessionMap.put("loggedUser", authenticatedUser);
-            loggedUser = authenticatedUser;
-
-            // Configurar cookie de "lembrar-me" se necessário
-            if (rememberMe) {
-                // Aqui você implementaria a lógica para cookie
-                logger.info("Lembrar-me ativado para usuário: {}", authenticatedUser.getEmail());
-            }
-
-            // Registrar login no log
-            logger.info("Usuário autenticado com sucesso: {} (ID: {})",
-                    authenticatedUser.getEmail(), authenticatedUser.getPkUser());
-
-            // Limpar campos
-            resetLoginFields();
-
-            // Fechar dialog se estiver aberto
-            if (loginDialogVisible) {
-                PrimeFaces.current().executeScript("PF('loginDialog').hide()");
-                loginDialogVisible = false;
-            }
-
-            // Adicionar mensagem de sucesso
-            addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Login realizado com sucesso!");
-
-            // // Redirecionar para página principal
-            // try {
-            // selectedPersonDTO = personService.getPersonByFkUser(loggedUser.getPkUser());
-            // externalContext.redirect(externalContext.getRequestContextPath() +
-            // "/employee-portal.xhtml");
-            // } catch (IOException e) {
-            // logger.error("Erro ao redirecionar após login", e);
-            // }
-
-            return "/employee-portal.xhtml?faces-redirect=true";
-
-        } catch (RuntimeException e) {
-            logger.error("Falha no login para email: {}", loginEmail, e);
-            addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
-                    "Email ou senha inválidos. Por favor, tente novamente.");
-
-            // Limpar senha por segurança
-            loginPassword = null;
-        } catch (Exception e) {
-            logger.error("Erro inesperado durante login", e);
-            addMessage(FacesMessage.SEVERITY_FATAL, "Erro do Sistema",
-                    "Ocorreu um erro inesperado. Por favor, contate o administrador.");
-        }
-
-        return null;
     }
 
     // THIS METHODS IS A MIDDLEWARE THAT CHECKS IF THE USER IS AUTHENTICATED
@@ -377,17 +303,6 @@ public class UserController implements Serializable {
 
     // ========== MÉTODOS CRUD ==========
 
-    private void loadUsers() {
-        try {
-            users = userService.getAllActiveUsers();
-            logger.info("Carregados {} usuários", users.size());
-        } catch (Exception e) {
-            logger.error("Erro ao carregar usuários", e);
-            users = new ArrayList<>();
-            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Não foi possível carregar os usuários");
-        }
-    }
-
     public String createUser() {
         try {
             logger.info("Criando novo usuário com email: {}", newUserEmail);
@@ -410,11 +325,14 @@ public class UserController implements Serializable {
 
             UserDTO.UserResponseDTO createdUser = userService.createUser(createUserDTO);
             createPersonDTO.setFkUser(createdUser.getPkUser());
-            //PersonDTO.PersonResponseDTO createdPerson = personService.createPerson(createPersonDTO);
-            //userService.updateFkPerson(createdUser.getPkUser(), createdPerson.getPkPerson());
+            // PersonDTO.PersonResponseDTO createdPerson =
+            // personService.createPerson(createPersonDTO);
+            // userService.updateFkPerson(createdUser.getPkUser(),
+            // createdPerson.getPkPerson());
 
             // if (selectedPermissionIds != null && !selectedPermissionIds.isEmpty()) {
-            //     permissionService.saveUserPermissions(createdUser.getPkUser(), selectedPermissionIds);
+            // permissionService.saveUserPermissions(createdUser.getPkUser(),
+            // selectedPermissionIds);
             // }
 
             users.add(createdUser);
@@ -465,7 +383,8 @@ public class UserController implements Serializable {
             UserDTO.UserResponseDTO updatedUser = userService.updateUser(updateUserDTO);
 
             // if (selectedPermissionIds != null) {
-            //     permissionService.saveUserPermissions(updatedUser.getPkUser(), selectedPermissionIds);
+            // permissionService.saveUserPermissions(updatedUser.getPkUser(),
+            // selectedPermissionIds);
             // }
 
             // Atualizar na lista
@@ -513,17 +432,18 @@ public class UserController implements Serializable {
     }
 
     // public void prepareEditUser(UserDTO.UserResponseDTO user) {
-    //     this.selectedUser = user;
-    //     this.editUserEmail = user.getEmail();
-    //     this.editUserFkUserType = user.getFkUserType();
-    //     this.editUserActive = user.isActive();
-    //     this.editUserDeviceToken = user.getDeviceToken();
-    //     this.editMode = true;
+    // this.selectedUser = user;
+    // this.editUserEmail = user.getEmail();
+    // this.editUserFkUserType = user.getFkUserType();
+    // this.editUserActive = user.isActive();
+    // this.editUserDeviceToken = user.getDeviceToken();
+    // this.editMode = true;
 
-    //     List<Permission> userPermissions = permissionService.findPermissionsByUser(user.getPkUser());
-    //     this.selectedPermissionIds = userPermissions.stream()
-    //             .map(Permission::getPkPermission)
-    //             .collect(Collectors.toList());
+    // List<Permission> userPermissions =
+    // permissionService.findPermissionsByUser(user.getPkUser());
+    // this.selectedPermissionIds = userPermissions.stream()
+    // .map(Permission::getPkPermission)
+    // .collect(Collectors.toList());
     // }
 
     public void showRegisterDialog() {
@@ -551,7 +471,7 @@ public class UserController implements Serializable {
         newUserFkUserType = 0;
         newUserActive = true;
         newUserDeviceToken = null;
-        //selectedPermission = null;
+        // selectedPermission = null;
         image_person = "";
         firstName = "";
         lastName = "";
@@ -598,7 +518,7 @@ public class UserController implements Serializable {
     }
 
     // public List<Permission> getAllAvailablePermissions() {
-    //     return permissionService.findAvailablePermissionsByUser(selectedUserId);
+    // return permissionService.findAvailablePermissionsByUser(selectedUserId);
     // }
 
     public String getInitials(String fullName) {
@@ -635,12 +555,13 @@ public class UserController implements Serializable {
      */
 
     // public String avatarClass(ContractDTO.ExpiringThisMonthDTO item) {
-    //     if (item == null || item.getFullName() == null || item.getFullName().isEmpty()) {
-    //         return "avatar-color-0";
-    //     }
+    // if (item == null || item.getFullName() == null ||
+    // item.getFullName().isEmpty()) {
+    // return "avatar-color-0";
+    // }
 
-    //     int index = Math.abs(item.getFullName().hashCode() % avatarColors.length);
-    //     return "avatar-color-" + index;
+    // int index = Math.abs(item.getFullName().hashCode() % avatarColors.length);
+    // return "avatar-color-" + index;
     // }
 
     public String avatarClass(PersonResponseDTO emp) {
@@ -674,24 +595,24 @@ public class UserController implements Serializable {
     }
 
     // public void createAvatar() {
-    //     Integer userId = loggedUser.getPkUser(); //
+    // Integer userId = loggedUser.getPkUser(); //
 
-    //     PersonDTO.PersonResponseDTO person = personService.findByUserId(userId);
+    // PersonDTO.PersonResponseDTO person = personService.findByUserId(userId);
 
-    //     if (person != null) {
-    //         this.firstName = person.getFirstName();
-    //         this.lastName = person.getLastName();
-    //         this.image_person = person.getImagePerson();
-    //     } else {
-    //         this.image_person = "default.png";
-    //     }
+    // if (person != null) {
+    // this.firstName = person.getFirstName();
+    // this.lastName = person.getLastName();
+    // this.image_person = person.getImagePerson();
+    // } else {
+    // this.image_person = "default.png";
+    // }
     // }
 
     /*
      * Obsolete method for permission autocomplete
      */
     // public List<Permission> completePermission(String query) {
-    //     return new ArrayList<Permission>();
+    // return new ArrayList<Permission>();
     // }
 
     // ========== GETTERS E SETTERS ==========
@@ -956,11 +877,11 @@ public class UserController implements Serializable {
     }
 
     // public Permission getSelectedPermission() {
-    //     return selectedPermission;
+    // return selectedPermission;
     // }
 
     // public void setSelectedPermission(Permission selectedPermission) {
-    //     this.selectedPermission = selectedPermission;
+    // this.selectedPermission = selectedPermission;
     // }
 
     public List<Integer> getSelectedPermissionIds() {
@@ -972,11 +893,11 @@ public class UserController implements Serializable {
     }
 
     // public List<Permission> getAvailablePermissions() {
-    //     return availablePermissions;
+    // return availablePermissions;
     // }
 
     // public void setAvailablePermissions(List<Permission> availablePermissions) {
-    //     this.availablePermissions = availablePermissions;
+    // this.availablePermissions = availablePermissions;
     // }
 
     public Integer getSelectedUserId() {
