@@ -16,22 +16,18 @@ import jakarta.inject.Named;
 @ViewScoped
 public class DocumentController {
 
-
-
     private Document document = new Document();
 
     private LazyDataModel<DocumentTableDTO> lazyModel;
-
-    private String referenceType;
     private int referenceId;
 
     @Inject
     private DocumentService service;
 
-    //@Inject
-    //private UserController loginController;
+    @Inject
+    private UserController loginController;
 
-     public String loadDocumentPage() {
+    public String loadDocumentPage() {
         try {
             // loadLazy();
         } catch (Exception e) {
@@ -40,23 +36,24 @@ public class DocumentController {
         }
         return "/management/documents.xhtml?faces-redirect=true";
     }
+
     public void prepare(String refType, int refId) {
-        this.referenceType = refType;
-        this.referenceId = refId;
+        // this.referenceType = refType;
+        // this.referenceId = refId;
 
         // this.lazyModel = new DocumentLazyModel(
         // service, referenceType, referenceId);
     }
 
-    public void upload() {
+    public void save() {
         try {
-            document.setReferenceType(referenceType);
+            // document.setReferenceType(referenceType);
             document.setReferenceId(referenceId);
             document.setUploadDate(LocalDate.now());
             // document.setFkUser(loginController.getLoggedUserId());
 
             // aqui assumes que o ficheiro já foi salvo no filesystem
-            service.upload(document);
+            service.save(document);
             document = new Document();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,9 @@
 package com.angola_argentina_portal.service;
 
 import jakarta.transaction.Transactional;
+
+import java.io.IOException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.angola_argentina_portal.dto.DocumentTableDTO;
 import com.angola_argentina_portal.interfaces.DocumentTableProjection;
+import com.angola_argentina_portal.io.Assistant;
+import com.angola_argentina_portal.io.FileImage;
 import com.angola_argentina_portal.model.Document;
 import com.angola_argentina_portal.repository.DocumentRepository;
 
@@ -22,7 +27,19 @@ public class DocumentService {
         this.repository = repository;
     }
 
-    public void upload(Document document) {
+    public void save(Document document) throws IOException {
+
+        FileImage acessImage = new FileImage();
+        Assistant assistant = new Assistant();
+        String newNameFile = "default.png"; // Default image nam
+
+        if (document.getUploadedFile() != null) {
+            newNameFile = "0" + assistant.novoNome(document.getUploadedFile().getContentType());
+            acessImage.salvarArquivo(document.getUploadedFile(), "news_images", newNameFile);
+        } else {
+            document.setUploadedFile(null);
+        }
+
         repository.save(document);
     }
 

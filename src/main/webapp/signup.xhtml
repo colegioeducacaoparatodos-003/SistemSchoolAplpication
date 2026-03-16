@@ -60,51 +60,51 @@
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.firstName}" for="fname" />
-                        <p:inputText id="fname" required="true" />
+                        <p:inputText id="fname" required="true" value="#{userController.newFirstName}" />
                     </div>
 
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.middleName}" for="mname" />
-                        <p:inputText id="mname" />
+                        <p:inputText id="mname" value="#{userController.newMiddleName}" />
                     </div>
                 </div>
 
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.lastName}" for="lname" />
-                        <p:inputText id="lname" required="true" />
+                        <p:inputText id="lname" required="true"  value="#{userController.newLastName}" />
                     </div>
 
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.email}" for="email" />
-                        <p:inputText id="email" required="true" />
+                        <p:inputText id="email" required="true" value="#{userController.newUserEmail}" />
                     </div>
                 </div>
 
                 <div class="dual-inputs-container">
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.password}" for="pwd1" />
-                        <p:password id="pwd1" toggleMask="true" match="pwd2" required="true" />
+                        <p:password id="pwd1" toggleMask="true" match="pwd2" required="true" value="#{userController.newUserPassword}" />
                     </div>
 
                     <div class="dual-form-group">
                         <p:outputLabel styleClass="block" value="#{msg.confirmPassword}" for="pwd2" />
-                        <p:password id="pwd2" toggleMask="true" required="true" />
+                        <p:password id="pwd2" toggleMask="true" required="true"  value="#{userController.newUserConfirmPassword}" />
                     </div>
                 </div>
-
+     <!-- 
                 <div class="dual-form-group upload-group">
                     <p:outputLabel value="#{msg.image}" styleClass="upload-label" />
 
                     <span class="ui-input-icon-left transparentUploadFile upload-container">
                         <p:fileUpload id="fileUpload" mode="simple" skinSimple="true"
                             allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" label="#{msg.uploadImage}"
-                            styleClass="upload-button" />
+                            styleClass="upload-button"  value="#{userController.image_person}" />
                     </span>
-                </div>
+                </div>-->
 
                 <div class="login-button-container">
-                    <p:commandButton styleClass="btn-primary login-button" value="#{msg.createAccount}" ajax="false" />
+                    <p:commandButton   action="#{userController.createUser}" styleClass="btn-primary login-button" value="#{msg.createAccount}" ajax="false" />
                 </div>
 
                 <div class="login-button-container links">
