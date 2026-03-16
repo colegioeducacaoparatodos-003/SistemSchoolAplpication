@@ -243,13 +243,15 @@
                                 </div>
                             </div>
 
-                            <div class="travel-item">
+                            <p:remoteCommand name="rcLoadDestination"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rcLoadDestination()" class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.destinations}</span>
                                 </div>
 
                                 <div class="travel-img">
-                                    <img src="../../resources/imgs/calandula-waterrfall.jpeg" />
+                                    <img src="../../resources/imgs/gir-travelling.jpg" />
                                 </div>
                             </div>
 
