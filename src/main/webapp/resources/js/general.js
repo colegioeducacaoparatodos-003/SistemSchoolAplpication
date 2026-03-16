@@ -59,15 +59,101 @@ function handleContactForm() {
 }
 
 //this code helps the CSS on nav-links'hover
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $(".nav-link").mouseenter(function(){
-        $(this).find(".nav-links-group").css("display","flex");
+    $(".nav-link").mouseenter(function () {
+        $(this).find(".nav-links-group").css("display", "flex");
     });
 
-    $(".nav-link").mouseleave(function(){
-        $(this).find(".nav-links-group").css("display","none");
+    $(".nav-link").mouseleave(function () {
+        $(this).find(".nav-links-group").css("display", "none");
     });
 
 });
 
+
+//this functions handles carousel component for heigh-lights in landing page
+document.addEventListener("DOMContentLoaded", function () {
+    let index = 0;
+    let slideInterval; // Variable to store the timer
+    const slidesContainer = document.querySelector(".heigh-light-slides");
+    const slides = document.querySelectorAll(".heigh-light-slide");
+    const carouselWrapper = document.querySelector(".heigh-light-carousel");
+
+    if (slides.length > 0) {
+        // 1. Clone first slide for the infinite loop
+        const firstClone = slides[0].cloneNode(true);
+        slidesContainer.appendChild(firstClone);
+
+        const allSlides = document.querySelectorAll(".heigh-light-slide");
+        const totalSlides = allSlides.length;
+
+        function moveSlide() {
+            index++;
+            slidesContainer.style.transition = "transform 0.6s ease-in-out";
+            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+
+            if (index === totalSlides - 1) {
+                setTimeout(() => {
+                    slidesContainer.style.transition = "none";
+                    slidesContainer.style.transform = "translateX(0)";
+                    index = 0;
+                }, 600);
+            }
+        }
+
+        // 2. Function to start the auto-play
+        function startInterval() {
+            slideInterval = setInterval(moveSlide, 5000);
+        }
+
+        // 3. Function to stop the auto-play
+        function stopInterval() {
+            clearInterval(slideInterval);
+        }
+
+        // 4. Event Listeners for Hover
+        carouselWrapper.addEventListener("mouseenter", stopInterval);
+        carouselWrapper.addEventListener("mouseleave", startInterval);
+
+        // Initialize the first start
+        startInterval();
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // We use a small timeout to ensure the PrimeFaces Widget is initialized
+    setTimeout(function() {
+        // Find the PrimeFaces widget by its styleClass
+        // Note: PrimeFaces usually maps widgets to PF('widgetVarName')
+        // If you don't have a widgetVar, we target the element directly:
+        const carouselEl = document.querySelector('.mission-carousel');
+
+        if (carouselEl) {
+            carouselEl.addEventListener('mouseenter', function() {
+                // Access the widget instance and stop the autoplay
+                // Most PF carousels use stopAutoplay() or pause()
+                if (window.PrimeFaces && PrimeFaces.widgets) {
+                    for (let key in PrimeFaces.widgets) {
+                        let widget = PrimeFaces.widgets[key];
+                        if (widget.jq && widget.jq.hasClass('mission-carousel')) {
+                            widget.stopAutoplay(); 
+                        }
+                    }
+                }
+            });
+
+            carouselEl.addEventListener('mouseleave', function() {
+                if (window.PrimeFaces && PrimeFaces.widgets) {
+                    for (let key in PrimeFaces.widgets) {
+                        let widget = PrimeFaces.widgets[key];
+                        if (widget.jq && widget.jq.hasClass('mission-carousel')) {
+                            widget.startAutoplay();
+                        }
+                    }
+                }
+            });
+        }
+    }, 500);
+});

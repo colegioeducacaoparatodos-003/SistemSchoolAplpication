@@ -71,6 +71,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     font-size: .8rem;
 }
 
+.president-biography-page-container,
 .news-section,
 .consular-services-section,
 .random-subjects-section,
@@ -386,6 +387,7 @@ HERO SECTION
     display: flex;
     justify-content: center;
 }
+
 .hero-updates {
     width: 50%;
     display: flex;
@@ -586,7 +588,7 @@ HERO SECTION
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
-   
+
 }
 
 
@@ -604,12 +606,12 @@ HERO SECTION
     border-color: #f8f8f8 transparent transparent transparent;
 
 
-   
-    bottom:-10px;
-   
-    
-    border-style:solid;
-    border-color:#111827 transparent transparent transparent;
+
+    bottom: -10px;
+
+
+    border-style: solid;
+    border-color: #111827 transparent transparent transparent;
 }
 
 
@@ -623,7 +625,7 @@ HERO SECTION
 
 
 /* card  background: linear-gradient(145deg,#0f1633,#1a2347); */
-.tooltip-card{
+.tooltip-card {
 
     width: 280px;
     background: #111827;
@@ -632,7 +634,7 @@ HERO SECTION
 
     overflow: hidden;
 
-    box-shadow: 0 20px 40px rgba(0,0,0,.35);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
 
     color: #f8f8f8;
 
@@ -641,37 +643,37 @@ HERO SECTION
 
 /* imagem topo */
 
-.tooltip-image img{
+.tooltip-image img {
 
-    width:100%;
-    height:140px;
-    object-fit:cover;
-  
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+
 }
 
 /* conteúdo */
 
-.tooltip-content{
-    padding:16px;
+.tooltip-content {
+    padding: 16px;
 }
 
-.tooltip-content h4{
-    margin:0 0 8px 0;
-    font-size:18px;
+.tooltip-content h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
 }
 
-.tooltip-content p{
-    font-size:13px;
-    line-height:1.5;
-    color:#cfd6ff;
+.tooltip-content p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #cfd6ff;
 }
 
 /* localização */
 
-.tooltip-location{
-    margin-top:10px;
-    font-size:12px;
-    color:#9fb3ff;
+.tooltip-location {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #9fb3ff;
 }
 
 .mission-carousel.ui-carousel .ui-carousel-indicators .ui-carousel-indicator button {
@@ -819,15 +821,9 @@ NEWS
     font-size: 1.4rem;
 }
 
-.height-light {
-    width: 100%;
-    height: 60vh;
-    position: relative;
-    cursor: pointer;
 
-}
 
-.height-light:hover .image-description,
+.heigh-light-carousel:hover .image-description,
 .news-section .card:hover .content,
 .news-page-container .card:hover .content,
 .news-section .card:hover .title,
@@ -836,14 +832,48 @@ NEWS
     color: var(--angola-yellow) !important;
 }
 
-.height-light img {
+
+
+
+/* 
+==============================
+HIGH-LIST CAROUSEL 
+==============================
+*/
+
+.heigh-light-carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    height: 550px;
+    /* Adjust height as needed */
+}
+
+.heigh-light-slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease;
+}
+
+.heigh-light-slide {
+    min-width: 100%;
+    position: relative;
+    text-decoration: none;
+    display: block;
+}
+
+.heigh-light-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 12px;
+    /* Ensures images don't stretch weirdly */
 }
 
-.height-light .image-description {
+
+
+.heigh-light-carousel .image-description {
     color: var(--white-color);
     font-size: 1.4rem;
     padding: 2rem 1rem;
@@ -853,14 +883,21 @@ NEWS
     height: 50%;
     width: 100%;
     border-radius: 8px;
-    
+
     /* transition: all .3s ease-out; */
 }
 
-.height-light .title {
+.heigh-light-carousel .title {
     font-size: 1.8rem;
     margin: .8rem 0;
 }
+
+
+/* 
+=============================
+NEWS CARDS
+=============================
+*/
 
 .news-section .card .title span {
     margin-left: 1rem;
@@ -932,6 +969,7 @@ NEWS
 }
 
 .dashboard-menu .avatar {
+    margin-left: .8rem;
     cursor: pointer;
 }
 
@@ -1091,7 +1129,8 @@ INDEX SERVICES
     /* border: 2px solid red; */
 }
 
-.consular-services-section .cards-container {
+.consular-services-section .cards-container,
+.quick-links-embassadors-section .cards-container {
     padding: 0;
     margin-top: 2rem;
     width: 100%;
@@ -1100,12 +1139,14 @@ INDEX SERVICES
     gap: 2rem;
 }
 
-.consular-services-section .card {
+.consular-services-section .card,
+.quick-links-embassadors-section .card {
     width: 100%;
     height: 100%;
 }
 
-.consular-services-section .card {
+.consular-services-section .card,
+.quick-links-embassadors-section .card {
     color: var(--text-gray);
     cursor: pointer;
     border-radius: 8px;
@@ -1128,6 +1169,8 @@ INDEX SERVICES
 
 .consular-services-section a {}
 
+.quick-links-embassadors-section .card:hover,
+.quick-links-embassadors-section a:hover,
 .consular-services-section .card:hover,
 .consular-services-section a:hover {
     color: var(--white-color);
@@ -1142,12 +1185,14 @@ INDEX SERVICES
     border-color: var(--white-color);
 }
 
+.quick-links-embassadors-section a:hover .icon-container,
 .consular-services-section a:hover .icon-container {
     transform: translateX(20px);
     border-color: var(--white-color);
 }
 
-.consular-services-section .icon-container {
+.consular-services-section .icon-container,
+.quick-links-embassadors-section .icon-container {
     transition: transform 0.3s ease-out;
     border-radius: 50px;
     width: 50px;
@@ -1186,18 +1231,18 @@ RANDOM SUBJECTS
 ===========================*/
 
 .random-subjects-section {
-    
+
     height: 150vh;
     display: flex;
     flex-direction: column;
-  
+
     width: 100%;
     gap: 2rem;
-    
-   
+
+
 }
 
-.images-container { 
+.images-container {
     height: 40%;
     display: flex;
     flex-direction: row;
@@ -1208,27 +1253,28 @@ RANDOM SUBJECTS
 
 
 .image.a {
+    position: relative;
     width: 30%;
     height: 100%;
     border-radius: 8px;
 }
 
 .image.b {
-     width: 70%;
-     height: 100%;
-       border-radius: 8px;
+    width: 70%;
+    height: 100%;
+    border-radius: 8px;
 }
 
 .image.c {
-     width: 70%;
-     height: 100%;
-      border-radius: 8px;
+    width: 70%;
+    height: 100%;
+    border-radius: 8px;
 }
 
 .image.d {
     width: 30%;
     height: 100%;
-      border-radius: 8px;
+    border-radius: 8px;
 }
 
 /* .image.e {
@@ -1244,8 +1290,9 @@ RANDOM SUBJECTS
     height: 100%;
     object-fit: cover;
     display: block;
-      border-radius: 8px;
+    border-radius: 8px;
 }
+
 /*
 .images-container .image {
     position: relative;
@@ -1270,7 +1317,7 @@ RANDOM SUBJECTS
     width: 100%;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    
+
 }
 
 .image-description p strong {
@@ -1600,9 +1647,10 @@ NEWS SECTION
     font-size: 0.85rem;
 }
 
-.news-page-container .cards-container {
+.news-page-container .cards-container,
+.quick-links-embassadors {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     padding: 0;
     margin: 3rem auto 6rem;
@@ -2015,6 +2063,7 @@ DASHBOARD
 
 .layout-content-container {
     height: 100%;
+    overflow: hidden;
     /* width: 80%; */
     /* border: 2px solid yellow; */
 }
@@ -2046,7 +2095,9 @@ SIDER BAR
 }
 
 
-
+.layout-menu-container {
+    height: 10%;
+}
 
 .layout-menu-container nav {
     height: 10%;
@@ -2094,12 +2145,48 @@ SIDER BAR
 }
 
 .layout-children-container {
-    padding: 0 1rem;
-    margin-top: 1rem;
+    padding: 1rem 1rem 0;
     /* border: 2px solid red; */
-    height: 89%;
-    overflow-y: auto;
+    height: 90%;
+    overflow: hidden;
 
+}
+
+
+/* 
+===============================
+DASHBOARD CONTENT
+===============================
+*/
+
+.header {
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 10%
+}
+
+.header .title,
+.table-title {
+    color: var(--title-gray);
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.ui-datatable-tablewrapper {
+    height: 100%;
+    overflow: auto;
+}
+
+.table {
+    height: 75%;
+    width: 100%;
+}
+
+.dashboard-form {
+    height: 100%;
 }
 
 /*
@@ -2127,31 +2214,6 @@ DIALOGS
     background-color: var(--angola-red-hover);
 }
 
-.create-news-dialog.ui-dialog {
-    width: 40% !important;
-    height: 75vh !important;
-}
-
-.create-news-dialog.ui-dialog .ui-dialog-titlebar {
-    padding: 1.5rem 1.5rem 0;
-}
-
-.create-news-dialog.ui-dialog .ui-dialog-content {
-    height: 64vh !important;
-    overflow: hidden;
-}
-
-.create-news-dialog .ui-tabs .ui-tabs-panels .ui-tabs-panel {
-    padding: 0;
-    overflow-y: auto;
-}
-
-.create-news-dialog .ui-scrollpanel {
-    width: 100%;
-    height: 410px;
-    border: none;
-}
-
 .label-for-input {
     margin-top: .8rem;
     display: block;
@@ -2159,79 +2221,82 @@ DIALOGS
 
 /* Styles of the presedent-biography page *
   /* container of the content of the page */
-            .president-biography-page-container {
-                padding: 20px;
-                max-width: 1200px;
-                margin: 0 auto;
-                margin-bottom: 50px;
-            }
+.president-biography .president-biography-page-container {
+    /* padding: 20px; */
+    /* width: 90%; */
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
 
-            /* title of the page, i sugggest that it beomes a component */
-            .title {
-                margin-top: 40px;
-                padding-bottom: 7px;
-                font-weight: bold;
-            }
+/* title of the page, i sugggest that it beomes a component */
+.president-biography .title {
+    margin-top: 40px;
+    padding-bottom: 7px;
+    font-weight: bold;
+}
 
-            /* the text about the president */
-            .bio-text {
-                line-height: 1.8;
-                text-align: justify;
-                color: var(--angola-black);
-                font-size: 1.1rem;
-                margin-bottom: 40px;
-            }
+/* the text about the president */
+.president-biography .bio-text {
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--angola-black);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
 
-            .profile-header {
-                display: flex;
-                gap: 30px;
-                align-items: flex-start;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
+.president-biography .profile-header {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 
-            .profile-image {
-                flex: 0 0 260px;
-                overflow: hidden;
-            }
+.president-biography .profile-image {
+    flex: 0 0 260px;
+    overflow: hidden;
+}
 
-            .profile-image:hover img {
-                transform: scale(1.1);
-            }
+.president-biography .profile-image:hover img {
+    transform: scale(1.1);
+}
 
-            .president-img {
-                width: 100%;
-                border-radius: 6px;
-                box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-                transition: .3s ease-in-out;
-            }
+.president-biography .president-img {
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+    transition: .3s ease-in-out;
+}
 
-            .profile-info {
-                flex: 1;
-            }
+.president-biography .profile-info {
+    flex: 1;
+}
 
-            .president-name {
-                margin: 5px 0 10px 0;
-                font-size: 1.8rem;
-                color: var(--angola-black);
-            }
+.president-biography .president-name {
+    margin: 5px 0 10px 0;
+    font-size: 1.8rem;
+    color: var(--angola-black);
+}
 
-            .president-meta p {
-                margin: 4px 0;
-                color: #444;
-            }
+.president-biography .president-meta p {
+    margin: 4px 0;
+    color: #444;
+}
 
-            .bio-text h3 {
-                margin-top: 25px;
-                color: var(--angola-black);
-                border-left: 4px solid var(--angola-red);
-                padding-left: 10px;
-            }
-            .tag{
-                margin-bottom: 3px;
-                background: var(--angola-red) !important;
-            }
-            .quick-links-embassadors{
-                padding: 0px;
-            }
+.president-biography .bio-text h3 {
+    margin-top: 25px;
+    color: var(--angola-black);
+    border-left: 4px solid var(--angola-red);
+    padding-left: 10px;
+}
+
+.president-biography .tag {
+    margin-bottom: 3px;
+    background: var(--angola-red) !important;
+}
+
+.president-biography .quick-links-embassadors {
+    padding: 0px;
+}
+
 /* the of the president-biography ends at this line/ */
