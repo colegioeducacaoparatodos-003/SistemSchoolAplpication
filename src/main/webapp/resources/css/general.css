@@ -2295,8 +2295,84 @@ DIALOGS
     background: var(--angola-red) !important;
 }
 
-.president-biography .quick-links-embassadors {
-    padding: 0px;
+.ambassador-section {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.ambassador-card {
+    text-decoration: none;
+    color: #333;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.ambassador-card:hover {
+    border-color: #00274C; /* Cor institucional */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.ambassador-content {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ambassador-info .subtitle {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #b18e3d; /* Um tom dourado/brasão, opcional */
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.ambassador-info .title {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+    color: #00274C;
+}
+
+.ambassador-info .description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.ambassador-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00274C;
+    font-weight: bold;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 480px) {
+    .ambassador-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .ambassador-action {
+        margin-left: 0;
+        margin-top: 20px;
+        padding-left: 0;
+        border-left: none;
+    }
 }
 
 /* the of the president-biography ends at this line/ */
