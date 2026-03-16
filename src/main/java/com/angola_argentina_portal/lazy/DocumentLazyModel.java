@@ -13,6 +13,7 @@ import com.angola_argentina_portal.dto.DocumentTableDTO;
 import com.angola_argentina_portal.service.DocumentService;
 
 public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
+    
     private final DocumentService service;
     private final String referenceType;
     private final int referenceId;
