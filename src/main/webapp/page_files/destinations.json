@@ -4,8 +4,18 @@
   "city" : "Luanda",
   "country" : "Angola",
   "description" : "",
-  "imageUrl" : "default.png",
+  "imageUrl" : "0img-2026-03-1601-06-37img.jpeg",
   "category" : "Adventure",
+  "location" : "",
+  "website" : ""
+}, {
+  "id" : 2,
+  "name" : "Quedas de Calandula",
+  "city" : "Malange",
+  "country" : "Angola",
+  "description" : "",
+  "imageUrl" : "0img-2026-03-1616-39-08img.png",
+  "category" : "Nature",
   "location" : "",
   "website" : ""
 } ]
