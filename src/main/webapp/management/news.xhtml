@@ -20,7 +20,7 @@
                     onclick="PF('createDialog').show()" />
             </h:panelGroup>
 
-            <!-- <p:dataTable styleClass="table" value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
+         <p:dataTable styleClass="table" value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
                 paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -70,7 +70,7 @@
                     <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
                 </p:column>
 
-            </p:dataTable> -->
+            </p:dataTable>
         </h:form>
         <ui:include src="./news/news-create.xhtml" />
 
