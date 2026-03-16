@@ -37,16 +37,6 @@ public class DocumentController implements Serializable {
     @Inject
     private UserController loginController;
 
-    // ================== PREPARAR ==================
-    /*
-     * public void prepare(String refType, int refId) {
-     * this.referenceType = refType;
-     * this.referenceId = refId;
-     * 
-     * // Inicializa a LazyDataModel
-     * this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
-     * }
-     */
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -103,18 +93,6 @@ public class DocumentController implements Serializable {
                 return;
             }
 
-            // Cria FileDocument
-            /*
-             * FileDocument fileDoc = new FileDocument();
-             * fileDoc.setFileName(uploaded.getFileName());
-             * fileDoc.setContentType(uploaded.getContentType());
-             * fileDoc.setSize(uploaded.getSize());
-             * fileDoc.setCreatedAt(LocalDateTime.now());
-             * fileDoc.setData(uploaded.getContent());
-             * document.setUploadDate(LocalDate.now());
-             */
-            // document.setFkUser(loginController.getLoggedUserId());
-
             // Salva no banco
             service.upload(document);
 
@@ -134,17 +112,6 @@ public class DocumentController implements Serializable {
     // ================== DOWNLOAD ==================
     public void prepareDownload(int documentId) {
         Document doc = service.findById(documentId);
-
-        /*
-         * if (doc.getFileDocument() != null && doc.getFileDocument().getData() != null)
-         * {
-         * fileToDownload = DefaultStreamedContent.builder()
-         * .name(doc.getFileDocument().getFileName())
-         * .contentType(doc.getFileDocument().getContentType())
-         * .stream(() -> new ByteArrayInputStream(doc.getFileDocument().getData()))
-         * .build();
-         * }
-         */
     }
 
     public StreamedContent getFileToDownload() {
