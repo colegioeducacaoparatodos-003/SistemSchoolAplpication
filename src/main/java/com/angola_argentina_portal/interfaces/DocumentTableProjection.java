@@ -16,5 +16,4 @@ public interface DocumentTableProjection {
 
     LocalDate getUploadDate();
 
-    String getUserName();
 }

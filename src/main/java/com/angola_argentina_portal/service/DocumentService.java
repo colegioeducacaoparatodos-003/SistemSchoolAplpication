@@ -73,13 +73,7 @@ public class DocumentService {
                 p.getFileName(),
                 p.getContentType(),
                 p.getFileSize(),
-                p.getUploadDate(),
-<<<<<<< HEAD
-                p.getUploadedBy()
-        ));
-=======
-                p.getUserName()));
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
+                p.getUploadDate()));
     }
 
 }
