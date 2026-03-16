@@ -45,7 +45,7 @@ public class AirlineController implements Serializable {
 
                 acessImage.salvarArquivo(
                         logoUpload,
-                        "airlines",
+                        "airlines_images",
                         newNameFile);
             }
 

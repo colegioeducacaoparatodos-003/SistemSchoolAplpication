@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class AirlineService {
 
-    private static final String FILE_PATH = "data/airlines.json";
+    private static final String FILE_PATH = "page_files/airlines.json";
 
     private final ObjectMapper mapper = new ObjectMapper();
 

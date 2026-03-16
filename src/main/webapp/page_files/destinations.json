@@ -1,0 +1,11 @@
+[ {
+  "id" : 1,
+  "name" : "miradouro",
+  "city" : "Luanda",
+  "country" : "Angola",
+  "description" : "",
+  "imageUrl" : "default.png",
+  "category" : "Adventure",
+  "location" : "",
+  "website" : ""
+} ]

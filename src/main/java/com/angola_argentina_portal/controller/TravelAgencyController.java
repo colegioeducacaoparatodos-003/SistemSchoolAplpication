@@ -51,7 +51,7 @@ public class TravelAgencyController implements Serializable {
 
                 acessImage.salvarArquivo(
                         logoUpload,
-                        "travel_agencies",
+                        "travel_agencies_images",
                         newNameFile);
             }
 

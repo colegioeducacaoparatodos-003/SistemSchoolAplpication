@@ -50,8 +50,14 @@
                 Conteúdo aqui
             </div>
             
-        <p:button outcome="news" value="#{msg.learnMore}" styleClass="ui-button red-button" />
- 
+   <p:commandButton value="#{msg.learnMore}"
+                                  
+                                    action="#{destinationController.loadDestinationPage}"
+                                   
+                                    styleClass="ui-button red-button">
+
+   </p:commandButton>
+        
 
         </div>
 

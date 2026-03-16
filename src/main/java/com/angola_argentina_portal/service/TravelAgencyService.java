@@ -13,7 +13,7 @@ import com.angola_argentina_portal.model.TravelAgency;
 @Service
 public class TravelAgencyService {
 
-    private static final String FILE_PATH = "data/travel_agencies.json";
+    private static final String FILE_PATH = "page_files/travel_agencies.json";
 
     private final ObjectMapper mapper = new ObjectMapper();
 
