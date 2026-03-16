@@ -22,39 +22,43 @@
             <p:fileUpload value="#{documentController.document.uploadedFile}" mode="simple" label="Escolher arquivo"
                 allowTypes="/(\.|\/)(pdf|docx|xlsx|jpg|png)$/" auto="false" />
 
-            <!-- Botão para enviar -->
             <p:commandButton value="Upload" action="#{documentController.upload}" update="@form" />
         </p:panel>
 
     </h:form>
 
-    <p:dataTable value="#{documentController.lazyModel}" var="doc" lazy="true" paginator="true" rows="10">
+    <h:form>
 
-        <p:column headerText="Nome do Arquivo">
-            #{doc.fileName}
-        </p:column>
+        <p:dataTable value="#{documentController.lazyModel}" var="doc" lazy="true" paginator="true" rows="10"
+            rowKey="#{doc.pkDocument}">
 
-        <p:column headerText="Tipo">
-            #{doc.documentType}
-        </p:column>
+            <p:column headerText="Nome do Arquivo">
+                #{doc.fileName}
+            </p:column>
 
-        <p:column headerText="Tamanho">
-            #{doc.fileSize} bytes
-        </p:column>
+            <p:column headerText="Tipo">
+                #{doc.documentType}
+            </p:column>
 
-        <p:column headerText="Upload Date">
-            #{doc.uploadDate}
-        </p:column>
+            <p:column headerText="Tamanho">
+                #{doc.fileSize} bytes
+            </p:column>
 
-        <p:column headerText="Ações">
-            <!-- Botão de Download -->
-            <p:commandButton value="Download" icon="pi pi-download" update="@form">
-                <p:ajax listener="#{documentController.prepareDownload(doc.pkDocument)}" />
-                <p:fileDownload value="#{documentController.fileToDownload}" />
-            </p:commandButton>
-        </p:column>
+            <p:column headerText="Upload Date">
+                #{doc.uploadDate}
+            </p:column>
 
-    </p:dataTable>
+            <p:column headerText="Ações">
+                <!-- Botão de download -->
+                <p:commandButton value="Download" icon="pi pi-download" update="@form">
+                    <p:ajax listener="#{documentController.prepareDownload(doc.pkDocument)}" />
+                    <p:fileDownload value="#{documentController.fileToDownload}" />
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
 
 </h:body>
 

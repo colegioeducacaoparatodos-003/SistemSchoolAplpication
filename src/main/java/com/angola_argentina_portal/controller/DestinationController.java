@@ -47,7 +47,6 @@ public class DestinationController implements Serializable {
 
     public String load() {
         try {
-
             lazyModel = new DestinationLazyModel(service);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
