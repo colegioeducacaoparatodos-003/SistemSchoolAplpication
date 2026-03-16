@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.repository;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.angola_argentina_portal.interfaces.DocumentTableProjection;
 import com.angola_argentina_portal.model.Document;
+
+
 
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Integer> {
@@ -35,6 +38,4 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
             String referenceType,
             int referenceId,
             Pageable pageable);
-
-
 }

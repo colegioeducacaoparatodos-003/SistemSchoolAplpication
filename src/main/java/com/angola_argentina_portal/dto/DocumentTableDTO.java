@@ -75,4 +75,5 @@ public class DocumentTableDTO {
         this.uploadedBy = uploadedBy;
     }
 
+    // getters
 }

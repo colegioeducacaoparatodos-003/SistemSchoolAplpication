@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.controller;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.primefaces.model.LazyDataModel;
@@ -14,11 +15,15 @@ import jakarta.inject.Named;
 
 @Named
 @ViewScoped
-public class DocumentController {
+public class DocumentController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Document document = new Document();
 
     private LazyDataModel<DocumentTableDTO> lazyModel;
+
+    private String referenceType;
     private int referenceId;
 
     @Inject
@@ -27,33 +32,23 @@ public class DocumentController {
     @Inject
     private UserController loginController;
 
-    public String loadDocumentPage() {
-        try {
-            // loadLazy();
-        } catch (Exception e) {
-            // FacesMessageUtil.errorMessage("Erro " + e.getMessage());
-            e.printStackTrace();
-        }
-        return "/management/documents.xhtml?faces-redirect=true";
-    }
-
     public void prepare(String refType, int refId) {
-        // this.referenceType = refType;
-        // this.referenceId = refId;
+        this.referenceType = refType;
+        this.referenceId = refId;
 
         // this.lazyModel = new DocumentLazyModel(
         // service, referenceType, referenceId);
     }
 
-    public void save() {
+    public void upload() {
         try {
-            // document.setReferenceType(referenceType);
+            document.setReferenceType(referenceType);
             document.setReferenceId(referenceId);
             document.setUploadDate(LocalDate.now());
             // document.setFkUser(loginController.getLoggedUserId());
 
             // aqui assumes que o ficheiro já foi salvo no filesystem
-            service.save(document);
+            service.upload(document);
             document = new Document();
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,5 +62,4 @@ public class DocumentController {
     public Document getDocument() {
         return document;
     }
-
 }
