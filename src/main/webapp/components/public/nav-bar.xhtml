@@ -133,9 +133,9 @@
 
                         <div class="dropdown-content">
                             <ul class="sub-nav-links">
+                                <li class="sub-nav-link">#{msg.aboutTheEmbassy}</li>
                                 <li class="sub-nav-link">#{msg.ambassadors}</li>
                                 <li class="sub-nav-link">#{msg.generalInformation}</li>
-                                <li class="sub-nav-link">#{msg.aboutTheEmbassy}</li>
                             </ul>
                         </div>
                     </li>
@@ -243,13 +243,15 @@
                                 </div>
                             </div>
 
-                            <div class="travel-item">
+                            <p:remoteCommand name="rcLoadDestination"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rcLoadDestination()" class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.destinations}</span>
                                 </div>
 
                                 <div class="travel-img">
-                                    <img src="../../resources/imgs/calandula-waterrfall.jpeg" />
+                                    <img src="../../resources/imgs/gir-travelling.jpg" />
                                 </div>
                             </div>
 
