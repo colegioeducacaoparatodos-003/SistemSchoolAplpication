@@ -65,11 +65,9 @@ public class DocumentController implements Serializable {
         this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
     }
 
-
        public String loadDocument() {
         try {
-          // lazyModel = new DocumentLazyModel(service);
-          
+           lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
