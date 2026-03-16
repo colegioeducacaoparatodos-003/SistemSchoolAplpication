@@ -5,18 +5,13 @@ import java.time.LocalDate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.primefaces.model.file.UploadedFile;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.util.Objects;
-
 
 @Entity
 @Table(name = "document")
@@ -42,11 +37,6 @@ public class Document {
 
     private LocalDate uploadDate;
 
-    private int fkUser;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
-    private FileDocument fileDocument;
-
     @Transient
     private UploadedFile uploadedFile;
 
@@ -54,7 +44,7 @@ public class Document {
     public Document() {
     }
 
-    public Document(int pkDocument, String referenceType, int referenceId, String documentType, String fileName, String filePath, String contentType, long fileSize, LocalDate uploadDate, int fkUser, FileDocument fileDocument, UploadedFile uploadedFile) {
+    public Document(int pkDocument, String referenceType, int referenceId, String documentType, String fileName, String filePath, String contentType, long fileSize, LocalDate uploadDate, UploadedFile uploadedFile) {
         this.pkDocument = pkDocument;
         this.referenceType = referenceType;
         this.referenceId = referenceId;
@@ -64,8 +54,6 @@ public class Document {
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.uploadDate = uploadDate;
-        this.fkUser = fkUser;
-        this.fileDocument = fileDocument;
         this.uploadedFile = uploadedFile;
     }
 
@@ -141,22 +129,6 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-    public int getFkUser() {
-        return this.fkUser;
-    }
-
-    public void setFkUser(int fkUser) {
-        this.fkUser = fkUser;
-    }
-
-    public FileDocument getFileDocument() {
-        return this.fileDocument;
-    }
-
-    public void setFileDocument(FileDocument fileDocument) {
-        this.fileDocument = fileDocument;
-    }
-
     public UploadedFile getUploadedFile() {
         return this.uploadedFile;
     }
@@ -210,16 +182,6 @@ public class Document {
         return this;
     }
 
-    public Document fkUser(int fkUser) {
-        setFkUser(fkUser);
-        return this;
-    }
-
-    public Document fileDocument(FileDocument fileDocument) {
-        setFileDocument(fileDocument);
-        return this;
-    }
-
     public Document uploadedFile(UploadedFile uploadedFile) {
         setUploadedFile(uploadedFile);
         return this;
@@ -232,7 +194,7 @@ public class Document {
 
     @Override
     public int hashCode() {
-        return Objects.hash(pkDocument, referenceType, referenceId, documentType, fileName, filePath, contentType, fileSize, uploadDate, fkUser, fileDocument, uploadedFile);
+        return Objects.hash(pkDocument, referenceType, referenceId, documentType, fileName, filePath, contentType, fileSize, uploadDate, uploadedFile);
     }
 
     @Override
@@ -247,10 +209,9 @@ public class Document {
             ", contentType='" + getContentType() + "'" +
             ", fileSize='" + getFileSize() + "'" +
             ", uploadDate='" + getUploadDate() + "'" +
-            ", fkUser='" + getFkUser() + "'" +
-            ", fileDocument='" + getFileDocument() + "'" +
             ", uploadedFile='" + getUploadedFile() + "'" +
             "}";
     }
+
 
 }

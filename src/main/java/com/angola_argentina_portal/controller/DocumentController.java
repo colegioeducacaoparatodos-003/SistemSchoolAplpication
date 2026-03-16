@@ -15,7 +15,6 @@ import com.angola_argentina_portal.dto.DocumentTableDTO;
 import com.angola_argentina_portal.lazy.DestinationLazyModel;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
-import com.angola_argentina_portal.model.FileDocument;
 import com.angola_argentina_portal.service.DocumentService;
 
 import jakarta.faces.application.FacesMessage;
