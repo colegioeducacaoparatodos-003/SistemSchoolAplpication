@@ -71,6 +71,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     font-size: .8rem;
 }
 
+.president-biography-page-container,
 .news-section,
 .consular-services-section,
 .random-subjects-section,
@@ -1129,8 +1130,7 @@ INDEX SERVICES
 }
 
 .consular-services-section .cards-container,
-.quick-links-embassadors-section .cards-container
- {
+.quick-links-embassadors-section .cards-container {
     padding: 0;
     margin-top: 2rem;
     width: 100%;
@@ -1139,16 +1139,14 @@ INDEX SERVICES
     gap: 2rem;
 }
 
-.consular-services-section .card, 
-.quick-links-embassadors-section .card 
-{
+.consular-services-section .card,
+.quick-links-embassadors-section .card {
     width: 100%;
     height: 100%;
 }
 
 .consular-services-section .card,
-.quick-links-embassadors-section .card
- {
+.quick-links-embassadors-section .card {
     color: var(--text-gray);
     cursor: pointer;
     border-radius: 8px;
@@ -1174,8 +1172,7 @@ INDEX SERVICES
 .quick-links-embassadors-section .card:hover,
 .quick-links-embassadors-section a:hover,
 .consular-services-section .card:hover,
-.consular-services-section a:hover
- {
+.consular-services-section a:hover {
     color: var(--white-color);
     background-color: #DA291C;
 }
@@ -1189,15 +1186,13 @@ INDEX SERVICES
 }
 
 .quick-links-embassadors-section a:hover .icon-container,
-.consular-services-section a:hover .icon-container
- {
+.consular-services-section a:hover .icon-container {
     transform: translateX(20px);
     border-color: var(--white-color);
 }
 
 .consular-services-section .icon-container,
-.quick-links-embassadors-section .icon-container
- {
+.quick-links-embassadors-section .icon-container {
     transition: transform 0.3s ease-out;
     border-radius: 50px;
     width: 50px;
@@ -1653,7 +1648,7 @@ NEWS SECTION
 }
 
 .news-page-container .cards-container,
-.quick-links-embassadors{
+.quick-links-embassadors {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -2100,7 +2095,7 @@ SIDER BAR
 }
 
 
-.layout-menu-container{
+.layout-menu-container {
     height: 10%;
 }
 
@@ -2165,33 +2160,35 @@ DASHBOARD CONTENT
 */
 
 .header {
-                /* border: 2px solid blue; */
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem;
-                    height: 10%
+    /* border: 2px solid blue; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height: 10%
+}
 
-            }
+.header .title,
+.table-title {
+    color: var(--title-gray);
+    font-size: 1.4rem;
+    font-weight: 400;
+}
 
-            .header .title,
-            .table-title{
-                color: var(--title-gray);
-                font-size: 1.4rem;
-                font-weight: 400;
-            }
-
-            .ui-datatable-tablewrapper{
-                    height: 100%;
+.ui-datatable-tablewrapper {
+    height: 100%;
     overflow: auto;
-            }
-            .table{
-                   height: 75%;
+}
+
+.table {
+    height: 75%;
     width: 100%;
-            }
-.dashboard-form{
+}
+
+.dashboard-form {
     height: 100%;
 }
+
 /*
 ===============================
 DIALOGS
@@ -2224,79 +2221,82 @@ DIALOGS
 
 /* Styles of the presedent-biography page *
   /* container of the content of the page */
-            .president-biography .president-biography-page-container {
-                padding: 20px;
-                max-width: 1200px;
-                margin: 0 auto;
-                margin-bottom: 50px;
-            }
+.president-biography .president-biography-page-container {
+    /* padding: 20px; */
+    /* width: 90%; */
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
 
-            /* title of the page, i sugggest that it beomes a component */
-           .president-biography .title {
-                margin-top: 40px;
-                padding-bottom: 7px;
-                font-weight: bold;
-            }
+/* title of the page, i sugggest that it beomes a component */
+.president-biography .title {
+    margin-top: 40px;
+    padding-bottom: 7px;
+    font-weight: bold;
+}
 
-            /* the text about the president */
-            .president-biography .bio-text {
-                line-height: 1.8;
-                text-align: justify;
-                color: var(--angola-black);
-                font-size: 1.1rem;
-                margin-bottom: 40px;
-            }
+/* the text about the president */
+.president-biography .bio-text {
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--angola-black);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
 
-            .president-biography .profile-header {
-                display: flex;
-                gap: 30px;
-                align-items: flex-start;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
+.president-biography .profile-header {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 
-            .president-biography .profile-image {
-                flex: 0 0 260px;
-                overflow: hidden;
-            }
+.president-biography .profile-image {
+    flex: 0 0 260px;
+    overflow: hidden;
+}
 
-            .president-biography .profile-image:hover img {
-                transform: scale(1.1);
-            }
+.president-biography .profile-image:hover img {
+    transform: scale(1.1);
+}
 
-            .president-biography .president-img {
-                width: 100%;
-                border-radius: 6px;
-                box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
-                transition: .3s ease-in-out;
-            }
+.president-biography .president-img {
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+    transition: .3s ease-in-out;
+}
 
-            .president-biography .profile-info {
-                flex: 1;
-            }
+.president-biography .profile-info {
+    flex: 1;
+}
 
-            .president-biography .president-name {
-                margin: 5px 0 10px 0;
-                font-size: 1.8rem;
-                color: var(--angola-black);
-            }
+.president-biography .president-name {
+    margin: 5px 0 10px 0;
+    font-size: 1.8rem;
+    color: var(--angola-black);
+}
 
-            .president-biography .president-meta p {
-                margin: 4px 0;
-                color: #444;
-            }
+.president-biography .president-meta p {
+    margin: 4px 0;
+    color: #444;
+}
 
-            .president-biography .bio-text h3 {
-                margin-top: 25px;
-                color: var(--angola-black);
-                border-left: 4px solid var(--angola-red);
-                padding-left: 10px;
-            }
-            .president-biography .tag{
-                margin-bottom: 3px;
-                background: var(--angola-red) !important;
-            }
-            .president-biography .quick-links-embassadors{
-                padding: 0px;
-            }
+.president-biography .bio-text h3 {
+    margin-top: 25px;
+    color: var(--angola-black);
+    border-left: 4px solid var(--angola-red);
+    padding-left: 10px;
+}
+
+.president-biography .tag {
+    margin-bottom: 3px;
+    background: var(--angola-red) !important;
+}
+
+.president-biography .quick-links-embassadors {
+    padding: 0px;
+}
+
 /* the of the president-biography ends at this line/ */
