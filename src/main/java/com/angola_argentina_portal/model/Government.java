@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "government_entities")
-public class GovernmentEntity {
+public class Government {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class GovernmentEntity {
     private String description;
 
 
-    public GovernmentEntity() {
+    public Government() {
     }
 
-    public GovernmentEntity(Long id, String fullName, String typeEm, String title, String subTitle, String description) {
+    public Government(Long id, String fullName, String typeEm, String title, String subTitle, String description) {
         this.id = id;
         this.fullName = fullName;
         this.typeEm = typeEm;
@@ -91,32 +91,32 @@ public class GovernmentEntity {
         this.description = description;
     }
 
-    public GovernmentEntity id(Long id) {
+    public Government id(Long id) {
         setId(id);
         return this;
     }
 
-    public GovernmentEntity fullName(String fullName) {
+    public Government fullName(String fullName) {
         setFullName(fullName);
         return this;
     }
 
-    public GovernmentEntity typeEm(String typeEm) {
+    public Government typeEm(String typeEm) {
         setTypeEm(typeEm);
         return this;
     }
 
-    public GovernmentEntity title(String title) {
+    public Government title(String title) {
         setTitle(title);
         return this;
     }
 
-    public GovernmentEntity subTitle(String subTitle) {
+    public Government subTitle(String subTitle) {
         setSubTitle(subTitle);
         return this;
     }
 
-    public GovernmentEntity description(String description) {
+    public Government description(String description) {
         setDescription(description);
         return this;
     }
