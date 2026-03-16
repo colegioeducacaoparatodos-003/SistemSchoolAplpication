@@ -18,8 +18,7 @@ public class DocumentTableDTO {
             String fileName,
             String contentType,
             long fileSize,
-            LocalDate uploadDate,
-            String userName) {
+            LocalDate uploadDate) {
 
         this.pkDocument = pkDocument;
         this.documentType = documentType;
@@ -27,7 +26,7 @@ public class DocumentTableDTO {
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.uploadDate = uploadDate;
-        this.userName = userName;
+
     }
 
     public int getPkDocument() {

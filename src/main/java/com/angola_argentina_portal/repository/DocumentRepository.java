@@ -18,10 +18,9 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
                                d.file_name AS fileName,
                                d.content_type AS contentType,
                                d.file_size AS fileSize,
-                               d.upload_date AS uploadDate,
-                               u.username AS userName
+                               d.upload_date AS uploadDate
                         FROM document d
-                        LEFT JOIN user u ON d.fk_user = u.pk_user
+
                         """, countQuery = "SELECT COUNT(*) FROM document", nativeQuery = true)
         Page<DocumentTableProjection> findAllForTable(Pageable pageable);
 
