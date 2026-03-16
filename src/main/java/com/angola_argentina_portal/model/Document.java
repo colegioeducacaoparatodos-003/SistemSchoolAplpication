@@ -11,21 +11,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+
 @Entity
 @Table(name = "document")
 public class Document {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pkDocument;
 
-    // private String referenceType;
+    private String referenceType;
     // ASSET | CONTRACT | EMPLOYEE | PAYROLL | OTHER
+
     private int referenceId;
+
     private String documentType;
-    // DECLARATION | VISAS | LIABILITY AGREEMENT | OTHER |
+    // CONTRACT | INVOICE | MANUAL | PHOTO | REPORT
+
     private String fileName;
     private String filePath;
     private String contentType;
+
     private long fileSize;
 
     private LocalDate uploadDate;
@@ -45,6 +51,14 @@ public class Document {
 
     public void setPkDocument(int pkDocument) {
         this.pkDocument = pkDocument;
+    }
+
+    public String getReferenceType() {
+        return referenceType;
+    }
+
+    public void setReferenceType(String referenceType) {
+        this.referenceType = referenceType;
     }
 
     public int getReferenceId() {
