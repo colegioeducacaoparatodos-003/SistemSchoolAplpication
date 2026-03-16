@@ -25,5 +25,4 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
                         """, countQuery = "SELECT COUNT(*) FROM document", nativeQuery = true)
         Page<DocumentTableProjection> findAllForTable(Pageable pageable);
 
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 }
