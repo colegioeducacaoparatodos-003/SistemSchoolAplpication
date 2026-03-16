@@ -10,74 +10,72 @@
     </title>
 
 
+    <style>
+        .add-document-dialog.ui-dialog{
+            width: 40% !important;
+        }
+
+        body .ui-selectonemenu {
+            width: 100%;
+        }
+        .p-datepicker{
+            display: flex;
+            width: 100%;
+        }
+
+        body .ui-dialog .ui-dialog-titlebar{
+            padding: 0;
+        }
+        .title{
+            text-align: center;
+            font-size: 1.4rem;
+        }
+    </style>
 </h:head>
 
 <h:body>
 
-<h:form id="createForm"  enctype="multipart/form-data">
+    <h:form id="createForm" enctype="multipart/form-data">
 
-    <p:dialog id="createDialog" styleClass="create-news-dialog" widgetVar="createDialog" showEffect="fade" modal="true"
-        closeOnEscape="true">
-        <p:tabView>
+        <p:dialog id="createDialog" styleClass="add-document-dialog" widgetVar="createDialog" showEffect="fade" modal="true"
+            closeOnEscape="true">
 
-            <p:tab title="General">
-                <p:scrollPanel mode="native">
-                    <div class="form-section">
+                <h1 class="title">Adicionar documento</h1>
+            <div class="field mb-3">
+                <h:outputText class="label-for-input" value="Nome do Ficheiro" />
+                <p:inputText value="#{bean.fileName}" styleClass="w-full" />
+            </div>
 
-                        <h:outputText class="label-for-input" value="Title" />
-                        <p:inputText value="#{newsController.news.title}" styleClass="w-full" />
+            <!-- <div class="field mb-3">
+                <h:outputText class="label-for-input" value="ID de Referência (ASSET/CONTRACT/etc)" />
+                <p:inputNumber value="#{bean.referenceId}" decimalPlaces="0" styleClass="w-full" />
+            </div> -->
 
-                        <h:outputText class="label-for-input" value="Subtitle" />
-                        <p:inputText value="#{newsController.news.subtitle}" styleClass="w-full" />
+            <div class="field mb-3">
+                <h:outputText class="label-for-input" value="Tipo de Documento" />
+                <p:selectOneMenu value="#{bean.documentType}" styleClass="w-full">
+                    <f:selectItem itemLabel="Selecione o Tipo" itemValue="" />
+                    <f:selectItem itemLabel="Declaração" itemValue="DECLARATION" />
+                    <f:selectItem itemLabel="Visto" itemValue="VISAS" />
+                    <f:selectItem itemLabel="Acordo de Responsabilidade" itemValue="LIABILITY AGREEMENT" />
+                    <f:selectItem itemLabel="Outro" itemValue="OTHER" />
+                </p:selectOneMenu>
+            </div>
 
-                        <h:outputText class="label-for-input" value="Category" />
-                        <p:inputText value="#{newsController.news.category}" styleClass="w-full" />
+            <!-- <div class="field mb-3">
+                <h:outputText class="label-for-input" value="Data de Upload" />
+                <p:datePicker value="#{bean.uploadDate}" showIcon="true" styleClass="w-full" />
+            </div> -->
 
-                        <h:outputText class="label-for-input" value="Author" />
-                        <p:inputText value="#{newsController.news.author}" styleClass="w-full" />
-                    </div>
+            <!-- <div class="field mb-3">
+                <h:outputText class="label-for-input" value="Caminho do Ficheiro" />
+                <p:inputText value="#{bean.filePath}" styleClass="w-full" />
+            </div> -->
+            <p:commandButton styleClass="save-button" value="Guardar" actionListener="#{bean.save()}" update="@form"
+                oncomplete="PF('createDialog').hide()" />
+        </p:dialog>
 
-                    <div class="upload-group">
-                        <p:outputLabel value="Main Image" styleClass="upload-label" />
-                        <div class="transparentUploadFile upload-container">
-
-                            <p:fileUpload label="#{msg.chooseButton}" styleClass="custom-upload-btn"
-                                value="#{newsController.news.imageUrlUtil}" skinSimple="true" mode="simple"
-                                allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
-                        </div>
-                    </div>
-                </p:scrollPanel>
-            </p:tab>
-
-            <p:tab title="Content">
-                <p:scrollPanel mode="native">
-
-                    <div class="form-section">
-                        <h:outputText class="label-for-input" value="Short Summary" />
-                        <p:inputTextarea value="#{newsController.news.summary}" autoResize="false" rows="4"
-                            maxlength="500" counter="summaryCounter" counterTemplate="{0} characters remaining"
-                            styleClass="w-full" />
-                        <h:outputText id="summaryCounter" style="display:block; margin-bottom:15px;" />
-                    </div>
-
-                    <div class="form-section">
-                        <p:textEditor widgetVar="editor1" value="#{newsController.news.content}" secure="false"
-                            height="250px" />
-                    </div>
-                    <p:commandButton value="Save News" 
-                        action="#{newsController.save}" 
-                        process="@form"
-                        update=":dashboardTable"
-                        styleClass="ui-button save-button" />
-
-                </p:scrollPanel>
-            </p:tab>
-        </p:tabView>
-
-    </p:dialog>
-
-</h:form>
+    </h:form>
 </h:body>
 
 </html>
