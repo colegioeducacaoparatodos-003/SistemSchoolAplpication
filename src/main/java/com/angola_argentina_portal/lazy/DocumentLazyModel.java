@@ -65,8 +65,11 @@ public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
 
     @Override
     public DocumentTableDTO getRowData(String rowKey) {
+
         int id = Integer.parseInt(rowKey);
-        List<DocumentTableDTO> list = this.getWrappedData();
+
+        List<DocumentTableDTO> list = (List<DocumentTableDTO>) getWrappedData();
+
         if (list != null) {
             for (DocumentTableDTO dto : list) {
                 if (dto.getPkDocument() == id) {
@@ -74,6 +77,7 @@ public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
                 }
             }
         }
+
         return null;
     }
 }
