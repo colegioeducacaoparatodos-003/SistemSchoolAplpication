@@ -122,3 +122,38 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // We use a small timeout to ensure the PrimeFaces Widget is initialized
+    setTimeout(function() {
+        // Find the PrimeFaces widget by its styleClass
+        // Note: PrimeFaces usually maps widgets to PF('widgetVarName')
+        // If you don't have a widgetVar, we target the element directly:
+        const carouselEl = document.querySelector('.mission-carousel');
+
+        if (carouselEl) {
+            carouselEl.addEventListener('mouseenter', function() {
+                // Access the widget instance and stop the autoplay
+                // Most PF carousels use stopAutoplay() or pause()
+                if (window.PrimeFaces && PrimeFaces.widgets) {
+                    for (let key in PrimeFaces.widgets) {
+                        let widget = PrimeFaces.widgets[key];
+                        if (widget.jq && widget.jq.hasClass('mission-carousel')) {
+                            widget.stopAutoplay(); 
+                        }
+                    }
+                }
+            });
+
+            carouselEl.addEventListener('mouseleave', function() {
+                if (window.PrimeFaces && PrimeFaces.widgets) {
+                    for (let key in PrimeFaces.widgets) {
+                        let widget = PrimeFaces.widgets[key];
+                        if (widget.jq && widget.jq.hasClass('mission-carousel')) {
+                            widget.startAutoplay();
+                        }
+                    }
+                }
+            });
+        }
+    }, 500);
+});

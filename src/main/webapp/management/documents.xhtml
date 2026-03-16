@@ -2,20 +2,79 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions">
 
-
-  <f:metadata>
-    <!-- <f:event type="preRenderView" listener="#{userController.ensureLoggedIn}" /> -->
-</f:metadata>
-
-
+    <!-- <a href=""></a> -->
     <ui:define name="titulo">
-        Dashboard
+        Documentos
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="dashboardForm">
-            <h1>Angola Embassy</h1>
+        <style>
 
+        </style>
+        <h:form id="dashboardTable" class="dashboard-form">
+            <p:growl id="msg" />
+            <h:panelGroup class="header">
+                <h1 class="title">Documentos</h1>
+
+                <p:commandButton styleClass="create-button" value="Create News" type="button"
+                    onclick="PF('createDialog').show()" />
+            </h:panelGroup>
+
+            <p:dataTable styleClass="table" value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
+                paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                rowsPerPageTemplate="5,10,20">
+
+                <p:column headerText="Preview" exportable="false">
+                    <p:graphicImage value="/news_images/#{item.imageUrl}" rendered="#{not empty item.imageUrl}"
+                        style="width: 100%; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageUrl}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column>
+                <p:column headerText="Title">
+                    <h:outputText value="#{item.title}" />
+                </p:column>
+
+                <p:column headerText="Subtitle">
+                    <h:outputText value="#{item.subtitle}" />
+                </p:column>
+
+                <p:column headerText="Author">
+                    <!-- <p:avatar id="menuBarAvatar" label="#{item.author}" styleClass="avatar" size="large"
+                        shape="circle" /> -->
+                    <h:outputText value="#{item.author}" />
+                </p:column>
+
+                <p:column headerText="Category">
+                    <h:outputText value="#{item.category}" />
+                </p:column>
+
+                <p:column headerText="Publishe">
+                    <p:toggleSwitch value="#{selectBooleanView.value3}">
+                        <p:ajax listener="#{selectBooleanView.addMessage}" update="msg" />
+                    </p:toggleSwitch>
+                </p:column>
+                <p:column headerText="Published At">
+                    <h:outputText value="#{item.publishedAt}">
+                        <f:convertDateTime type="localDateTime" pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
+                </p:column>
+
+
+
+                <p:column headerText="Actions">
+                    <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
+
+                    <p:button icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-danger" />
+
+                    <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
+                </p:column>
+
+            </p:dataTable>
         </h:form>
+        <ui:include src="./documents/document-create.xhtml" />
+
+
     </ui:define>
 </ui:composition>
