@@ -11,22 +11,24 @@
 
 
     <style>
-        .add-document-dialog.ui-dialog{
+        .add-document-dialog.ui-dialog {
             width: 40% !important;
         }
 
         body .ui-selectonemenu {
             width: 100%;
         }
-        .p-datepicker{
+
+        .p-datepicker {
             display: flex;
             width: 100%;
         }
 
-        body .ui-dialog .ui-dialog-titlebar{
+        body .ui-dialog .ui-dialog-titlebar {
             padding: 0;
         }
-        .title{
+
+        .title {
             text-align: center;
             font-size: 1.4rem;
         }
@@ -36,20 +38,15 @@
 <h:body>
 
     <h:form id="createForm" enctype="multipart/form-data">
+     <p:growl id="messages" showDetail="true"/>
+        <p:dialog id="createDialog" styleClass="add-document-dialog" widgetVar="createDialog" showEffect="fade"
+            modal="true" closeOnEscape="true">
 
-        <p:dialog id="createDialog" styleClass="add-document-dialog" widgetVar="createDialog" showEffect="fade" modal="true"
-            closeOnEscape="true">
-
-                <h1 class="title">Adicionar documento</h1>
+            <h1 class="title">Adicionar documento</h1>
             <div class="field mb-3">
                 <h:outputText class="label-for-input" value="Nome do Ficheiro" />
                 <p:inputText value="#{bean.fileName}" styleClass="w-full" />
             </div>
-
-            <!-- <div class="field mb-3">
-                <h:outputText class="label-for-input" value="ID de Referência (ASSET/CONTRACT/etc)" />
-                <p:inputNumber value="#{bean.referenceId}" decimalPlaces="0" styleClass="w-full" />
-            </div> -->
 
             <div class="field mb-3">
                 <h:outputText class="label-for-input" value="Tipo de Documento" />
@@ -62,15 +59,15 @@
                 </p:selectOneMenu>
             </div>
 
-            <!-- <div class="field mb-3">
-                <h:outputText class="label-for-input" value="Data de Upload" />
-                <p:datePicker value="#{bean.uploadDate}" showIcon="true" styleClass="w-full" />
-            </div> -->
+            <div class="field mb-3">
+                <h:outputText class="label-for-input" value="Upload do Documento" />
 
-            <!-- <div class="field mb-3">
-                <h:outputText class="label-for-input" value="Caminho do Ficheiro" />
-                <p:inputText value="#{bean.filePath}" styleClass="w-full" />
-            </div> -->
+                <p:fileUpload mode="simple" multiple="false" update="messages"
+                    listener="#{cropUploaderBean.handleFileUpload}">
+                    <p:validateFile sizeLimit="102400" allowTypes="/(\.|\/)(pdf|doc|docx|png|jpe?g)$/" />
+                </p:fileUpload>
+            </div>
+
             <p:commandButton styleClass="save-button" value="Guardar" actionListener="#{bean.save()}" update="@form"
                 oncomplete="PF('createDialog').hide()" />
         </p:dialog>
