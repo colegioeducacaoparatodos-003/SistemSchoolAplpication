@@ -1,18 +1,19 @@
 package com.angola_argentina_portal.controller;
 
+<<<<<<< HEAD
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+=======
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.dto.DocumentTableDTO;
-import com.angola_argentina_portal.lazy.DestinationLazyModel;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
 import com.angola_argentina_portal.service.DocumentService;
@@ -34,10 +35,13 @@ public class DocumentController implements Serializable {
 
     private LazyDataModel<DocumentTableDTO> lazyModel;
 
+<<<<<<< HEAD
     private String referenceType;
 
     private int referenceId;
 
+=======
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     private StreamedContent fileToDownload;
 
     @Inject
@@ -46,6 +50,7 @@ public class DocumentController implements Serializable {
     @Inject
     private UserController loginController;
 
+<<<<<<< HEAD
     public void prepare(String refType, int refId) {
 
         this.referenceType = refType;
@@ -65,6 +70,23 @@ public class DocumentController implements Serializable {
             lazyModel =
                     new DocumentLazyModel(service, referenceType, referenceId);
 
+=======
+    // ================== PREPARAR ==================
+    /*
+     * public void prepare(String refType, int refId) {
+     * this.referenceType = refType;
+     * this.referenceId = refId;
+     * 
+     * // Inicializa a LazyDataModel
+     * this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
+     * }
+     */
+
+    // Método loadDocument para Renderização
+    public String loadDocument() {
+        try {
+            lazyModel = new DocumentLazyModel(service);
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
         } catch (Exception e) {
 
             FacesContext.getCurrentInstance()
@@ -79,6 +101,40 @@ public class DocumentController implements Serializable {
         return "/management/documents.xhtml?faces-redirect=true";
     }
 
+<<<<<<< HEAD
+=======
+    public void add() {
+
+        try {
+
+            service.save(document);
+
+            lazyModel = new DocumentLazyModel(service);
+
+            document = new Document();
+
+            addMessage(FacesMessage.SEVERITY_INFO,
+                    "Document",
+                    "Document uploaded successfully");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            document = new Document();
+
+            addMessage(FacesMessage.SEVERITY_ERROR,
+                    "Document",
+                    e.getMessage());
+        }
+    }
+
+    private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(severity, summary, detail));
+    }
+
+    // ================== UPLOAD ==================
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     public void upload() {
 
         try {
@@ -97,6 +153,7 @@ public class DocumentController implements Serializable {
                 return;
             }
 
+<<<<<<< HEAD
             document.setFileName(uploaded.getFileName());
             document.setContentType(uploaded.getContentType());
             document.setFileSize(uploaded.getSize());
@@ -104,6 +161,15 @@ public class DocumentController implements Serializable {
             document.setReferenceType(referenceType);
             document.setReferenceId(referenceId);
 
+=======
+            // Cria FileDocument
+            FileDocument fileDoc = new FileDocument();
+            fileDoc.setFileName(uploaded.getFileName());
+            fileDoc.setContentType(uploaded.getContentType());
+            fileDoc.setSize(uploaded.getSize());
+            fileDoc.setCreatedAt(LocalDateTime.now());
+            fileDoc.setData(uploaded.getContent());
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
             document.setUploadDate(LocalDate.now());
 
             // document.setFkUser(loginController.getLoggedUserId());
@@ -136,6 +202,7 @@ public class DocumentController implements Serializable {
 
         Document doc = service.findById(documentId);
 
+<<<<<<< HEAD
         fileToDownload = DefaultStreamedContent.builder()
                 .name(doc.getFileName())
                 .contentType(doc.getContentType())
@@ -147,6 +214,18 @@ public class DocumentController implements Serializable {
                     }
                 })
                 .build();
+=======
+        /*
+         * if (doc.getFileDocument() != null && doc.getFileDocument().getData() != null)
+         * {
+         * fileToDownload = DefaultStreamedContent.builder()
+         * .name(doc.getFileDocument().getFileName())
+         * .contentType(doc.getFileDocument().getContentType())
+         * .stream(() -> new ByteArrayInputStream(doc.getFileDocument().getData()))
+         * .build();
+         * }
+         */
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     }
 
     public LazyDataModel<DocumentTableDTO> getLazyModel() {
@@ -157,7 +236,15 @@ public class DocumentController implements Serializable {
         return document;
     }
 
+<<<<<<< HEAD
     public StreamedContent getFileToDownload() {
         return fileToDownload;
     }
+=======
+    // ================== SETTERS ==================
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+>>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 }
