@@ -2204,3 +2204,82 @@ DIALOGS
     margin-top: .8rem;
     display: block;
 }
+
+/* Styles of the presedent-biography page *
+  /* container of the content of the page */
+            .president-biography-page-container {
+                padding: 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+                margin-bottom: 50px;
+            }
+
+            /* title of the page, i sugggest that it beomes a component */
+            .title {
+                margin-top: 40px;
+                padding-bottom: 7px;
+                font-weight: bold;
+            }
+
+            /* the text about the president */
+            .bio-text {
+                line-height: 1.8;
+                text-align: justify;
+                color: var(--angola-black);
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+            }
+
+            .profile-header {
+                display: flex;
+                gap: 30px;
+                align-items: flex-start;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+
+            .profile-image {
+                flex: 0 0 260px;
+                overflow: hidden;
+            }
+
+            .profile-image:hover img {
+                transform: scale(1.1);
+            }
+
+            .president-img {
+                width: 100%;
+                border-radius: 6px;
+                box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+                transition: .3s ease-in-out;
+            }
+
+            .profile-info {
+                flex: 1;
+            }
+
+            .president-name {
+                margin: 5px 0 10px 0;
+                font-size: 1.8rem;
+                color: var(--angola-black);
+            }
+
+            .president-meta p {
+                margin: 4px 0;
+                color: #444;
+            }
+
+            .bio-text h3 {
+                margin-top: 25px;
+                color: var(--angola-black);
+                border-left: 4px solid var(--angola-red);
+                padding-left: 10px;
+            }
+            .tag{
+                margin-bottom: 3px;
+                background: var(--angola-red) !important;
+            }
+            .quick-links-embassadors{
+                padding: 0px;
+            }
+/* the of the president-biography ends at this line/ */

@@ -2,13 +2,17 @@ package com.angola_argentina_portal.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.Objects;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 @Entity
 @Table(name = "files")
@@ -30,14 +34,47 @@ public class FileDocument {
 
     // bytes do arquivo
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] data;
 
+    @OneToOne(mappedBy = "fileDocument")
+    private Document document;
+
+    public FileDocument(Long id, String fileName, String contentType, Long size, String author, LocalDateTime createdAt, byte[] data, Document document) {
+        this.id = id;
+        this.fileName = fileName;
+        this.contentType = contentType;
+        this.size = size;
+        this.author = author;
+        this.createdAt = createdAt;
+        this.data = data;
+        this.document = document;
+    }
+
+    public Document getDocument() {
+        return this.document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public FileDocument document(Document document) {
+        setDocument(document);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      return EqualsBuilder.reflectionEquals(this, o);
+    }
     // getters e setters
 
     public FileDocument() {
     }
 
-    public FileDocument(Long id, String fileName, String contentType, Long size, String author, LocalDateTime createdAt, byte[] data) {
+    public FileDocument(Long id, String fileName, String contentType, Long size, String author, LocalDateTime createdAt,
+            byte[] data) {
         this.id = id;
         this.fileName = fileName;
         this.contentType = contentType;
@@ -140,7 +177,7 @@ public class FileDocument {
 
     // @Override
     // public boolean equals(Object o) {
-    //   return EqualsBuilder.reflectionEquals(this, o);
+    // return EqualsBuilder.reflectionEquals(this, o);
     // }
 
     @Override
@@ -151,15 +188,14 @@ public class FileDocument {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", fileName='" + getFileName() + "'" +
-            ", contentType='" + getContentType() + "'" +
-            ", size='" + getSize() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", createdAt='" + getCreatedAt() + "'" +
-            ", data='" + getData() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", fileName='" + getFileName() + "'" +
+                ", contentType='" + getContentType() + "'" +
+                ", size='" + getSize() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", createdAt='" + getCreatedAt() + "'" +
+                ", data='" + getData() + "'" +
+                "}";
     }
-    
 
 }
