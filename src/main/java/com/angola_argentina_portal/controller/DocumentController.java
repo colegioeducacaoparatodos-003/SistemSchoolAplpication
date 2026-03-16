@@ -53,8 +53,8 @@ public class DocumentController implements Serializable {
         this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
     }
 
-    // Método loadDocument para Renderização 
-    public String loadDocument() {
+
+       public String loadDocument() {
         try {
             lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
         } catch (Exception e) {
