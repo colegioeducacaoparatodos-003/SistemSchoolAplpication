@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.primefaces.model.file.UploadedFile;
 
@@ -28,11 +29,18 @@ public class TravelAgencyController implements Serializable {
 
     private UploadedFile logoUpload;
 
+    private List<TravelAgency> destinations;
+
     @Inject
     private TravelAgencyService service;
 
     public void load() {
         lazyModel = new TravelAgencyLazyModel(service);
+    }
+
+    public String loadTravelAgenciesPage() {
+        destinations = service.findAll();
+        return "/travel-agencies.xhtml?faces-redirect=true";
     }
 
     public void add() {
@@ -151,4 +159,13 @@ public class TravelAgencyController implements Serializable {
     public void setLogoUpload(UploadedFile logoUpload) {
         this.logoUpload = logoUpload;
     }
+
+    public List<TravelAgency> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(List<TravelAgency> destinations) {
+        this.destinations = destinations;
+    }
+
 }

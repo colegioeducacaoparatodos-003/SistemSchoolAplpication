@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.primefaces.model.file.UploadedFile;
 
@@ -21,6 +22,7 @@ import jakarta.inject.Named;
 public class AirlineController implements Serializable {
 
     private Airline airline = new Airline();
+    private List<Airline> airlines;
 
     private AirlineLazyModel lazyModel;
 
@@ -75,6 +77,11 @@ public class AirlineController implements Serializable {
 
     public void load() {
         lazyModel = new AirlineLazyModel(service);
+    }
+
+    public String loadAirlinePage() {
+        airlines = service.findAll();
+        return "/airline.xhtml?faces-redirect=true";
     }
 
     public Airline getAirline() {

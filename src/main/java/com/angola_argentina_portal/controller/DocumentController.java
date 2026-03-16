@@ -1,20 +1,16 @@
 package com.angola_argentina_portal.controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.dto.DocumentTableDTO;
-import com.angola_argentina_portal.lazy.DestinationLazyModel;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
-import com.angola_argentina_portal.model.FileDocument;
 import com.angola_argentina_portal.service.DocumentService;
 
 import jakarta.faces.application.FacesMessage;
@@ -33,9 +29,6 @@ public class DocumentController implements Serializable {
 
     private LazyDataModel<DocumentTableDTO> lazyModel;
 
-    private String referenceType;
-    private int referenceId;
-
     private StreamedContent fileToDownload;
 
     @Inject
@@ -44,19 +37,11 @@ public class DocumentController implements Serializable {
     @Inject
     private UserController loginController;
 
-    // ================== PREPARAR ==================
-    public void prepare(String refType, int refId) {
-        this.referenceType = refType;
-        this.referenceId = refId;
 
-        // Inicializa a LazyDataModel
-        this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
-    }
-
-    // Método loadDocument para Renderização 
+    // Método loadDocument para Renderização
     public String loadDocument() {
         try {
-            lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
+            lazyModel = new DocumentLazyModel(service);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
@@ -64,6 +49,36 @@ public class DocumentController implements Serializable {
             e.printStackTrace();
         }
         return "/management/documents.xhtml?faces-redirect=true";
+    }
+
+    public void add() {
+
+        try {
+
+            service.save(document);
+
+            lazyModel = new DocumentLazyModel(service);
+
+            document = new Document();
+
+            addMessage(FacesMessage.SEVERITY_INFO,
+                    "Document",
+                    "Document uploaded successfully");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            document = new Document();
+
+            addMessage(FacesMessage.SEVERITY_ERROR,
+                    "Document",
+                    e.getMessage());
+        }
+    }
+
+    private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
     // ================== UPLOAD ==================
@@ -77,22 +92,6 @@ public class DocumentController implements Serializable {
                                 new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Selecione um arquivo!"));
                 return;
             }
-
-            // Cria FileDocument
-            FileDocument fileDoc = new FileDocument();
-            fileDoc.setFileName(uploaded.getFileName());
-            fileDoc.setContentType(uploaded.getContentType());
-            fileDoc.setSize(uploaded.getSize());
-            fileDoc.setCreatedAt(LocalDateTime.now());
-            fileDoc.setData(uploaded.getContent());
-
-            // Associa à Document
-            document.setFileDocument(fileDoc);
-
-            document.setReferenceType(referenceType);
-            document.setReferenceId(referenceId);
-            document.setUploadDate(LocalDate.now());
-            // document.setFkUser(loginController.getLoggedUserId());
 
             // Salva no banco
             service.upload(document);
@@ -113,14 +112,6 @@ public class DocumentController implements Serializable {
     // ================== DOWNLOAD ==================
     public void prepareDownload(int documentId) {
         Document doc = service.findById(documentId);
-
-        if (doc.getFileDocument() != null && doc.getFileDocument().getData() != null) {
-            fileToDownload = DefaultStreamedContent.builder()
-                    .name(doc.getFileDocument().getFileName())
-                    .contentType(doc.getFileDocument().getContentType())
-                    .stream(() -> new ByteArrayInputStream(doc.getFileDocument().getData()))
-                    .build();
-        }
     }
 
     public StreamedContent getFileToDownload() {
@@ -136,24 +127,9 @@ public class DocumentController implements Serializable {
         return document;
     }
 
-    public String getReferenceType() {
-        return referenceType;
-    }
-
-    public int getReferenceId() {
-        return referenceId;
-    }
-
     // ================== SETTERS ==================
     public void setDocument(Document document) {
         this.document = document;
     }
 
-    public void setReferenceType(String referenceType) {
-        this.referenceType = referenceType;
-    }
-
-    public void setReferenceId(int referenceId) {
-        this.referenceId = referenceId;
-    }
 }

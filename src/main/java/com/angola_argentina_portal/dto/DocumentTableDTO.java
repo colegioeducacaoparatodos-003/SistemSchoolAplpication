@@ -7,36 +7,83 @@ public class DocumentTableDTO {
     private int pkDocument;
     private String documentType;
     private String fileName;
+    private String contentType;
     private long fileSize;
     private LocalDate uploadDate;
-    private int uploadedBy;
+    private String userName;
 
-    public DocumentTableDTO(int pkDocument, String documentType, String fileName, long fileSize,
-                            LocalDate uploadDate, int uploadedBy) {
+    public DocumentTableDTO(
+            int pkDocument,
+            String documentType,
+            String fileName,
+            String contentType,
+            long fileSize,
+            LocalDate uploadDate) {
+
         this.pkDocument = pkDocument;
         this.documentType = documentType;
         this.fileName = fileName;
+        this.contentType = contentType;
         this.fileSize = fileSize;
         this.uploadDate = uploadDate;
-        this.uploadedBy = uploadedBy;
+
     }
 
-    // getters e setters
-    public int getPkDocument() { return pkDocument; }
-    public void setPkDocument(int pkDocument) { this.pkDocument = pkDocument; }
+    public int getPkDocument() {
+        return pkDocument;
+    }
 
-    public String getDocumentType() { return documentType; }
-    public void setDocumentType(String documentType) { this.documentType = documentType; }
+    public void setPkDocument(int pkDocument) {
+        this.pkDocument = pkDocument;
+    }
 
-    public String getFileName() { return fileName; }
-    public void setFileName(String fileName) { this.fileName = fileName; }
+    public String getDocumentType() {
+        return documentType;
+    }
 
-    public long getFileSize() { return fileSize; }
-    public void setFileSize(long fileSize) { this.fileSize = fileSize; }
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
 
-    public LocalDate getUploadDate() { return uploadDate; }
-    public void setUploadDate(LocalDate uploadDate) { this.uploadDate = uploadDate; }
+    public String getFileName() {
+        return fileName;
+    }
 
-    public int getUploadedBy() { return uploadedBy; }
-    public void setUploadedBy(int uploadedBy) { this.uploadedBy = uploadedBy; }
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public LocalDate getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(LocalDate uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    // getters
 }

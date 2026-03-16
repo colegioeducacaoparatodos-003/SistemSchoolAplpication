@@ -10,6 +10,9 @@ import com.angola_argentina_portal.model.Airline;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+
 @Service
 public class AirlineService {
 
@@ -20,14 +23,21 @@ public class AirlineService {
     public List<Airline> findAll() {
 
         try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
 
-            File file = new File(FILE_PATH);
+            String path = context.getExternalContext().getRealPath("/");
+
+            File file = new File(path + File.separator + "page_files" + File.separator + "destinations.json");
+
+            System.out.println(file.getAbsolutePath());
 
             if (!file.exists()) {
                 return new ArrayList<>();
             }
 
-            return mapper.readValue(file,
+            return mapper.readValue(
+                    file,
                     new TypeReference<List<Airline>>() {
                     });
 
