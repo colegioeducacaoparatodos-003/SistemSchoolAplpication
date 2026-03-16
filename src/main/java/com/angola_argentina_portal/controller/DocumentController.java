@@ -163,15 +163,15 @@ public class DocumentController implements Serializable {
 
 =======
             // Cria FileDocument
-            FileDocument fileDoc = new FileDocument();
-            fileDoc.setFileName(uploaded.getFileName());
-            fileDoc.setContentType(uploaded.getContentType());
-            fileDoc.setSize(uploaded.getSize());
-            fileDoc.setCreatedAt(LocalDateTime.now());
-            fileDoc.setData(uploaded.getContent());
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
-            document.setUploadDate(LocalDate.now());
-
+            /*
+             * FileDocument fileDoc = new FileDocument();
+             * fileDoc.setFileName(uploaded.getFileName());
+             * fileDoc.setContentType(uploaded.getContentType());
+             * fileDoc.setSize(uploaded.getSize());
+             * fileDoc.setCreatedAt(LocalDateTime.now());
+             * fileDoc.setData(uploaded.getContent());
+             * document.setUploadDate(LocalDate.now());
+             */
             // document.setFkUser(loginController.getLoggedUserId());
 
             service.upload(document);
