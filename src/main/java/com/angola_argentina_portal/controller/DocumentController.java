@@ -11,7 +11,6 @@ import org.primefaces.model.file.UploadedFile;
 import com.angola_argentina_portal.dto.DocumentTableDTO;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
-import com.angola_argentina_portal.model.FileDocument;
 import com.angola_argentina_portal.service.DocumentService;
 
 import jakarta.faces.application.FacesMessage;
@@ -105,13 +104,15 @@ public class DocumentController implements Serializable {
             }
 
             // Cria FileDocument
-            FileDocument fileDoc = new FileDocument();
-            fileDoc.setFileName(uploaded.getFileName());
-            fileDoc.setContentType(uploaded.getContentType());
-            fileDoc.setSize(uploaded.getSize());
-            fileDoc.setCreatedAt(LocalDateTime.now());
-            fileDoc.setData(uploaded.getContent());
-            document.setUploadDate(LocalDate.now());
+            /*
+             * FileDocument fileDoc = new FileDocument();
+             * fileDoc.setFileName(uploaded.getFileName());
+             * fileDoc.setContentType(uploaded.getContentType());
+             * fileDoc.setSize(uploaded.getSize());
+             * fileDoc.setCreatedAt(LocalDateTime.now());
+             * fileDoc.setData(uploaded.getContent());
+             * document.setUploadDate(LocalDate.now());
+             */
             // document.setFkUser(loginController.getLoggedUserId());
 
             // Salva no banco
