@@ -2159,7 +2159,7 @@ DIALOGS
 
 /* Styles of the presedent-biography page *
   /* container of the content of the page */
-            .president-biography-page-container {
+            .reseident-biography .president-biography-page-container {
                 padding: 20px;
                 max-width: 1200px;
                 margin: 0 auto;
@@ -2167,14 +2167,14 @@ DIALOGS
             }
 
             /* title of the page, i sugggest that it beomes a component */
-            .title {
+           .reseident-biography .title {
                 margin-top: 40px;
                 padding-bottom: 7px;
                 font-weight: bold;
             }
 
             /* the text about the president */
-            .bio-text {
+            .reseident-biography .bio-text {
                 line-height: 1.8;
                 text-align: justify;
                 color: var(--angola-black);
@@ -2182,7 +2182,7 @@ DIALOGS
                 margin-bottom: 40px;
             }
 
-            .profile-header {
+            .reseident-biography .profile-header {
                 display: flex;
                 gap: 30px;
                 align-items: flex-start;
@@ -2190,48 +2190,48 @@ DIALOGS
                 margin-bottom: 30px;
             }
 
-            .profile-image {
+            .reseident-biography .profile-image {
                 flex: 0 0 260px;
                 overflow: hidden;
             }
 
-            .profile-image:hover img {
+            .reseident-biography .profile-image:hover img {
                 transform: scale(1.1);
             }
 
-            .president-img {
+            .reseident-biography .president-img {
                 width: 100%;
                 border-radius: 6px;
                 box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
                 transition: .3s ease-in-out;
             }
 
-            .profile-info {
+            .reseident-biography .profile-info {
                 flex: 1;
             }
 
-            .president-name {
+            .reseident-biography .president-name {
                 margin: 5px 0 10px 0;
                 font-size: 1.8rem;
                 color: var(--angola-black);
             }
 
-            .president-meta p {
+            .reseident-biography .president-meta p {
                 margin: 4px 0;
                 color: #444;
             }
 
-            .bio-text h3 {
+            .reseident-biography .bio-text h3 {
                 margin-top: 25px;
                 color: var(--angola-black);
                 border-left: 4px solid var(--angola-red);
                 padding-left: 10px;
             }
-            .tag{
+            .reseident-biography .tag{
                 margin-bottom: 3px;
                 background: var(--angola-red) !important;
             }
-            .quick-links-embassadors{
+            .reseident-biography .quick-links-embassadors{
                 padding: 0px;
             }
 /* the of the president-biography ends at this line/ */
