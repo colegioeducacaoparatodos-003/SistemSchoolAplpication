@@ -44,18 +44,6 @@ public class DocumentController implements Serializable {
     @Inject
     private UserController loginController;
 
-    // public String loadDocumentPage() {
-    //     try {
-    //         lazyModel = new LazyDataModel(service);
-    //     } catch (Exception e) {
-    //         FacesContext.getCurrentInstance().addMessage(null,
-    //                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
-    //                         e.getMessage()));
-    //         e.printStackTrace();
-    //     }
-    //     return "/management/docment.xhtml?faces-redirect=true";
-    // }
-
     // ================== PREPARAR ==================
     public void prepare(String refType, int refId) {
         this.referenceType = refType;
@@ -65,11 +53,10 @@ public class DocumentController implements Serializable {
         this.lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
     }
 
-
-       public String loadDocument() {
+    // Método loadDocument para Renderização 
+    public String loadDocument() {
         try {
-          // lazyModel = new DocumentLazyModel(service);
-          
+            lazyModel = new DocumentLazyModel(service, referenceType, referenceId);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
