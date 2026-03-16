@@ -3,7 +3,6 @@ package com.angola_argentina_portal.interfaces;
 import java.time.LocalDate;
 
 public interface DocumentTableProjection {
-    
     int getPkDocument();
 
     String getDocumentType();
@@ -14,5 +13,5 @@ public interface DocumentTableProjection {
 
     LocalDate getUploadDate();
 
-    String getUploadedBy();
+    int getUploadedBy();
 }
