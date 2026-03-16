@@ -26,10 +26,7 @@ public class Document {
     private String contentType;
     private long fileSize;
     private LocalDate uploadDate;
-<<<<<<< HEAD
-=======
     private int fkUser;
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 
     @Transient
     private UploadedFile uploadedFile;
@@ -37,12 +34,8 @@ public class Document {
     public Document() {
     }
 
-<<<<<<< HEAD
-    public Document(int pkDocument, String referenceType, int referenceId, String documentType, String fileName, String filePath, String contentType, long fileSize, LocalDate uploadDate, UploadedFile uploadedFile) {
-=======
     public Document(int pkDocument, String documentType, String fileName, String filePath, String contentType,
             long fileSize, LocalDate uploadDate, int fkUser, UploadedFile uploadedFile) {
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
         this.pkDocument = pkDocument;
         this.documentType = documentType;
         this.fileName = fileName;
@@ -50,10 +43,7 @@ public class Document {
         this.contentType = contentType;
         this.fileSize = fileSize;
         this.uploadDate = uploadDate;
-<<<<<<< HEAD
-=======
         this.fkUser = fkUser;
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
         this.uploadedFile = uploadedFile;
     }
 
@@ -113,8 +103,6 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-<<<<<<< HEAD
-=======
     public int getFkUser() {
         return this.fkUser;
     }
@@ -123,7 +111,6 @@ public class Document {
         this.fkUser = fkUser;
     }
 
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     public UploadedFile getUploadedFile() {
         return this.uploadedFile;
     }
@@ -167,14 +154,11 @@ public class Document {
         return this;
     }
 
-<<<<<<< HEAD
-=======
     public Document fkUser(int fkUser) {
         setFkUser(fkUser);
         return this;
     }
 
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     public Document uploadedFile(UploadedFile uploadedFile) {
         setUploadedFile(uploadedFile);
         return this;
@@ -182,34 +166,12 @@ public class Document {
 
     @Override
     public boolean equals(Object o) {
-<<<<<<< HEAD
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pkDocument, referenceType, referenceId, documentType, fileName, filePath, contentType, fileSize, uploadDate, uploadedFile);
-=======
         return EqualsBuilder.reflectionEquals(this, o);
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     }
 
     @Override
     public String toString() {
         return "{" +
-<<<<<<< HEAD
-            " pkDocument='" + getPkDocument() + "'" +
-            ", referenceType='" + getReferenceType() + "'" +
-            ", referenceId='" + getReferenceId() + "'" +
-            ", documentType='" + getDocumentType() + "'" +
-            ", fileName='" + getFileName() + "'" +
-            ", filePath='" + getFilePath() + "'" +
-            ", contentType='" + getContentType() + "'" +
-            ", fileSize='" + getFileSize() + "'" +
-            ", uploadDate='" + getUploadDate() + "'" +
-            ", uploadedFile='" + getUploadedFile() + "'" +
-            "}";
-=======
                 " pkDocument='" + getPkDocument() + "'" +
                 ", documentType='" + getDocumentType() + "'" +
                 ", fileName='" + getFileName() + "'" +
@@ -220,7 +182,6 @@ public class Document {
                 ", fkUser='" + getFkUser() + "'" +
                 ", uploadedFile='" + getUploadedFile() + "'" +
                 "}";
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
     }
 
 

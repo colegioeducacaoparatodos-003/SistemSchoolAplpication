@@ -13,13 +13,6 @@ import com.angola_argentina_portal.dto.DocumentTableDTO;
 import com.angola_argentina_portal.service.DocumentService;
 
 public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
-<<<<<<< HEAD
-
-     private final DocumentService service;
-    private final String referenceType;
-    private final int referenceId;
-=======
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 
     private final DocumentService service;
 
@@ -38,11 +31,7 @@ public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
 
         Sort sort = Sort.unsorted();
 
-<<<<<<< HEAD
-        if (sortBy != null && !sortBy.isEmpty()) {
-=======
         if (!sortBy.isEmpty()) {
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 
             SortMeta meta = sortBy.values().iterator().next();
 
@@ -50,23 +39,12 @@ public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
                     meta.getOrder().isAscending()
                             ? Sort.Direction.ASC
                             : Sort.Direction.DESC,
-<<<<<<< HEAD
-                    meta.getField()
-            );
-        }
-
-        Page<DocumentTableDTO> result =
-                service.findLazy(referenceType, referenceId, page, pageSize, sort);
-
-        this.setRowCount((int) result.getTotalElements());
-=======
                     meta.getField());
         }
 
         Page<DocumentTableDTO> result = service.findLazy(page, pageSize, sort);
 
         setRowCount((int) result.getTotalElements());
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 
         return result.getContent();
     }
@@ -102,17 +80,4 @@ public class DocumentLazyModel extends LazyDataModel<DocumentTableDTO> {
 
         return null;
     }
-<<<<<<< HEAD
-
-    @Override
-    public int count(Map<String, FilterMeta> filterBy) {
-
-        Page<DocumentTableDTO> result =
-                service.findLazy(referenceType, referenceId, 0, Integer.MAX_VALUE, Sort.unsorted());
-
-        return (int) result.getTotalElements();
-    }
-    
-=======
->>>>>>> b55ce8ee43bc8acf20586db32ebb4276593b8c35
 }

@@ -23,7 +23,6 @@ import jakarta.inject.Named;
 @ViewScoped
 public class DocumentController implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
 
     private Document document = new Document();
@@ -54,16 +53,11 @@ public class DocumentController implements Serializable {
         try {
             lazyModel = new DocumentLazyModel(service);
         } catch (Exception e) {
-
-            FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(
-                                    FacesMessage.SEVERITY_ERROR,
-                                    "Erro ao processar",
-                                    e.getMessage()));
-
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
         }
-
         return "/management/documents.xhtml?faces-redirect=true";
     }
 
@@ -99,27 +93,15 @@ public class DocumentController implements Serializable {
 
     // ================== UPLOAD ==================
     public void upload() {
-
         try {
-
             UploadedFile uploaded = document.getUploadedFile();
 
             if (uploaded == null) {
-
                 FacesContext.getCurrentInstance()
                         .addMessage(null,
-                                new FacesMessage(
-                                        FacesMessage.SEVERITY_WARN,
-                                        "Aviso",
-                                        "Selecione um arquivo"));
-
+                                new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Selecione um arquivo!"));
                 return;
             }
-
-            document.setFileName(uploaded.getFileName());
-            document.setContentType(uploaded.getContentType());
-            document.setFileSize(uploaded.getSize());
-
 
             // Cria FileDocument
             /*
@@ -133,45 +115,26 @@ public class DocumentController implements Serializable {
              */
             // document.setFkUser(loginController.getLoggedUserId());
 
+            // Salva no banco
             service.upload(document);
 
+            // Reset
             document = new Document();
-
             FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(
-                                    FacesMessage.SEVERITY_INFO,
-                                    "Sucesso",
-                                    "Arquivo enviado"));
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Arquivo enviado!"));
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
             FacesContext.getCurrentInstance()
-                    .addMessage(null,
-                            new FacesMessage(
-                                    FacesMessage.SEVERITY_ERROR,
-                                    "Erro",
-                                    e.getMessage()));
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro",
+                            "Falha no upload: " + e.getMessage()));
         }
     }
 
+    // ================== DOWNLOAD ==================
     public void prepareDownload(int documentId) {
-
         Document doc = service.findById(documentId);
 
-        fileToDownload = DefaultStreamedContent.builder()
-                .name(doc.getFileName())
-                .contentType(doc.getContentType())
-                .stream(() -> {
-                    try {
-                        return new FileInputStream(doc.getFilePath());
-                    } catch (Exception e) {
-                        return null;
-                    }
-                })
-                .build();
         /*
          * if (doc.getFileDocument() != null && doc.getFileDocument().getData() != null)
          * {
@@ -184,6 +147,11 @@ public class DocumentController implements Serializable {
          */
     }
 
+    public StreamedContent getFileToDownload() {
+        return fileToDownload;
+    }
+
+    // ================== GETTERS ==================
     public LazyDataModel<DocumentTableDTO> getLazyModel() {
         return lazyModel;
     }
@@ -192,9 +160,6 @@ public class DocumentController implements Serializable {
         return document;
     }
 
-    public StreamedContent getFileToDownload() {
-        return fileToDownload;
-    }
     // ================== SETTERS ==================
     public void setDocument(Document document) {
         this.document = document;
