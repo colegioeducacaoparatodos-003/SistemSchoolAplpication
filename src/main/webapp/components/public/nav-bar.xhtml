@@ -211,7 +211,9 @@
 
                         <div class="dropdown-content travel-dropdown">
 
-                            <div class="travel-item">
+                            <p:remoteCommand name="rcLoadDestination"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rcLoadDestination()" class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.travelAgencies}</span>
                                 </div>
