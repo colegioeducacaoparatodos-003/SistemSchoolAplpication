@@ -38,19 +38,19 @@
 <h:body>
 
     <h:form id="createForm" enctype="multipart/form-data">
-     <p:growl id="messages" showDetail="true"/>
+        <p:growl id="messages" showDetail="true" />
         <p:dialog id="createDialog" styleClass="add-document-dialog" widgetVar="createDialog" showEffect="fade"
             modal="true" closeOnEscape="true">
 
             <h1 class="title">Adicionar documento</h1>
             <div class="field mb-3">
                 <h:outputText class="label-for-input" value="Nome do Ficheiro" />
-                <p:inputText value="#{bean.fileName}" styleClass="w-full" />
+                <p:inputText value="#{documentController.document.fileName}" styleClass="w-full" />
             </div>
 
             <div class="field mb-3">
                 <h:outputText class="label-for-input" value="Tipo de Documento" />
-                <p:selectOneMenu value="#{bean.documentType}" styleClass="w-full">
+                <p:selectOneMenu value="#{documentController.document.documentType}" styleClass="w-full">
                     <f:selectItem itemLabel="Selecione o Tipo" itemValue="" />
                     <f:selectItem itemLabel="Declaração" itemValue="DECLARATION" />
                     <f:selectItem itemLabel="Visto" itemValue="VISAS" />
@@ -62,14 +62,19 @@
             <div class="field mb-3">
                 <h:outputText class="label-for-input" value="Upload do Documento" />
 
-                <p:fileUpload mode="simple" multiple="false" update="messages"
+
+                <p:fileUpload id="fileUpload" value="#{documentController.document.uploadedFile}" mode="simple"
+                    skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" label="#{msg.chooseButton}"
+                    styleClass="upload-button" />
+
+                <!-- <p:fileUpload mode="simple" multiple="false" update="messages"
                     listener="#{cropUploaderBean.handleFileUpload}">
                     <p:validateFile sizeLimit="102400" allowTypes="/(\.|\/)(pdf|doc|docx|png|jpe?g)$/" />
-                </p:fileUpload>
+                </p:fileUpload> -->
             </div>
 
-            <p:commandButton styleClass="save-button" value="Guardar" actionListener="#{bean.save()}" update="@form"
-                oncomplete="PF('createDialog').hide()" />
+            <p:commandButton styleClass="save-button" value="Guardar" actionListener="#{documentController.add}"
+                update="@form :dashboardTable" onstart="showLoader()" oncomplete="hideLoader(); PF('createDialog').hide()" />
         </p:dialog>
 
     </h:form>
