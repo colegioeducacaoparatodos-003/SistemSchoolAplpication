@@ -13,69 +13,58 @@
 
     <ui:define name="content">
         <style>
-            .destinations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    padding: 20px 0;
+
+.destinations-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
 }
 
-.destination-card {
-    background: #ccc5;
-    border: 1px solid #eee; /* Borda muito suave em vez de fundo escuro */
-    border-radius: 12px;
-    padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.destination-card{
+    background:var(--title-gray);
+    border-radius:14px;
+    padding:25px;
+    color:white;
+    position:relative;
+}
+
+.destination-image{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.destination-img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.destination-content h3{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.destination-location{
+    color:#ff7a00;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.destination-description{
+    color:#cfd3ff;
+    margin-bottom:20px;
+}
+
+.destination-link{
+    color:white;
+    border-bottom:2px solid #ff7a00;
+    text-decoration:none;
+}
+.destinations-page-container .footer{
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo visualmente */
-    text-align: center;
-}
-
-.destination-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0,05); /* Sombra leve no hover */
-}
-
-.destination-image {
-    margin-bottom: 16px;
-}
-
-.destination-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #f9f9f9;
-    padding: 4px; /* Cria um respiro entre a imagem e a borda */
-    border: 1px solid #f0f0f0;
-}
-
-.destination-content h3 {
-    font-size: 1.2rem;
-    color: #333; /* Texto escuro mas não preto puro */
-    margin: 0 0 4px 0;
-    font-weight: 600;
-}
-
-.destination-location {
-    color: #888; /* Cinza médio para localização */
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-}
-
-.destination-link {
-    color: #ff7a00; /* A cor de destaque apenas no link */
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    border-bottom: 1px solid transparent;
-}
-
-.destination-link:hover {
-    opacity: 0.8;
-    border-bottom: 1px solid #ff7a00;
+    justify-content: space-between;
 }
         </style>
 
@@ -110,6 +99,10 @@
 
                             <p class="destination-location">
                                 #{d.city}, #{d.country}
+                            </p>
+
+                            <p class="destination-description">
+                                #{d.description}
                             </p>
 
 
