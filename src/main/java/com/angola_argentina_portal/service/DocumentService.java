@@ -41,8 +41,8 @@ public class DocumentService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<DocumentTableProjection> projections = repository.findAllForReference(referenceType, referenceId,
-                pageable);
+        Page<DocumentTableProjection> projections =
+                repository.findAllForReference(referenceType, referenceId, pageable);
 
         return projections.map(p -> new DocumentTableDTO(
                 p.getPkDocument(),
@@ -50,6 +50,7 @@ public class DocumentService {
                 p.getFileName(),
                 p.getFileSize(),
                 p.getUploadDate(),
-                p.getUploadedBy()));
+                p.getUploadedBy()
+        ));
     }
 }
