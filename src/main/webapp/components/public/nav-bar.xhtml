@@ -211,54 +211,47 @@
 
                         <div class="dropdown-content travel-dropdown">
 
-                            <p:link outcome="travel-agencies">
-                                <div class="travel-item">
-
-                                    <div class="travel-text">
-                                        <span>#{msg.travelAgencies}</span>
-                                    </div>
-
-                                    <div class="travel-img">
-                                        <img src="../../resources/imgs/gir-travelling.jpg" />
-                                    </div>
+                            <p:remoteCommand name="rcLoadDestination"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rcLoadDestination()" class="travel-item">
+                                <div class="travel-text">
+                                    <span>#{msg.travelAgencies}</span>
                                 </div>
-                            </p:link>
 
-                            <p:link outcome="travel-agencies">
-                                <div class="travel-item">
-                                    <div class="travel-text">
-                                        <span>#{msg.airlines}</span>
-                                    </div>
-
-                                    <div class="travel-img">
-                                        <img src="../../resources/imgs/taag.png" />
-                                    </div>
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/gir-travelling.jpg" />
                                 </div>
-                            </p:link>
+                            </div>
 
-                            <p:link outcome="travel-agencies">
-                                <div class="travel-item">
-                                    <div class="travel-text">
-                                        <span>#{msg.hotels}</span>
-                                    </div>
-
-                                    <div class="travel-img">
-                                        <img src="../../resources/imgs/intercontinental.png" />
-                                    </div>
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>#{msg.airlines}</span>
                                 </div>
-                            </p:link>
 
-                            <p:link outcome="travel-agencies">
-                                <div class="travel-item">
-                                    <div class="travel-text">
-                                        <span>#{msg.destinations}</span>
-                                    </div>
-
-                                    <div class="travel-img">
-                                        <img src="../../resources/imgs/calandula-waterrfall.jpeg" />
-                                    </div>
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/taag.png" />
                                 </div>
-                            </p:link>
+                            </div>
+
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>#{msg.hotels}</span>
+                                </div>
+
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/intercontinental.png" />
+                                </div>
+                            </div>
+
+                            <div class="travel-item">
+                                <div class="travel-text">
+                                    <span>#{msg.destinations}</span>
+                                </div>
+
+                                <div class="travel-img">
+                                    <img src="../../resources/imgs/calandula-waterrfall.jpeg" />
+                                </div>
+                            </div>
 
                         </div>
                     </li>
