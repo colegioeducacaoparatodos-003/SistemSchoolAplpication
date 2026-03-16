@@ -66,7 +66,7 @@ public class DestinationLazyModel
                 }
             }
         }
-        Page<DestinationTableDTO> page = null;// service.findLazy(0, 1, Sort.unsorted(), filters);
+        Page<DestinationTableDTO> page = service.findLazy(0, 1, Sort.unsorted(), filters);
         return (int) page.getTotalElements();
     }
 
