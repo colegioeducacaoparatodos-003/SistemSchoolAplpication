@@ -25,7 +25,9 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
                         """, countQuery = "SELECT COUNT(*) FROM document", nativeQuery = true)
         Page<DocumentTableProjection> findAllForTable(Pageable pageable);
 
-    // Nova query: busca por tipo
+    // ================== NOVO MÉTODO ==================
+    // Busca documentos filtrando pelo tipo
+    // NOVO: Query para buscar por document_type
     @Query(value = """
                     SELECT d.pk_document AS pkDocument,
                            d.document_type AS documentType,
@@ -35,7 +37,7 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
                            d.upload_date AS uploadDate
                     FROM document d
                     WHERE d.document_type = :type
-                    """, countQuery = "SELECT COUNT(*) FROM document WHERE document_type = :type", nativeQuery = true)
+                   """, countQuery = "SELECT COUNT(*) FROM document d WHERE d.document_type = :type", nativeQuery = true)
     Page<DocumentTableProjection> findAllByType(@Param("type") String type, Pageable pageable);
 
 }
