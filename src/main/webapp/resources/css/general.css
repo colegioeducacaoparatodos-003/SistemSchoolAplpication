@@ -71,6 +71,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     font-size: .8rem;
 }
 
+.official-representation-section,
 .president-biography-page-container,
 .news-section,
 .consular-services-section,
@@ -85,36 +86,36 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
 
 
 .loader_container {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  position: absolute;
-  top: 40%;
-  left: 45%;
-  height: 100px;
-  /* border: 20px solid; */
-  color: #02a7a7;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: loader 1.2s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    height: 100px;
+    /* border: 20px solid; */
+    color: #02a7a7;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: loader 1.2s linear infinite;
 }
 
 @keyframes loader {
-  100% {
-    transform: rotate(360deg);
-  }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* 
@@ -1210,8 +1211,6 @@ INDEX SERVICES
 
 .consular-services-section a {}
 
-.quick-links-embassadors-section .card:hover,
-.quick-links-embassadors-section a:hover,
 .consular-services-section .card:hover,
 .consular-services-section a:hover {
     color: var(--white-color);
@@ -2305,7 +2304,6 @@ DIALOGS
 
 .president-biography .president-img {
     width: 100%;
-    border-radius: 6px;
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
     transition: .3s ease-in-out;
 }
@@ -2337,8 +2335,82 @@ DIALOGS
     background: var(--angola-red) !important;
 }
 
-.president-biography .quick-links-embassadors {
-    padding: 0px;
+.embassador-section {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.embassador-link-container{
+    display: flex;
+
+}
+.link-title{
+    font-size: 1.4rem;
+}
+.embassador-card {
+    text-decoration: none;
+    color: #333;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.embassador-card:hover {
+    border-color: var(--angola-red); /* Cor institucional */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    background: transparent !important;
+}
+
+.embassador-content {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.embassador-info .title {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+    color: var(--angola-black);
+}
+
+.embassador-info .description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--angola-black-hover);
+    line-height: 1.5;
+}
+
+.embassador-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--angola-red-hover);
+    font-weight: bold;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 480px) {
+    .embassador-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .embassador-action {
+        margin-left: 0;
+        margin-top: 20px;
+        padding-left: 0;
+        border-left: none;
+    }
 }
 
 /* the end of the president-biography ends at this line/ */
@@ -2519,3 +2591,10 @@ STYLE that is used to all pages of the travel in angola menu
     border-bottom-color: var(--angola-red);
 }
 /* end */
+
+
+/* 
+==================================
+ABOUT THE EMBASSY
+==================================
+*/

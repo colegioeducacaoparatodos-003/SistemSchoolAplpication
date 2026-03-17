@@ -50,7 +50,7 @@
                     </p:menuitem>
 
                     <p:menuitem class="sidebar_element" value="News" icon="pi pi-fw pi-megaphone"
-                        action="#{newsController.loadNewsPage}" />
+                        action="#{newsController.loadNews}" />
 
                     <p:menuitem class="sidebar_element" value="Documents" icon="pi pi-fw pi-file-pdf"
                         action="#{documentController.loadDocument}" />
@@ -62,11 +62,9 @@
 
                     <p:menuitem class="sidebar_element" value="Destino" icon="pi pi-fw pi-map-marker"
                         action="#{destinationController.load}" />
-                    
-                       <p:menuitem class="sidebar_element" 
-            value="#{msg.consularServices}" 
-            icon="pi pi-fw pi-briefcase"
-            action="#{destinationController.load}" />
+
+                    <p:menuitem class="sidebar_element" value="#{msg.consularServices}" icon="pi pi-fw pi-briefcase"
+                        action="#{destinationController.load}" />
                 </p:tieredMenu>
                 <!-- <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" outcome="login" /> -->
 

@@ -1,0 +1,85 @@
+<ui:composition template="./components/public/public-pages-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions"
+    id="maintenanceKpiSidebar">
+
+    <f:metadata>
+    </f:metadata>
+
+    <ui:define name="titulo">
+        #{msg.biographyOfThePresidentOfTheRepublic}
+    </ui:define>
+
+
+    <ui:define name="content">
+        <style>
+            .hero-container {
+                position: relative;
+                height: 100vh;
+                width: 100%;
+                overflow: hidden;
+                color: var(--white-color);
+                /* display: flex; */
+                /* align-items: center; */
+                /* Vertically centers the content */
+            }
+
+            /* Make the image cover the entire background */
+            .hero-bg-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* This prevents the image from stretching */
+                z-index: 0;
+            }
+
+            .hero-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(17, 24, 39, 0.50);
+                z-index: 1;
+            }
+
+            .hero-content-container {
+                /* height: 100%; */
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                padding: 5.4rem;
+            }
+
+            img {
+                width: 100%;
+            }
+        </style>
+
+
+        <h:body class="president-biography">
+            <h:form id="newsForm">
+                <main class="about-the-embassy-page">
+                    <section class="hero-container">
+                        <img src="./resources/imgs/embassy/building1.jpg" alt="Embassy Building" class="hero-bg-img" />
+
+                        <div class="hero-overlay"></div>
+
+                        <div class="hero-content-container">
+                            <div class="title-container">
+                                <h1 class="title">About the embassy</h1>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                       
+                    </section>
+                </main>
+            </h:form>
+            <ui:include src="./components/public/footer.xhtml" />
+        </h:body>
+    </ui:define>
+</ui:composition>
