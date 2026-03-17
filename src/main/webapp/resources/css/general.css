@@ -1169,8 +1169,6 @@ INDEX SERVICES
 
 .consular-services-section a {}
 
-.quick-links-embassadors-section .card:hover,
-.quick-links-embassadors-section a:hover,
 .consular-services-section .card:hover,
 .consular-services-section a:hover {
     color: var(--white-color);
@@ -2263,7 +2261,6 @@ DIALOGS
 
 .president-biography .president-img {
     width: 100%;
-    border-radius: 6px;
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
     transition: .3s ease-in-out;
 }
@@ -2301,6 +2298,13 @@ DIALOGS
     justify-content: center;
 }
 
+.embassador-link-container{
+    display: flex;
+
+}
+.link-title{
+    font-size: 1.4rem;
+}
 .embassador-card {
     text-decoration: none;
     color: #333;
