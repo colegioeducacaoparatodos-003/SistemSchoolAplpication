@@ -8,6 +8,7 @@ import org.primefaces.model.file.UploadedFile;
 import com.angola_argentina_portal.io.Assistant;
 import com.angola_argentina_portal.io.FileImage;
 import com.angola_argentina_portal.lazy.AirlineLazyModel;
+import com.angola_argentina_portal.lazy.HotelLazyModel;
 import com.angola_argentina_portal.model.Airline;
 import com.angola_argentina_portal.service.AirlineService;
 
@@ -75,8 +76,16 @@ public class AirlineController implements Serializable {
         }
     }
 
-    public void load() {
-        lazyModel = new AirlineLazyModel(service);
+    public String load() {
+        try {
+            lazyModel = new AirlineLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/management/airline.xhtml?faces-redirect=true";
     }
 
     public String loadAirlinePage() {
