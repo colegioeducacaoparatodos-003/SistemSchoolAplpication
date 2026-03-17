@@ -39,7 +39,11 @@ public class HotelLazyModel extends LazyDataModel<HotelTableDTO> {
                         h.getCity(),
                         h.getStars(),
                         h.getPhone(),
-                        h.getImageUrl()))
+                        h.getImageUrl(),
+                        h.getAddress(),
+                        h.getEmail(),
+                        h.getWebsite(),
+                        h.getMapLocation()))
                 .toList();
 
         int dataSize = dtos.size();

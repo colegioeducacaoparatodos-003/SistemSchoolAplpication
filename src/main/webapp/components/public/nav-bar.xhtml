@@ -147,7 +147,11 @@
 
                         <div class="dropdown-content">
                             <ul class="sub-nav-links">
-                                <li class="sub-nav-link">#{msg.consularServices}</li>
+                                <li class="sub-nav-link">
+                                    
+                                 <p:commandLink  action="#{consularServiceController.loadConsularServicePage}" class="mr-4"
+                       value="#{msg.consularServices}"/>
+                                </li>
                                 <!-- <li class="sub-nav-link">#{msg.visas}</li> -->
                                 <li onclick="rcLoadDocumentsPage()" class="sub-nav-link">
                                     #{msg.visas}

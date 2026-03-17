@@ -38,7 +38,7 @@
 
     <!-- Image -->
     <p:column headerText="Image">
-        <p:graphicImage value="/uploads/hotel_images/#{h.imageUrl}" width="80"/>
+        <p:graphicImage value="/hotel_images/#{h.imageUrl}" width="80"/>
     </p:column>
 
     <!-- Name -->
@@ -70,7 +70,7 @@
     <p:column headerText="Actions">
 
         <p:commandButton icon="pi pi-pencil"
-                         update=":hotelForm:createDialog"
+                        
                          oncomplete="PF('createDialog').show()"
                          action="#{hotelController.setHotel(h)}"
                          styleClass="ui-button-warning"/>

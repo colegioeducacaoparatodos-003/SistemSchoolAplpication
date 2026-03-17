@@ -66,7 +66,11 @@ public class HotelService {
                         d.getCity(),
                         d.getStars(),
                         d.getPhone(),
-                        d.getImageUrl()))
+                        d.getImageUrl(),
+                        d.getAddress(),
+                        d.getEmail(),
+                        d.getWebsite(),
+                        d.getMapLocation()))
                 .toList();
 
         return new PageImpl<>(

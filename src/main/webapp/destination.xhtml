@@ -16,19 +16,33 @@
     <ui:define name="content">
     
     <style>
-        .hotel-grid{
+        .hotel-container{
+    position:relative;
+}
+
+/* GRID */
+.hotel-grid{
     display:flex;
     gap:20px;
     overflow-x:auto;
     padding:20px;
+    scroll-behavior:smooth;
+
+    /* esconder scrollbar */
+    scrollbar-width:none; /* Firefox */
 }
 
+.hotel-grid::-webkit-scrollbar{
+    display:none; /* Chrome */
+}
+
+/* CARD */
 .hotel-card{
     min-width:260px;
-    background:#2a2d34;
+    background:#f8f8f8;
     border-radius:16px;
     overflow:hidden;
-    color:white;
+    color:#333;
     transition:0.3s;
 }
 
@@ -54,7 +68,7 @@
 
 .hotel-city{
     font-size:14px;
-    color:#bbb;
+    color:#777;
     margin-bottom:8px;
 }
 
@@ -67,20 +81,47 @@
 }
 
 .star-empty{
-    color:#555;
+    color:#ccc;
 }
 
 .hotel-description{
     font-size:13px;
-    color:#ccc;
+    color:#666;
     margin-bottom:10px;
 }
 
 .hotel-link{
-    color:#fff;
-    border-bottom:2px solid orange;
+    color:#ff7a00;
+    border-bottom:2px solid #ff7a00;
     text-decoration:none;
     font-size:14px;
+}
+
+/* BOTÃO (SETA) */
+.scroll-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    right:10px;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:50%;
+    background:rgba(0,0,0,0.6);
+    color:white;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:10;
+}
+
+.scroll-btn:hover{
+    background:rgba(0,0,0,0.8);
 }
     </style>
 
@@ -174,55 +215,99 @@
 
                     
                 </section>
+   <ui:include src="./components/public/discover-falandula-falls.xhtml" />
 
-                <div class="hotel-grid">
+   <main class="home-section random-subjects-section ">
+      <div class="buttons-container">
+    <h1 class="title">
+        Onde ficar
+    </h1>
 
-            <ui:repeat value="#{destinationController.hotels}" var="h">
+    <p class="subtitle">
+        #{msg.exploreAngolaLandscapes}
+    </p>
+</div>
 
-                <div class="hotel-card">
+       <div class="hotel-container">
 
-                    <!-- Image -->
-                    <div class="hotel-image">
-                        <p:graphicImage value="/hotel_images/#{h.imageUrl}" />
-                    </div>
+    <!-- BOTÃO DIREITA -->
+    <button type="button" class="scroll-btn right" onclick="scrollHotels(300)">
+        <i class="pi pi-chevron-right"></i>
+    </button>
 
-                    <!-- Content -->
-                    <div class="hotel-content">
+    <!-- GRID -->
+    <div class="hotel-grid" id="hotelGrid">
 
-                        <h3 class="hotel-title">
-                            #{h.name}
-                        </h3>
+        <ui:repeat value="#{destinationController.hotels}" var="h">
 
-                        <p class="hotel-city">
-                            #{h.city}
-                        </p>
+            <div class="hotel-card">
 
-                        <!-- Stars -->
-                        <div class="hotel-stars">
-                            <ui:repeat value="#{[1,2,3,4,5]}" var="i">
-                            
-                            </ui:repeat>
-                        </div>
-
-                        <p class="hotel-description">
-                            #{h.address}
-                        </p>
-
-                        <p:commandLink value="Ver mais →"
-                                    styleClass="hotel-link"/>
-                    </div>
-
+                <!-- Image -->
+                <div class="hotel-image">
+                    <p:graphicImage value="/hotel_images/#{h.imageUrl}" />
                 </div>
 
-            </ui:repeat>
+                <!-- Content -->
+                <div class="hotel-content">
 
-        </div>
+                    <h3 class="hotel-title">
+                        #{h.name}
+                    </h3>
 
+                    <p class="hotel-city">
+                        #{h.city}
+                    </p>
+
+                    <!-- Stars
+                    <div class="hotel-stars">
+                        <ui:repeat value="#{[1,2,3,4,5]}" var="i">
+                            <i class="pi pi-star #{i <= h.stars ? 'star-filled' : 'star-empty'}"></i>
+                        </ui:repeat>
+                    </div>
+ -->
+                    <p class="hotel-description">
+                        #{h.address}
+                    </p>
+
+                    <p:commandLink value="Ver mais →"
+                                   styleClass="hotel-link"/>
+                </div>
+
+            </div>
+
+        </ui:repeat>
+
+    </div>
+
+</div>
+
+   </main>
+         
             </h:form>
 
-            <ui:include src="./components/public/discover-falandula-falls.xhtml" />
+         
             <ui:include src="./components/public/footer.xhtml"/>
 
+            <script>
+function scrollHotels(step) {
+    const container = document.getElementById('hotelGrid');
+
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    // Se chegou ao fim → volta ao início
+    if (container.scrollLeft + step >= maxScroll) {
+        container.scrollTo({
+            left: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        container.scrollBy({
+            left: step,
+            behavior: 'smooth'
+        });
+    }
+}
+</script>
         </h:body>
     </ui:define>
 </ui:composition>

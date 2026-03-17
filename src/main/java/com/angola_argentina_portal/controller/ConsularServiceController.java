@@ -64,6 +64,19 @@ public class ConsularServiceController implements Serializable {
         return "/management/consular-services.xhtml?faces-redirect=true";
     }
 
+    public String loadConsularServicePage() {
+        try {
+
+            lazyModel = new ConsularServiceLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/consular-services.xhtml?faces-redirect=true";
+    }
+
     private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(severity, summary, detail));

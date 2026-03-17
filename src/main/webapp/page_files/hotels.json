@@ -9,4 +9,59 @@
   "stars" : 5,
   "imageUrl" : "0img-2026-03-1719-43-13img.png",
   "mapLocation" : ""
+}, {
+  "id" : 2,
+  "name" : "HCTA",
+  "city" : "Luanda",
+  "address" : "Cazenga, Luanda",
+  "phone" : "9999999",
+  "email" : "hcta@gmail.com",
+  "website" : "",
+  "stars" : 5,
+  "imageUrl" : "0img-2026-03-1723-24-05img.jpeg",
+  "mapLocation" : ""
+}, {
+  "id" : 3,
+  "name" : "Pousada Kalandula",
+  "city" : "Malange",
+  "address" : "Kalandula",
+  "phone" : "9999999",
+  "email" : "",
+  "website" : "",
+  "stars" : 3,
+  "imageUrl" : "0img-2026-03-1723-39-20img.jpeg",
+  "mapLocation" : ""
+}, {
+  "id" : 4,
+  "name" : "Pululukwa",
+  "city" : "Huila",
+  "address" : "Huila",
+  "phone" : "9999999",
+  "email" : "huila@gmail.com",
+  "website" : "",
+  "stars" : 5,
+  "imageUrl" : "0img-2026-03-1723-47-14img.png",
+  "mapLocation" : ""
+}, {
+  "id" : 5,
+  "name" : "Vip",
+  "city" : "Huila",
+  "address" : "Lubango",
+  "phone" : "9999999",
+  "email" : "paulojacintomoraisgonga@gmail.com",
+  "website" : "",
+  "stars" : 4,
+  "imageUrl" : "0img-2026-03-1723-50-26img.jpeg",
+  "mapLocation" : ""
+}, {
+  "id" : 6,
+  "name" : "Hotel Benguela",
+  "city" : "Benguela",
+  "address" : "Benguela",
+  "phone" : "9999999",
+  "email" : "",
+  "website" : "",
+  "stars" : 3,
+  "imageUrl" : "0img-2026-03-1723-52-00img.jpeg",
+  "mapLocation" : ""
 } ]
