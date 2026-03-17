@@ -21,23 +21,23 @@ public class Government {
 
     private String fullName;
 
-    private String typeEm;
+    private String type;
 
     private String title;
 
     private String subTitle;
 
-    @Column(length = 2000, nullable = false)
+
     private String description;
 
 
     public Government() {
     }
 
-    public Government(Long id, String fullName, String typeEm, String title, String subTitle, String description) {
+    public Government(Long id, String fullName, String type, String title, String subTitle, String description) {
         this.id = id;
         this.fullName = fullName;
-        this.typeEm = typeEm;
+        this.type = type;
         this.title = title;
         this.subTitle = subTitle;
         this.description = description;
@@ -60,11 +60,11 @@ public class Government {
     }
 
     public String getTypeEm() {
-        return this.typeEm;
+        return this.type;
     }
 
-    public void setTypeEm(String typeEm) {
-        this.typeEm = typeEm;
+    public void setTypeEm(String type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -120,27 +120,6 @@ public class Government {
         setDescription(description);
         return this;
     }
-
-    @Override
-    public boolean equals(Object o) {
-      return EqualsBuilder.reflectionEquals(this, o);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullName, typeEm, title, subTitle, description);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " id='" + getId() + "'" +
-            ", fullName='" + getFullName() + "'" +
-            ", typeEm='" + getTypeEm() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", subTitle='" + getSubTitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            "}";
-    }
+    
     
 }

@@ -3,6 +3,8 @@ package com.angola_argentina_portal.controller;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.StreamedContent;
@@ -37,6 +39,7 @@ public class DocumentController implements Serializable {
     @Inject
     private UserController loginController;
 
+    private Integer selectedId;
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -49,6 +52,19 @@ public class DocumentController implements Serializable {
             e.printStackTrace();
         }
         return "/management/documents.xhtml?faces-redirect=true";
+    }
+
+    // Método loadDocument para Renderização com a lista de documentos
+    public String loadDocumentPage() {
+        try {
+            lazyModel = new DocumentLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/documents.xhtml?faces-redirect=true";
     }
 
     public void add() {
@@ -110,8 +126,18 @@ public class DocumentController implements Serializable {
     }
 
     // ================== DOWNLOAD ==================
-    public void prepareDownload(int documentId) {
-        Document doc = service.findById(documentId);
+    public void downloadDocument() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        // try { // 1. Buscar o documento pelo ID
+        //     Document document = documentRepository.findById(selectedId)
+        //             .orElseThrow(() -> new RuntimeException("Document not found"));
+
+        // } catch (Exception e) {
+        //     // TODO: handle exception
+        // }
+
+        System.out.println("documents" + selectedId);
+
     }
 
     public StreamedContent getFileToDownload() {
@@ -130,6 +156,14 @@ public class DocumentController implements Serializable {
     // ================== SETTERS ==================
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public Integer getSelectedId() {
+        return selectedId;
+    }
+
+    public void setSelectedId(Integer selectedId) {
+        this.selectedId = selectedId;
     }
 
 }

@@ -13,14 +13,14 @@
         </style>
         <h:form id="dashboardTable" class="dashboard-form">
             <p:growl id="msg" />
-            <h:panelGroup class="header">
+            <h:panelGroup class="table-header">
                 <h1 class="table-title">News</h1>
 
                 <p:commandButton styleClass="create-button" value="Create News" type="button"
                     onclick="PF('createDialog').show()" />
             </h:panelGroup>
 
-            <!-- <p:dataTable styleClass="table" value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
+         <p:dataTable styleClass="table" value="#{newsController.lazyModel}" var="item" lazy="true" paginator="true"
                 paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
@@ -70,7 +70,7 @@
                     <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
                 </p:column>
 
-            </p:dataTable> -->
+            </p:dataTable>
         </h:form>
         <ui:include src="./news/news-create.xhtml" />
 

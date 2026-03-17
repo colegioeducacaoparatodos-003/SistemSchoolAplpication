@@ -10,6 +10,14 @@ $(document).ready(function () {
 
 })
 
+
+function showLoader() {
+    $('#loaderContainer').fadeIn(200);
+}
+
+function hideLoader() {
+    $('#loaderContainer').fadeOut(400);
+}
 //THIS HANDLES THE STICKY NAVBAR ON SCROLL
 function stickNaveBarOnScroll() {
 
@@ -90,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function moveSlide() {
             index++;
-            slidesContainer.style.transition = "transform 0.6s ease-in-out";
+            slidesContainer.style.transition = "transform 0.4s ease-in-out";
             slidesContainer.style.transform = `translateX(-${index * 100}%)`;
 
             if (index === totalSlides - 1) {
@@ -98,13 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     slidesContainer.style.transition = "none";
                     slidesContainer.style.transform = "translateX(0)";
                     index = 0;
-                }, 600);
+                }, 400);
             }
         }
 
         // 2. Function to start the auto-play
         function startInterval() {
-            slideInterval = setInterval(moveSlide, 5000);
+            slideInterval = setInterval(moveSlide, 4000);
         }
 
         // 3. Function to stop the auto-play
@@ -124,27 +132,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
     // We use a small timeout to ensure the PrimeFaces Widget is initialized
-    setTimeout(function() {
+    setTimeout(function () {
         // Find the PrimeFaces widget by its styleClass
         // Note: PrimeFaces usually maps widgets to PF('widgetVarName')
         // If you don't have a widgetVar, we target the element directly:
         const carouselEl = document.querySelector('.mission-carousel');
 
         if (carouselEl) {
-            carouselEl.addEventListener('mouseenter', function() {
+            carouselEl.addEventListener('mouseenter', function () {
                 // Access the widget instance and stop the autoplay
                 // Most PF carousels use stopAutoplay() or pause()
                 if (window.PrimeFaces && PrimeFaces.widgets) {
                     for (let key in PrimeFaces.widgets) {
                         let widget = PrimeFaces.widgets[key];
                         if (widget.jq && widget.jq.hasClass('mission-carousel')) {
-                            widget.stopAutoplay(); 
+                            widget.stopAutoplay();
                         }
                     }
                 }
             });
 
-            carouselEl.addEventListener('mouseleave', function() {
+            carouselEl.addEventListener('mouseleave', function () {
                 if (window.PrimeFaces && PrimeFaces.widgets) {
                     for (let key in PrimeFaces.widgets) {
                         let widget = PrimeFaces.widgets[key];
