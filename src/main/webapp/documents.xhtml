@@ -101,7 +101,7 @@
                                 mode="inline">
                                 <div class="card">
                                     <div class="bookmark-container">
-                                        <p:commandButton icon="pi pi-download" title="Baixar documento"
+                                        <p:commandButton ajax="false" icon="pi pi-download" title="Baixar documento"
                                             action="#{documentController.downloadDocument}"
                                             styleClass="rounded-button ui-button-flat ui-button-danger">
                                             <f:setPropertyActionListener value="#{item.pkDocument}"
