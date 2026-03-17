@@ -2295,13 +2295,13 @@ DIALOGS
     background: var(--angola-red) !important;
 }
 
-.ambassador-section {
+.embassador-section {
     padding: 20px;
     display: flex;
     justify-content: center;
 }
 
-.ambassador-card {
+.embassador-card {
     text-decoration: none;
     color: #333;
     background: #ffffff;
@@ -2313,47 +2313,38 @@ DIALOGS
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.ambassador-card:hover {
-    border-color: #00274C; /* Cor institucional */
+.embassador-card:hover {
+    border-color: var(--angola-red); /* Cor institucional */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: translateY(-2px);
+    background: transparent !important;
 }
 
-.ambassador-content {
+.embassador-content {
     padding: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.ambassador-info .subtitle {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #b18e3d; /* Um tom dourado/brasão, opcional */
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.ambassador-info .title {
+.embassador-info .title {
     margin: 0 0 8px 0;
     font-size: 1.5rem;
-    color: #00274C;
+    color: var(--angola-black);
 }
 
-.ambassador-info .description {
+.embassador-info .description {
     margin: 0;
     font-size: 0.95rem;
-    color: #666;
+    color: var(--angola-black-hover);
     line-height: 1.5;
 }
 
-.ambassador-action {
+.embassador-action {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #00274C;
+    color: var(--angola-red-hover);
     font-weight: bold;
     border-left: 1px solid #eee;
     padding-left: 20px;
@@ -2363,11 +2354,11 @@ DIALOGS
 
 /* Responsivo para celulares */
 @media (max-width: 480px) {
-    .ambassador-content {
+    .embassador-content {
         flex-direction: column;
         align-items: flex-start;
     }
-    .ambassador-action {
+    .embassador-action {
         margin-left: 0;
         margin-top: 20px;
         padding-left: 0;
