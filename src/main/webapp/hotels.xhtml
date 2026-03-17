@@ -7,7 +7,7 @@
     </f:metadata>
 
     <ui:define name="titulo">
-        #{msg.biographyOfThePresidentOfTheRepublic}
+        #{msg.hotels}
     </ui:define>
 
 
@@ -16,6 +16,62 @@
 
         <h:body>
             <h:form id="newsForm">
+<<<<<<< HEAD
+
+            <!-- the its stylies is at the line 2308 the general css -->
+                <section class="destinations-page-container">
+            <div class="title-container">
+                <h1 class="title">#{msg.hotels}</h1>
+            </div>
+            <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
+
+            <div class="destinations-grid">
+
+                <ui:repeat value="#{destinationController.destinations}" var="d">
+
+                    <div class="destination-card">
+
+                        <div class="destination-image">
+
+                            <p:graphicImage
+                                value="/destination_images/#{d.imageUrl}"
+                                styleClass="destination-img"/>
+
+                        </div>
+
+                        <div class="destination-content">
+
+                            <h3>
+                                #{d.name}
+                            </h3>
+
+                            <p class="destination-location">
+                                #{d.city}, #{d.country}
+                            </p>
+
+
+<p:commandLink
+                                value="Explore Destination →"
+                                styleClass="destination-link"
+                                onclick="PF('#{d.name}').show()"/>
+
+                              
+                           
+                        </div>
+
+                    </div>
+                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+    <div class="m-0 content-dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                    </p:dialog>
+                </ui:repeat>
+
+            </div>
+
+                </section>
+=======
                 
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt sequi repellat ab consequuntur sit,
                 delectus labore itaque enim odio velit magnam accusantium, suscipit rerum illum beatae expedita?
@@ -93,6 +149,7 @@
                 dignissimos iste labore. Numquam ab reiciendis asperiores omnis quia beatae quis saepe enim optio
                 suscipit maxime, nostrum autem soluta alias facere, odit nulla ullam placeat impedit praesentium.
                 Laborum quas eligendi inventore, quaerat iusto dolore minus.
+>>>>>>> 6bf44208ad550de6c5484cf51a8f702c2a50fdf4
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>

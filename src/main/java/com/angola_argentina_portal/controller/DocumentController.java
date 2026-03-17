@@ -40,6 +40,7 @@ public class DocumentController implements Serializable {
     private UserController loginController;
 
     private Integer selectedId;
+    private String selectedType;
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -125,18 +126,33 @@ public class DocumentController implements Serializable {
         }
     }
 
+    // ================== List for Type ==================
+    public void documentType() {
+        try {
+            
+        } catch (Exception e) {
+
+        }
+    }
+
     // ================== DOWNLOAD ==================
     public void downloadDocument() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        // try { // 1. Buscar o documento pelo ID
-        //     Document document = documentRepository.findById(selectedId)
-        //             .orElseThrow(() -> new RuntimeException("Document not found"));
 
-        // } catch (Exception e) {
-        //     // TODO: handle exception
-        // }
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("DOCUMENT_ID", selectedId);
 
-        System.out.println("documents" + selectedId);
+        try {
+
+            Document document = service.findById(selectedId);
+
+            facesContext.getExternalContext().setResponseContentType(document.getDocumentType());
+            facesContext.getExternalContext().setResponseHeader(
+                    "Content-Disposition",
+                    "attachment; filename=" + document.getFileName());
+        } catch (Exception e) {
+            System.out.println("Falha ao fazer o download" + selectedId);
+        }
 
     }
 
@@ -166,4 +182,11 @@ public class DocumentController implements Serializable {
         this.selectedId = selectedId;
     }
 
+    public String getSelectedType() {
+        return this.selectedType;
+    }
+
+    public void setSelectedType(String selectedType) {
+        this.selectedType = selectedType;
+    }
 }

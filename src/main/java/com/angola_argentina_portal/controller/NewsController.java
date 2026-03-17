@@ -39,7 +39,7 @@ public class NewsController implements Serializable {
     /*
      * ---------------- LOAD PAGE ----------------
      */
-    public String loadNewsPage() {
+    public String loadNews() {
         try {
 
             lazyModel = new NewsLazyModel(newsService);
@@ -50,6 +50,18 @@ public class NewsController implements Serializable {
             e.printStackTrace();
         }
         return "/management/news.xhtml?faces-redirect=true";
+    }
+    public String loadNewsPage() {
+        try {
+
+            lazyModel = new NewsLazyModel(newsService);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar notícias",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/news.xhtml?faces-redirect=true";
     }
 
     public NewsLazyModel getLazyModel() {

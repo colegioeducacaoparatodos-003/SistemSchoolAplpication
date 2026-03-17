@@ -79,6 +79,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
 .links-container,
 .news-page-container,
 .consular-services-page-container,
+.destinations-page-container,
 .show-news-page {
     padding: 4rem 6rem;
 }
@@ -1210,8 +1211,6 @@ INDEX SERVICES
 
 .consular-services-section a {}
 
-.quick-links-embassadors-section .card:hover,
-.quick-links-embassadors-section a:hover,
 .consular-services-section .card:hover,
 .consular-services-section a:hover {
     color: var(--white-color);
@@ -2305,7 +2304,6 @@ DIALOGS
 
 .president-biography .president-img {
     width: 100%;
-    border-radius: 6px;
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
     transition: .3s ease-in-out;
 }
@@ -2337,9 +2335,263 @@ DIALOGS
     background: var(--angola-red) !important;
 }
 
-.president-biography .quick-links-embassadors {
-    padding: 0px;
+.embassador-section {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
 }
+
+.embassador-link-container{
+    display: flex;
+
+}
+.link-title{
+    font-size: 1.4rem;
+}
+.embassador-card {
+    text-decoration: none;
+    color: #333;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.embassador-card:hover {
+    border-color: var(--angola-red); /* Cor institucional */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    background: transparent !important;
+}
+
+.embassador-content {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.embassador-info .title {
+    margin: 0 0 8px 0;
+    font-size: 1.5rem;
+    color: var(--angola-black);
+}
+
+.embassador-info .description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--angola-black-hover);
+    line-height: 1.5;
+}
+
+.embassador-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--angola-red-hover);
+    font-weight: bold;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 480px) {
+    .embassador-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .embassador-action {
+        margin-left: 0;
+        margin-top: 20px;
+        padding-left: 0;
+        border-left: none;
+    }
+}
+
+/* the end of the president-biography ends at this line/ */
+
+/*
+===============================
+STYLE that is used to all pages of the travel in angola menu
+===============================
+*/
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 20px 0;
+}
+
+/* CARD */
+.destination-card {
+    background: var(--title-gray);
+    border-radius: 12px;
+    overflow: hidden; /* importante pro zoom não vazar */
+    transition: transform .25s ease, box-shadow .25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* IMAGEM EM CIMA */
+.destination-image {
+    overflow: hidden; /* corta o zoom */
+}
+
+/* IMAGEM */
+.destination-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s ease;
+}
+
+/* 🔥 Hover: zoom só na imagem */
+.destination-card:hover .destination-img {
+    transform: scale(1.08);
+}
+
+/* CONTEÚDO EM BAIXO */
+.destination-content {
+    padding: 18px;
+    text-align: center;
+}
+
+.destination-content h3 {
+    font-size: 1.15rem;
+    color: var(--angola-white);
+    margin: 0 0 6px;
+    font-weight: 600;
+}
+
+.destination-location {
+    color: var(--angola-white);
+    font-size: 0.9rem;
+    margin-bottom: 14px;
+}
+
+/* LINK */
+.destination-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--angola-red) !important;
+    transition: opacity .2s ease;
+}
+
+.destination-link:hover {
+    opacity: .75;
+}
+
+/* DIALOG */
+.destinations-page-container .dialog {
+   height: 90vh !important;
+    border-radius: 12px;
+    width: 80% !important;
+    max-width: 900px !important;
+    /* min-height: 300px !important; */
+    /* max-height: 700px !important; */
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.destinations-page-container .ui-dialog .ui-dialog-titlebar{
+    background: var(--title-gray);
+    position: sticky;
+    color: var(--angola-white);
+    top: 0;
+    z-index: 12;
+    left: 0;
+}
+
+/* style of the dialog container */
+/* Container */
+.content-dialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-body {
+    overflow-y: auto;
+    min-height: 80px;
+    padding: 4px 2px 2px;
+    flex: 1;           /* ocupa o espaço restante */
+}
+
+/* Hero imagem */
+.dialog-hero {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+
+.dialog-hero-img {
+    width: 100%;
+    min-height: 250px;
+    max-height: 350px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Badge categoria */
+.dialog-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--angola-red);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 20px;
+    letter-spacing: .3px;
+}
+
+
+.dialog-title {
+    margin: 0 0 6px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--angola-black);
+}
+
+.dialog-location {
+    margin: 0 0 12px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dialog-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 14px;
+}
+
+/* Link */
+.dialog-website {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--angola-red);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all .2s ease;
+}
+
+.dialog-website:hover {
+    opacity: .75;
+    border-bottom-color: var(--angola-red);
+}
+/* end */
+
 
 /* 
 ==================================
