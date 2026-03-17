@@ -2379,17 +2379,22 @@ STYLE that is used to all pages of the travel in angola menu
 
 /* DIALOG */
 .destinations-page-container .dialog {
+   height: 90vh !important;
     border-radius: 12px;
     width: 80% !important;
     max-width: 900px !important;
-    min-height: 300px !important;
-    max-height: 700px !important;
+    /* min-height: 300px !important; */
+    /* max-height: 700px !important; */
     overflow-y: auto;
     scrollbar-width: thin;
 }
 .destinations-page-container .ui-dialog .ui-dialog-titlebar{
     background: var(--title-gray);
+    position: sticky;
     color: var(--angola-white);
+    top: 0;
+    z-index: 12;
+    left: 0;
 }
 
 /* style of the dialog container */
