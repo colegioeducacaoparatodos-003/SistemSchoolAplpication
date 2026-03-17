@@ -132,11 +132,20 @@
                         <i class="pi pi-chevron-down"></i>
 
                         <div class="dropdown-content">
-                            <ul class="sub-nav-links">
-                                <li class="sub-nav-link">#{msg.aboutTheEmbassy}</li>
-                                <li class="sub-nav-link">#{msg.ambassadors}</li>
-                                <li class="sub-nav-link">#{msg.generalInformation}</li>
-                            </ul>
+                            <div class="sub-nav-links">
+
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.aboutTheEmbassy}
+                                </p:link>
+
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.ambassadors}
+                                </p:link>
+
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.generalInformation}
+                                </p:link>
+                            </div>
                         </div>
                     </li>
 
@@ -145,13 +154,23 @@
                         <i class="pi pi-chevron-down"></i>
 
                         <div class="dropdown-content">
-                            <ul class="sub-nav-links">
-                                <li class="sub-nav-link">#{msg.consularServices}</li>
-                                <li class="sub-nav-link">#{msg.visas}</li>
-                                <li class="sub-nav-link">#{msg.passportsAvailable}</li>
-                                <li class="sub-nav-link">#{msg.documentsAndForms}</li>
-                                <li class="sub-nav-link">#{msg.other}</li>
-                            </ul>
+                            <div class="sub-nav-links">
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.consularServices}
+                                </p:link>
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.visas}
+                                </p:link>
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.passportsAvailable}
+                                </p:link>
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.documentsAndForms}
+                                </p:link>
+                                <p:link class="sub-nav-link" outcome="/index">
+                                    #{msg.other}
+                                </p:link>
+                            </div>
                         </div>
                     </li>
 
@@ -165,10 +184,12 @@
 
                                 <div class="news-col-left">
                                     <h4>#{msg.embassy}</h4>
-                                    <ul>
-                                        <li>#{msg.announcements}</li>
-                                        <li>#{msg.gallery}</li>
-                                    </ul>
+                                    <div>
+                                        <p:link class="sub-nav-link" outcome="/index">
+                                            #{msg.announcements}</p:link>
+                                        <p:link class="sub-nav-link" outcome="/index">
+                                            #{msg.gallery}</p:link>
+                                    </div>
                                 </div>
 
                                 <div class="news-col-right">
