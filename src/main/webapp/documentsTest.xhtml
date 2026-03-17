@@ -13,14 +13,7 @@
 
     <ui:define name="content">
         <style>
-            .ui-datascroller .ui-datascroller-list {
-                padding: 0;
-                border: none;
-            }
 
-            .ui-datascroller .ui-datascroller-item {
-                margin-top: 2%;
-            }
         </style>
 
 
@@ -96,35 +89,28 @@
                         </h:panelGroup>
 
                         <h:panelGroup class="body">
-                            <p:dataScroller value="#{documentController.lazyModel}" var="item">
-
-                                <div class="card">
-                                    <div class="bookmark-container">
-                                        <p:commandButton icon="pi pi-download" title="Baixar documento"
-                                            styleClass="rounded-button ui-button-flat ui-button-danger">
-                                            <!-- <f:setPropertyActionListener value="#{item.pkDocument}"
-                                                target="#{documentController.selectedId}" /> -->
-                                        </p:commandButton>
-                                        <!-- <i class="pi pi-download"></i> -->
-                                    </div>
-
-                                    <h4 class="service-title">
-                                        #{item.fileName}
-                                    </h4>
-
-                                    <div class="info-row">
-                                        <i class="pi pi-file"></i> <span class="label">Tipo:</span>
-                                        <span class="value">PDF (Obrigatório)</span>
-                                    </div>
-
-                                    <p class="description">
-                                        Este documento é obrigatório para todos os cidadãos que pretendem renovar ou
-                                        solicitar o primeiro passaporte biométrico. Deve ser preenchido sem rasuras.
-                                    </p>
-
+                             <p:remoteCommand name="rmDownloadDocument"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rmDownloadDocument()" class="card">
+                                <div class="bookmark-container">
+                                    <i class="pi pi-download"></i>
                                 </div>
-                            </p:dataScroller>
 
+                                <h4 class="service-title">
+                                    Formulário de Requerimento de Passaporte
+                                </h4>
+
+                                <div class="info-row">
+                                    <i class="pi pi-file"></i> <span class="label">Tipo:</span>
+                                    <span class="value">PDF (Obrigatório)</span>
+                                </div>
+
+                                <p class="description">
+                                    Este documento é obrigatório para todos os cidadãos que pretendem renovar ou
+                                    solicitar o primeiro passaporte biométrico. Deve ser preenchido sem rasuras.
+                                </p>
+
+                            </div>
 
                         </h:panelGroup>
 
