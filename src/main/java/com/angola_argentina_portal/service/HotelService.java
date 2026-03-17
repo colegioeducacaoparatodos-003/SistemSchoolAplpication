@@ -2,13 +2,24 @@ package com.angola_argentina_portal.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.faces.context.FacesContext;
+import jakarta.servlet.ServletContext;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.angola_argentina_portal.dto.HotelTableDTO;
 import com.angola_argentina_portal.model.Hotel;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class HotelService {
@@ -21,13 +32,21 @@ public class HotelService {
 
         try {
 
-            File file = new File(FILE_PATH);
+            FacesContext context = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+
+            String path = context.getExternalContext().getRealPath("/");
+
+            File file = new File(path + File.separator + "page_files" + File.separator + "hotels.json");
+
+            System.out.println(file.getAbsolutePath());
 
             if (!file.exists()) {
                 return new ArrayList<>();
             }
 
-            return mapper.readValue(file,
+            return mapper.readValue(
+                    file,
                     new TypeReference<List<Hotel>>() {
                     });
 
@@ -36,14 +55,42 @@ public class HotelService {
         }
     }
 
+    public Page<HotelTableDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
+
+        List<Hotel> hotels = findAll();
+
+        List<HotelTableDTO> dtos = hotels.stream()
+                .map(d -> new HotelTableDTO(
+                        d.getId(),
+                        d.getName(),
+                        d.getCity(),
+                        d.getStars(),
+                        d.getPhone(),
+                        d.getImageUrl()))
+                .toList();
+
+        return new PageImpl<>(
+                dtos,
+                PageRequest.of(page, size, sort),
+
+                dtos.size());
+    }
+
     public void save(Hotel hotel) {
 
         try {
 
+            FacesContext context = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+
+            String path = context.getExternalContext().getRealPath("/");
+
+            File file = new File(path + File.separator + "page_files" + File.separator + "hotels.json");
+
             List<Hotel> hotels = findAll();
 
             long nextId = hotels.stream()
-                    .mapToLong(h -> h.getId() == null ? 0 : h.getId())
+                    .mapToLong(d -> d.getId() == null ? 0 : d.getId())
                     .max()
                     .orElse(0) + 1;
 
@@ -51,8 +98,9 @@ public class HotelService {
 
             hotels.add(hotel);
 
-            mapper.writerWithDefaultPrettyPrinter()
-                    .writeValue(new File(FILE_PATH), hotels);
+            file.getParentFile().mkdirs();
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, hotels);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

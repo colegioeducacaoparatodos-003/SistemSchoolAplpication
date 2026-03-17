@@ -8,11 +8,7 @@ import jakarta.inject.Named;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
-import org.primefaces.model.file.UploadedFile;
-
-import com.angola_argentina_portal.dto.CreateNewsDTO;
 import com.angola_argentina_portal.dto.UpdateNewsDTO;
 import com.angola_argentina_portal.dto.ResponseNewsDTO;
 import com.angola_argentina_portal.lazy.NewsLazyModel;
@@ -51,6 +47,7 @@ public class NewsController implements Serializable {
         }
         return "/management/news.xhtml?faces-redirect=true";
     }
+
     public String loadNewsPage() {
         try {
 

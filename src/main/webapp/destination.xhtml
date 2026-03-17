@@ -14,103 +14,215 @@
 
 
     <ui:define name="content">
+    
+    <style>
+        .hotel-grid{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    padding:20px;
+}
+
+.hotel-card{
+    min-width:260px;
+    background:#2a2d34;
+    border-radius:16px;
+    overflow:hidden;
+    color:white;
+    transition:0.3s;
+}
+
+.hotel-card:hover{
+    transform:translateY(-5px);
+}
+
+.hotel-image img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+}
+
+.hotel-content{
+    padding:15px;
+}
+
+.hotel-title{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.hotel-city{
+    font-size:14px;
+    color:#bbb;
+    margin-bottom:8px;
+}
+
+.hotel-stars{
+    margin-bottom:10px;
+}
+
+.star-filled{
+    color:#ffb400;
+}
+
+.star-empty{
+    color:#555;
+}
+
+.hotel-description{
+    font-size:13px;
+    color:#ccc;
+    margin-bottom:10px;
+}
+
+.hotel-link{
+    color:#fff;
+    border-bottom:2px solid orange;
+    text-decoration:none;
+    font-size:14px;
+}
+    </style>
 
 
+        <h:body>
+            <h:form id="newsForm">
 
-<h:body>
-    <h:form id="newsForm">
+                <!-- the its stylies is at the line 2308 the general css -->
+                <section class="destinations-page-container">
+                    <div class="title-container">
+                        <h1 class="title">#{msg.destinations}</h1>
+                    </div>
+                    <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
 
-        <!-- the its stylies is at the line 2308 the general css -->
-        <section class="destinations-page-container">
-            <div class="title-container">
-                <h1 class="title">#{msg.destinations}</h1>
-            </div>
-            <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
+                    <div class="destinations-grid">
 
-             <div class="destinations-grid">
+                        <ui:repeat value="#{destinationController.destinations}" var="d">
 
-                <ui:repeat value="#{destinationController.destinations}" var="d">
+                            <div class="destination-card">
 
-                    <div class="destination-card">
+                                <div class="destination-image">
 
-                        <div class="destination-image">
+                                    <p:graphicImage
+                                        value="/destination_images/#{d.imageUrl}"
+                                        styleClass="destination-img"/>
 
-                            <p:graphicImage
-                                value="/destination_images/#{d.imageUrl}"
-                                styleClass="destination-img"/>
+                                </div>
 
-                        </div>
+                                <div class="destination-content">
 
-                        <div class="destination-content">
+                                    <h3>
+                                        #{d.name}
+                                    </h3>
 
-                            <h3>
-                                #{d.name}
-                            </h3>
-
-                            <p class="destination-location">
-                                #{d.city}, #{d.country}
-                            </p>
+                                    <p class="destination-location">
+                                        #{d.city}, #{d.country}
+                                    </p>
 
 
-                            <p:commandLink
-                                value="Explore Destination →"
-                                styleClass="destination-link"
-                                onclick="PF('#{d.name}').show()"/>
+                                    <p:commandLink
+                                        value="Explore Destination →"
+                                        styleClass="destination-link"
+                                        onclick="PF('#{d.name}').show()"/>
 
-                              
-                           
-                        </div>
+                                    
+                                
+                                </div>
+
+                            </div>
+                            <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+                            <div class="content-dialog">
+
+                                <!-- Imagem destaque -->
+                                <div class="dialog-hero">
+                                    <p:graphicImage value="/destination_images/#{d.imageUrl}"
+                                                    styleClass="dialog-hero-img"/>
+                                    <span class="dialog-badge">#{d.category}</span>
+                                </div>
+
+                                <!-- Corpo -->
+                                <div class="dialog-body">
+
+                                    <h2 class="dialog-title">#{d.name}</h2>
+
+                                    <p class="dialog-location">
+                                        📍 #{d.city}, #{d.country}
+                                    </p>
+
+                                    <p class="dialog-description">
+                                        #{empty d.description 
+                                        ? 'Discover one of the most remarkable destinations to explore, offering unique landscapes, culture and memorable experiences.'
+                                        : d.description}
+
+                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nam delectus dolorem nostrum, aspernatur reiciendis. Ipsa veritatis quia magni eligendi, facilis suscipit porro ratione? Qui aperiam, animi labore ipsa earum maiores suscipit dolores veniam, saepe corrupti est eum eius mollitia!
+                                    </p>
+
+                                    <!-- <h:panelGroup rendered="#{d.website}"> -->
+                                        <a href="#{d.website}" target="_blank" class="dialog-website">
+                                            Visit official website →
+                                        </a>
+                                    <!-- </h:panelGroup> -->
+
+                                </div>
+
+                            </div>
+                            </p:dialog>
+
+                        </ui:repeat>
 
                     </div>
-                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
-                    <div class="content-dialog">
 
-                        <!-- Imagem destaque -->
-                        <div class="dialog-hero">
-                            <p:graphicImage value="/destination_images/#{d.imageUrl}"
-                                            styleClass="dialog-hero-img"/>
-                            <span class="dialog-badge">#{d.category}</span>
-                        </div>
+                    
+                </section>
 
-                        <!-- Corpo -->
-                        <div class="dialog-body">
+                <div class="hotel-grid">
 
-                            <h2 class="dialog-title">#{d.name}</h2>
+            <ui:repeat value="#{destinationController.hotels}" var="h">
 
-                            <p class="dialog-location">
-                                📍 #{d.city}, #{d.country}
-                            </p>
+                <div class="hotel-card">
 
-                            <p class="dialog-description">
-                                #{empty d.description 
-                                ? 'Discover one of the most remarkable destinations to explore, offering unique landscapes, culture and memorable experiences.'
-                                : d.description}
-
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus nam delectus dolorem nostrum, aspernatur reiciendis. Ipsa veritatis quia magni eligendi, facilis suscipit porro ratione? Qui aperiam, animi labore ipsa earum maiores suscipit dolores veniam, saepe corrupti est eum eius mollitia!
-                            </p>
-
-                            <!-- <h:panelGroup rendered="#{d.website}"> -->
-                                <a href="#{d.website}" target="_blank" class="dialog-website">
-                                    Visit official website →
-                                </a>
-                            <!-- </h:panelGroup> -->
-
-                        </div>
-
+                    <!-- Image -->
+                    <div class="hotel-image">
+                        <p:graphicImage value="/hotel_images/#{h.imageUrl}" />
                     </div>
-                    </p:dialog>
 
-                </ui:repeat>
+                    <!-- Content -->
+                    <div class="hotel-content">
 
-            </div>
+                        <h3 class="hotel-title">
+                            #{h.name}
+                        </h3>
 
-            
-        </section>
+                        <p class="hotel-city">
+                            #{h.city}
+                        </p>
 
-    </h:form>
+                        <!-- Stars -->
+                        <div class="hotel-stars">
+                            <ui:repeat value="#{[1,2,3,4,5]}" var="i">
+                            
+                            </ui:repeat>
+                        </div>
 
-    <ui:include src="./components/public/footer.xhtml"/>
+                        <p class="hotel-description">
+                            #{h.address}
+                        </p>
 
-</h:body>
+                        <p:commandLink value="Ver mais →"
+                                    styleClass="hotel-link"/>
+                    </div>
+
+                </div>
+
+            </ui:repeat>
+
+        </div>
+
+            </h:form>
+
+            <ui:include src="./components/public/discover-falandula-falls.xhtml" />
+            <ui:include src="./components/public/footer.xhtml"/>
+
+        </h:body>
     </ui:define>
 </ui:composition>

@@ -35,8 +35,16 @@ public class HotelController implements Serializable {
     @Inject
     private HotelService service;
 
-    public void load() {
-        lazyModel = new HotelLazyModel(service);
+    public String load() {
+        try {
+            lazyModel = new HotelLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/management/hotel.xhtml?faces-redirect=true";
     }
 
     public String loadHotelsPage() {

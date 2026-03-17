@@ -1,0 +1,12 @@
+[ {
+  "id" : 1,
+  "name" : "Intercontinental",
+  "city" : "Luanda",
+  "address" : "Cazenga, Luanda",
+  "phone" : "9999999",
+  "email" : "intercontinental@gmail.com",
+  "website" : "continelta.com",
+  "stars" : 5,
+  "imageUrl" : "0img-2026-03-1719-43-13img.png",
+  "mapLocation" : ""
+} ]

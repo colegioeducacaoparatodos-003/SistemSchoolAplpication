@@ -9,8 +9,6 @@ import com.angola_argentina_portal.service.DestinationService;
 
 import com.angola_argentina_portal.model.Destination;
 
-import org.primefaces.model.FilterMeta;
-import org.primefaces.model.SortMeta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 

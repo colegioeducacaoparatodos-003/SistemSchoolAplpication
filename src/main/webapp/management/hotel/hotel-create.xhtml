@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <!-- <ui:insert name="titulo">Signup</ui:insert> -->
+    </title>
+
+
+</h:head>
+
+<h:body>
+
+<h:form id="createForm"  enctype="multipart/form-data">
+
+    <p:dialog id="createDialog"
+          widgetVar="createDialog"
+          modal="true"
+          showEffect="fade"
+          closeOnEscape="true"
+          styleClass="create-hotel-dialog">
+
+    <p:panel header="Hotel Registration" style="max-width:900px">
+
+        <p:scrollPanel mode="native">
+
+            <p:panelGrid columns="2"
+                         layout="grid"
+                         columnClasses="col-4,col-8"
+                         styleClass="ui-fluid">
+
+                <!-- Name -->
+                <p:outputLabel value="Name"/>
+                <p:inputText value="#{hotelController.hotel.name}" required="true"/>
+
+                <!-- City -->
+                <p:outputLabel value="City"/>
+                <p:inputText value="#{hotelController.hotel.city}"/>
+
+                <!-- Address -->
+                <p:outputLabel value="Address"/>
+                <p:inputText value="#{hotelController.hotel.address}"/>
+
+                <!-- Phone -->
+                <p:outputLabel value="Phone"/>
+                <p:inputText value="#{hotelController.hotel.phone}"/>
+
+                <!-- Email -->
+                <p:outputLabel value="Email"/>
+                <p:inputText value="#{hotelController.hotel.email}"/>
+
+                <!-- Website -->
+                <p:outputLabel value="Website"/>
+                <p:inputText value="#{hotelController.hotel.website}"/>
+
+                <!-- Stars -->
+                <p:outputLabel value="Stars"/>
+                <p:selectOneMenu value="#{hotelController.hotel.stars}">
+                    <f:selectItem itemLabel="Select stars" itemValue="0"/>
+                    <f:selectItems value="#{[1,2,3,4,5]}"/>
+                </p:selectOneMenu>
+
+                <!-- Map -->
+                <p:outputLabel value="Map Location"/>
+                <p:inputText value="#{hotelController.hotel.mapLocation}"
+                             placeholder="-8.838333,13.234444"/>
+
+                <!-- Image -->
+                <p:outputLabel value="Image"/>
+
+                <p:fileUpload  
+                    value="#{hotelController.imageUpload}" 
+                    mode="simple"
+                    skinSimple="true"
+                    allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+            </p:panelGrid>
+
+            <!-- Buttons -->
+            <div style="display:flex; gap:10px; margin-top:10px">
+
+                <p:commandButton value="Save"
+                                 icon="pi pi-save"
+                                 action="#{hotelController.add}"
+                                 update="@form hotelTable"
+                                 styleClass="ui-button-success"/>
+
+                <p:commandButton value="Update"
+                                 icon="pi pi-pencil"
+                                 action="#{hotelController.update}"
+                                 update="@form hotelTable"
+                                 styleClass="ui-button-warning"/>
+
+                <p:commandButton value="Clear"
+                                 type="reset"
+                                 icon="pi pi-times"
+                                 styleClass="ui-button-secondary"/>
+
+            </div>
+
+        </p:scrollPanel>
+
+    </p:panel>
+
+</p:dialog>
+
+</h:form>
+</h:body>
+
+</html>

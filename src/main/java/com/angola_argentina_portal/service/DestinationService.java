@@ -17,7 +17,6 @@ import java.util.Map;
 import com.angola_argentina_portal.dto.DestinationTableDTO;
 import com.angola_argentina_portal.model.Destination;
 
-import org.primefaces.model.SortMeta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;

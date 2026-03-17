@@ -8,9 +8,10 @@ import org.primefaces.model.file.UploadedFile;
 import com.angola_argentina_portal.io.Assistant;
 import com.angola_argentina_portal.io.FileImage;
 import com.angola_argentina_portal.lazy.DestinationLazyModel;
-import com.angola_argentina_portal.lazy.NewsLazyModel;
 import com.angola_argentina_portal.model.Destination;
+import com.angola_argentina_portal.model.Hotel;
 import com.angola_argentina_portal.service.DestinationService;
+import com.angola_argentina_portal.service.HotelService;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -31,12 +32,17 @@ public class DestinationController implements Serializable {
     private UploadedFile imageUpload;
 
     private List<Destination> destinations;
+    private List<Hotel> hotels;
 
     @Inject
     private DestinationService service;
 
+    @Inject
+    private HotelService serviceHotels;
+
     public String loadDestinationPage() {
         destinations = service.findAll();
+        hotels = serviceHotels.findAll();
         return "/destination.xhtml?faces-redirect=true";
     }
 
@@ -181,6 +187,18 @@ public class DestinationController implements Serializable {
 
     public void setLazyModel(DestinationLazyModel lazyModel) {
         this.lazyModel = lazyModel;
+    }
+
+    public void setDestinations(List<Destination> destinations) {
+        this.destinations = destinations;
+    }
+
+    public List<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(List<Hotel> hotels) {
+        this.hotels = hotels;
     }
 
     // getters and setters
