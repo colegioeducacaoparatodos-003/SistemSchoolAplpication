@@ -7,5 +7,5 @@ import com.angola_argentina_portal.model.Government;
 
 @Repository
 public interface GovernmentRepository extends JpaRepository<Government, Long>{
-
+    
 }
