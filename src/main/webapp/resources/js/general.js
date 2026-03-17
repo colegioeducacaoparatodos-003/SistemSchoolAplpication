@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function moveSlide() {
             index++;
-            slidesContainer.style.transition = "transform 0.6s ease-in-out";
+            slidesContainer.style.transition = "transform 0.4s ease-in-out";
             slidesContainer.style.transform = `translateX(-${index * 100}%)`;
 
             if (index === totalSlides - 1) {
@@ -106,13 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     slidesContainer.style.transition = "none";
                     slidesContainer.style.transform = "translateX(0)";
                     index = 0;
-                }, 600);
+                }, 400);
             }
         }
 
         // 2. Function to start the auto-play
         function startInterval() {
-            slideInterval = setInterval(moveSlide, 5000);
+            slideInterval = setInterval(moveSlide, 4000);
         }
 
         // 3. Function to stop the auto-play

@@ -887,7 +887,7 @@ HIGH-LIST CAROUSEL
 .heigh-light-slides {
     display: flex;
     height: 100%;
-    transition: transform 0.6s ease;
+    transition: transform 0.4s ease;
 }
 
 .heigh-light-slide {
@@ -1516,7 +1516,7 @@ CONTACT
 
 }
 
-.contacts ul {
+.contacts .item {
     display: flex;
     gap: 1rem;
 
@@ -2194,12 +2194,12 @@ DASHBOARD CONTENT
 ===============================
 */
 
-.header {
+.table-header {
     /* border: 2px solid blue; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    /* padding: 1rem; */
     height: 10%
 }
 
