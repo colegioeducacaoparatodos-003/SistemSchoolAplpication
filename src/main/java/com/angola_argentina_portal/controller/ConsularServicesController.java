@@ -1,5 +1,6 @@
 package com.angola_argentina_portal.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import org.primefaces.model.LazyDataModel;
@@ -8,6 +9,7 @@ import com.angola_argentina_portal.dto.ConsularServicesDTO;
 import com.angola_argentina_portal.lazy.CosularServiceLazyModel;
 import com.angola_argentina_portal.lazy.NewsLazyModel;
 import com.angola_argentina_portal.model.ConsularServices;
+import com.angola_argentina_portal.model.News;
 import com.angola_argentina_portal.service.ConsularService;
 
 import jakarta.faces.application.FacesMessage;
@@ -22,6 +24,7 @@ public class ConsularServicesController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private ConsularServices sconsularServices = new ConsularServices();
     private Long selectedId;
     @Inject
     private ConsularService consularService;
@@ -67,6 +70,12 @@ public class ConsularServicesController implements Serializable {
         return lazyModel;
     }
 
+    public void save() throws IOException {
+        consularService.save(sconsularServices);
+        sconsularServices = new ConsularServices();
+        lazyModel = new CosularServiceLazyModel(consularService);
+    }
+    
     /* ---------------- CRUD ---------------- */
 
     // Abre a página ou dialog para editar um serviço

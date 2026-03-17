@@ -26,20 +26,8 @@ public class ConsularService {
     }
 
     // Criar um novo serviço
-    public ConsularServices save(ConsularServicesDTO createDTO) {
-        ConsularServices services = new ConsularServices();
-
-        services.setServiceName(createDTO.getServiceName());
-        services.setRequirements(createDTO.getRequirements());
-        services.setFees(createDTO.getFees());
-        services.setPrice(createDTO.getPrice());
-        services.setDetails(createDTO.getDetails());
-        services.setStatus(createDTO.getStatus());
-        services.setAvailableDays(createDTO.getAvailableDays());
-        services.setOnlineBooking(createDTO.isOnlineBooking());
-        return repository.save(services);
-
-
+    public void save(ConsularServices consularServices) {
+        repository.save(consularServices);
     }
 
     public Page<ConsularServicesDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
@@ -55,7 +43,6 @@ public class ConsularService {
                 p.getDetails(),
                 p.getStatus(),
                 p.getAvailableDays(),
-                p.isOnlineBooking()
-        ));
+                p.isOnlineBooking()));
     }
 }
