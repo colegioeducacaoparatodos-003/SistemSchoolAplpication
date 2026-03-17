@@ -7,7 +7,7 @@
     </f:metadata>
 
     <ui:define name="titulo">
-        #{msg.biographyOfThePresidentOfTheRepublic}
+        #{msg.travelAgencies}
     </ui:define>
 
 
@@ -17,221 +17,61 @@
         <h:body class="president-biography">
             <h:form id="newsForm">
 
-                <section class="president-biography-page-container">
+            <!-- the its stylies is at the line 2308 the general css -->
+                <section class="destinations-page-container">
+            <div class="title-container">
+                <h1 class="title">#{msg.travelAgencies}</h1>
+            </div>
+            <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
 
-                    <div class="title-container">
-                        <h1 class="title">#{msg.biographyOfThePresidentOfTheRepublic}</h1>
-                    </div>
+            <div class="destinations-grid">
 
-                    <div class="main-content">
+                <ui:repeat value="#{destinationController.destinations}" var="d">
 
-                        <div class="profile-header">
+                    <div class="destination-card">
 
-                            <div class="profile-image">
-                                <img src="#{request.contextPath}/resources/imgs/angolan-president-photo.jpg"
-                                    alt="Presidente da República de Angola" class="president-img" />
-                            </div>
+                        <!-- Image -->
+                        <div class="destination-image">
 
-                            <div class="profile-info">
-                                <p:tag value="Presidente da República de Angola" severity="info" styleClass=" tag" />
-
-                                <h2 class="president-name">
-                                    João Manuel Gonçalves Lourenço
-                                </h2>
-
-                                <div class="president-meta">
-                                    <p><strong>Nascimento:</strong> 5 de Março de 1954 – Lobito, Angola</p>
-                                    <p><strong>Cônjuge:</strong> Ana Dias Lourenço</p>
-                                    <p><strong>Mandato:</strong> Desde 26 de Setembro de 2017</p>
-                                </div>
-
-                            </div>
+                            <p:graphicImage
+                                value="/destination_images/#{d.imageUrl}"
+                                styleClass="destination-img"/>
 
                         </div>
 
-                        <div class="bio-text">
+                        <!-- Content -->
+                        <div class="destination-content">
 
-                            <h3>Dados Biográficos</h3>
-                            <p>
-                                O cidadão João Manuel Gonçalves Lourenço nasceu no dia 5 de Março de 1954,
-                                na cidade do Lobito, província de Benguela. É filho de Sequeira João Lourenço,
-                                enfermeiro, e de Josefa Gonçalves Cipriano Lourenço, costureira, ambos falecidos.
-                                É casado com Ana Afonso Dias Lourenço e pai de seis filhos.
+                            <h3>
+                                #{d.name}
+                            </h3>
+
+                            <p class="destination-location">
+                                #{d.city}, #{d.country}
                             </p>
 
-                            <h3>Formação Académica e Militar</h3>
-                            <p>
-                                Realizou os estudos primários e secundários na província do Bié e posteriormente
-                                na cidade de Luanda, na antiga Escola Industrial de Luanda e no Instituto
-                                Industrial de Luanda.
-                            </p>
 
-                            <p>
-                                Entre 1978 e 1982 recebeu formação militar na então União Soviética,
-                                tendo-se especializado em artilharia pesada. No mesmo país obteve o grau
-                                académico de Mestre em Ciências Históricas.
-                            </p>
+<p:commandLink
+                                value="Explore Destination →"
+                                styleClass="destination-link"
+                                onclick="PF('#{d.name}').show()"/>
 
-                            <p>
-                                Domina fluentemente as línguas inglesa, russa e espanhola.
-                            </p>
-
-                            <h3>Participação na Luta de Libertação</h3>
-                            <p>
-                                Participou, a partir de Agosto de 1974, na luta de Libertação Nacional
-                                conduzida pelo MPLA, tendo realizado a sua primeira instrução político-militar
-                                no Centro de Instrução Revolucionária (CIR) “Kalunga”, no Congo Brazzaville.
-                            </p>
-
-                            <p>
-                                Integrou o primeiro grupo de combatentes do MPLA que, em 1974, entrou
-                                em território nacional através de Miconge, em direcção à cidade de Cabinda.
-                            </p>
-
-                            <p>
-                                Nas vésperas da Independência, participou em combates em Ntó-Iema,
-                                na província de Cabinda, e em outras localidades, contra a invasão do
-                                exército zairense que pretendia ocupar o território daquela província.
-                            </p>
-
-                            <h3>Carreira Militar</h3>
-                            <p>
-                                Exerceu as funções de Comissário Político das então Forças Armadas
-                                Populares de Libertação de Angola (FAPLA) em diversos escalões,
-                                incluindo o cargo de Comissário Político da 2ª Região
-                                Político-Militar de Cabinda.
-                            </p>
-
-                            <p>
-                                Durante a década de 1980 participou em várias operações militares
-                                no centro do país, nomeadamente nas províncias do Cuanza Sul,
-                                Huambo e Bié. Em 1983 exerceu a Presidência do Conselho Militar
-                                Regional da 3ª Região Político-Militar.
-                            </p>
-
-                            <p>
-                                Nas Forças Armadas desempenhou ainda as funções de Chefe da Direcção
-                                Política das FAPLA, entre 1989 e 1990. Actualmente é
-                                General-de-Três-Estrelas na reserva das Forças Armadas Angolanas (FAA).
-                            </p>
-
-                            <h3>Actividade Política no MPLA</h3>
-                            <p>
-                                Integra o Comité Central do MPLA desde 1985 e é membro do Bureau
-                                Político desde 1990. Na sequência do VII Congresso Ordinário do MPLA,
-                                realizado em 2016, foi eleito Vice-Presidente do partido.
-                            </p>
-
-                            <p>
-                                Anteriormente desempenhou as funções de 1º Secretário do Bureau
-                                Político e também de Secretário do Bureau Político do MPLA para
-                                a Informação e para a Esfera Económica e Social.
-                            </p>
-
-                            <h3>Funções Governativas</h3>
-                            <p>
-                                No domínio governativo, foi nomeado em 1983, aos 29 anos de idade,
-                                para exercer o cargo de Comissário Provincial do Moxico, função
-                                equivalente ao actual cargo de Governador de Província.
-                            </p>
-
-                            <p>
-                                Posteriormente exerceu, entre 1986 e 1989, o cargo de
-                                Comissário Provincial de Benguela.
-                            </p>
-
-                            <p>
-                                Em 2014 foi nomeado, por Decreto Presidencial, Ministro da Defesa
-                                Nacional, cargo que exerceu até ao início da campanha eleitoral de 2017.
-                            </p>
-
-                            <h3>Actividade Parlamentar</h3>
-                            <p>
-                                Ao nível parlamentar, João Lourenço foi Presidente do Grupo
-                                Parlamentar do MPLA entre 1991 e 1998.
-                            </p>
-
-                            <p>
-                                Posteriormente exerceu o cargo de Presidente da Comissão
-                                Constitucional da Assembleia Nacional e desempenhou as funções
-                                de 1º Vice-Presidente da Assembleia Nacional entre 2003 e 2014.
-                            </p>
-
-                            <h3>Interesses Pessoais</h3>
-                            <p>
-                                Nos tempos livres dedica-se à leitura, ao xadrez e à equitação,
-                                demonstrando igualmente grande interesse pelas novas
-                                Tecnologias de Informação.
-                            </p>
-
+                              
+                           
                         </div>
 
-                        
-
-
                     </div>
+                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+    <div class="m-0 content-dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                    </p:dialog>
+                </ui:repeat>
 
+            </div>
 
-                    <div class="quick-links-embassadors-section home-section">
-                            <h1 data-aos="fade-right" data-aos-delay="300" class="title">Redes Diplomáticas</h1>
-
-                            <!-- <p data-aos="fade-right" data-aos-delay="500" class="subtitle">
-                                #{msg.consularServicesSubtitle}
-                            </p> -->
-
-                            <div class="quick-links-embassadors">
-
-                               
-                                <a href="#" data-aos="fade-right" data-aos-delay="1800"
-                                    class="card link-for-page-list">
-
-                                    <p>Embaixador em Portugal</p>
-
-                                    <div class="icon-container">
-                                        <i class="pi pi-arrow-right"></i>
-                                    </div>
-                                </a>    
-                                <a href="#" data-aos="fade-right" data-aos-delay="1800"
-                                    class="card link-for-page-list">
-
-                                    <p>Embaixador nos Estados Unidos</p>
-
-                                    <div class="icon-container">
-                                        <i class="pi pi-arrow-right"></i>
-                                    </div>
-                                </a>    
-                                <a href="#" data-aos="fade-right" data-aos-delay="1800"
-                                    class="card link-for-page-list">
-
-                                    <p>Embaixador na China</p>
-
-                                    <div class="icon-container">
-                                        <i class="pi pi-arrow-right"></i>
-                                    </div>
-                                </a> 
-                                <a href="#" data-aos="fade-right" data-aos-delay="1800"
-                                    class="card link-for-page-list">
-
-                                    <p>Embaixador no Brasil</p>
-
-                                    <div class="icon-container">
-                                        <i class="pi pi-arrow-right"></i>
-                                    </div>
-                                </a>      
-                                <a href="#" data-aos="fade-right" data-aos-delay="1800"
-                                    class="card link-for-page-list">
-
-                                    <p>Ver todos embaixadores</p>
-
-                                    <div class="icon-container">
-                                        <i class="pi pi-arrow-right"></i>
-                                    </div>
-                                </a>    
-                                 
-
-                            </div>
-                    </div>
-                </section>
+        </section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>
