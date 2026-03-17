@@ -13,13 +13,14 @@
 
     <ui:define name="content">
         <style>
-            .ui-datascroller .ui-datascroller-list {
+           
+            .consular-services-page-container .ui-datascroller .ui-datascroller-content{
                 padding: 0;
                 border: none;
-            }
 
-            .ui-datascroller .ui-datascroller-item {
-                margin-top: 2%;
+            }
+            .consular-services-page-container .ui-datascroller .ui-datascroller-item {
+                margin-bottom: 2%;
             }
         </style>
 
@@ -96,14 +97,15 @@
                         </h:panelGroup>
 
                         <h:panelGroup class="body">
-                            <p:dataScroller value="#{documentController.lazyModel}" var="item">
-
+                            <p:dataScroller value="#{documentController.lazyModel}" var="item" rows="10" chunkSize="10"
+                                mode="inline">
                                 <div class="card">
                                     <div class="bookmark-container">
                                         <p:commandButton icon="pi pi-download" title="Baixar documento"
+                                            action="#{documentController.downloadDocument}"
                                             styleClass="rounded-button ui-button-flat ui-button-danger">
-                                            <!-- <f:setPropertyActionListener value="#{item.pkDocument}"
-                                                target="#{documentController.selectedId}" /> -->
+                                            <f:setPropertyActionListener value="#{item.pkDocument}"
+                                                target="#{documentController.selectedId}" />
                                         </p:commandButton>
                                         <!-- <i class="pi pi-download"></i> -->
                                     </div>
