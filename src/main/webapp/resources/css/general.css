@@ -1234,10 +1234,8 @@ INDEX SERVICES
 .consular-services-section .icon-container,
 .quick-links-embassadors-section .icon-container {
     transition: transform 0.3s ease-out;
-    border-radius: 50px;
     width: 50px;
     padding: .8rem;
-    border: 1px solid var(--thiner-border-sec);
 
 }
 
@@ -2361,7 +2359,6 @@ DIALOGS
 }
 
 .embassador-card:hover {
-    border-color: var(--angola-red); /* Cor institucional */
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: translateY(-2px);
     background: transparent !important;
