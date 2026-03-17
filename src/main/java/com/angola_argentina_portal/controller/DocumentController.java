@@ -50,6 +50,19 @@ public class DocumentController implements Serializable {
         }
         return "/management/documents.xhtml?faces-redirect=true";
     }
+    
+    // Método loadDocument para Renderização
+    public String loadDocumentPage() {
+        try {
+            lazyModel = new DocumentLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/documents.xhtml?faces-redirect=true";
+    }
 
     public void add() {
 
@@ -64,6 +77,7 @@ public class DocumentController implements Serializable {
             addMessage(FacesMessage.SEVERITY_INFO,
                     "Document",
                     "Document uploaded successfully");
+        
 
         } catch (Exception e) {
             e.printStackTrace();
