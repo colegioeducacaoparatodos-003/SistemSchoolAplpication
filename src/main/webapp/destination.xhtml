@@ -11,6 +11,8 @@
     </ui:define>
 
 
+
+
     <ui:define name="content">
 
 
@@ -25,13 +27,12 @@
             </div>
             <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
 
-            <div class="destinations-grid">
+             <div class="destinations-grid">
 
                 <ui:repeat value="#{destinationController.destinations}" var="d">
 
                     <div class="destination-card">
 
-                        <!-- Image -->
                         <div class="destination-image">
 
                             <p:graphicImage
@@ -40,7 +41,6 @@
 
                         </div>
 
-                        <!-- Content -->
                         <div class="destination-content">
 
                             <h3>
@@ -54,16 +54,55 @@
 
                             <p:commandLink
                                 value="Explore Destination →"
-                                styleClass="destination-link"/>
+                                styleClass="destination-link"
+                                onclick="PF('#{d.name}').show()"/>
+
+                              
                            
                         </div>
 
                     </div>
+                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+                    <div class="content-dialog">
+
+                        <!-- Imagem destaque -->
+                        <div class="dialog-hero">
+                            <p:graphicImage value="/destination_images/#{d.imageUrl}"
+                                            styleClass="dialog-hero-img"/>
+                            <span class="dialog-badge">#{d.category}</span>
+                        </div>
+
+                        <!-- Corpo -->
+                        <div class="dialog-body">
+
+                            <h2 class="dialog-title">#{d.name}</h2>
+
+                            <p class="dialog-location">
+                                📍 #{d.city}, #{d.country}
+                            </p>
+
+                            <p class="dialog-description">
+                                #{empty d.description 
+                                ? 'Discover one of the most remarkable destinations to explore, offering unique landscapes, culture and memorable experiences.'
+                                : d.description}
+                            </p>
+
+                            <!-- <h:panelGroup rendered="#{d.website}"> -->
+                                <a href="#{d.website}" target="_blank" class="dialog-website">
+                                    Visit official website →
+                                </a>
+                            <!-- </h:panelGroup> -->
+
+                        </div>
+
+                    </div>
+                    </p:dialog>
 
                 </ui:repeat>
 
             </div>
 
+            
         </section>
 
     </h:form>

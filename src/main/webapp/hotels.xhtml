@@ -7,7 +7,7 @@
     </f:metadata>
 
     <ui:define name="titulo">
-        #{msg.biographyOfThePresidentOfTheRepublic}
+        #{msg.hotels}
     </ui:define>
 
 
@@ -30,7 +30,6 @@
 
                     <div class="destination-card">
 
-                        <!-- Image -->
                         <div class="destination-image">
 
                             <p:graphicImage
@@ -39,7 +38,6 @@
 
                         </div>
 
-                        <!-- Content -->
                         <div class="destination-content">
 
                             <h3>
@@ -51,19 +49,27 @@
                             </p>
 
 
-                            <p:commandLink
+<p:commandLink
                                 value="Explore Destination →"
-                                styleClass="destination-link"/>
+                                styleClass="destination-link"
+                                onclick="PF('#{d.name}').show()"/>
+
+                              
                            
                         </div>
 
                     </div>
-
+                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+    <div class="m-0 content-dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                    </p:dialog>
                 </ui:repeat>
 
             </div>
 
-        </section>
+                </section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>
