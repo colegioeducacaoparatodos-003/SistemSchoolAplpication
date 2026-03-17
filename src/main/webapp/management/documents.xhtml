@@ -13,7 +13,7 @@
         </style>
         <h:form id="dashboardTable" class="dashboard-form">
             <p:growl id="msg" />
-            <h:panelGroup class="header">
+            <h:panelGroup class="table-header">
                 <h1 class="table-title">Documentos</h1>
 
                 <p:commandButton styleClass="create-button" value="Create News" type="button"
@@ -26,9 +26,17 @@
                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                 rowsPerPageTemplate="5,10,20">
 
-              
+                <!-- <p:column headerText="Preview" exportable="false">
+                    <p:graphicImage value="/news_images/#{item.imageUrl}" rendered="#{not empty item.imageUrl}"
+                        style="width: 100%; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageUrl}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column> -->
                 <p:column headerText="Id">
                     <h:outputText value="#{item.pkDocument}" />
+                </p:column>
+                <p:column headerText="Nome de arquivo">
+                    <h:outputText value="#{item.fileName}" />
                 </p:column>
 
                 

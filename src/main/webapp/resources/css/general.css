@@ -82,6 +82,40 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     padding: 4rem 6rem;
 }
 
+
+.loader_container {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  height: 100px;
+  /* border: 20px solid; */
+  color: #02a7a7;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: loader 1.2s linear infinite;
+}
+
+@keyframes loader {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* 
 ===========================
 NAVBAR
@@ -191,6 +225,7 @@ NAVBAR
 
 /*the style of the content of the dropdown */
 .dropdown-content {
+
     display: none;
     position: absolute;
     top: 100%;
@@ -198,10 +233,9 @@ NAVBAR
     background-color: var(--white-color);
     color: var(--text-gray);
     width: 350px;
-    padding: 15px;
+    border-radius: 4px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 10;
-    border-radius: 0 0 4px 4px;
 }
 
 /* the hover of dropdown gos here */
@@ -212,20 +246,26 @@ NAVBAR
 }
 
 /* style of each sub-na-link */
-.sub-nav-link {
+.sub-nav-link,
+.sub-nav-link.ui-link {
+    width: 100%;
+    display: block;
     padding: 12px 20px;
-    color: #4a5568;
+    color: var(--text-gray);
     /* Cinza escuro, leitura fácil */
     font-size: 0.9rem;
+    /* border: 2px solid red; */
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     border-bottom: 1px solid #edf2f7;
+    color: var(--title-gray);
     /* Linha divisória fina */
 }
 
-/* hover effect to small animation */
-.sub-nav-link:hover {
-    background-color: #f7fafc;
+.sub-nav-link.ui-link:hover {
+    color: var(--text-gray);
+    background-color: #f0f2f3;
+    text-decoration: none;
     /* Um cinza bem clarinho */
 }
 
@@ -853,7 +893,7 @@ HIGH-LIST CAROUSEL
 .heigh-light-slides {
     display: flex;
     height: 100%;
-    transition: transform 0.6s ease;
+    transition: transform 0.4s ease;
 }
 
 .heigh-light-slide {
@@ -1482,7 +1522,7 @@ CONTACT
 
 }
 
-.contacts ul {
+.contacts .item {
     display: flex;
     gap: 1rem;
 
@@ -2160,12 +2200,12 @@ DASHBOARD CONTENT
 ===============================
 */
 
-.header {
+.table-header {
     /* border: 2px solid blue; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    /* padding: 1rem; */
     height: 10%
 }
 

@@ -115,7 +115,9 @@
                         <p:textEditor widgetVar="editor1" value="#{newsController.news.content}" secure="false"
                             height="180px" />
                     </div>
-                    <p:commandButton value="Save News" action="#{newsController.save}" process="@form"
+                    <p:commandButton value="Save News" action="#{newsController.save}" 
+                        process="@form" onstart="showLoader()" 
+                        oncomplete="hideLoader(); PF('createDialog').hide()"
                         update=":dashboardTable" styleClass="ui-button save-button" />
                 </div>
 

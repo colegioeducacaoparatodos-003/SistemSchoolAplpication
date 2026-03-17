@@ -1,0 +1,124 @@
+<ui:composition template="./components/public/public-pages-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions"
+    id="maintenanceKpiSidebar">
+
+    <f:metadata>
+    </f:metadata>
+
+    <ui:define name="titulo">
+        #{msg.documents}
+    </ui:define>
+
+
+    <ui:define name="content">
+        <style>
+
+        </style>
+
+
+        <h:body>
+            <h:form id="newsForm">
+
+                <section class="consular-services-page-container">
+
+                    <div class="content-container">
+
+                        <h:panelGroup class="side-bar">
+                            <h2>#{msg.documents}</h2>
+
+                            <div class="check-boxes-container">
+
+                                <p:selectBooleanCheckbox itemLabel="Serviços de Passaporte" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Pedidos de Visto" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Legalização e Autenticação" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Documentos de Viagem de Emergência" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Registo de Nascimento e Casamento" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Cidadania e Nacionalidade" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Serviços Notariais" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Certificados de Registo Criminal" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Assistência de Repatriação" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Recenseamento Eleitoral no Estrangeiro" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Bilhete de Identidade / Cartão de Cidadão" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Segurança Social e Pensões" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Registo de Óbito e Trasladação" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Declarações e Afirmações Solenes" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Alteração de Nome ou Estado Civil" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Serviços de Tradução" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Serviços de Adopção de Crianças" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Procurações" />
+                                <p:divider />
+
+                                <p:selectBooleanCheckbox itemLabel="Informações Gerais" />
+
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup class="body">
+                             <p:remoteCommand name="rmDownloadDocument"
+                                action="#{destinationController.loadDestinationPage}" />
+                            <div onclick="rmDownloadDocument()" class="card">
+                                <div class="bookmark-container">
+                                    <i class="pi pi-download"></i>
+                                </div>
+
+                                <h4 class="service-title">
+                                    Formulário de Requerimento de Passaporte
+                                </h4>
+
+                                <div class="info-row">
+                                    <i class="pi pi-file"></i> <span class="label">Tipo:</span>
+                                    <span class="value">PDF (Obrigatório)</span>
+                                </div>
+
+                                <p class="description">
+                                    Este documento é obrigatório para todos os cidadãos que pretendem renovar ou
+                                    solicitar o primeiro passaporte biométrico. Deve ser preenchido sem rasuras.
+                                </p>
+
+                            </div>
+
+                        </h:panelGroup>
+
+                    </div>
+
+                </section>
+            </h:form>
+            <ui:include src="./components/public/footer.xhtml" />
+        </h:body>
+    </ui:define>
+</ui:composition>
