@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.file.UploadedFile;
@@ -29,12 +30,18 @@ public class HotelController implements Serializable {
     private HotelLazyModel lazyModel;
 
     private UploadedFile imageUpload;
+    private List<Hotel> hotels;
 
     @Inject
     private HotelService service;
 
     public void load() {
         lazyModel = new HotelLazyModel(service);
+    }
+
+    public String loadHotelsPage() {
+        hotels = service.findAll();
+        return "/hotel.xhtml?faces-redirect=true";
     }
 
     public void add() {
@@ -149,4 +156,17 @@ public class HotelController implements Serializable {
     public void setImageUpload(UploadedFile imageUpload) {
         this.imageUpload = imageUpload;
     }
+
+    public void setLazyModel(HotelLazyModel lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+
+    public List<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(List<Hotel> hotels) {
+        this.hotels = hotels;
+    }
+
 }
