@@ -28,7 +28,7 @@ public class AirlineService {
 
             String path = context.getExternalContext().getRealPath("/");
 
-            File file = new File(path + File.separator + "page_files" + File.separator + "destinations.json");
+            File file = new File(path + File.separator + "page_files" + File.separator + "airlines.json");
 
             System.out.println(file.getAbsolutePath());
 

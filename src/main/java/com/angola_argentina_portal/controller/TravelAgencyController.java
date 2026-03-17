@@ -7,6 +7,7 @@ import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.io.Assistant;
 import com.angola_argentina_portal.io.FileImage;
+import com.angola_argentina_portal.lazy.AirlineLazyModel;
 import com.angola_argentina_portal.lazy.TravelAgencyLazyModel;
 import com.angola_argentina_portal.model.TravelAgency;
 import com.angola_argentina_portal.service.TravelAgencyService;
@@ -34,13 +35,21 @@ public class TravelAgencyController implements Serializable {
     @Inject
     private TravelAgencyService service;
 
-    public void load() {
-        lazyModel = new TravelAgencyLazyModel(service);
-    }
-
     public String loadTravelAgenciesPage() {
         destinations = service.findAll();
         return "/travel-agencies.xhtml?faces-redirect=true";
+    }
+
+    public String load() {
+        try {
+            lazyModel = new TravelAgencyLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/management/travel-agencies.xhtml?faces-redirect=true";
     }
 
     public void add() {
