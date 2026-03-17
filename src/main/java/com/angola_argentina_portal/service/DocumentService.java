@@ -71,21 +71,6 @@ public class DocumentService {
                 p.getUploadDate()));
     }
 
-        // NOVO: Buscar documentos por type
-    public Page<DocumentTableDTO> findByType(String type, int page, int size, Sort sort) {
-        Pageable pageable = PageRequest.of(page, size, sort);
 
-        // Chama a query do repository
-        Page<DocumentTableProjection> projections = repository.findAllByType(type, pageable);
-
-        // Converte para DTO
-        return projections.map(p -> new DocumentTableDTO(
-                p.getPkDocument(),
-                p.getDocumentType(),
-                p.getFileName(),
-                p.getContentType(),
-                p.getFileSize(),
-                p.getUploadDate()));
-    }
 
 }
