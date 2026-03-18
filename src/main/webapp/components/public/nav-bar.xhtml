@@ -134,10 +134,18 @@
 
                         <div class="dropdown-content">
                             <ul class="sub-nav-links">
-                                <li class="sub-nav-link">#{msg.aboutTheEmbassy}</li>
-                                <li class="sub-nav-link">#{msg.angola}</li>
-                                <li class="sub-nav-link">#{msg.ambassadors}</li>
-                                <li class="sub-nav-link">#{msg.generalInformation}</li>
+                                <p:commandLink action="#{destinationController.loadAboutEmbassyPage}">
+                                    <li class="sub-nav-link">#{msg.aboutTheEmbassy}</li>
+                                </p:commandLink>
+                                <p:commandLink action="#{destinationController.loadAmbassadorsPage}">
+                                    <li class="sub-nav-link">#{msg.angola}</li>
+                                </p:commandLink>
+                                <p:commandLink action="#{destinationController.loadAngolaPage}">
+                                    <li class="sub-nav-link">#{msg.ambassadors}</li>
+                                </p:commandLink>
+                                <p:commandLink action="#{destinationController.loadGeneralInformationPage}">
+                                    <li class="sub-nav-link">#{msg.generalInformation}</li>
+                                </p:commandLink>
                             </ul>
                         </div>
                     </li>
@@ -184,17 +192,27 @@
                                 <div class="news-col-left">
                                     <h4>#{msg.embassy}</h4>
                                     <ul>
-                                        <li>#{msg.announcements}</li>
-                                        <li>#{msg.gallery}</li>
+                                        <p:commandLink action="#{announcementController.loadAnnouncementPage}">
+                                            <li>#{msg.announcements}</li>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{destinationController.loadTravelAgenciesPage}">
+                                            <li>#{msg.gallery}</li>
+                                        </p:commandLink>
                                     </ul>
                                 </div>
 
                                 <div class="news-col-right">
                                     <h4>#{msg.media}</h4>
                                     <ul>
-                                        <li>#{msg.news}</li>
-                                        <li>#{msg.angolanMedia}</li>
-                                        <li>#{msg.multimedia}</li>
+                                        <p:commandLink action="#{newsController.loadNewsPage}">
+                                            <li>#{msg.news}</li>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{destinationController.loadAngolaMediaPage}">
+                                            <li>#{msg.angolanMedia}</li>
+                                        </p:commandLink>
+                                        <p:commandLink action="#{destinationController.loadMultimediaPage}">
+                                            <li>#{msg.multimedia}</li>
+                                        </p:commandLink>
                                     </ul>
                                 </div>
 
@@ -229,9 +247,8 @@
 
                         <div class="dropdown-content travel-dropdown">
 
-                            <p:remoteCommand name="rcLoadDestination"
-                                action="#{destinationController.loadDestinationPage}" />
-                            <div onclick="rcLoadDestination()" class="travel-item">
+                            <p:commandLink action="#{travelAgencyController.loadTravelAgenciesPage}">
+                            <div class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.travelAgencies}</span>
                                 </div>
@@ -240,7 +257,9 @@
                                     <img src="../../resources/imgs/gir-travelling.jpg" />
                                 </div>
                             </div>
+                            </p:commandLink>
 
+                            <p:commandLink action="#{airlineController.loadAirlinesPage}">
                             <div class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.airlines}</span>
@@ -250,7 +269,9 @@
                                     <img src="../../resources/imgs/taag.png" />
                                 </div>
                             </div>
+                            </p:commandLink>
 
+                            <p:commandLink action="#{hotelController.loadHotelsPage}">
                             <div class="travel-item">
                                 <div class="travel-text">
                                     <span>#{msg.hotels}</span>
@@ -260,18 +281,19 @@
                                     <img src="../../resources/imgs/intercontinental.png" />
                                 </div>
                             </div>
+                            </p:commandLink>
 
-                            <p:remoteCommand name="rcLoadDestination"
-                                action="#{destinationController.loadDestinationPage}" />
-                            <div onclick="rcLoadDestination()" class="travel-item">
-                                <div class="travel-text">
-                                    <span>#{msg.destinations}</span>
-                                </div>
+                            <p:commandLink action="#{destinationController.loadDestinationPage}">
+                                <div class="travel-item">
+                                    <div class="travel-text">
+                                        <span>#{msg.destinations}</span>
+                                    </div>
 
-                                <div class="travel-img">
-                                    <img src="../../resources/imgs/gir-travelling.jpg" />
+                                    <div class="travel-img">
+                                        <img src="../../resources/imgs/gir-travelling.jpg" />
+                                    </div>
                                 </div>
-                            </div>
+                            </p:commandLink>
 
                         </div>
                     </li>

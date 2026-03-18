@@ -88,9 +88,9 @@ public class AirlineController implements Serializable {
         return "/management/airline.xhtml?faces-redirect=true";
     }
 
-    public String loadAirlinePage() {
+    public String loadAirlinesPage() {
         airlines = service.findAll();
-        return "/airline.xhtml?faces-redirect=true";
+        return "/airlines.xhtml?faces-redirect=true";
     }
 
     public Airline getAirline() {
