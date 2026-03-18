@@ -36,7 +36,14 @@ public class TravelAgencyController implements Serializable {
     private TravelAgencyService service;
 
     public String loadTravelAgenciesPage() {
-        destinations = service.findAll();
+        try {
+            lazyModel = new TravelAgencyLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
         return "/travel-agencies.xhtml?faces-redirect=true";
     }
 

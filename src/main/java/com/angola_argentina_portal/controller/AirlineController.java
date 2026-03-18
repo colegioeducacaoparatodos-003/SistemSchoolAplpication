@@ -88,9 +88,16 @@ public class AirlineController implements Serializable {
         return "/management/airline.xhtml?faces-redirect=true";
     }
 
-    public String loadAirlinePage() {
-        airlines = service.findAll();
-        return "/airline.xhtml?faces-redirect=true";
+    public String loadAirlinesPage() {
+         try {
+            lazyModel = new AirlineLazyModel(service);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/airlines.xhtml?faces-redirect=true";
     }
 
     public Airline getAirline() {

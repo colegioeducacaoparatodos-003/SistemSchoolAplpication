@@ -49,7 +49,7 @@ public class HotelController implements Serializable {
 
     public String loadHotelsPage() {
         hotels = service.findAll();
-        return "/hotel.xhtml?faces-redirect=true";
+        return "/hotels.xhtml?faces-redirect=true";
     }
 
     public void add() {

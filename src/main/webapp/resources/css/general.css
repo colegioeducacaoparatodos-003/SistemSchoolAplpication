@@ -199,7 +199,9 @@ NAVBAR
     /* flex-direction: column; */
     /* border-left: 1px solid var(--thiner-border); */
 }
-
+.nav-content .ui-commandlink{
+    color: var(--angola-black);
+}
 .utility-bar {
     padding: 1.4rem;
     border-bottom: 0;
