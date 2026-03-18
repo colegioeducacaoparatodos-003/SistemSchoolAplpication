@@ -2471,6 +2471,10 @@ DIALOGS
     line-height: 1.5;
 }
 
+.embassador-card:hover .icon-container{
+    transform: translateX(1rem);
+}
+
 .embassador-action {
     display: flex;
     align-items: center;
@@ -2488,6 +2492,10 @@ DIALOGS
     .embassador-content {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .embassador-action:hover{
+        transform: translateX(1rem);
     }
 
     .embassador-action {
@@ -2697,6 +2705,33 @@ Page of the Embassadors
 
 .main-content-embassadors {
     padding-top: 5rem;
+
+    /* section hero of the page */
+    .embassy-hero {
+        padding: 60px 40px;
+        border-radius: 16px;
+        background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url("#{request.contextPath}/resources/imgs/embassy-bg.jpeg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        height: 45vh;
+        margin-bottom: 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        opacity: 0.9;
+        max-width: 640px;
+    }
+
+    /* cards of the embassadors */
     .profiles-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
@@ -2715,7 +2750,7 @@ Page of the Embassadors
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         transition: transform 0.18s ease, box-shadow 0.18s ease;
 
-      /*   &:hover {
+        /*   &:hover {
             transform: translateY(-4px);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
         } */
@@ -2728,11 +2763,9 @@ Page of the Embassadors
             bottom: 18px;
             width: 4px;
             border-radius: 4px;
-            background: linear-gradient(
-                to bottom,
-                #d4af37,
-                #f5e6a8
-            );
+            background: linear-gradient(to bottom,
+                    #d4af37,
+                    #f5e6a8);
             opacity: 0.6;
         }
     }
@@ -2785,7 +2818,66 @@ Page of the Embassadors
         line-height: 1.5;
         font-size: 14px;
     }
-    .tag-embassador{
+
+    .tag-embassador {
         background: var(--angola-red) !important;
+    }
+
+    /* stats of the embassy */
+    .embassy-stats {
+        display: flex;
+        gap: 40px;
+        margin: 40px 0;
+        padding: 28px;
+        border-radius: 14px;
+        background: #fafafa;
+        border: 1px solid #eee;
+        justify-content: center;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
+
+    /* timeeLine */
+    .embassy-timeline {
+        margin: 50px 0;
+    }
+
+    .timeline {
+        list-style: none;
+        padding-left: 0;
+        border-left: 3px solid #ddd;
+        margin-left: 10px;
+    }
+
+    .timeline li {
+        margin: 18px 0;
+        padding-left: 18px;
+        position: relative;
+        color: #444;
+    }
+
+    .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        background: #d4af37;
+        border-radius: 50%;
     }
 }

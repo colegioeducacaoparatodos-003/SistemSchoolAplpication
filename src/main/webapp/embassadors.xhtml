@@ -25,13 +25,76 @@
 
                     <div class="main-content-embassadors">
 
-                        <div class="profiles-grid">
+                        <section class="embassy-hero">
+
+                            <div class="hero-content">
+                                <h1>Embaixadores da República de Angola</h1>
+                                <p>
+                                    Representação diplomática e fortalecimento das relações bilaterais
+                                    ao longo da história.
+                                </p>
+                            </div>
+
+                        </section>
+
+                        <section data-aos="fade-in" data-aos-delay="300" class="embassy-stats">
+
+                            <div class="stat-item">
+                                <span class="stat-number">32</span>
+                                <span class="stat-label">Embaixadores Nomeados</span>
+                            </div>
+
+                            <div class="stat-item">
+                                <span class="stat-number">54</span>
+                                <span class="stat-label">Relações Diplomáticas</span>
+                            </div>
+
+                            <div class="stat-item">
+                                <span class="stat-number">48</span>
+                                <span class="stat-label">Anos de Representação</span>
+                            </div>
+
+                        </section>
+
+
+                        <div data-aos="fade-right" data-aos-delay="300" class="profiles-grid">
 
                             <ui:include src="./components/public/embassador-card.xhtml" />
                             <ui:include src="./components/public/embassador-card.xhtml" />
                             <ui:include src="./components/public/embassador-card.xhtml" />
                             <ui:include src="./components/public/embassador-card.xhtml" />
 
+                        </div>
+
+                        <section data-aos="fade-right" data-aos-delay="300" class="embassy-timeline">
+
+                            <h2>Marcos Diplomáticos</h2>
+
+                            <ul class="timeline">
+                                <li><strong>1975</strong> — Início da representação diplomática</li>
+                                <li><strong>1992</strong> — Expansão das missões bilaterais</li>
+                                <li><strong>2002</strong> — Consolidação das relações internacionais</li>
+                                <li><strong>2017</strong> — Reforço estratégico multilateral</li>
+                            </ul>
+
+                        </section>
+
+                        <div class="quick-links-embassadors-section ">
+
+                            <div class="embassador-link-container" data-aos="fade-right" data-aos-delay="300">
+                                <a href="/president-biography.xhtml" class="embassador-card">
+                                    <div class="embassador-content">
+                                        <div class="ambassador-info">
+                                            <h2 class="link-title">#{msg.biographyOfThePresidentOfTheRepublic}</h2>
+
+                                        </div>
+                                        <div class="embassador-action">
+                                            <span class="action-text">Ver </span>
+                                            <i class="pi pi-arrow-right icon-container"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
 
                     </div>
