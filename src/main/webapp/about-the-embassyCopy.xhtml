@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view locale="#{languageController.locale}">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            <ui:insert name="titulo">Angola Embassy</ui:insert>
+        </title>
+
+        <h:outputStylesheet name="general.css" library="css" />
+
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+        <h:outputScript name="general.js" library="js" />
+
+
+        <style>
+            .hero-container {
+                position: relative;
+                height: 100vh;
+                width: 100%;
+                overflow: hidden;
+                color: var(--white-color);
+                /* display: flex; */
+                /* align-items: center; */
+                /* Vertically centers the content */
+            }
+
+            /* Make the image cover the entire background */
+            .hero-bg-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                /* This prevents the image from stretching */
+                z-index: 0;
+            }
+
+            .hero-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(17, 24, 39, 0.50);
+                z-index: 1;
+            }
+
+            .hero-content-container {
+                /* height: 100%; */
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                padding: 5.4rem;
+            }
+
+            .hero-bg-img {
+                width: 100%;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <div class="about-the-embassy-page">
+            <section class="hero-container">
+                <img src="./resources/imgs/embassy/building1.jpg" alt="Embassy Building" class="hero-bg-img" />
+                <div class="hero-overlay">
+                    <ui:include src="./components/public/nav-bar.xhtml" />
+
+                    <div class="hero-content-container">
+                        <div class="title-container">
+                            <h1 class="title">About the embassy</h1>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            <section>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vitae tenetur dolore magni saepe
+                magnam ut facilis, quidem nam perspiciatis eligendi deleniti veritatis quas doloremque animi, assumenda
+                culpa. Minima distinctio perspiciatis minus quod voluptas dolore ipsam vitae rem magnam et amet quos
+                aliquid aliquam quo accusamus obcaecati corporis ratione, molestias delectus praesentium adipisci hic.
+                Repudiandae quas ipsam, nemo commodi labore voluptatibus maxime officiis odio, cumque minus minima alias
+                quam vero facilis quaerat voluptatum molestias nobis aliquid? Consectetur nemo quo maxime facilis fugiat
+                quasi deserunt. Quidem rem excepturi repellat temporibus blanditiis sed explicabo repudiandae eum,
+                numquam magni doloribus, saepe labore doloremque.
+            </section>
+        </div>
+        <ui:include src="./components/public/footer.xhtml" />
+    </h:body>
+</f:view>
+
+</html>
