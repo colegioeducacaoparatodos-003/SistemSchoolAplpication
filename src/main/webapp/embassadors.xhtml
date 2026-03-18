@@ -7,7 +7,7 @@
     </f:metadata>
 
     <ui:define name="titulo">
-        #{msg.officialRepresentatives}
+        #{msg.ambassadors}
     </ui:define>
 
 
@@ -20,7 +20,7 @@
                 <section class="president-biography-page-container">
 
                     <div class="title-container">
-                        <h1 class="title">#{msg.officialRepresentatives}</h1>
+                        <h1 class="title">#{msg.ambassadors}</h1>
                     </div>
 
                     <div class="main-content-embassadors">
@@ -28,7 +28,7 @@
                         <section class="embassy-hero">
 
                             <div class="hero-content">
-                                <h1>Embaixadores da República de Angola</h1>
+                                <h1>#{msg.ambassadorsOfTheRepublicOfAngola}</h1>
                                 <p>
                                     Representação diplomática e fortalecimento das relações bilaterais
                                     ao longo da história.
@@ -66,6 +66,48 @@
 
                         </div>
 
+                        <!-- <ui:repeat value="#{ambassadorController.formerAmbassadors}" var="em">
+
+                            <div class="profile-card">
+
+                                <div class="profile-image">
+                                    <img src="#{request.contextPath}/resources/imgs/angolan-president-photo.jpg"
+                                        alt="Embaixador de Angola" class="profile-img" />
+                                </div>
+
+                                <div class="profile-info">
+
+                                    <p:tag value="#{em.typeEm}" severity="info" />
+
+                                    <h3 class="profile-name">
+                                        #{em.fullName}
+                                    </h3>
+
+                                    <p class="profile-title">
+                                        #{em.title}
+                                    </p>
+
+                                    <p class="profile-subtitle">
+                                        #{em.subTitle}
+                                    </p>
+
+                                    <div class="profile-meta">
+                                        <p>
+                                            <strong>Período:</strong>
+                                            #{em.inicio} — #{em.termino}
+                                        </p>
+                                    </div>
+
+                                    <p class="profile-desc">
+                                        #{em.description}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </ui:repeat> -->
+
                         <section data-aos="fade-right" data-aos-delay="300" class="embassy-timeline">
 
                             <h2>Marcos Diplomáticos</h2>
@@ -89,7 +131,7 @@
 
                                         </div>
                                         <div class="embassador-action">
-                                            <span class="action-text">Ver </span>
+                                            <span class="action-text">#{msg.view} </span>
                                             <i class="pi pi-arrow-right icon-container"></i>
                                         </div>
                                     </div>
