@@ -19,163 +19,217 @@
 
 
         <style>
-            .about-the-embassy-page .text{
-                /* border: 2px solid blue; */
+            .hero-section .title {
+                font-size: 3rem;
+            }
+
+            .about-the-embassy-page .title{
+                font-size: 2.6rem;
+                margin-bottom: .8rem;
+            }
+            .hero-section .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero-section {
+                height: 70vh;
+                background-image: url('../resources/imgs/embassy/building1.jpg');
+                background-repeat: no-repeat;
+                width: 100%;
+                /* height: 100%; */
+                background-size: cover;
+                position: relative;
+            }
+
+            .hero-overlay {
+                background: rgba(0, 0, 0, 0.5);
+                color: white;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .section .text {
                 font-size: 1.2rem;
             }
 
+            .quick-facts {
+                display: flex;
+                justify-content: center;
+                background: #f5f5f5;
+            }
+
             .section {
-                /* border: 2px solid yellow; */
                 padding: 8rem 6rem;
 
             }
 
-            .content-container {
+            .diplomatic-representation {
+                /* border: 3px solid blue; */
+            }
 
-                /* border: 2px solid blue; */
+            .embassies-container {
+                margin-top: 1rem;
                 display: flex;
-                gap: 4rem;
-                /* align-items: center; */
+                justify-content: flex-start;
+                /* Prevents the first flag from being cut off */
+                padding-left: 20px;
             }
 
-
-            .content {
-                width: 50%;
-                /* text-align: left; */
-                /* border: 2px solid green; */
+            .embassy-flag {
+                position: relative;
+                /* This creates the overlap */
+                margin-left: -40px;
+                transition: transform 0.3s ease;
             }
 
-            .image-container {
-                margin-top: 2rem;
-                width: 100%;
+            /* Removes overlap for the first flag so it stays put */
+            .embassy-flag:first-child {
+                margin-left: 0;
             }
 
-            .image-container img {
-                width: 100%;
+            .embassy-flag img {
+                border-radius: 50%;
+                height: 180px;
+                width: 180px;
+                object-fit: cover;
+                border: 4px solid #fff;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+                background-color: white;
+            }
+
+            .embassy-flag:hover {
+                transform: translateY(-5px);
+            }
+
+            .consular-services {
+                background: #f5f5f5;
+                /* border: 2px solid red; */
             }
         </style>
     </h:head>
 
     <h:body>
         <div class="about-the-embassy-page">
-            <ui:include src="./components/public/nav-bar.xhtml" />
-            <section class="section about-the-embassy-section">
 
-                <div class="content-container">
-                    <div class="content">
-                        <h1>About the embassy</h1>
-                        <p class="text">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores fugit itaque tempore
-                            ducimus
-                            id, qui iste rerum omnis rem blanditiis minima laborum molestiae porro. Esse dignissimos non
-                            nulla omnis tenetur commodi ipsa voluptatem quis.
-                        </p>
-                        <div class="image-container">
-                            <img src="./resources/imgs/embassy/building1.jpg" alt="Embassy Building" class="about-image" />
-                        </div>
+            <ui:include src="./components/public/nav-bar.xhtml" />
+
+            <!-- HERO SECTION -->
+            <section class="hero-section" data-aos="fade-up">
+                <div class="hero-overlay">
+                    <h1 class="title">#{msg.aboutTheEmbassy}</h1>
+                    <p class="subtitle">Strengthening diplomatic relations and serving citizens abroad.</p>
+                </div>
+            </section>
+
+            <!-- QUICK FACTS -->
+            <section class="quick-facts section">
+                <p class="text">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat commodi numquam dolor facere quod
+                    perferendis vero quo dicta quisquam quidem voluptates ipsam, qui esse cumque harum adipisci nostrum
+                    rerum ipsum alias eaque? Tenetur dicta quo natus labore consequatur provident, nesciunt rerum vitae
+                    at ipsum, blanditiis vel cum incidunt inventore repellendus excepturi tempora ducimus minus magnam
+                    autem? In doloremque temporibus ullam?
+                </p>
+            </section>
+
+            <section class="section diplomatic-representation">
+                <h1 class="title">
+                    Diplomatic representations
+                </h1>
+                <div class="embassies-container">
+
+                    <div class="embassy-flag">
+                        <img src="./resources/imgs/embassies/Flag_of_Argentina.svg.png" alt="" />
                     </div>
 
+                    <div class="embassy-flag">
+                        <img src="./resources/imgs/embassies/Flag_of_Bolivia1.png" alt="" />
+                    </div>
+                    <div class="embassy-flag">
+                        <img src="./resources/imgs/embassies/Flag_of_Chile1.png" alt="" />
+                    </div>
+                    <div class="embassy-flag">
+                        <img src="./resources/imgs/embassies/Flag_of_Paraguay.svg" alt="" />
+                    </div>
+                    <div class="embassy-flag">
+                        <img src="./resources/imgs/embassies/Flag_of_Uruguai.png" alt="" />
+                    </div>
                 </div>
+
             </section>
-            <section class="section diplomatic-representation">
-                <h1>Diplomatic Representations</h1>
-                <div class="content-container">
-                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vitae tenetur dolore magni saepe
-                    magnam ut facilis, quidem nam perspiciatis eligendi deleniti veritatis quas doloremque animi,
-                    assumenda
-                    culpa. Minima distinctio perspiciatis minus quod voluptas dolore ipsam vitae rem magnam et amet quos
-                    aliquid aliquam quo accusamus obcaecati corporis ratione, molestias delectus praesentium adipisci
-                    hic.
-                    Repudiandae quas ipsam, nemo commodi labore voluptatibus maxime officiis odio, cumque minus minima
-                    alias
-                    quam vero facilis quaerat voluptatum molestias nobis aliquid? Consectetur nemo quo maxime facilis
-                    fugiat
-                    quasi deserunt. Quidem rem excepturi repellat temporibus blanditiis sed explicabo repudiandae eum,
-                    numquam magni doloribus, saepe labore doloremque.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, illo harum? Maxime excepturi
-                    rerum nam esse consectetur, non quos, necessitatibus voluptates sint sunt, accusantium atque!
-                    Expedita
-                    obcaecati corporis, a architecto sapiente, blanditiis ipsum nostrum labore natus ut ipsam
-                    aspernatur,
-                    recusandae minima nesciunt totam maiores corrupti iste. Eaque, porro accusamus quam blanditiis atque
-                    perferendis obcaecati quibusdam reiciendis exercitationem pariatur facilis ratione, quia vel illo
-                    voluptate laborum aliquid iusto sint, optio dolorem nostrum. Tempore nobis porro eligendi fugiat
-                    excepturi officiis error rerum sapiente nihil et quisquam quo aspernatur suscipit labore accusantium
-                    facilis doloribus praesentium ratione, delectus omnis dignissimos nisi! Maxime officia dolores
-                    voluptatem odio magnam laboriosam vel blanditiis debitis eveniet ducimus natus dolor iure distinctio
-                    fugiat a illo animi cumque, ut praesentium commodi odit, quibusdam enim atque tempora. Aut odit
-                    dolorum
-                    illo atque, porro libero qui accusamus rem similique autem officia in laboriosam quod explicabo
-                    iusto,
-                    fuga pariatur sint, magni doloremque! Quas maxime sunt accusantium illo incidunt quaerat et alias
-                    nulla
-                    numquam commodi, at eligendi magni similique possimus laudantium modi nostrum facere excepturi,
-                    temporibus hic ratione aspernatur iste provident. Soluta, veritatis dolorem. Sit ipsam deleniti iure
-                    ducimus commodi, similique laborum cumque quia molestiae, unde est laudantium impedit architecto
-                    doloremque ad et laboriosam!
+
+            <section class="section consular-services">
+                <h1 class="title">Consular Services</h1>
+                <p class="text">
+                    Os serviços consulares prestados, pelo sector consular da Embaixada de Angola na Argentina, no
+                    geral, oferece assistência aos seus nacionais, aos nacionais do país acreditador e aos demais
+                    estrangeiros residentes.
                 </p>
-                </div>
+                <br />
+                <p class="text">
+                    Para os cidadãos angolanos a asistencia consiste em toda a gama de serviços
+                    como extensão da administração pública do Estado, que inclui, a inscrição consular, a tramitação do
+                    processo de renovação de passaportes, a emissão de salve-condutos, serviços de registos civis e de
+                    notariado, de entre outos. De entre os serviços para cidadãos estrangeiros, constam, a concessão de
+                    vistos das diversas tipologias, o reconhecimento e a autenticação de documentos.
+                </p>
             </section>
-            <section class="section provided-services">
-                <h1>
-                    About the consular services provided
-                </h1>
-                <div class="content-container">
-                    <p class="text">
-                        Os serviços consulares prestados, pelo sector consular da Embaixada de Angola na Argentina, no
-                        geral, oferece assistência aos seus nacionais, aos nacionais do país acreditador e aos demais
-                        estrangeiros residentes. Para os cidadãos angolanos a asistencia consiste em toda a gama de
-                        serviços como extensão da administração pública do Estado, que inclui, a inscrição consular, a
-                        tramitação do processo de renovação de passaportes, a emissão de salve-condutos, serviços de
-                        registos civis e de notariado, de entre outos. De entre os serviços para cidadãos estrangeiros,
-                        constam, a concessão de vistos das diversas tipologias, o reconhecimento e a autenticação de
-                        documentos.
-                    </p>
-                </div>
+
+
+            <!-- AMBASSADOR -->
+            <section class="ambassador-section section" data-aos="fade-up">
+                <h1 class="title">Embassadors</h1>
+
+                <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" var="imgName" numVisible="3"
+                    numScroll="1" circular="true" autoplayInterval="4000" responsive="true"
+                    styleClass="mission-carousel">
+
+                    <div class="member-card">
+
+                        <div class="member-card-content">
+
+                            <div class="member-image-container">
+                                <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
+                                    alt="#{msg.diplomaticStaff}" />
+                            </div>
+
+                            <div class="member-info">
+
+                                <h4 class="member-name">
+
+                                    #{imgName == 'p4.jpg' ? msg.heAzevedoXavierFrancisco :
+                                    imgName == 'p1.jpg' ? msg.ministerCounsellor :
+                                    imgName == 'p2.jpg' ? msg.firstSecretary :
+                                    imgName == 'p3.jpg' ? msg.secondSecretary :
+                                    msg.consularAttache}
+
+                                </h4>
+
+                                <h6 class="member-role">
+
+                                    #{imgName == 'p1.jpg'
+                                    ? msg.ambassadorPlenipotentiary
+                                    : msg.diplomaticMissionMember}
+
+                                </h6>
+
+                                <p class="member-bio">
+                                    #{msg.memberBioDiplomatic}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </p:carousel>
             </section>
-            <section class="section embassadors">
-                <h1>
-                    The ambassadors
-                </h1>
-                <div class="content-container">
-                    <p class="text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vitae tenetur dolore magni saepe
-                    magnam ut facilis, quidem nam perspiciatis eligendi deleniti veritatis quas doloremque animi,
-                    assumenda
-                    culpa. Minima distinctio perspiciatis minus quod voluptas dolore ipsam vitae rem magnam et amet quos
-                    aliquid aliquam quo accusamus obcaecati corporis ratione, molestias delectus praesentium adipisci
-                    hic.
-                    Repudiandae quas ipsam, nemo commodi labore voluptatibus maxime officiis odio, cumque minus minima
-                    alias
-                    quam vero facilis quaerat voluptatum molestias nobis aliquid? Consectetur nemo quo maxime facilis
-                    fugiat
-                    quasi deserunt. Quidem rem excepturi repellat temporibus blanditiis sed explicabo repudiandae eum,
-                    numquam magni doloribus, saepe labore doloremque.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, illo harum? Maxime excepturi
-                    rerum nam esse consectetur, non quos, necessitatibus voluptates sint sunt, accusantium atque!
-                    Expedita
-                    obcaecati corporis, a architecto sapiente, blanditiis ipsum nostrum labore natus ut ipsam
-                    aspernatur,
-                    recusandae minima nesciunt totam maiores corrupti iste. Eaque, porro accusamus quam blanditiis atque
-                    perferendis obcaecati quibusdam reiciendis exercitationem pariatur facilis ratione, quia vel illo
-                    voluptate laborum aliquid iusto sint, optio dolorem nostrum. Tempore nobis porro eligendi fugiat
-                    excepturi officiis error rerum sapiente nihil et quisquam quo aspernatur suscipit labore accusantium
-                    facilis doloribus praesentium ratione, delectus omnis dignissimos nisi! Maxime officia dolores
-                    voluptatem odio magnam laboriosam vel blanditiis debitis eveniet ducimus natus dolor iure distinctio
-                    fugiat a illo animi cumque, ut praesentium commodi odit, quibusdam enim atque tempora. Aut odit
-                    dolorum
-                    illo atque, porro libero qui accusamus rem similique autem officia in laboriosam quod explicabo
-                    iusto,
-                    fuga pariatur sint, magni doloremque! Quas maxime sunt accusantium illo incidunt quaerat et alias
-                    nulla
-                    numquam commodi, at eligendi magni similique possimus laudantium modi nostrum facere excepturi,
-                    temporibus hic ratione aspernatur iste provident. Soluta, veritatis dolorem. Sit ipsam deleniti iure
-                    ducimus commodi, similique laborum cumque quia molestiae, unde est laudantium impedit architecto
-                    doloremque ad et laboriosam!
-                
-                    </p>    
-                </div>
-            </section>
+
+
         </div>
         <ui:include src="./components/public/footer.xhtml" />
     </h:body>
