@@ -1754,14 +1754,23 @@ NEWS SECTION
     font-size: 0.85rem;
 }
 
-.news-page-container .cards-container,
+.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list{
+    border: none;
+}
+.news-page-container .ui-datascroller .ui-datascroller-content{
+    padding: 0;
+    border: none;
+}
+.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list,
 .quick-links-embassadors {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     padding: 0;
+    
+}
+.quick-links-embassadors{
     margin: 3rem auto 6rem;
-
 }
 
 
