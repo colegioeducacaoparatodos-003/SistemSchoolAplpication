@@ -64,7 +64,10 @@
                 </div>
             </div>
 
-            <a href="./consular-services.xhtml" data-aos="fade-right" data-aos-delay="1800"
+
+
+            <div onclick="rcLoadConsularServicesPage()" 
+                data-aos="fade-right" data-aos-delay="1800"
                 class="card link-for-page-list">
 
                 <p>#{msg.seeAllServices}</p>
@@ -72,7 +75,10 @@
                 <div class="icon-container">
                     <i class="pi pi-arrow-right"></i>
                 </div>
-            </a>
+
+                <p:remoteCommand name="rcLoadConsularServicesPage"
+                    action="#{consularServiceController.loadConsularServicePage}" />
+            </div>
 
         </div>
     </main>

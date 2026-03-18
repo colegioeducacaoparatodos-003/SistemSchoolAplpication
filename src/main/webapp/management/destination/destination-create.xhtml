@@ -16,103 +16,124 @@
 
 <h:form id="createForm"  enctype="multipart/form-data">
 
-    <p:dialog id="createDialog" styleClass="create-news-dialog" widgetVar="createDialog" showEffect="fade" modal="true"
-        closeOnEscape="true">
-        
-            <p:panel header="Destination Registration" style="max-width:900px">
-            <p:scrollPanel mode="native">
-                <p:panelGrid columns="2" layout="grid"
-                            columnClasses="col-4,col-8"
-                            styleClass="ui-fluid">
+  <p:dialog id="createDialog"
+          styleClass="create-news-dialog"
+          widgetVar="createDialog"
+          showEffect="fade"
+          modal="true"
+          closeOnEscape="true">
 
-                    <!-- Name -->
-                    <p:outputLabel for="name" value="Name"/>
-                    <p:inputText id="name"
-                                value="#{destinationController.destination.name}"
-                                required="true"/>
+    <div class="components-container">
 
-                    <!-- City -->
-                    <p:outputLabel for="city" value="City"/>
-                    <p:inputText id="city"
-                                value="#{destinationController.destination.city}"/>
+        <!-- LEFT -->
+        <div class="left-component">
 
-                    <!-- Country -->
-                    <p:outputLabel for="country" value="Country"/>
-                    <p:inputText id="country"
-                                value="#{destinationController.destination.country}"/>
+            <h1 class="title">Preencha os campos para criar destino</h1>
 
-                    <!-- Category -->
-                    <p:outputLabel for="category" value="Category"/>
-                    <p:selectOneMenu id="category"
-                                    value="#{destinationController.destination.category}">
+            <!-- BASIC INFO -->
+            <div class="form-section">
 
-                        <f:selectItem itemLabel="Select category" itemValue=""/>
+                <h:outputText class="label-for-input" value="Name" />
+                <p:inputText id="name"
+                             value="#{destinationController.destination.name}"
+                             required="true"
+                             styleClass="w-full" />
 
-                        <f:selectItem itemLabel="Nature" itemValue="Nature"/>
-                        <f:selectItem itemLabel="Beach" itemValue="Beach"/>
-                        <f:selectItem itemLabel="City" itemValue="City"/>
-                        <f:selectItem itemLabel="Culture" itemValue="Culture"/>
-                        <f:selectItem itemLabel="Adventure" itemValue="Adventure"/>
+                <h:outputText class="label-for-input" value="City" />
+                <p:inputText id="city"
+                             value="#{destinationController.destination.city}"
+                             styleClass="w-full" />
 
-                    </p:selectOneMenu>
+                <h:outputText class="label-for-input" value="Country" />
+                <p:inputText id="country"
+                             value="#{destinationController.destination.country}"
+                             styleClass="w-full" />
 
-                    <!-- Website -->
-                    <p:outputLabel for="website" value="Website"/>
-                    <p:inputText id="website"
-                                value="#{destinationController.destination.website}"/>
+            </div>
 
-                    <!-- Map Location -->
-                    <p:outputLabel for="location" value="Map Location"/>
-                    <p:inputText id="location"
-                                value="#{destinationController.destination.location}"
-                                placeholder="-8.838333,13.234444"/>
+            <!-- CLASSIFICATION -->
+            <div class="form-section">
 
-                    <!-- Description -->
-                    <p:outputLabel for="description" value="Description"/>
-                    <p:inputTextarea id="description"
-                                    rows="4"
-                                    value="#{destinationController.destination.description}"/>
+                <h:outputText class="label-for-input" value="Category" />
+                <p:selectOneMenu id="category"
+                                 value="#{destinationController.destination.category}"
+                                 styleClass="w-full">
 
-                    <!-- Image Upload -->
-                    <p:outputLabel value="Image"/>
-                
+                    <f:selectItem itemLabel="Select category" itemValue=""/>
 
-                                   <p:fileUpload  label="#{msg.chooseButton}"
-                                styleClass="custom-upload-btn"
-                             value="#{destinationController.imageUpload}" 
-                            skinSimple="true"
-                            mode="simple"
-                            allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                           />
+                    <f:selectItem itemLabel="Nature" itemValue="Nature"/>
+                    <f:selectItem itemLabel="Beach" itemValue="Beach"/>
+                    <f:selectItem itemLabel="City" itemValue="City"/>
+                    <f:selectItem itemLabel="Culture" itemValue="Culture"/>
+                    <f:selectItem itemLabel="Adventure" itemValue="Adventure"/>
 
-                </p:panelGrid>
-                <div style="display:flex; gap:10px">
+                </p:selectOneMenu>
 
-                    <p:commandButton value="Save"
-                                    icon="pi pi-save"
-                                    action="#{destinationController.add}"
-                                    update="@form destinationTable"
-                                    styleClass="ui-button-success"/>
+            </div>
 
-                    <p:commandButton value="Update"
-                                    icon="pi pi-pencil"
-                                    action="#{destinationController.update}"
-                                    update="@form destinationTable"
-                                    styleClass="ui-button-warning"/>
+        </div>
 
-                    <p:commandButton value="Clear"
-                                    type="reset"
-                                    icon="pi pi-times"
-                                    styleClass="ui-button-secondary"/>
+        <p:divider layout="vertical" />
 
-                </div>
-            </p:scrollPanel>
-                <p:divider/>
+        <!-- RIGHT -->
+        <div class="right-component">
 
-                
+            <!-- LOCATION & LINKS -->
+            <div class="form-section">
 
-            </p:panel>
-    </p:dialog>
+                <h:outputText class="label-for-input" value="Website" />
+                <p:inputText id="website"
+                             value="#{destinationController.destination.website}"
+                             styleClass="w-full" />
+
+                <h:outputText class="label-for-input" value="Map Location" />
+                <p:inputText id="location"
+                             value="#{destinationController.destination.location}"
+                             placeholder="-8.838333,13.234444"
+                             styleClass="w-full" />
+
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-section">
+
+                <h:outputText class="label-for-input" value="Description" />
+                <p:inputTextarea id="description"
+                                 rows="5"
+                                 value="#{destinationController.destination.description}"
+                                 styleClass="w-full" />
+
+            </div>
+
+            <!-- MEDIA -->
+            <div class="form-section">
+
+                <h:outputText class="label-for-input" value="Image" />
+
+                <p:fileUpload label="#{msg.chooseButton}"
+                              styleClass="custom-upload-btn w-full"
+                              value="#{destinationController.imageUpload}" 
+                              skinSimple="true"
+                              mode="simple"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+            </div>
+
+            <!-- ACTION -->
+            <p:commandButton value="Save Destination"
+                             icon="pi pi-save"
+                             action="#{destinationController.add}"
+                             process="@form"
+                             update="@form :destinationTable"
+                             onstart="showLoader()"
+                             oncomplete="hideLoader(); PF('createDialog').hide()"
+                             styleClass="ui-button save-button" />
+
+        </div>
+
+    </div>
+
+</p:dialog>
 
 </h:form>
 </h:body>
