@@ -974,12 +974,14 @@ NEWS CARDS
 
 .red-button.ui-button,
 .descover-button.ui-button {
+    color: var(--white-color);
     text-transform: uppercase;
     background-color: var(--angola-red) !important;
 }
 
 .red-button.ui-button:hover,
 .descover-button.ui-button:hover {
+    color: var(--white-color);
     background-color: var(--angola-red-hover) !important;
 }
 
