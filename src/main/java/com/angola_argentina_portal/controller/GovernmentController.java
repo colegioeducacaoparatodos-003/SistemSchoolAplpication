@@ -37,7 +37,7 @@ public class GovernmentController implements Serializable {
     private String selectedType;
 
     // Método loadDocument para Renderização com a lista de documentos
-    public String loadDocumentPage() {
+    public String loadGovernmentPage() {
         try {
             lazyModel = new GovernmentLazyModel(governmentService);
         } catch (Exception e) {
@@ -65,4 +65,5 @@ public class GovernmentController implements Serializable {
         }
     }
 
+    
 }
