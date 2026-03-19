@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,15 +40,18 @@ public class DocumentService {
     public Document save(Document document) throws IOException {
 
         FileImage acessImage = new FileImage();
-        Assistant assistant = new Assistant();
-        String newNameFile = "default.png"; // Default image nam
 
         if (document.getUploadedFile() != null) {
-            newNameFile = "0" + assistant.novoNome(document.getUploadedFile().getContentType());
-            acessImage.salvarArquivo(document.getUploadedFile(), "documents_files", newNameFile);
+            acessImage.salvarArquivoSemMudarONome(document.getUploadedFile(), "documents_files",
+                    document.getUploadedFile().getFileName());
         } else {
             document.setUploadedFile(null);
         }
+
+        document.setContentType(document.getUploadedFile().getContentType());
+        document.setFilePath("documents_files");
+        document.setFileSize(document.getUploadedFile().getSize());
+        document.setUploadDate(LocalDate.now());
 
         return repository.save(document);
     }
@@ -70,7 +74,5 @@ public class DocumentService {
                 p.getFileSize(),
                 p.getUploadDate()));
     }
-
-
 
 }

@@ -14,6 +14,54 @@
     <ui:define name="content">
         <style>
 
+            .booking-btn {
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 6px 14px;
+    transition: all 0.3s ease;
+    border: none !important;
+}
+
+.booking-btn.active {
+    background-color: #DA291C;
+    cursor: pointer;
+}
+
+.booking-btn.active:hover {
+    color: var(--white-color);
+    background-color: var(--angola-red-hover) !important;
+}
+
+.booking-btn.inactive {
+    background-color: rgb(55, 65, 81);
+    cursor: not-allowed;
+}
+
+.info-row-schedule-and-price{
+    
+    justify-content: space-between;
+    font-weight: 700;
+    color: #000;
+}
+
+.info-row-schedule-and-price-label,
+.info-row-schedule-and-price-value{
+
+    color: #000 !important;
+}
+
+.card:hover{
+      background-color: #ededed;
+}
+
+.btn-download.ui-button.ui-button-icon-only .ui-icon
+{
+      color: #DA291C;
+}
+
+
         </style>
 
 
@@ -95,7 +143,18 @@
 
                                     <!-- Bookmark -->
                                     <div class="bookmark-container">
-                                        <i class="pi pi-bookmark-fill"></i>
+                                        
+
+                                         <p:commandButton icon="pi pi-download"
+                                         ajax="false"
+                         styleClass="rounded-button ui-button-flat ui-button-danger" 
+                         action="#{consularServiceController.downloadConsularServiceReportPDF}"
+                                         
+                        >
+                        <f:setPropertyActionListener value="#{item.pkService}" target="#{consularServiceController.selectedServiceId}" />
+                          </p:commandButton>
+
+
                                     </div>
 
                                     <!-- Title -->
@@ -111,11 +170,7 @@
                                     </div>
 
                                     <!-- Price / Fees -->
-                                    <div class="info-row">
-                                        <i class="pi pi-dollar"></i>
-                                        <span class="label">#{msg.price}</span>
-                                        <span class="value">#{item.price}</span>
-                                    </div>
+                                    
 
                                     <div class="info-row">
                                         <i class="pi pi-wallet"></i>
@@ -137,19 +192,37 @@
                                         <span class="value">#{item.availableDays}</span>
                                     </div>
 
-                                    <!-- Online Booking -->
+                                    <!-- Online Booking 
                                     <div class="info-row">
                                         <i class="pi pi-globe"></i>
                                         <span class="label">#{msg.onlineBooking}</span>
                                         <span class="value">
                                             <h:outputText value="#{item.onlineBooking ? msg.yes : msg.no}" />
                                         </span>
-                                    </div>
+                                    </div>-->
 
-                                    <!-- Description -->
+                                     <!-- Description -->
                                     <p class="description">
                                         #{item.details}
                                     </p>
+
+                                    <div class="info-row info-row-schedule-and-price">
+                                       
+                                        <p:commandButton 
+                                             value="#{msg.schedule}" 
+                                            action="#{consularServiceController.goToBooking(item.pkService)}"
+                                            ajax="false"
+                                            styleClass="booking-btn #{item.onlineBooking ? 'active' : 'inactive'}"
+                                            disabled="#{!item.onlineBooking}" />
+
+                                            <div class="info-row">
+                                                <i class="pi pi-dollar"></i>
+                                                <span class="info-row-schedule-and-price-label">#{msg.price} #{item.price} </span>
+                                                
+                                            </div>
+                                    </div>
+
+                                   
 
                                 </div>
                                 <!-- <div class="card">
