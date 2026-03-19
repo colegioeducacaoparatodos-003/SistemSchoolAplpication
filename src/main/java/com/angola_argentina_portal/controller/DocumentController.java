@@ -140,7 +140,7 @@ public class DocumentController implements Serializable {
     // ================== List for Type ==================
     public void documentType() {
         try {
-
+            
         } catch (Exception e) {
 
         }
