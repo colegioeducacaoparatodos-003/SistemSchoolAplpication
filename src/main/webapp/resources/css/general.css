@@ -2718,15 +2718,31 @@ Page of the Embassadors
 ==================================
 */
 
+ /* cards of the embassadors */
+    
+    body .ui-datascroller .ui-datascroller-content{
+        border: none !important;
+        padding: 0rem !important;
+    }
+    .profiles-grid .ui-datascroller-list{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        align-items: stretch;
+    }
 .main-content-embassadors {
     padding-top: 5rem;
+}
 
     /* section hero of the page */
     .embassy-hero {
         padding: 60px 40px;
         border-radius: 16px;
+        /* background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url("#{request.contextPath}/resources/imgs/embassy-bg.jpeg"); */
         background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-        url("#{request.contextPath}/resources/imgs/embassy-bg.jpeg");
+        url('../resources/imgs/embassy/casa-rosada-caba-argentina-.jpg');
+
         background-size: cover;
         background-position: center;
         color: #fff;
@@ -2746,13 +2762,7 @@ Page of the Embassadors
         max-width: 640px;
     }
 
-    /* cards of the embassadors */
-    .profiles-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
-        gap: 24px;
-        align-items: stretch;
-    }
+   
 
     .profile-card {
         position: relative;
@@ -2765,6 +2775,7 @@ Page of the Embassadors
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         transition: transform 0.18s ease, box-shadow 0.18s ease;
 
+        height: 16rem;
         /*   &:hover {
             transform: translateY(-4px);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
@@ -2895,7 +2906,6 @@ Page of the Embassadors
         background: #d4af37;
         border-radius: 50%;
     }
-}
 
 /* 
 --------------------------
