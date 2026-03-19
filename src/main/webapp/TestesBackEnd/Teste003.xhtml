@@ -12,40 +12,67 @@
 </h:head>
 
 <h:body>
-<h:form>
-    <h:panelGrid columns="3">
 
-        <h:outputLabel value="Tipo de Documento:" />
+    <h:form id="dashboardTable" class="dashboard-form">
+        <p:growl id="msg" />
 
-        <h:selectOneMenu value="#{documentController.documentType}">
-            <f:selectItem itemLabel="Selecione" itemValue="" />
-            <f:selectItem itemLabel="DECLARATION" itemValue="DECLARATION" />
-            <f:selectItem itemLabel="VISAS" itemValue="VISAS" />
-            <f:selectItem itemLabel="LIABILITY AGREEMENT" itemValue="LIABILITY AGREEMENT" />
-            <f:selectItem itemLabel="LAWS" itemValue="LAWS" />
-            <f:selectItem itemLabel="OTHER" itemValue="OTHER" />
-        </h:selectOneMenu>
+        <!-- HEADER -->
+        <h:panelGroup class="table-header">
+            <h1 class="table-title">#{msg.travelAgencies}</h1>
 
-        <h:commandButton value="Buscar" action="#{documentController.loadDocumentsType}" />
-    </h:panelGrid>
+            <p:commandButton styleClass="create-button" value="Create Travel Agency" type="button"
+                onclick="PF('createDialog').show()" />
+        </h:panelGroup>
 
-    <h:dataTable value="#{documentController.documents}" var="doc">
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{doc.fileName}
-        </h:column>
+        <!-- TABLE -->
+        <p:dataTable id="travelAgencyTable" styleClass="table" value="#{documentController.lazyModel}" var="a"
+            lazy="true" paginator="true" rows="10" responsiveLayout="scroll" paginatorPosition="bottom"
+            emptyMessage="No travel agencies found..."
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+            rowsPerPageTemplate="5,10,20">
 
-        <h:column>
-            <f:facet name="header">Tipo</f:facet>
-            #{doc.documentType}
-        </h:column>
+            <!-- IMAGE -->
+            <p:column headerText="Image">
+                <p:graphicImage value="/travel_agencies_images/#{a.logoUrl}" width="80" />
+            </p:column>
 
-        <h:column>
-            <f:facet name="header">Data</f:facet>
-            #{doc.uploadDate}
-        </h:column>
-    </h:dataTable>
-</h:form>
+            <!-- NAME -->
+            <p:column headerText="Name">
+                #{a.name}
+            </p:column>
+
+            <!-- CITY -->
+            <p:column headerText="City">
+                #{a.city}
+            </p:column>
+
+            <!-- WEBSITE -->
+            <p:column headerText="Website">
+                #{a.website}
+            </p:column>
+
+            <!-- PHONE -->
+            <p:column headerText="Phone">
+                #{a.phone}
+            </p:column>
+
+            <!-- ACTIONS -->
+            <p:column headerText="Actions">
+
+                <!-- EDIT -->
+                <p:commandButton icon="pi pi-pencil" action="#{travelAgencyController.setAgency(a)}"
+                    oncomplete="PF('createDialogAgency').show()" styleClass="ui-button-warning" />
+
+                <!-- DELETE -->
+                <p:commandButton icon="pi pi-trash" action="#{travelAgencyController.delete(a.id)}"
+                    update="travelAgencyTable" styleClass="ui-button-danger" />
+
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
 </h:body>
 
 </html>

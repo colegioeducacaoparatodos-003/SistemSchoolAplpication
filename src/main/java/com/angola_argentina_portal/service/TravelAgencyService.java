@@ -59,27 +59,20 @@ public class TravelAgencyService {
     public void save(TravelAgency agency) {
 
         try {
-            FacesContext context = FacesContext.getCurrentInstance();
-            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
 
-            String path = context.getExternalContext().getRealPath("/");
+            List<TravelAgency> agencies = findAll();
 
-            File file = new File(path + File.separator + "page_files" + File.separator + "travel_agencies.json");
-
-            List<TravelAgency> agencys = findAll();
-
-            long nextId = agencys.stream()
-                    .mapToLong(d -> d.getId() == null ? 0 : d.getId())
+            long nextId = agencies.stream()
+                    .mapToLong(a -> a.getId() == null ? 0 : a.getId())
                     .max()
                     .orElse(0) + 1;
 
             agency.setId(nextId);
 
-            agencys.add(agency);
+            agencies.add(agency);
 
-            file.getParentFile().mkdirs();
-
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, agencys);
+            mapper.writerWithDefaultPrettyPrinter()
+                    .writeValue(new File(FILE_PATH), agencies);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

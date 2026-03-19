@@ -1,0 +1,51 @@
+[ {
+  "id" : 1,
+  "name" : "MM",
+  "logoUrl" : "0img-2026-03-1912-29-35img.jpeg",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "95555",
+  "email" : null,
+  "website" : "",
+  "services" : null
+}, {
+  "id" : 2,
+  "name" : "tq",
+  "logoUrl" : "0img-2026-03-1911-35-20img.jpeg",
+  "city" : "tq",
+  "address" : null,
+  "phone" : "tq",
+  "email" : null,
+  "website" : "tq",
+  "services" : null
+}, {
+  "id" : 3,
+  "name" : "Cota",
+  "logoUrl" : "0img-2026-03-1911-36-59img.jpeg",
+  "city" : "Esta",
+  "address" : null,
+  "phone" : "tq",
+  "email" : null,
+  "website" : "tq.com",
+  "services" : null
+}, {
+  "id" : 4,
+  "name" : "tqdsad",
+  "logoUrl" : "0img-2026-03-1912-47-36img.jpeg",
+  "city" : "sada",
+  "address" : null,
+  "phone" : "asdatq",
+  "email" : null,
+  "website" : "tq",
+  "services" : null
+}, {
+  "id" : 5,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+} ]
