@@ -1,15 +1,13 @@
 package com.angola_argentina_portal.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import java.util.Objects;
+import jakarta.persistence.Transient;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.primefaces.model.file.UploadedFile;
 
 @Entity
 @Table(name = "government_entities")
@@ -18,29 +16,53 @@ public class Government {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String fullName;
-
     private String type;
-
     private String title;
-
     private String subTitle;
-
-
     private String description;
+    private String imageGovernment;
 
+    @Transient
+    private UploadedFile imageGovernmentUtil;
 
     public Government() {
     }
 
-    public Government(Long id, String fullName, String type, String title, String subTitle, String description) {
+    public Government(Long id, String fullName, String type, String title, String subTitle, String description,
+            String imageGovernment, UploadedFile imageGovernmentUtil) {
         this.id = id;
         this.fullName = fullName;
         this.type = type;
         this.title = title;
         this.subTitle = subTitle;
         this.description = description;
+        this.imageGovernment = imageGovernment;
+        this.imageGovernmentUtil = imageGovernmentUtil;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getImageGovernment() {
+        return imageGovernment;
+    }
+
+    public void setImageGovernment(String imageGovernment) {
+        this.imageGovernment = imageGovernment;
+    }
+
+    public UploadedFile getImageGovernmentUtil() {
+        return imageGovernmentUtil;
+    }
+
+    public void setImageGovernmentUtil(UploadedFile imageGovernmentUtil) {
+        this.imageGovernmentUtil = imageGovernmentUtil;
     }
 
     public Long getId() {
@@ -120,6 +142,5 @@ public class Government {
         setDescription(description);
         return this;
     }
-    
-    
+
 }

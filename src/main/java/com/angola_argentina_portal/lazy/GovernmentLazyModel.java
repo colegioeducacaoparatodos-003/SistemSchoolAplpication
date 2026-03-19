@@ -11,17 +11,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 import com.angola_argentina_portal.dto.GovernmentDTO;
-import com.angola_argentina_portal.dto.NewsTableDTO;
 import com.angola_argentina_portal.service.GovernmentService;
 
 public class GovernmentLazyModel extends LazyDataModel<GovernmentDTO> {
 
     private final GovernmentService governmentService;
 
-    public GovernmentLazyModel(GovernmentService governmentService){
+    public GovernmentLazyModel(GovernmentService governmentService) {
         this.governmentService = governmentService;
     }
-
 
     @Override
     public List<GovernmentDTO> load(
@@ -58,8 +56,7 @@ public class GovernmentLazyModel extends LazyDataModel<GovernmentDTO> {
         return result.getContent();
     }
 
-
-        @Override
+    @Override
     public int count(Map<String, FilterMeta> filterBy) {
         Map<String, Object> filters = new HashMap<>();
         if (filterBy != null) {
@@ -74,7 +71,7 @@ public class GovernmentLazyModel extends LazyDataModel<GovernmentDTO> {
         return (int) page.getTotalElements();
     }
 
-        @Override
+    @Override
     public String getRowKey(GovernmentDTO governmentDTO) {
         return String.valueOf(governmentDTO.getId());
     }

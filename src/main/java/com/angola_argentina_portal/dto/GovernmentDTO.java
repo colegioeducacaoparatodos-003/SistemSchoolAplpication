@@ -1,7 +1,5 @@
 package com.angola_argentina_portal.dto;
 
-import java.time.LocalDateTime;
-
 public class GovernmentDTO {
 
     private Long id;
@@ -10,15 +8,17 @@ public class GovernmentDTO {
     private String title;
     private String subTitle;
     private String description;
+    private String imageGovernment;
 
-    public GovernmentDTO(Long id, String fullName, String type,
-            String title, String subTitle, String description) {
+    public GovernmentDTO(Long id, String fullName, String type, String title, String subTitle, String description,
+            String imageGovernment) {
         this.id = id;
         this.fullName = fullName;
         this.type = type;
         this.title = title;
         this.subTitle = subTitle;
         this.description = description;
+        this.imageGovernment = imageGovernment;
     }
 
     public Long getId() {
@@ -67,6 +67,14 @@ public class GovernmentDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageGovernment() {
+        return imageGovernment;
+    }
+
+    public void setImageGovernment(String imageGovernment) {
+        this.imageGovernment = imageGovernment;
     }
 
 }

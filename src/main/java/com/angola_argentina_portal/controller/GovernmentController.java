@@ -2,16 +2,12 @@ package com.angola_argentina_portal.controller;
 
 import java.io.Serializable;
 
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.angola_argentina_portal.dto.GovernmentDTO;
-import com.angola_argentina_portal.dto.HotelTableDTO;
-import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.lazy.GovernmentLazyModel;
-import com.angola_argentina_portal.lazy.HotelLazyModel;
 import com.angola_argentina_portal.model.Government;
 import com.angola_argentina_portal.service.GovernmentService;
 
