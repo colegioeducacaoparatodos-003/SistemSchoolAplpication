@@ -18,4 +18,14 @@
   "category" : "Nature",
   "location" : "",
   "website" : ""
+}, {
+  "id" : 3,
+  "name" : "Rizorte",
+  "city" : "Hyambo",
+  "country" : "Agola",
+  "description" : "Its is a very nice view",
+  "imageUrl" : "0img-2026-03-1911-20-30img.jpeg",
+  "category" : "Nature",
+  "location" : "",
+  "website" : "tq.com"
 } ]

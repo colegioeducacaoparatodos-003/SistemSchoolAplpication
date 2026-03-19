@@ -48,6 +48,7 @@ public class GovernmentService {
             government.setImageGovernmentUtil(null);
         }
 
+        government.setImageGovernment(newNameFile);
         return repository.save(government);
     }
 
