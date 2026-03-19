@@ -18,8 +18,9 @@ public interface GovernmentRepository extends JpaRepository<Government, Long> {
                    g.type AS type,
                    g.title AS title,
                    g.sub_title AS subTitle,
-                   g.description AS description
-            FROM government g
-            """, countQuery = "SELECT COUNT(*) FROM government", nativeQuery = true)
+                   g.description AS description,
+                   g.image_government AS imageGovernment
+            FROM government_entities g
+            """, countQuery = "SELECT COUNT(*) FROM government_entities", nativeQuery = true)
     Page<GovernmentTableProjection> findAllForTable(Pageable pageable);
 }

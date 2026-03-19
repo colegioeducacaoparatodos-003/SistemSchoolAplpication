@@ -6,13 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.ServletContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageImpl;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.angola_argentina_portal.dto.HotelTableDTO;
+import com.angola_argentina_portal.dto.TravelAgencyTableDTO;
 import com.angola_argentina_portal.model.Airline;
+import com.angola_argentina_portal.model.Hotel;
 import com.angola_argentina_portal.model.TravelAgency;
 
 @Service
@@ -108,4 +116,25 @@ public class TravelAgencyService {
             throw new RuntimeException(e);
         }
     }
+
+    public Page<TravelAgencyTableDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
+
+        List<TravelAgency> agencies = findAll();
+
+        List<TravelAgencyTableDTO> dtos = agencies.stream()
+                .map(a -> new TravelAgencyTableDTO(
+                        a.getId(),
+                        a.getName(),
+                        a.getLogoUrl(),
+                        a.getCity(),
+                        a.getPhone(),
+                        a.getWebsite()))
+                .toList();
+
+        return new PageImpl<>(
+                dtos,
+                PageRequest.of(page, size, sort),
+                dtos.size());
+    }
+
 }

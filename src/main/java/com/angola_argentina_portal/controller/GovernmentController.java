@@ -2,13 +2,11 @@ package com.angola_argentina_portal.controller;
 
 import java.io.Serializable;
 
-import org.primefaces.PrimeFaces;
 import org.primefaces.model.LazyDataModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.angola_argentina_portal.dto.GovernmentDTO;
-import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.lazy.GovernmentLazyModel;
 import com.angola_argentina_portal.model.Government;
 import com.angola_argentina_portal.service.GovernmentService;
@@ -37,6 +35,19 @@ public class GovernmentController implements Serializable {
     private String selectedType;
 
     // Método loadDocument para Renderização com a lista de documentos
+    public String loadGovernment() {
+        try {
+            lazyModel = new GovernmentLazyModel(governmentService);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/management/government.xhtml?faces-redirect=true";
+    }
+
+    // Método loadDocument para Renderização com a lista de documentos
     public String loadGovernmentPage() {
         try {
             lazyModel = new GovernmentLazyModel(governmentService);
@@ -48,7 +59,7 @@ public class GovernmentController implements Serializable {
         }
         return "/embassadors.xhtml?faces-redirect=true";
     }
-    
+
     public void add() {
 
         try {
@@ -65,5 +76,18 @@ public class GovernmentController implements Serializable {
         }
     }
 
-    
+    /**
+     * ======================================
+     * SETTERS AND GETTES
+     * ======================================
+     */
+
+    public LazyDataModel<GovernmentDTO> getLazyModel() {
+        return lazyModel;
+    }
+
+    public void setLazyModel(GovernmentLazyModel lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+
 }

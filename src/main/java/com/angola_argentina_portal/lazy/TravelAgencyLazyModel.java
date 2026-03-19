@@ -2,13 +2,17 @@ package com.angola_argentina_portal.lazy;
 
 import org.primefaces.model.LazyDataModel;
 
+import com.angola_argentina_portal.dto.HotelTableDTO;
 import com.angola_argentina_portal.dto.TravelAgencyTableDTO;
 import com.angola_argentina_portal.model.TravelAgency;
 import com.angola_argentina_portal.service.TravelAgencyService;
 
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.SortMeta;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +53,19 @@ public class TravelAgencyLazyModel
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        Map<String, Object> filters = new HashMap<>();
+
+        if (filterBy != null) {
+            for (Map.Entry<String, FilterMeta> entry : filterBy.entrySet()) {
+                Object value = entry.getValue().getFilterValue();
+                if (value != null && !value.toString().isBlank()) {
+                    // filters.put(entry.getKey(), value);
+                    filters.put(entry.getValue().getField(), value);
+                }
+            }
+        }
+        Page<TravelAgencyTableDTO> page = service.findLazy(0, 1, Sort.unsorted(), filters);
+        return (int) page.getTotalElements();
     }
 
     @Override

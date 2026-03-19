@@ -65,11 +65,20 @@
                         <p:menuitem class="sidebar_element" value="#{msg.destinations}" icon="pi pi-fw pi-map-marker"
                         action="#{destinationController.load}" />
                         
-                        <p:menuitem class="sidebar_element" value="#{msg.hotels}" icon="pi pi-fw pi-map-marker"
-                        action="#{hotelController.load}" />
+                      <p:menuitem class="sidebar_element" value="#{msg.hotels}" icon="pi pi-fw pi-building"
+            action="#{hotelController.load}" />
 
-                        <p:menuitem class="sidebar_element" value="#{msg.booking}" icon="pi pi-fw pi-briefcase"
-                        action="#{bookingController.loadBooking}" />
+            <p:menuitem class="sidebar_element" value="#{msg.travelAgencies}" icon="pi pi-fw pi-building"
+            action="#{travelAgencyController.load}" />
+
+            <p:menuitem class="sidebar_element" value="#{msg.airlines}" icon="pi pi-fw pi-building"
+            action="#{airlineController.load}" />
+
+<p:menuitem class="sidebar_element" value="#{msg.bookings}" icon="pi pi-fw pi-calendar-plus"
+            action="#{bookingController.loadBooking}" />
+
+<p:menuitem class="sidebar_element" value="#{msg.government}" icon="pi pi-fw pi-building-columns"
+            action="#{governmentController.loadGovernment}" />
 
 
                         <p:menuitem class="sidebar_element logout-button" value="#{msg.logout}" icon="pi pi-sign-out" />
