@@ -1,1 +1,11 @@
-[]
+[ {
+  "id" : 1,
+  "name" : "MM",
+  "logoUrl" : "0img-2026-03-1912-29-35img.jpeg",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "95555",
+  "email" : null,
+  "website" : "",
+  "services" : null
+} ]
