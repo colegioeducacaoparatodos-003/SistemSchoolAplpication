@@ -2793,8 +2793,8 @@ body .ui-datascroller .ui-datascroller-content {
         width: 4px;
         border-radius: 4px;
         background: linear-gradient(to bottom,
-                #d4af37,
-                #f5e6a8);
+                var(--angola-yellow),
+                var(--white-color));
         opacity: 0.6;
     }
 }

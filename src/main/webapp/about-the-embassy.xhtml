@@ -23,10 +23,11 @@
                 font-size: 3rem;
             }
 
-            .about-the-embassy-page .title{
+            .about-the-embassy-page .title {
                 font-size: 2.6rem;
                 margin-bottom: .8rem;
             }
+
             .hero-section .subtitle {
                 font-size: 1.4rem;
             }
@@ -68,7 +69,7 @@
 
             .diplomatic-representation {
                 /* border: 3px solid blue; */
-                    display: flex;
+                display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
@@ -115,31 +116,31 @@
             }
 
             .embassy-flag img {
- 
-    transition: transform 0.3s ease;
-}
 
-.embassy-flag:hover img {
-    transform: scale(1.1);
-}
+                transition: transform 0.3s ease;
+            }
 
-.embassies-container-details {
- 
-    min-height: 100px;
-    padding: 15px;
-    width: 50%;
-    background: #111827;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
-    color: #f8f8f8;
-    font-family: system-ui;
-}
+            .embassy-flag:hover img {
+                transform: scale(1.1);
+            }
+
+            .embassies-container-details {
+
+                min-height: 100px;
+                padding: 15px;
+                width: 50%;
+                background: #111827;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, .35);
+                color: #f8f8f8;
+                font-family: system-ui;
+            }
         </style>
     </h:head>
 
     <h:body>
-      
+
         <div class="about-the-embassy-page">
 
             <ui:include src="./components/public/nav-bar.xhtml" />
@@ -163,77 +164,65 @@
                 </p>
             </section>
             <section class="section">
-                        <h1 class="title">
-                            #{msg.diplomaticRepresentations}
-                        </h1>        
+                <h1 class="title">
+                    #{msg.diplomaticRepresentations}
+                </h1>
             </section>
-   
+
             <section class="section diplomatic-representation">
-             
+
 
                 <div class="embassies-container">
 
                     <!-- Argentina -->
-                   
-                    <p:link outcome="embassy-details"
-                    class="embassy-flag"
-                    data-country="argentina">
-                    <f:param name="country" value="argentina"/>
+
+                    <p:link outcome="embassy-details" class="embassy-flag" data-country="argentina">
+                        <f:param name="country" value="argentina" />
                         <img src="./resources/imgs/embassies/Flag_of_Argentina.svg.png" />
                     </p:link>
 
                     <!-- Bolivia -->
-                    <a href="embassy-details.xhtml?country=bolivia"
-                    class="embassy-flag"
-                    data-country="bolivia">
+                    <a href="embassy-details.xhtml?country=bolivia" class="embassy-flag" data-country="bolivia">
                         <img src="./resources/imgs/embassies/Flag_of_Bolivia1.png" />
                     </a>
 
                     <!-- Chile -->
-                    <a href="embassy-details.xhtml?country=chile"
-                    class="embassy-flag"
-                    data-country="chile">
+                    <a href="embassy-details.xhtml?country=chile" class="embassy-flag" data-country="chile">
                         <img src="./resources/imgs/embassies/Flag_of_Chile1.png" />
                     </a>
 
                     <!-- Paraguay -->
-                    <a href="embassy-details.xhtml?country=paraguay"
-                    class="embassy-flag"
-                    data-country="paraguay">
+                    <a href="embassy-details.xhtml?country=paraguay" class="embassy-flag" data-country="paraguay">
                         <img src="./resources/imgs/embassies/Flag_of_Paraguay.svg" />
                     </a>
 
                     <!-- Uruguai -->
-                    <a href="embassy-details.xhtml?country=uruguay"
-                    class="embassy-flag"
-                    data-country="uruguay">
+                    <a href="embassy-details.xhtml?country=uruguay" class="embassy-flag" data-country="uruguay">
                         <img src="./resources/imgs/embassies/Flag_of_Uruguai.png" />
                     </a>
 
                 </div>
 
                 <!-- DETALHES DINÂMICOS -->
-               
-                <div id="embassyDetails" class="embassies-container-details">       
-                            <div class="tooltip-image">
-                                <img id="embassyImage"
-                                    src="../../resources/imgs/argentina-place.jpg"
-                                    alt="Embassy" />
-                            </div>
 
-                            <div class="tooltip-content">
-                                <h4 id="embassyTitle">
-                                    #{msg.diplomaticMissionArgentina}
-                                </h4>
+                <div id="embassyDetails" class="embassies-container-details">
+                    <div class="tooltip-image">
+                        <img id="embassyImage" src="../../resources/imgs/argentina-place.jpg" alt="Embassy" />
+                    </div>
 
-                                <p id="embassyDescription">
-                                    #{msg.hoverEmbassyMessage}
-                                </p>
+                    <div class="tooltip-content">
+                        <h4 id="embassyTitle">
+                            #{msg.diplomaticMissionArgentina}
+                        </h4>
 
-                                <div id="embassyLocation" class="tooltip-location">
-                                    Luanda, Angola
-                                </div>
-                            </div>
+                        <p id="embassyDescription">
+                            #{msg.hoverEmbassyMessage}
+                        </p>
+
+                        <div id="embassyLocation" class="tooltip-location">
+                            Luanda, Angola
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -310,56 +299,56 @@
         <ui:include src="./components/public/footer.xhtml" />
 
         <script>
-    const embassyData = {
-        argentina: {
-            name: "#{msg.diplomaticMissionArgentina}",
-            description: "#{msg.hoverEmbassyMessage}",
-            location: "Luanda, Angola",
-            image: "../../resources/imgs/argentina-place.jpg"
-        },
-        bolivia: {
-            name: "#{msg.diplomaticMissionBolivia}",
-            description: "#{msg.hoverEmbassyMessage}",
-            location: "Luanda, Angola",
-            image: "../../resources/imgs/bolivia-place.jpg"
-        },
-        chile: {
-            name: "#{msg.diplomaticMissionChile}",
-            description: "#{msg.hoverEmbassyMessage}",
-            location: "Luanda, Angola",
-            image: "../../resources/imgs/chile-place.jpg"
-        },
-        paraguay: {
-            name: "#{msg.diplomaticMissionParaguay}",
-            description: "#{msg.hoverEmbassyMessage}",
-            location: "Luanda, Angola",
-            image: "../../resources/imgs/paraguay-place.jpg"
-        },
-        uruguay: {
-            name: "#{msg.diplomaticMissionUruguay}",
-            description: "#{msg.hoverEmbassyMessage}",
-            location: "Luanda, Angola",
-            image: "../../resources/imgs/uruguay-place.jpg"
-        }
-    };
+            const embassyData = {
+                argentina: {
+                    name: "#{msg.diplomaticMissionArgentina}",
+                    description: "#{msg.hoverEmbassyMessage}",
+                    location: "Luanda, Angola",
+                    image: "../../resources/imgs/argentina-place.jpg"
+                },
+                bolivia: {
+                    name: "#{msg.diplomaticMissionBolivia}",
+                    description: "#{msg.hoverEmbassyMessage}",
+                    location: "Luanda, Angola",
+                    image: "../../resources/imgs/bolivia-place.jpg"
+                },
+                chile: {
+                    name: "#{msg.diplomaticMissionChile}",
+                    description: "#{msg.hoverEmbassyMessage}",
+                    location: "Luanda, Angola",
+                    image: "../../resources/imgs/chile-place.jpg"
+                },
+                paraguay: {
+                    name: "#{msg.diplomaticMissionParaguay}",
+                    description: "#{msg.hoverEmbassyMessage}",
+                    location: "Luanda, Angola",
+                    image: "../../resources/imgs/paraguay-place.jpg"
+                },
+                uruguay: {
+                    name: "#{msg.diplomaticMissionUruguay}",
+                    description: "#{msg.hoverEmbassyMessage}",
+                    location: "Luanda, Angola",
+                    image: "../../resources/imgs/uruguay-place.jpg"
+                }
+            };
 
-    $(".embassy-flag").hover(function () {
+            $(".embassy-flag").hover(function () {
 
-        let country = $(this).data("country");
-        let embassy = embassyData[country];
+                let country = $(this).data("country");
+                let embassy = embassyData[country];
 
-        // Atualiza conteúdo
-        $("#embassyTitle").text(embassy.name);
-        $("#embassyDescription").text(embassy.description);
-        $("#embassyLocation").text(embassy.location);
+                // Atualiza conteúdo
+                $("#embassyTitle").text(embassy.name);
+                $("#embassyDescription").text(embassy.description);
+                $("#embassyLocation").text(embassy.location);
 
-        // Atualiza imagem com efeito suave
-        $("#embassyImage").fadeOut(150, function () {
-            $(this).attr("src", embassy.image).fadeIn(150);
-        });
+                // Atualiza imagem com efeito suave
+                $("#embassyImage").fadeOut(150, function () {
+                    $(this).attr("src", embassy.image).fadeIn(150);
+                });
 
-    });
-</script>
+            });
+        </script>
     </h:body>
 </f:view>
 
