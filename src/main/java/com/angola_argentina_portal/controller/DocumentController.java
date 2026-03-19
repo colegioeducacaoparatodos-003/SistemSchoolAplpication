@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
@@ -16,6 +17,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.dto.DocumentTableDTO;
+import com.angola_argentina_portal.interfaces.DocumentTableProjection;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
 import com.angola_argentina_portal.service.DocumentService;
@@ -49,7 +51,8 @@ public class DocumentController implements Serializable {
     private UserController loginController;
 
     private Integer selectedId;
-    private String selectedType;
+    private String documentType;
+    private List<DocumentTableProjection> documents;
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -136,11 +139,16 @@ public class DocumentController implements Serializable {
     }
 
     // ================== List for Type ==================
-    public void documentType() {
+    public void loadDocumentsType() {
         try {
+            documents = service.getDocumentsType(documentType);
+
+            if (documents == null || documents.isEmpty()) {
+                addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento encontrado!", "");
+            }
 
         } catch (Exception e) {
-
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar documentos!", e.getMessage());
         }
     }
 
@@ -245,11 +253,44 @@ public class DocumentController implements Serializable {
         this.selectedId = selectedId;
     }
 
-    public String getSelectedType() {
-        return this.selectedType;
+    public void setLazyModel(LazyDataModel<DocumentTableDTO> lazyModel) {
+        this.lazyModel = lazyModel;
     }
 
-    public void setSelectedType(String selectedType) {
-        this.selectedType = selectedType;
+    public void setFileToDownload(StreamedContent fileToDownload) {
+        this.fileToDownload = fileToDownload;
     }
+
+    public DocumentService getService() {
+        return this.service;
+    }
+
+    public void setService(DocumentService service) {
+        this.service = service;
+    }
+
+    public UserController getLoginController() {
+        return this.loginController;
+    }
+
+    public void setLoginController(UserController loginController) {
+        this.loginController = loginController;
+    }
+
+    public String getSearchDocumentType() {
+        return this.documentType;
+    }
+
+    public void setSearchDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public List<DocumentTableProjection> getDocuments() {
+        return this.documents;
+    }
+
+    public void setDocuments(List<DocumentTableProjection> documents) {
+        this.documents = documents;
+    }
+
 }

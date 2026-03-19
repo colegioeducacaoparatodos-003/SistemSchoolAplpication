@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.angola_argentina_portal.dto.GovernmentDTO;
 import com.angola_argentina_portal.lazy.GovernmentLazyModel;
 import com.angola_argentina_portal.model.Government;
+import com.angola_argentina_portal.model.Hotel;
 import com.angola_argentina_portal.service.GovernmentService;
 
 import jakarta.faces.application.FacesMessage;
@@ -88,6 +89,14 @@ public class GovernmentController implements Serializable {
 
     public void setLazyModel(GovernmentLazyModel lazyModel) {
         this.lazyModel = lazyModel;
+    }
+
+      public Government getGovernment() {
+        return government;
+    }
+
+    public void setGovernment(Government government) {
+        this.government = government;
     }
 
 }

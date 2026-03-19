@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -58,6 +60,15 @@ public class DocumentService {
 
     public void delete(int id) {
         repository.deleteById(id);
+    }
+
+    // Busca por documentType (LIKE para permitir parte do texto)
+    public List<DocumentTableProjection> getDocumentsType(String documentType) {
+        try {
+            return repository.findAllForTableByType(documentType);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar documentos por tipo: " + documentType, e);
+        }
     }
 
     public Page<DocumentTableDTO> findLazy(int page, int size, Sort sort) {

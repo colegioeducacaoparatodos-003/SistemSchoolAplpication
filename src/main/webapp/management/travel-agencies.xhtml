@@ -1,0 +1,93 @@
+<ui:composition template="../components/dashboard/dashboard-layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:fn="http://xmlns.jcp.org/jsf/functions">
+
+    <ui:define name="titulo">
+        #{msg.travelAgencies}
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="dashboardTable" class="dashboard-form">
+            <p:growl id="msg" />
+
+            <!-- HEADER -->
+            <h:panelGroup class="table-header">
+                <h1 class="table-title">#{msg.travelAgencies}</h1>
+
+                <p:commandButton styleClass="create-button"
+                                 value="Create Travel Agency"
+                                 type="button"
+                                 onclick="PF('createDialogAgency').show()" />
+            </h:panelGroup>
+
+            <!-- TABLE -->
+            <p:dataTable
+                id="travelAgencyTable"
+                styleClass="table"
+                value="#{travelAgencyController.lazyModel}"
+                var="a"
+                lazy="true"
+                paginator="true"
+                rows="10"
+                responsiveLayout="scroll"
+                paginatorPosition="bottom"
+                emptyMessage="No travel agencies found..."
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                rowsPerPageTemplate="5,10,20">
+
+                <!-- IMAGE -->
+                <p:column headerText="Image">
+                    <p:graphicImage value="/travel_agency_images/#{a.logoUrl}" width="80"/>
+                </p:column>
+
+                <!-- NAME -->
+                <p:column headerText="Name">
+                    #{a.name}
+                </p:column>
+
+                <!-- CITY -->
+                <p:column headerText="City">
+                    #{a.city}
+                </p:column>
+
+                <!-- WEBSITE -->
+                <p:column headerText="Website">
+                    #{a.website}
+                </p:column>
+
+                <!-- PHONE -->
+                <p:column headerText="Phone">
+                    #{a.phone}
+                </p:column>
+
+                <!-- ACTIONS -->
+                <p:column headerText="Actions">
+
+                    <!-- EDIT -->
+                    <p:commandButton icon="pi pi-pencil"
+                                     action="#{travelAgencyController.setAgency(a)}"
+                                     oncomplete="PF('createDialogAgency').show()"
+                                     styleClass="ui-button-warning"/>
+
+                    <!-- DELETE -->
+                    <p:commandButton icon="pi pi-trash"
+                                     action="#{travelAgencyController.delete(a.id)}"
+                                     update="travelAgencyTable"
+                                     styleClass="ui-button-danger"/>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+        <ui:include src="./travel-agency/travel-agency-create.xhtml" />
+
+    </ui:define>
+</ui:composition>
