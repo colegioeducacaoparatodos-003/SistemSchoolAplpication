@@ -12,9 +12,40 @@
 </h:head>
 
 <h:body>
-    <h:form id="newsForm">
-        
-    </h:form>
+<h:form>
+    <h:panelGrid columns="3">
+
+        <h:outputLabel value="Tipo de Documento:" />
+
+        <h:selectOneMenu value="#{documentController.documentType}">
+            <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItem itemLabel="DECLARATION" itemValue="DECLARATION" />
+            <f:selectItem itemLabel="VISAS" itemValue="VISAS" />
+            <f:selectItem itemLabel="LIABILITY AGREEMENT" itemValue="LIABILITY AGREEMENT" />
+            <f:selectItem itemLabel="LAWS" itemValue="LAWS" />
+            <f:selectItem itemLabel="OTHER" itemValue="OTHER" />
+        </h:selectOneMenu>
+
+        <h:commandButton value="Buscar" action="#{documentController.loadDocumentsType}" />
+    </h:panelGrid>
+
+    <h:dataTable value="#{documentController.documents}" var="doc">
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{doc.fileName}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Tipo</f:facet>
+            #{doc.documentType}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Data</f:facet>
+            #{doc.uploadDate}
+        </h:column>
+    </h:dataTable>
+</h:form>
 </h:body>
 
 </html>

@@ -63,7 +63,7 @@ public class DocumentService {
     }
 
     // Busca por documentType (LIKE para permitir parte do texto)
-    public List<DocumentTableProjection> getDocumentsByType(String documentType) {
+    public List<DocumentTableProjection> getDocumentsType(String documentType) {
         try {
             return repository.findAllForTableByType(documentType);
         } catch (Exception e) {

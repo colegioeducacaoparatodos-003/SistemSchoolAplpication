@@ -141,7 +141,7 @@ public class DocumentController implements Serializable {
     // ================== List for Type ==================
     public void loadDocumentsType() {
         try {
-            documents = service.getDocumentsByType(documentType);
+            documents = service.getDocumentsType(documentType);
 
             if (documents == null || documents.isEmpty()) {
                 addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento encontrado!", "");
