@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <ui:insert name="titulo">Angola Embassy</ui:insert>
+    </title>
+
+</h:head>
+
+<h:body>
+<h:form>
+    <h:panelGrid columns="3">
+
+        <h:outputLabel value="Tipo de Documento:" />
+
+        <h:selectOneMenu value="#{documentController.documentType}">
+            <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItem itemLabel="DECLARATION" itemValue="DECLARATION" />
+            <f:selectItem itemLabel="VISAS" itemValue="VISAS" />
+            <f:selectItem itemLabel="LIABILITY AGREEMENT" itemValue="LIABILITY AGREEMENT" />
+            <f:selectItem itemLabel="LAWS" itemValue="LAWS" />
+            <f:selectItem itemLabel="OTHER" itemValue="OTHER" />
+        </h:selectOneMenu>
+
+        <h:commandButton value="Buscar" action="#{documentController.loadDocumentsType}" />
+    </h:panelGrid>
+
+    <h:dataTable value="#{documentController.documents}" var="doc">
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{doc.fileName}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Tipo</f:facet>
+            #{doc.documentType}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Data</f:facet>
+            #{doc.uploadDate}
+        </h:column>
+    </h:dataTable>
+</h:form>
+</h:body>
+
+</html>

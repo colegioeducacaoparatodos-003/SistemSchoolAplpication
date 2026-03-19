@@ -3,10 +3,20 @@ package com.angola_argentina_portal.service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.PageImpl;
 
+import com.angola_argentina_portal.dto.AirlineTableDTO;
+import com.angola_argentina_portal.dto.GovernmentDTO;
+import com.angola_argentina_portal.dto.TravelAgencyTableDTO;
+import com.angola_argentina_portal.interfaces.GovernmentTableProjection;
 import com.angola_argentina_portal.model.Airline;
+import com.angola_argentina_portal.model.TravelAgency;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -72,4 +82,23 @@ public class AirlineService {
         }
     }
 
+    public Page<AirlineTableDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
+
+        List<Airline> airlines = findAll();
+
+        List<AirlineTableDTO> dtos = airlines.stream()
+                .map(a -> new AirlineTableDTO(
+                        a.getId(),
+                        a.getName(),
+                        a.getLogoUrl(),
+                        a.getCountry(),
+                        a.getWebsite(),
+                        a.isDirectFlights()))
+                .toList();
+
+        return new PageImpl<>(
+                dtos,
+                PageRequest.of(page, size, sort),
+                dtos.size());
+    }
 }

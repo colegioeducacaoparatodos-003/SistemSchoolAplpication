@@ -94,7 +94,7 @@ public class TravelAgencyController implements Serializable {
         } catch (Exception e) {
 
             addMessage(FacesMessage.SEVERITY_ERROR,
-                    "Travel Agency",
+                    "Error saving Travel Agency",
                     e.getMessage());
         }
     }

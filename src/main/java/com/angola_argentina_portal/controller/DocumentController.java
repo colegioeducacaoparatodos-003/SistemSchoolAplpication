@@ -17,6 +17,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 
 import com.angola_argentina_portal.dto.DocumentTableDTO;
+import com.angola_argentina_portal.interfaces.DocumentTableProjection;
 import com.angola_argentina_portal.lazy.DocumentLazyModel;
 import com.angola_argentina_portal.model.Document;
 import com.angola_argentina_portal.service.DocumentService;
@@ -51,7 +52,7 @@ public class DocumentController implements Serializable {
 
     private Integer selectedId;
     private String documentType;
-    private List<DocumentTableDTO> documents;
+    private List<DocumentTableProjection> documents;
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -138,11 +139,16 @@ public class DocumentController implements Serializable {
     }
 
     // ================== List for Type ==================
-    public void documentType() {
+    public void loadDocumentsType() {
         try {
+            documents = service.getDocumentsType(documentType);
+
+            if (documents == null || documents.isEmpty()) {
+                addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento encontrado!", "");
+            }
 
         } catch (Exception e) {
-
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao buscar documentos!", e.getMessage());
         }
     }
 
@@ -250,6 +256,7 @@ public class DocumentController implements Serializable {
     public void setLazyModel(LazyDataModel<DocumentTableDTO> lazyModel) {
         this.lazyModel = lazyModel;
     }
+
     public void setFileToDownload(StreamedContent fileToDownload) {
         this.fileToDownload = fileToDownload;
     }
@@ -278,11 +285,11 @@ public class DocumentController implements Serializable {
         this.documentType = documentType;
     }
 
-    public List<DocumentTableDTO> getDocuments() {
+    public List<DocumentTableProjection> getDocuments() {
         return this.documents;
     }
 
-    public void setDocuments(List<DocumentTableDTO> documents) {
+    public void setDocuments(List<DocumentTableProjection> documents) {
         this.documents = documents;
     }
 

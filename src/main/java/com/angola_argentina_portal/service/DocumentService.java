@@ -61,20 +61,16 @@ public class DocumentService {
     public void delete(int id) {
         repository.deleteById(id);
     }
-    public List<DocumentTableDTO> searchByDocumentType(String documentType) {
-        List<Document> documents = repository.findByDocumentType(documentType);
 
-        return documents.stream()
-                .map(d -> new DocumentTableDTO(
-                        d.getPkDocument(),
-                        d.getDocumentType(),
-                        d.getFileName(),
-                        d.getContentType(),
-                        d.getFileSize(),
-                        d.getUploadDate()
-                ))
-                .collect(Collectors.toList());
+    // Busca por documentType (LIKE para permitir parte do texto)
+    public List<DocumentTableProjection> getDocumentsType(String documentType) {
+        try {
+            return repository.findAllForTableByType(documentType);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao buscar documentos por tipo: " + documentType, e);
+        }
     }
+
     public Page<DocumentTableDTO> findLazy(int page, int size, Sort sort) {
 
         Pageable pageable = PageRequest.of(page, size, sort);
