@@ -17,61 +17,65 @@
         <h:body class="president-biography">
             <h:form id="newsForm">
 
-            <!-- the its stylies is at the line 2308 the general css -->
+                <!-- the its stylies is at the line 2308 the general css -->
                 <section class="destinations-page-container">
-            <div class="title-container">
-                <h1 class="title">#{msg.airlines}</h1>
-            </div>
-            <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur, explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
+                    <div class="title-container">
+                        <h1 class="title">#{msg.airlines}</h1>
+                    </div>
+                    <p style="padding-top: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium,
+                        obcaecati doloremque! Vel qui quam harum quis eius itaque maxime esse totam aspernatur,
+                        explicabo a voluptatem. Incidunt, illo labore! Earum, saepe!</p>
 
-            <div class="destinations-grid">
+                    <div class="destinations-grid">
 
-                <ui:repeat value="#{destinationController.destinations}" var="d">
+                        <ui:repeat value="#{destinationController.destinations}" var="d">
 
-                    <div class="destination-card">
+                            <div class="destination-card">
 
-                        <!-- Image -->
-                        <div class="destination-image">
+                                <!-- Image -->
+                                <div class="destination-image">
 
-                            <p:graphicImage
-                                value="/destination_images/#{d.imageUrl}"
-                                styleClass="destination-img"/>
+                                    <p:graphicImage value="/destination_images/#{d.imageUrl}"
+                                        styleClass="destination-img" />
 
-                        </div>
+                                </div>
 
-                        <!-- Content -->
-                        <div class="destination-content">
+                                <!-- Content -->
+                                <div class="destination-content">
 
-                            <h3>
-                                #{d.name}
-                            </h3>
+                                    <h3>
+                                        #{d.name}
+                                    </h3>
 
-                            <p class="destination-location">
-                                #{d.city}, #{d.country}
-                            </p>
+                                    <p class="destination-location">
+                                        #{d.city}, #{d.country}
+                                    </p>
 
 
-<p:commandLink
-                                value="Explore Destination →"
-                                styleClass="destination-link"
-                                onclick="PF('#{d.name}').show()"/>
+                                    <p:commandLink value="Explore Destination →" styleClass="destination-link"
+                                        onclick="PF('#{d.name}').show()" />
 
-                              
-                           
-                        </div>
+
+
+                                </div>
+
+                            </div>
+                            <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350"
+                                showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
+                                <div class="m-0 content-dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                                    ex ea commodo consequat.
+                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                                    fugiat nulla pariatur. Excepteur sint occaecat
+                                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                                    laborum.</div>
+                            </p:dialog>
+                        </ui:repeat>
 
                     </div>
-                    <p:dialog header="#{d.name}" widgetVar="#{d.name}" minHeight="40" width="350" showEffect="fade" modal="true" closeOnEscape="true" class="dialog">
-    <div class="m-0 content-dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                    </p:dialog>
-                </ui:repeat>
 
-            </div>
-
-        </section>
+                </section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>
