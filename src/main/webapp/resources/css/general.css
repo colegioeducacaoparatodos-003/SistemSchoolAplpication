@@ -199,9 +199,11 @@ NAVBAR
     /* flex-direction: column; */
     /* border-left: 1px solid var(--thiner-border); */
 }
-.nav-content .ui-commandlink{
+
+.nav-content .ui-commandlink {
     color: var(--angola-black);
 }
+
 .utility-bar {
     padding: 1.4rem;
     border-bottom: 0;
@@ -1756,22 +1758,25 @@ NEWS SECTION
     font-size: 0.85rem;
 }
 
-.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list{
+.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list {
     border: none;
 }
-.news-page-container .ui-datascroller .ui-datascroller-content{
+
+.news-page-container .ui-datascroller .ui-datascroller-content {
     padding: 0;
     border: none;
 }
+
 .news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list,
 .quick-links-embassadors {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     padding: 0;
-    
+
 }
-.quick-links-embassadors{
+
+.quick-links-embassadors {
     margin: 3rem auto 6rem;
 }
 
@@ -2466,6 +2471,10 @@ DIALOGS
     line-height: 1.5;
 }
 
+.embassador-card:hover .icon-container{
+    transform: translateX(1rem);
+}
+
 .embassador-action {
     display: flex;
     align-items: center;
@@ -2483,6 +2492,10 @@ DIALOGS
     .embassador-content {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .embassador-action:hover{
+        transform: translateX(1rem);
     }
 
     .embassador-action {
@@ -2683,3 +2696,188 @@ STYLE that is used to all pages of the travel in angola menu
 ABOUT THE EMBASSY
 ==================================
 */
+
+/* 
+==================================
+Page of the Embassadors
+==================================
+*/
+
+.main-content-embassadors {
+    padding-top: 5rem;
+
+    /* section hero of the page */
+    .embassy-hero {
+        padding: 60px 40px;
+        border-radius: 16px;
+        background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url("#{request.contextPath}/resources/imgs/embassy-bg.jpeg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        height: 45vh;
+        margin-bottom: 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        opacity: 0.9;
+        max-width: 640px;
+    }
+
+    /* cards of the embassadors */
+    .profiles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+        gap: 24px;
+        align-items: stretch;
+    }
+
+    .profile-card {
+        position: relative;
+        display: flex;
+        gap: 18px;
+        padding: 18px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+        /*   &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        } */
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18px;
+            bottom: 18px;
+            width: 4px;
+            border-radius: 4px;
+            background: linear-gradient(to bottom,
+                    #d4af37,
+                    #f5e6a8);
+            opacity: 0.6;
+        }
+    }
+
+    .profile-image-embassador {
+        flex: 0 0 120px;
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-img {
+        width: 140px;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .profile-info {
+        flex: 1;
+    }
+
+    .profile-name {
+        margin: 6px 0 4px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .profile-title {
+        margin: 0;
+        font-weight: 500;
+        color: #444;
+        font-size: 14px;
+    }
+
+    .profile-subtitle {
+        margin: 2px 0 10px;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .profile-meta {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .profile-desc {
+        color: #555;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .tag-embassador {
+        background: var(--angola-red) !important;
+    }
+
+    /* stats of the embassy */
+    .embassy-stats {
+        display: flex;
+        gap: 40px;
+        margin: 40px 0;
+        padding: 28px;
+        border-radius: 14px;
+        background: #fafafa;
+        border: 1px solid #eee;
+        justify-content: center;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
+
+    /* timeeLine */
+    .embassy-timeline {
+        margin: 50px 0;
+    }
+
+    .timeline {
+        list-style: none;
+        padding-left: 0;
+        border-left: 3px solid #ddd;
+        margin-left: 10px;
+    }
+
+    .timeline li {
+        margin: 18px 0;
+        padding-left: 18px;
+        position: relative;
+        color: #444;
+    }
+
+    .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        background: #d4af37;
+        border-radius: 50%;
+    }
+}
