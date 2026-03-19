@@ -113,7 +113,9 @@
 
         </ul>
 
-        <p:button outcome="news" value="#{msg.readAllNews}" styleClass="ui-button red-button" />
+        <p:commandLink value="#{msg.readAllNews}" styleClass="ui-button red-button"
+         action="#{newsController.loadNewsPage}" />
+           
     </main>
 
 

@@ -4,7 +4,7 @@
 
     <!-- <a href=""></a> -->
     <ui:define name="titulo">
-        News
+        #{msg.consularServices}
     </ui:define>
 
     <ui:define name="content">
@@ -20,75 +20,63 @@
                     onclick="PF('createDialog').show()" />
             </h:panelGroup>
 
-         
-            <p:dataTable
-             id="serviceTable" 
-            
-             styleClass="table"
-             value="#{consularServiceController.lazyModel}"
-             var="item"
-             lazy="true"
-             paginator="true"
-             paginatorPosition="bottom"
-             rows="10"
-             emptyMessage="No data found..."
-             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-             rowsPerPageTemplate="5,10,20">
 
-    <!-- Nome -->
-    <p:column headerText="Service Name">
-        <h:outputText value="#{item.name}" />
-    </p:column>
+            <p:dataTable id="serviceTable" styleClass="table" value="#{consularServiceController.lazyModel}" var="item"
+                lazy="true" paginator="true" paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                rowsPerPageTemplate="5,10,20">
 
-    <!-- Requisitos -->
-    <p:column headerText="Requirements">
-        <h:outputText value="#{item.requirements}" />
-    </p:column>
+                <!-- Nome -->
+                <p:column headerText="Service Name">
+                    <h:outputText value="#{item.name}" />
+                </p:column>
 
-    <!-- Taxas -->
-    <p:column headerText="Fees">
-        <h:outputText value="#{item.fees}" />
-    </p:column>
+                <!-- Requisitos -->
+                <p:column headerText="Requirements">
+                    <h:outputText value="#{item.requirements}" />
+                </p:column>
 
-    <!-- Preço -->
-    <p:column headerText="Price">
-        <h:outputText value="#{item.price}">
-            <f:convertNumber type="currency" currencySymbol="Kz " />
-        </h:outputText>
-    </p:column>
+                <!-- Taxas -->
+                <p:column headerText="Fees">
+                    <h:outputText value="#{item.fees}" />
+                </p:column>
 
-    <!-- Estado -->
-    <p:column headerText="Status">
-        <h:outputText value="#{item.status}" />
-    </p:column>
+                <!-- Preço -->
+                <p:column headerText="Price">
+                    <h:outputText value="#{item.price}">
+                        <f:convertNumber type="currency" currencySymbol="Kz " />
+                    </h:outputText>
+                </p:column>
 
-    <!-- Dias disponíveis -->
-    <p:column headerText="Available Days">
-        <h:outputText value="#{item.availableDays}" />
-    </p:column>
+                <!-- Estado -->
+                <p:column headerText="Status">
+                    <h:outputText value="#{item.status}" />
+                </p:column>
 
-    <!-- Online Booking -->
-    <p:column headerText="Online Booking">
-        <p:tag value="#{item.onlineBooking ? 'Yes' : 'No'}"
-               severity="#{item.onlineBooking ? 'success' : 'danger'}" />
-    </p:column>
+                <!-- Dias disponíveis -->
+                <p:column headerText="Available Days">
+                    <h:outputText value="#{item.availableDays}" />
+                </p:column>
 
-    <!-- Ações -->
-    <p:column headerText="Actions">
+                <!-- Online Booking -->
+                <p:column headerText="Online Booking">
+                    <p:tag value="#{item.onlineBooking ? 'Yes' : 'No'}"
+                        severity="#{item.onlineBooking ? 'success' : 'danger'}" />
+                </p:column>
 
-        <p:button icon="pi pi-pencil"
-                  styleClass="rounded-button ui-button-flat ui-button-warning" />
+                <!-- Ações -->
+                <p:column headerText="Actions">
 
-        <p:button icon="pi pi-trash"
-                  styleClass="rounded-button ui-button-flat ui-button-danger" />
+                    <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
 
-        <p:button icon="pi pi-eye"
-                  styleClass="rounded-button ui-button-flat ui-button-secondary" />
+                    <p:button icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-danger" />
 
-    </p:column>
+                    <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
 
-</p:dataTable>
+                </p:column>
+
+            </p:dataTable>
         </h:form>
         <ui:include src="./consular-services/consular-services-create.xhtml" />
 

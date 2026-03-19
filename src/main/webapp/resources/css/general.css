@@ -84,6 +84,21 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     padding: 4rem 6rem;
 }
 
+/* 
+==============================
+PUBLIC PAGES TABLES
+==============================
+ */
+
+.public-page-table-1 .ui-datascroller .ui-datascroller-content {
+    padding: 0;
+    border: none;
+
+}
+
+.public-page-table-1 .ui-datascroller .ui-datascroller-item {
+    margin-bottom: 2%;
+}
 
 .loader_container {
     display: none;
@@ -183,6 +198,10 @@ NAVBAR
     display: flex;
     /* flex-direction: column; */
     /* border-left: 1px solid var(--thiner-border); */
+}
+
+.nav-content .ui-commandlink {
+    color: var(--angola-black);
 }
 
 .utility-bar {
@@ -957,12 +976,14 @@ NEWS CARDS
 
 .red-button.ui-button,
 .descover-button.ui-button {
+    color: var(--white-color);
     text-transform: uppercase;
     background-color: var(--angola-red) !important;
 }
 
 .red-button.ui-button:hover,
 .descover-button.ui-button:hover {
+    color: var(--white-color);
     background-color: var(--angola-red-hover) !important;
 }
 
@@ -1032,6 +1053,59 @@ NEWS CARDS
     border: none;
 }
 
+/* 
+================================
+DIALOGS
+================================
+*/
+.create-news-dialog.ui-dialog {
+    width: 80% !important;
+    max-height: 80vh !important;
+}
+
+
+.create-news-dialog.ui-dialog .title {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.create-news-dialog .components-container {
+    display: flex;
+    /* gap: .4rem; */
+}
+
+.create-news-dialog .left-component {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.create-news-dialog .right-component {
+    width: 60%;
+
+}
+
+
+
+.create-news-dialog.ui-dialog .ui-dialog-titlebar {
+    padding: .5rem 1.5rem 0;
+}
+
+.create-news-dialog.ui-dialog .ui-dialog-content {
+    height: 100%;
+    overflow: hidden;
+}
+
+.create-news-dialog .ui-tabs .ui-tabs-panels .ui-tabs-panel {
+    padding: 0;
+    overflow-y: auto;
+}
+
+.create-news-dialog .ui-scrollpanel {
+    width: 100%;
+    height: 410px;
+    border: none;
+}
 
 /*========================
  SERVICES PAGE
@@ -1211,8 +1285,7 @@ INDEX SERVICES
 
 .consular-services-section a {}
 
-.consular-services-section .card:hover,
-.consular-services-section a:hover {
+.consular-services-section .card:hover {
     color: var(--white-color);
     background-color: #DA291C;
 }
@@ -1225,8 +1298,8 @@ INDEX SERVICES
     border-color: var(--white-color);
 }
 
-.quick-links-embassadors-section a:hover .icon-container,
-.consular-services-section a:hover .icon-container {
+.quick-links-embassadors-section .link-for-page-list:hover .icon-container,
+.consular-services-section .link-for-page-list:hover .icon-container {
     transform: translateX(20px);
     border-color: var(--white-color);
 }
@@ -1685,14 +1758,26 @@ NEWS SECTION
     font-size: 0.85rem;
 }
 
-.news-page-container .cards-container,
+.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list {
+    border: none;
+}
+
+.news-page-container .ui-datascroller .ui-datascroller-content {
+    padding: 0;
+    border: none;
+}
+
+.news-page-container .ui-datascroller .ui-datascroller-content .ui-datascroller-list,
 .quick-links-embassadors {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     padding: 0;
-    margin: 3rem auto 6rem;
 
+}
+
+.quick-links-embassadors {
+    margin: 3rem auto 6rem;
 }
 
 
@@ -2339,13 +2424,15 @@ DIALOGS
     justify-content: center;
 }
 
-.embassador-link-container{
+.embassador-link-container {
     display: flex;
 
 }
-.link-title{
+
+.link-title {
     font-size: 1.4rem;
 }
+
 .embassador-card {
     text-decoration: none;
     color: #333;
@@ -2355,11 +2442,11 @@ DIALOGS
     width: 100%;
     max-width: 600px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .embassador-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
     background: transparent !important;
 }
@@ -2384,6 +2471,10 @@ DIALOGS
     line-height: 1.5;
 }
 
+.embassador-card:hover .icon-container {
+    transform: translateX(1rem);
+}
+
 .embassador-action {
     display: flex;
     align-items: center;
@@ -2402,6 +2493,11 @@ DIALOGS
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .embassador-action:hover {
+        transform: translateX(1rem);
+    }
+
     .embassador-action {
         margin-left: 0;
         margin-top: 20px;
@@ -2429,7 +2525,8 @@ STYLE that is used to all pages of the travel in angola menu
 .destination-card {
     background: var(--title-gray);
     border-radius: 12px;
-    overflow: hidden; /* importante pro zoom não vazar */
+    overflow: hidden;
+    /* importante pro zoom não vazar */
     transition: transform .25s ease, box-shadow .25s ease;
     display: flex;
     flex-direction: column;
@@ -2437,7 +2534,8 @@ STYLE that is used to all pages of the travel in angola menu
 
 /* IMAGEM EM CIMA */
 .destination-image {
-    overflow: hidden; /* corta o zoom */
+    overflow: hidden;
+    /* corta o zoom */
 }
 
 /* IMAGEM */
@@ -2488,7 +2586,7 @@ STYLE that is used to all pages of the travel in angola menu
 
 /* DIALOG */
 .destinations-page-container .dialog {
-   height: 90vh !important;
+    height: 90vh !important;
     border-radius: 12px;
     width: 80% !important;
     max-width: 900px !important;
@@ -2497,7 +2595,8 @@ STYLE that is used to all pages of the travel in angola menu
     overflow-y: auto;
     scrollbar-width: thin;
 }
-.destinations-page-container .ui-dialog .ui-dialog-titlebar{
+
+.destinations-page-container .ui-dialog .ui-dialog-titlebar {
     background: var(--title-gray);
     position: sticky;
     color: var(--angola-white);
@@ -2517,7 +2616,8 @@ STYLE that is used to all pages of the travel in angola menu
     overflow-y: auto;
     min-height: 80px;
     padding: 4px 2px 2px;
-    flex: 1;           /* ocupa o espaço restante */
+    flex: 1;
+    /* ocupa o espaço restante */
 }
 
 /* Hero imagem */
@@ -2587,6 +2687,7 @@ STYLE that is used to all pages of the travel in angola menu
     opacity: .75;
     border-bottom-color: var(--angola-red);
 }
+
 /* end */
 
 
@@ -2595,3 +2696,320 @@ STYLE that is used to all pages of the travel in angola menu
 ABOUT THE EMBASSY
 ==================================
 */
+
+/* 
+==================================
+Page of the Embassadors
+==================================
+*/
+
+.main-content-embassadors {
+    padding-top: 5rem;
+
+    /* section hero of the page */
+    .embassy-hero {
+        padding: 60px 40px;
+        border-radius: 16px;
+        background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url("#{request.contextPath}/resources/imgs/embassy-bg.jpeg");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        height: 45vh;
+        margin-bottom: 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+        opacity: 0.9;
+        max-width: 640px;
+    }
+
+    /* cards of the embassadors */
+    .profiles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+        gap: 24px;
+        align-items: stretch;
+    }
+
+    .profile-card {
+        position: relative;
+        display: flex;
+        gap: 18px;
+        padding: 18px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+        /*   &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        } */
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18px;
+            bottom: 18px;
+            width: 4px;
+            border-radius: 4px;
+            background: linear-gradient(to bottom,
+                    #d4af37,
+                    #f5e6a8);
+            opacity: 0.6;
+        }
+    }
+
+    .profile-image-embassador {
+        flex: 0 0 120px;
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-img {
+        width: 140px;
+        height: 170px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .profile-info {
+        flex: 1;
+    }
+
+    .profile-name {
+        margin: 6px 0 4px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .profile-title {
+        margin: 0;
+        font-weight: 500;
+        color: #444;
+        font-size: 14px;
+    }
+
+    .profile-subtitle {
+        margin: 2px 0 10px;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .profile-meta {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .profile-desc {
+        color: #555;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .tag-embassador {
+        background: var(--angola-red) !important;
+    }
+
+    /* stats of the embassy */
+    .embassy-stats {
+        display: flex;
+        gap: 40px;
+        margin: 40px 0;
+        padding: 28px;
+        border-radius: 14px;
+        background: #fafafa;
+        border: 1px solid #eee;
+        justify-content: center;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #666;
+    }
+
+    /* timeeLine */
+    .embassy-timeline {
+        margin: 50px 0;
+    }
+
+    .timeline {
+        list-style: none;
+        padding-left: 0;
+        border-left: 3px solid #ddd;
+        margin-left: 10px;
+    }
+
+    .timeline li {
+        margin: 18px 0;
+        padding-left: 18px;
+        position: relative;
+        color: #444;
+    }
+
+    .timeline li::before {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        background: #d4af37;
+        border-radius: 50%;
+    }
+}
+
+/* 
+--------------------------
+travel-to-angola footer of navigation
+--------------------------
+*/
+.explore-section-travel-to-angola {
+    padding: 50px 20px;
+    background: #f5f7fa;
+    text-align: center;
+
+
+    /* TITLE */
+    .explore-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #1B365D;
+        letter-spacing: 0.5px;
+    }
+
+    /* GRID LAYOUT */
+    .explore-grid {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    /* CARD LINK */
+    .explore-card {
+        width: 180px;
+        background: #ffffff;
+        border-radius: 6px;
+        padding: 16px;
+        text-decoration: none;
+        color: #1A1A1A;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    /* HOVER */
+    .explore-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    /* IMAGE */
+    .explore-img {
+        width: 100%;
+        height: 70px;
+        object-fit: contain;
+        margin-bottom: 12px;
+        opacity: 0.9;
+    }
+
+    /* TEXT */
+    .explore-text {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+    }
+}
+
+/* 
+---------------
+hero section, this serve to hotels, arlines
+---------------
+*/
+/* HERO CONTAINER */
+.hotel-hero {
+    height: 70vh;
+    /* background-image: url("./hotel_images/0img-2026-03-1719-34-19img.png"); */
+    /* troque pela sua imagem */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+
+
+    /* OVERLAY ESCURO */
+    .hero-overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(27, 54, 93, 0.65);
+        /* azul institucional */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* CONTEÚDO */
+    .hero-content {
+        text-align: center;
+        color: #ffffff;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        margin-bottom: 28px;
+        opacity: 0.95;
+    }
+
+    /* BOTÃO */
+    .hero-btn {
+        display: inline-block;
+        background: var(--angola-red);
+        /* dourado discreto */
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 28px;
+        font-weight: 600;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+    }
+
+    .hero-btn:hover {
+        background: var(--angola-red-hover);
+    }
+}

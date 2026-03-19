@@ -58,16 +58,24 @@
                     <p:menuitem class="sidebar_element" value="Announcements" icon="pi pi-fw pi-bell"
                         action="#{announcementController.loadAnnouncementPage}" />
 
-                    <p:menuitem class="sidebar_element logout-button" value="Logout" icon="pi pi-sign-out" />
-
-                    <p:menuitem class="sidebar_element" value="#{msg.consularServices}" icon="pi pi-fw pi-briefcase"
+                        
+                        <p:menuitem class="sidebar_element" value="#{msg.consularServices}" icon="pi pi-fw pi-briefcase"
                         action="#{consularServiceController.loadConsularService}" />
-
-                    <p:menuitem class="sidebar_element" value="Destino" icon="pi pi-fw pi-map-marker"
+                        
+                        <p:menuitem class="sidebar_element" value="#{msg.destinations}" icon="pi pi-fw pi-map-marker"
                         action="#{destinationController.load}" />
+                        
+                      <p:menuitem class="sidebar_element" value="#{msg.hotels}" icon="pi pi-fw pi-building"
+            action="#{hotelController.load}" />
 
-                        <p:menuitem class="sidebar_element" value="Hotel" icon="pi pi-fw pi-map-marker"
-                        action="#{hotelController.load}" />
+<p:menuitem class="sidebar_element" value="#{msg.bookings}" icon="pi pi-fw pi-calendar-plus"
+            action="#{bookingController.loadBooking}" />
+
+<p:menuitem class="sidebar_element" value="#{msg.government}" icon="pi pi-fw pi-building-columns"
+            action="#{governmentController.loadGovernment}" />
+
+
+                        <p:menuitem class="sidebar_element logout-button" value="#{msg.logout}" icon="pi pi-sign-out" />
 
                 </p:tieredMenu>
                 <!-- <p:menuitem value="Logout" icon="pi pi-fw pi-power-off" outcome="login" /> -->

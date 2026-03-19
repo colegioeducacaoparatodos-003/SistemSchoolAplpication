@@ -1,5 +1,10 @@
 package com.angola_argentina_portal.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,10 +22,14 @@ import com.angola_argentina_portal.model.Document;
 import com.angola_argentina_portal.service.DocumentService;
 
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Named
 @ViewScoped
@@ -128,34 +137,88 @@ public class DocumentController implements Serializable {
         }
     }
 
-    // ================== List for Types ==================
-    public void listDocumentType() {
-        if (documentType != null && !documentType.isBlank()) {
-            documents = service.searchByDocumentType(documentType);
-        } else {
-            documents = List.of(); // ou carregar todos se quiser
+    // ================== List for Type ==================
+    public void documentType() {
+        try {
+
+        } catch (Exception e) {
+
         }
     }
 
     // ================== DOWNLOAD ==================
+    /*
+     * public void downloadDocument() {
+     * FacesContext facesContext = FacesContext.getCurrentInstance();
+     * 
+     * Map<String, Object> parameters = new HashMap<>();
+     * parameters.put("DOCUMENT_ID", selectedId);
+     * 
+     * try {
+     * 
+     * Document document = service.findById(selectedId);
+     * 
+     * facesContext.getExternalContext().setResponseContentType(document.
+     * getDocumentType());
+     * facesContext.getExternalContext().setResponseHeader(
+     * "Content-Disposition",
+     * "attachment; filename=" + document.getFileName());
+     * } catch (Exception e) {
+     * System.out.println("Falha ao fazer o download" + selectedId);
+     * }
+     * 
+     * }
+     */
+
     public void downloadDocument() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("DOCUMENT_ID", selectedId);
+        ExternalContext ec = facesContext.getExternalContext();
 
         try {
 
             Document document = service.findById(selectedId);
 
-            facesContext.getExternalContext().setResponseContentType(document.getDocumentType());
-            facesContext.getExternalContext().setResponseHeader(
-                    "Content-Disposition",
-                    "attachment; filename=" + document.getFileName());
-        } catch (Exception e) {
-            System.out.println("Falha ao fazer o download" + selectedId);
-        }
+            String basePath = FacesContext.getCurrentInstance()
+                    .getExternalContext()
+                    .getRealPath("/documents_files");
 
+            File file = new File(basePath, document.getFileName() + ".pdf");
+
+            System.out.println("FULL PATH: " + file.getAbsolutePath());
+            System.out.println("EXISTS: " + file.exists());
+
+            if (!file.exists()) {
+                throw new RuntimeException("Ficheiro não encontrado!");
+            }
+
+            try (InputStream fileStream = new FileInputStream(file);
+                    OutputStream out = ec.getResponseOutputStream()) {
+
+                ec.responseReset();
+
+                ec.setResponseContentType(document.getContentType());
+                ec.setResponseContentLength((int) file.length());
+
+                ec.setResponseHeader(
+                        "Content-Disposition",
+                        "attachment; filename=\"" + document.getFileName() + ".pdf\"");
+
+                // equivalente ao JasperExportManager
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+
+                while ((bytesRead = fileStream.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+
+                out.flush();
+
+                facesContext.responseComplete();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public StreamedContent getFileToDownload() {

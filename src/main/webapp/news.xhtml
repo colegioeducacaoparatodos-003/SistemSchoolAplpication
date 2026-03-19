@@ -35,101 +35,27 @@
                         <li class="filter"><i class="pi pi-book"></i> #{msg.education}</li>
                     </ul>
 
-                    <ul class="cards-container">
+                    <!-- <panelGroup class="cards-container"> -->
 
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
-                        <a href="./show-news.xhtml">
-                            <li class="card">
-                                <img src="../../resources/imgs/governement/g9.jpeg" alt="" />
-                                <div class="content">
-                                    <p class="date">04/03/2026</p>
-                                    <h4 class="title">
-                                        #{msg.highlightTravelRegistration}
-                                        <span><i class="pi pi-arrow-right"></i></span>
-                                    </h4>
-                                    <p class="category">#{msg.announcements}</p>
-                                </div>
-                            </li>
-                        </a>
+                     <p:dataScroller value="#{newsController.lazyModel}" var="item" rows="10" chunkSize="10"
+                            mode="horizontal">
 
-                    </ul>
+                            <a href="./show-news.xhtml">
+                                <div class="card">
+                                    <img src="/news_images/#{item.imageUrl}" alt="" />
+                                    <div class="content">
+                                        <p class="date">#{item.publishedAt}</p>
+                                        <h4 class="title">
+                                            #{item.title}
+                                            <span><i class="pi pi-arrow-right"></i></span>
+                                        </h4>
+                                        <p class="category">#{item.category}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </p:dataScroller>
+                       
+                    <!-- </panelGroup> -->
 
                 </section>
             </h:form>

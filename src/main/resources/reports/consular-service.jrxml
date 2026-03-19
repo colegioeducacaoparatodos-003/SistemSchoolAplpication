@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consular-service" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="776d5307-bcea-4410-b4fd-6f2a3811c57a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Angoarge"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[Y29uc3VsYXJfc2VydmljZSAsMTUsMTUsM2I5NGNlZjEtNjg2NC00YzQ1LWJmYjMtNzNhMjAzODdk
+MmJjOw==]]>
+	</property>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM consular_service
+WHERE 
+	 consular_service.pk_service = $P{id}]]>
+	</queryString>
+	<field name="pk_service" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="pk_service"/>
+		<property name="com.jaspersoft.studio.field.label" value="pk_service"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="available_days" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="available_days"/>
+		<property name="com.jaspersoft.studio.field.label" value="available_days"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="details" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="details"/>
+		<property name="com.jaspersoft.studio.field.label" value="details"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="fees" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fees"/>
+		<property name="com.jaspersoft.studio.field.label" value="fees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="online_booking" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="online_booking"/>
+		<property name="com.jaspersoft.studio.field.label" value="online_booking"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="price"/>
+		<property name="com.jaspersoft.studio.field.label" value="price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="requirements" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="requirements"/>
+		<property name="com.jaspersoft.studio.field.label" value="requirements"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="status"/>
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="consular_service"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="30" width="260" height="30" uuid="535b64f3-ef46-431b-93aa-2f7a00d3fd1a"/>
+				<textElement>
+					<font fontName="Arial Black" size="14"/>
+				</textElement>
+				<text><![CDATA[Consular service]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="215" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="545" height="30" uuid="78078000-119a-474f-ba0e-2c110de76c36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="07c5404c-a49f-4dc3-9e35-7d59e63323b3"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="40" width="545" height="30" uuid="257a2a5f-6f6a-4cd2-9ea1-b1950feba9e7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c6a21e9-7c7c-4d3f-89a3-2aacfc0b1d7c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="100" width="544" height="30" uuid="0b39f4b0-7de1-4457-bf44-4dd0e7121d10">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25db80fa-3920-447e-a1cd-8c12c498bd6a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{requirements}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="70" width="545" height="30" uuid="aebfc721-48f3-4c57-8948-013ba619da40">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6f426560-39fb-448d-b06e-5d9c63f7ef15"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fees}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="130" width="544" height="30" uuid="4f74f04e-3b40-467f-925b-4a7a20de81e4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d979b46b-9b58-462d-94ae-1367c57aa835"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{available_days}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="160" width="540" height="55" uuid="2c3e9ce3-8e49-46b3-815c-0989d28ff7d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1313a6b2-fd5f-4ce6-897c-020f63c14260"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{details}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
