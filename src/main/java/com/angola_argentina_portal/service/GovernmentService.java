@@ -42,6 +42,8 @@ public class GovernmentService {
     public Government save(Government government){
         return repository.save(government);
     }
+
+    
 public Page<GovernmentDTO> findLazy(int page, int size, Sort sort) {
 
     Pageable pageable = PageRequest.of(page, size, sort);

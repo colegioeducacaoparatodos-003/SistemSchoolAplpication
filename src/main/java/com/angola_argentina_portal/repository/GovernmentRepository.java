@@ -13,13 +13,14 @@ import com.angola_argentina_portal.model.Government;
 @Repository
 public interface GovernmentRepository extends JpaRepository<Government, Long> {
     @Query(value = """
-            SELECT g.id AS id,
-                   g.full_name AS fullName,
-                   g.type AS type,
-                   g.title AS title,
-                   g.sub_title AS subTitle,
-                   g.description AS description
-            FROM government g
-            """, countQuery = "SELECT COUNT(*) FROM government", nativeQuery = true)
+            SELECT
+                d.id AS id,
+                d.full_name AS fullName,
+                d.type AS type,
+                d.title AS title,
+                d.sub_title AS subTitle,
+                d.description AS description
+            FROM document d
+            """, countQuery = "SELECT COUNT(*) FROM document", nativeQuery = true)
     Page<GovernmentTableProjection> findAllForTable(Pageable pageable);
 }
