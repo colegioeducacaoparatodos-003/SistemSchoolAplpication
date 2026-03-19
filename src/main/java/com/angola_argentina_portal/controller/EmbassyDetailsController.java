@@ -16,6 +16,10 @@ public class EmbassyDetailsController implements Serializable {
     private String image;
     private String location;
 
+    private String title;
+    private String info;
+    private String cooperationDate;
+
     public void loadData() {
 
         if (country == null) {
@@ -32,18 +36,140 @@ public class EmbassyDetailsController implements Serializable {
                                 String.class);
                 image = "argentina-place.jpg";
                 location = "Luanda, Angola";
+                title = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.titleArgentina}",
+                                String.class);
+                info = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.informationArgentina}",
+                                String.class);
+                cooperationDate = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.cooperationArgentina}",
+                                String.class);
                 break;
 
             case "chile":
-                name = "Missão Diplomática no Chile";
+                name = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.diplomaticMissionChile}",
+                                String.class);
                 image = "chile-place.jpg";
                 location = "Luanda, Angola";
+                title = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.titleChile}",
+                                String.class);
+                info = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.informationChile}",
+                                String.class);
+                cooperationDate = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.cooperationChile}",
+                                String.class);
                 break;
 
             case "bolivia":
-                name = "Missão Diplomática na Bolívia";
-                image = "/resources/imgs/bolivia-place.jpg";
+                name = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.diplomaticMissionBolivia}",
+                                String.class);
+                image = "bolivia-place.jpg";
                 location = "Luanda, Angola";
+                title = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.titleBolivia}",
+                                String.class);
+                info = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.informationBolivia}",
+                                String.class);
+                cooperationDate = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.cooperationBolivia}",
+                                String.class);
+                break;
+
+            case "uruguay":
+                name = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.diplomaticMissionUruguay}",
+                                String.class);
+                image = "uruguay-place.jpg";
+                location = "Luanda, Angola";
+                title = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.titleUruguay}",
+                                String.class);
+                info = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.informationUruguay}",
+                                String.class);
+                cooperationDate = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.cooperationUruguay}",
+                                String.class);
+                break;
+
+            case "paraguay":
+                name = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.diplomaticMissionParaguay}",
+                                String.class);
+                image = "paraguay-place.jpg";
+                location = "Luanda, Angola";
+                title = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.titleParaguay}",
+                                String.class);
+                info = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.informationParaguay}",
+                                String.class);
+                cooperationDate = FacesContext.getCurrentInstance()
+                        .getApplication()
+                        .evaluateExpressionGet(
+                                FacesContext.getCurrentInstance(),
+                                "#{msg.cooperationParaguay}",
+                                String.class);
                 break;
         }
     }
@@ -78,6 +204,30 @@ public class EmbassyDetailsController implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getInfo() {
+        return this.info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getCooperationDate() {
+        return this.cooperationDate;
+    }
+
+    public void setCooperationDate(String cooperationDate) {
+        this.cooperationDate = cooperationDate;
     }
 
     // getters
