@@ -71,8 +71,8 @@
 
                     <!-- EDIT -->
                     <p:commandButton icon="pi pi-pencil"
+                                    oncomplete="PF('createDialog').show()"
                                      action="#{travelAgencyController.setAgency(a)}"
-                                     oncomplete="PF('createDialogAgency').show()"
                                      styleClass="ui-button-warning"/>
 
                     <!-- DELETE -->

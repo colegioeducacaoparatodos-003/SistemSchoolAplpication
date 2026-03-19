@@ -29,10 +29,6 @@
 
                             <div class="hero-content">
                                 <h1>#{msg.ambassadorsOfTheRepublicOfAngola}</h1>
-                                <p>
-                                    Representação diplomática e fortalecimento das relações bilaterais
-                                    ao longo da história.
-                                </p>
                             </div>
 
                         </section>
@@ -57,11 +53,50 @@
                         </section>
 
 
-                        <div data-aos="fade-right" data-aos-delay="300" class="profiles-grid">
+                        <!-- <div data-aos="fade-right" data-aos-delay="300" class="profiles-grid"> -->
 
-                            <ui:include src="./components/public/embassador-card.xhtml" />
+                        <p:dataScroller class="profiles-grid" value="#{governmentController.lazyModel}" var="item"
+                            rows="10" chunkSize="10" mode="horizontal">
+                            <div class="profile-card">
 
-                        </div>
+                                <div class="profile-image-embassador">
+                                    <img src="/government_entities_images/#{item.imageGovernment}" alt=""
+                                        class="profile-img" />
+
+                                    <!-- <img src="#{request.contextPath}/resources/imgs/angolan-president-photo.jpg"
+                alt="Embaixador de Angola"
+                class="profile-img" /> -->
+                                </div>
+
+                                <div class="profile-info">
+
+                                    <p:tag value="#{item.title}" class="tag-embassador" severity="info" />
+
+                                    <h3 class="profile-name">
+                                        #{item.fullName}
+                                    </h3>
+
+                                    <p class="profile-title">
+                                        #{item.type}
+                                    </p>
+
+                                    <!-- <p class="profile-subtitle">
+                 #{gov.subTitle}
+            </p> -->
+
+                                    <div class="profile-meta">
+                                        <p><strong>#{item.subTitle}</strong></p>
+                                    </div>
+
+                                    <p class="profile-desc">
+                                        #{item.description}
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </p:dataScroller>
+                        <!-- </div> -->
 
                         <!-- <ui:repeat value="#{ambassadorController.formerAmbassadors}" var="em">
 
