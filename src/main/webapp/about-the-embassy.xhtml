@@ -139,6 +139,7 @@
     </h:head>
 
     <h:body>
+      
         <div class="about-the-embassy-page">
 
             <ui:include src="./components/public/nav-bar.xhtml" />
@@ -173,11 +174,13 @@
                 <div class="embassies-container">
 
                     <!-- Argentina -->
-                    <a href="embassy-details.xhtml?country=argentina"
+                   
+                    <p:link outcome="embassy-details"
                     class="embassy-flag"
                     data-country="argentina">
+                    <f:param name="country" value="argentina"/>
                         <img src="./resources/imgs/embassies/Flag_of_Argentina.svg.png" />
-                    </a>
+                    </p:link>
 
                     <!-- Bolivia -->
                     <a href="embassy-details.xhtml?country=bolivia"
