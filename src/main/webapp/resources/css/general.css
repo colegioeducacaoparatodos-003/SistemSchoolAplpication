@@ -2888,9 +2888,10 @@ travel-to-angola footer of navigation
 --------------------------
 */
 .explore-section-travel-to-angola {
-    padding: 50px 20px;
-    background: #f5f7fa;
+    padding: 50px 10px;
+    background: #f8f8f8;
     text-align: center;
+    width: 85%;
 
 
     /* TITLE */

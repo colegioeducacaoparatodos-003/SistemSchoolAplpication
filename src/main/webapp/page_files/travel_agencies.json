@@ -10,22 +10,22 @@
   "services" : null
 }, {
   "id" : 2,
-  "name" : "Paulimno",
-  "logoUrl" : "default.png",
-  "city" : "Luanda",
+  "name" : "tq",
+  "logoUrl" : "0img-2026-03-1911-35-20img.jpeg",
+  "city" : "tq",
   "address" : null,
-  "phone" : "924259557",
+  "phone" : "tq",
   "email" : null,
-  "website" : "angolaOline.co.co",
+  "website" : "tq",
   "services" : null
 }, {
   "id" : 3,
-  "name" : "Paulimno",
-  "logoUrl" : "default.png",
-  "city" : "Luanda",
+  "name" : "Cota",
+  "logoUrl" : "0img-2026-03-1911-36-59img.jpeg",
+  "city" : "Esta",
   "address" : null,
-  "phone" : "924259557",
+  "phone" : "tq",
   "email" : null,
-  "website" : "angolaOline.co.co",
+  "website" : "tq.com",
   "services" : null
 } ]
