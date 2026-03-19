@@ -38,4 +38,14 @@
   "email" : null,
   "website" : "tq",
   "services" : null
+}, {
+  "id" : 5,
+  "name" : "asda",
+  "logoUrl" : "0img-2026-03-1913-22-21img.jpeg",
+  "city" : "asd",
+  "address" : null,
+  "phone" : "asda",
+  "email" : null,
+  "website" : "asda",
+  "services" : null
 } ]
