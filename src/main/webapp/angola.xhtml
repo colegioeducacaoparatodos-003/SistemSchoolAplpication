@@ -10,12 +10,62 @@
     </title>
 
 
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        
+        <h:outputScript name="general.js" library="js" />
+    <style>
+        .angola-page .hero-content-container {
+            text-align: center;
+            /* border: 2px solid red; */
+            height: 70%;
+        }
+
+        .angola-page .title {
+            font-size: 4rem;
+        }
+
+        .angola-page .hero-content {
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .hero-section {
+            /* border: 2px solid blue; */
+        }
+
+        .section {
+            padding: 2rem 6rem;
+            border: 2px solid red;
+        }
+
+        .content-container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .section .content {
+            width: 60%;
+            font-size: 1.2rem;
+            letter-spacing: .8px;
+            color: #0a314d;
+        }
+
+        .section .image-container {
+            width: 40%;
+        }
+
+        .image-container img {
+            width: 100%;
+        }
+    </style>
+
 </h:head>
 
-<h:body>
+<h:body class="angola-page">
     <div class="hero-section">
         <video autoplay="autoplay" muted="muted" loop="loop" id="hero-video">
-            <source src="#{resource['videos:hero-sl.mp4']}" type="video/mp4" />
+            <source src="#{resource['videos:hero-bg.mp4']}" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
 
@@ -23,182 +73,65 @@
             <ui:include src="./components/public/nav-bar.xhtml" />
             <div class="hero-content-container">
                 <div class="hero-content">
-                    <h1 data-aos="zoom-in" data-aos-delay="500" class="title">#{msg.angolaEmbassy}</h1>
-                    <h1 data-aos="zoom-in" data-aos-delay="500" class="title">#{msg.welcomeToAngola}</h1>
-                    <p data-aos="fade-right" data-aos-delay="700" class="text">#{msg.investmentAndConsular}</p>
-                    <span data-aos="fade-right" data-aos-delay="700">
+                    <h1 data-aos="fade-up" data-aos-delay="600" data-aos-duration="2000" class="title">#{msg.welcomeToAngola}</h1>
+                    <!-- <span data-aos="fade-right" data-aos-delay="700">
                         <p:button value="#{msg.discover}" styleClass=" descover-button" />
-                    </span>
+                    </span> -->
                 </div>
-                <div class="hero-updates">
-                    <div data-aos="fade-up" data-aos-delay="1000" data-aos-duration="2000" style="text-align: center;"
-                        class="glass row">
-                        <div class="avatar-group">
 
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Angola.svg.png" alt="Angola" class="avatar-flag" />
-                                    
-                                    <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/angola-parliament.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>Angola</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                    📍 Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Argentina.svg.png" alt="Argentina" class="avatar-flag" />
-                                    <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/argentina-place.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>#{msg.diplomaticMissionArgentina}</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                     Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Bolivia1.png" alt="Bolívia" class="avatar-flag" />
-                                     <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/bolivia-place.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>#{msg.diplomaticMissionBolivia}</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                     Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Chile1.png" alt="Chile" class="avatar-flag" />
-                                      <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/chile-place.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>#{msg.diplomaticMissionChile}</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                     Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Paraguay.svg" alt="Paraguai" class="avatar-flag"/>
-                                      <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/paraguay-place.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>#{msg.diplomaticMissionUruguay}</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                     Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <div class="avatar">
-                                    <img src="../../resources/imgs/embassies/Flag_of_Uruguai.png" alt="Uruguai" class="avatar-flag" />
-                                      <span class="tooltip">
-                                        <div class="tooltip-card">
-
-                                            <div class="tooltip-image">
-                                                <img src="../../resources/imgs/uruguay-place.jpg" alt="Hotel" />
-                                            </div>
-
-                                            <div class="tooltip-content">
-                                                <h4>#{msg.diplomaticMissionParaguay}</h4>
-
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Ut enim ad minim veniam quis nostrud exercitation.
-                                                </p>
-
-                                                <div class="tooltip-location">
-                                                     Luanda, Angola
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </span>
-                                </div>
-                            </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>
-    <ui:include src="./components/public/footer.xhtml"/>
+    <section class="section about-angola">
+
+    </section>
+    <section class="section our-history">
+        <h1>Our History</h1>
+       <div class="content-container">
+             <div class="image-container">
+            <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="" />
+
+        </div>
+        <div class="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque voluptatum perferendis tempore voluptas
+            rerum suscipit dolorem, esse ab nisi. Sit, aspernatur eos quo porro libero, eveniet doloremque perspiciatis
+            distinctio, saepe autem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit illum sunt explicabo
+            quod, et natus officiis quaerat dolor molestiae quia ex sapiente veritatis commodi dolores, nesciunt dolorum
+            porro quam adipisci minima sed vero quos nostrum! Repudiandae omnis soluta voluptates voluptatem!
+            reprehenderit iusto assumenda hic atque recusandae dignissimos facere ut impedit!
+            Voluptate dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab necessitatibus animi amet fuga
+            accusamus, vitae velit, recusandae et delectus ipsum neque cumque modi reiciendis, officia fugit illum enim
+            culpa id dolorem ipsam eos ad ipsa ut totam! Vitae quae reprehenderit, quia illo deserunt rem laboriosam
+            iste rerum molestias expedita repellendus et suscipit ullam earum mollitia nostrum nam nisi reiciendis quod
+            laudantium fuga magnam aliquid delectus facere! Voluptate fugit repellat corporis! Neque ipsum, dignissimos
+            cupiditate tenetur porro iste quisquam perspiciatis eos ex. A officia alias molestias recusandae sunt. Nisi
+        </div>
+       </div>
+    </section>
+    <section class="section our-history">
+        <h1>Our History</h1>
+       <div class="content-container">
+             <div class="image-container">
+            <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="" />
+
+        </div>
+        <div class="content">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque voluptatum perferendis tempore voluptas
+            rerum suscipit dolorem, esse ab nisi. Sit, aspernatur eos quo porro libero, eveniet doloremque perspiciatis
+            distinctio, saepe autem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit illum sunt explicabo
+            quod, et natus officiis quaerat dolor molestiae quia ex sapiente veritatis commodi dolores, nesciunt dolorum
+            porro quam adipisci minima sed vero quos nostrum! Repudiandae omnis soluta voluptates voluptatem!
+            reprehenderit iusto assumenda hic atque recusandae dignissimos facere ut impedit!
+            Voluptate dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab necessitatibus animi amet fuga
+            accusamus, vitae velit, recusandae et delectus ipsum neque cumque modi reiciendis, officia fugit illum enim
+            culpa id dolorem ipsam eos ad ipsa ut totam! Vitae quae reprehenderit, quia illo deserunt rem laboriosam
+            iste rerum molestias expedita repellendus et suscipit ullam earum mollitia nostrum nam nisi reiciendis quod
+            laudantium fuga magnam aliquid delectus facere! Voluptate fugit repellat corporis! Neque ipsum, dignissimos
+            cupiditate tenetur porro iste quisquam perspiciatis eos ex. A officia alias molestias recusandae sunt. Nisi
+        </div>
+       </div>
+    </section>
+    <ui:include src="./components/public/footer.xhtml" />
 </h:body>
 
 </html>
