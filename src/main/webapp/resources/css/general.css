@@ -418,18 +418,28 @@ HERO SECTION
     width: 100%;
     display: flex;
     flex-direction: row;
+    /* padding: 5.4rem; */
+    /* Maintain your existing flex/alignment styles here */
+}
+
+.landing-page .hero-content-container {
     padding: 5.4rem;
     /* Maintain your existing flex/alignment styles here */
 }
 
 
 
-.hero-content {
+.hero-content,
+.landing-page .hero-content {
     display: flex;
     flex-direction: column;
     /* margin: 6rem 0 0 5.4rem;*/
 
     width: fit-content;
+
+}
+
+.landing-page .hero-content {
     max-width: 45%;
 
 }
@@ -974,13 +984,15 @@ NEWS CARDS
     align-items: center;
 }
 
+.booking-content-container .ui-calendar .ui-button.ui-button-icon-only,
 .red-button.ui-button,
 .descover-button.ui-button {
+    border-color: var(--angola-red);
     color: var(--white-color);
     text-transform: uppercase;
     background-color: var(--angola-red) !important;
 }
-
+.booking-content-container .ui-calendar .ui-button.ui-button-icon-only:hover,
 .red-button.ui-button:hover,
 .descover-button.ui-button:hover {
     color: var(--white-color);
@@ -2068,6 +2080,9 @@ body .ui-inputfield {
     width: 100%;
 }
 
+.booking-content-container .ui-calendar.ui-trigger-calendar input.hasDatepicker {
+    width: 95%;
+}
 
 .login-button-container,
 .signup-button-container {
@@ -2888,9 +2903,10 @@ travel-to-angola footer of navigation
 --------------------------
 */
 .explore-section-travel-to-angola {
-    padding: 50px 20px;
-    background: #f5f7fa;
+    padding: 50px 10px;
+    background: #f8f8f8;
     text-align: center;
+    width: 85%;
 
 
     /* TITLE */
