@@ -175,7 +175,9 @@
                     <div class="quick-links-embassadors-section ">
                         
                             <div class="embassador-link-container" data-aos="fade-right" data-aos-delay="300">
-                                <a href="/embassadors.xhtml" class="embassador-card">
+                                  <p:commandLink class="embassador-card"  action="#{governmentController.loadGovernmentPage}">
+                                
+                            
                                     <div class="embassador-content">
                                         <div class="ambassador-info">
                                             <h2 class="link-title">Embaixadores de Angola</h2>
@@ -186,7 +188,7 @@
                                             <i class="pi pi-arrow-right icon-container"></i>
                                         </div>
                                     </div>
-                                </a>
+                                </p:commandLink >
                             </div>
                     </div>
                 </section>
