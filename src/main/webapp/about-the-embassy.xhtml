@@ -245,54 +245,8 @@
 
 
             <!-- AMBASSADOR -->
-            <section class="ambassador-section section" data-aos="fade-up">
-                <h1 class="title">Embassadors</h1>
-
-                <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" var="imgName" numVisible="3"
-                    numScroll="1" circular="true" autoplayInterval="4000" responsive="true"
-                    styleClass="mission-carousel">
-
-                    <div class="member-card">
-
-                        <div class="member-card-content">
-
-                            <div class="member-image-container">
-                                <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
-                                    alt="#{msg.diplomaticStaff}" />
-                            </div>
-
-                            <div class="member-info">
-
-                                <h4 class="member-name">
-
-                                    #{imgName == 'p4.jpg' ? msg.heAzevedoXavierFrancisco :
-                                    imgName == 'p1.jpg' ? msg.ministerCounsellor :
-                                    imgName == 'p2.jpg' ? msg.firstSecretary :
-                                    imgName == 'p3.jpg' ? msg.secondSecretary :
-                                    msg.consularAttache}
-
-                                </h4>
-
-                                <h6 class="member-role">
-
-                                    #{imgName == 'p1.jpg'
-                                    ? msg.ambassadorPlenipotentiary
-                                    : msg.diplomaticMissionMember}
-
-                                </h6>
-
-                                <p class="member-bio">
-                                    #{msg.memberBioDiplomatic}
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </p:carousel>
-            </section>
+            
+            <ui:include src="./components/public/representatives-carousel.xhtml" />
 
 
         </div>

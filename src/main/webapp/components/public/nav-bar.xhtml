@@ -236,9 +236,22 @@
                           <li class="dropdown">
                               <span>#{msg.calendarAndEvents}</span>
                               <i class="pi pi-chevron-down"></i>
-      
+
                               <div class="dropdown-content">
-                                  <p>#{msg.exploreUpcomingEvents}</p>
+                                  <ul class="sub-nav-links">
+                                      <p:link outcome="about-the-embassy">
+                                          <li class="sub-nav-link">#{msg.exploreUpcomingEvents}</li>
+                                      </p:link>
+                                      <p:link outcome="angola">
+                                          <li class="sub-nav-link">#{msg.angola}</li>
+                                      </p:link>
+                                      <p:commandLink action="#{governmentController.loadGovernmentPage}">
+                                          <li class="sub-nav-link">#{msg.ambassadors}</li>
+                                      </p:commandLink>
+                                      <p:commandLink action="#{destinationController.loadGeneralInformationPage}">
+                                          <li class="sub-nav-link">#{msg.generalInformation}</li>
+                                      </p:commandLink>
+                                  </ul>
                               </div>
                           </li>
       

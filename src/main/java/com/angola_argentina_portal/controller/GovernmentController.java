@@ -1,102 +1,119 @@
-    package com.angola_argentina_portal.controller;
+package com.angola_argentina_portal.controller;
 
-    import java.io.Serializable;
+import java.io.Serializable;
+import java.util.List;
 
-    import org.primefaces.model.LazyDataModel;
-    import org.slf4j.Logger;
-    import org.slf4j.LoggerFactory;
+import org.primefaces.model.LazyDataModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    import com.angola_argentina_portal.dto.GovernmentDTO;
-    import com.angola_argentina_portal.lazy.GovernmentLazyModel;
-    import com.angola_argentina_portal.model.Government;
-    import com.angola_argentina_portal.model.Hotel;
-    import com.angola_argentina_portal.service.GovernmentService;
+import com.angola_argentina_portal.dto.GovernmentDTO;
+import com.angola_argentina_portal.lazy.GovernmentLazyModel;
+import com.angola_argentina_portal.model.Government;
+import com.angola_argentina_portal.service.GovernmentService;
 
-    import jakarta.faces.application.FacesMessage;
-    import jakarta.faces.context.FacesContext;
-    import jakarta.faces.view.ViewScoped;
-    import jakarta.inject.Inject;
-    import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
-    @Named
-    @ViewScoped
-    public class GovernmentController implements Serializable {
+@Named
+@ViewScoped
+public class GovernmentController implements Serializable {
 
-        private static final long serialVersionUID = 1L;
-        private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final long serialVersionUID = 1L;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-        private Government government = new Government();
+    private Government government = new Government();
 
-        private LazyDataModel<GovernmentDTO> lazyModel;
+    private LazyDataModel<GovernmentDTO> lazyModel;
+    private List<GovernmentDTO> representatives;
 
-        @Inject
-        private GovernmentService governmentService;
+    @Inject
+    private GovernmentService governmentService;
 
-        private Integer selectedId;
-        private String selectedType;
+    private Integer selectedId;
+    private String selectedType;
 
-        // Método loadDocument para Renderização com a lista de documentos
-        public String loadGovernment() {
-            try {
-                lazyModel = new GovernmentLazyModel(governmentService);
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
-                                e.getMessage()));
-                e.printStackTrace();
-            }
-            return "/management/government.xhtml?faces-redirect=true";
+    // Método loadDocument para Renderização com a lista de documentos
+    public String loadGovernment() {
+        try {
+            lazyModel = new GovernmentLazyModel(governmentService);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
         }
-
-        // Método loadDocument para Renderização com a lista de documentos
-        public String loadGovernmentPage() {
-            try {
-                lazyModel = new GovernmentLazyModel(governmentService);
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
-                                e.getMessage()));
-                e.printStackTrace();
-            }
-            return "/embassadors.xhtml?faces-redirect=true";
-        }
-
-        public void add() {
-
-            try {
-
-                governmentService.save(government);
-
-                lazyModel = new GovernmentLazyModel(governmentService);
-
-                government = new Government();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                government = new Government();
-            }
-        }
-
-        /**
-         * ======================================
-         * SETTERS AND GETTES
-         * ======================================
-         */
-
-        public LazyDataModel<GovernmentDTO> getLazyModel() {
-            return lazyModel;
-        }
-
-        public void setLazyModel(GovernmentLazyModel lazyModel) {
-            this.lazyModel = lazyModel;
-        }
-
-        public Government getGovernment() {
-            return government;
-        }
-
-        public void setGovernment(Government government) {
-            this.government = government;
-        }
-
+        return "/management/government.xhtml?faces-redirect=true";
     }
+
+    // Método loadDocument para Renderização com a lista de documentos
+    public String loadGovernmentPage() {
+        try {
+            lazyModel = new GovernmentLazyModel(governmentService);
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao processar",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+        return "/embassadors.xhtml?faces-redirect=true";
+    }
+
+    public void load() {
+        representatives = governmentService.findAll(); // método simples
+    }
+
+    public void add() {
+
+        try {
+
+            governmentService.save(government);
+
+            lazyModel = new GovernmentLazyModel(governmentService);
+
+            government = new Government();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            government = new Government();
+        }
+    }
+
+    /**
+     * ======================================
+     * SETTERS AND GETTES
+     * ======================================
+     */
+
+    public LazyDataModel<GovernmentDTO> getLazyModel() {
+        return lazyModel;
+    }
+
+    public void setLazyModel(GovernmentLazyModel lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+
+    public Government getGovernment() {
+        return government;
+    }
+
+    public void setGovernment(Government government) {
+        this.government = government;
+    }
+
+    public void setLazyModel(LazyDataModel<GovernmentDTO> lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+
+    public List<GovernmentDTO> getRepresentatives() {
+        return representatives;
+    }
+
+    public void setRepresentatives(List<GovernmentDTO> representatives) {
+        this.representatives = representatives;
+    }
+
+}

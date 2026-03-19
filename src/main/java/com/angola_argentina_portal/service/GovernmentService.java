@@ -1,6 +1,7 @@
 package com.angola_argentina_portal.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,5 +67,20 @@ public class GovernmentService {
                 p.getSubTitle(),
                 p.getDescription(),
                 p.getImageGovernment()));
+    }
+
+    public List<GovernmentDTO> findAll() {
+        return repository.findAllForTable(Pageable.unpaged())
+                .getContent()
+                .stream()
+                .map(p -> new GovernmentDTO(
+                        p.getId(),
+                        p.getFullName(),
+                        p.getType(),
+                        p.getTitle(),
+                        p.getSubTitle(),
+                        p.getDescription(),
+                        p.getImageGovernment()))
+                .toList();
     }
 }

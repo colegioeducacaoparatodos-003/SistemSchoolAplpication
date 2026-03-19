@@ -10,82 +10,86 @@
     </title>
     <h:outputStylesheet name="login.css" library="css" />
     <h:outputStylesheet name="general.css" library="css" />
+   <script>
+            $(document).ready(function () {
 
-
+                // Chama o remoteCommand após um pequeno delay para garantir que o JSF esteja pronto
+                setTimeout(function () {
+                    loadRepresentatives();
+                }, 100);
+            });
+     </script>
 
 </h:head>
 
-<h:body>
+<h:body >
 
-    <main class="home-section random-subjects-section">
+        <h:form id="dashboardForm" >
+            <p:remoteCommand name="loadRepresentatives" 
+            action="#{governmentController.load}"
+            update="carouselPanel" />
 
-        <div class="buttons-container">
+            <main class="home-section random-subjects-section">
 
-            <h1 class="title">
-                #{msg.officialRepresentatives}
-            </h1>
+                <div class="buttons-container">
 
-            <p class="subtitle">
-                #{msg.officialRepresentativesSubtitle}
-            </p>
+                    <h1 class="title">
+                        #{msg.officialRepresentatives}
+                    </h1>
 
-        </div>
-
-      <p:carousel value="#{['p1.jpg', 'p2.jpg', 'p3.jpg', 'p4.jpg']}" 
-            var="imgName" 
-            numVisible="3" 
-            numScroll="1"
-            circular="true" 
-            autoplayInterval="4000"  
-            responsive="true" 
-            styleClass="mission-carousel">
-
-            <div class="member-card">
-
-                <div class="member-card-content">
-
-                    <div class="member-image-container">
-                        <img class="member-image" src="../../resources/imgs/profile/#{imgName}"
-                            alt="#{msg.diplomaticStaff}" />
-                    </div>
-
-                    <div class="member-info">
-
-                        <h4 class="member-name">
-
-                            #{imgName == 'p4.jpg' ? msg.heAzevedoXavierFrancisco :
-                            imgName == 'p1.jpg' ? msg.ministerCounsellor :
-                            imgName == 'p2.jpg' ? msg.firstSecretary :
-                            imgName == 'p3.jpg' ? msg.secondSecretary :
-                            msg.consularAttache}
-
-                        </h4>
-
-                        <h6 class="member-role">
-
-                            #{imgName == 'p1.jpg'
-                            ? msg.ambassadorPlenipotentiary
-                            : msg.diplomaticMissionMember}
-
-                        </h6>
-
-                        <p class="member-bio">
-                            #{msg.memberBioDiplomatic}
-                        </p>
-
-                    </div>
+                    <p class="subtitle">
+                        #{msg.officialRepresentativesSubtitle}
+                    </p>
 
                 </div>
 
-            </div>
+                <p:carousel
+                    id="carouselPanel"
+                    value="#{governmentController.representatives}"
+                    var="item" 
+                    numVisible="3" 
+                    numScroll="1"
+                    circular="true" 
+                    autoplayInterval="4000"  
+                    responsive="true" 
+                    styleClass="mission-carousel">
+                   
+                    <div class="member-card">
 
-        </p:carousel>
+                        <div class="member-card-content">
 
-    </main>
+                            <div class="member-image-container">
+                                <img class="member-image" src="/government_entities_images/#{item.imageGovernment}" 
+                                    alt="#{msg.diplomaticStaff}" />
+                                
+                            </div>
 
-<script>
-    
-</script>
+                            <div class="member-info">
+
+                                <h4 class="member-name">
+                                            #{item.fullName}
+
+                                </h4>
+
+                                <h6 class="member-role">
+
+                                    
+                                    #{item.title}
+
+                                </h6>
+
+                                <p class="member-bio">
+                                    <strong>#{item.subTitle}</strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </p:carousel>
+
+            </main>
+       </h:form>
 </h:body>
-
 </html>
