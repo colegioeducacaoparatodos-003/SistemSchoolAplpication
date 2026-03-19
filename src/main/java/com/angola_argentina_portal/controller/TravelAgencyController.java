@@ -126,7 +126,7 @@ public class TravelAgencyController implements Serializable {
         try {
 
             service.delete(id);
-
+            
             load();
 
             addMessage(FacesMessage.SEVERITY_INFO,

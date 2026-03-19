@@ -9,7 +9,37 @@
   "website" : "",
   "services" : null
 }, {
+  "id" : 2,
+  "name" : "tq",
+  "logoUrl" : "0img-2026-03-1911-35-20img.jpeg",
+  "city" : "tq",
+  "address" : null,
+  "phone" : "tq",
+  "email" : null,
+  "website" : "tq",
+  "services" : null
+}, {
   "id" : 3,
+  "name" : "Cota",
+  "logoUrl" : "0img-2026-03-1911-36-59img.jpeg",
+  "city" : "Esta",
+  "address" : null,
+  "phone" : "tq",
+  "email" : null,
+  "website" : "tq.com",
+  "services" : null
+}, {
+  "id" : 4,
+  "name" : "tqdsad",
+  "logoUrl" : "0img-2026-03-1912-47-36img.jpeg",
+  "city" : "sada",
+  "address" : null,
+  "phone" : "asdatq",
+  "email" : null,
+  "website" : "tq",
+  "services" : null
+}, {
+  "id" : 5,
   "name" : "Paulimno",
   "logoUrl" : "default.png",
   "city" : "Luanda",

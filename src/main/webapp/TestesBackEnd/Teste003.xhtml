@@ -13,38 +13,66 @@
 
 <h:body>
 
-    <h:form>
+    <h:form id="dashboardTable" class="dashboard-form">
+        <p:growl id="msg" />
 
-        <p:dataTable value="#{documentController.lazyModel}" var="doc" lazy="true" paginator="true" rows="10"
-            rowKey="#{doc.loadDocumentsType}">
+        <!-- HEADER -->
+        <h:panelGroup class="table-header">
+            <h1 class="table-title">#{msg.travelAgencies}</h1>
 
-            <p:column headerText="Nome do Arquivo">
-                #{doc.fileName}
+            <p:commandButton styleClass="create-button" value="Create Travel Agency" type="button"
+                onclick="PF('createDialog').show()" />
+        </h:panelGroup>
+
+        <!-- TABLE -->
+        <p:dataTable id="travelAgencyTable" styleClass="table" value="#{documentController.lazyModel}" var="a"
+            lazy="true" paginator="true" rows="10" responsiveLayout="scroll" paginatorPosition="bottom"
+            emptyMessage="No travel agencies found..."
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+            rowsPerPageTemplate="5,10,20">
+
+            <!-- IMAGE -->
+            <p:column headerText="Image">
+                <p:graphicImage value="/travel_agencies_images/#{a.logoUrl}" width="80" />
             </p:column>
 
-            <p:column headerText="Tipo">
-                #{doc.documentType}
+            <!-- NAME -->
+            <p:column headerText="Name">
+                #{a.name}
             </p:column>
 
-            <p:column headerText="Tamanho">
-                #{doc.fileSize} bytes
+            <!-- CITY -->
+            <p:column headerText="City">
+                #{a.city}
             </p:column>
 
-            <p:column headerText="Upload Date">
-                #{doc.uploadDate}
+            <!-- WEBSITE -->
+            <p:column headerText="Website">
+                #{a.website}
             </p:column>
 
-            <p:column headerText="Ações">
-                <!-- Botão de download -->
-                <p:commandButton value="Download" icon="pi pi-download" update="@form">
-                    <p:ajax listener="#{documentController.prepareDownload(doc.pkDocument)}" />
-                    <p:fileDownload value="#{documentController.fileToDownload}" />
-                </p:commandButton>
+            <!-- PHONE -->
+            <p:column headerText="Phone">
+                #{a.phone}
+            </p:column>
+
+            <!-- ACTIONS -->
+            <p:column headerText="Actions">
+
+                <!-- EDIT -->
+                <p:commandButton icon="pi pi-pencil" action="#{travelAgencyController.setAgency(a)}"
+                    oncomplete="PF('createDialogAgency').show()" styleClass="ui-button-warning" />
+
+                <!-- DELETE -->
+                <p:commandButton icon="pi pi-trash" action="#{travelAgencyController.delete(a.id)}"
+                    update="travelAgencyTable" styleClass="ui-button-danger" />
+
             </p:column>
 
         </p:dataTable>
 
     </h:form>
-
 </h:body>
+
 </html>
