@@ -10,19 +10,30 @@
     </title>
 
 
-     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        
-        <h:outputScript name="general.js" library="js" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <h:outputScript name="general.js" library="js" />
     <style>
         .angola-page .hero-content-container {
             text-align: center;
             /* border: 2px solid red; */
             height: 70%;
+
+        }
+
+        .angola-page {
+            color: #0a314d;
         }
 
         .angola-page .title {
+            /* color: #0a314d; */
             font-size: 4rem;
+        }
+
+        .angola-page .text{
+            font-size: 1.4rem;
+            /* color: #0a314d; */
         }
 
         .angola-page .hero-content {
@@ -35,12 +46,14 @@
         }
 
         .section {
-            padding: 2rem 6rem;
-            border: 2px solid red;
+            padding: 6rem;
+            /* border: 2px solid red; */
         }
 
         .content-container {
             display: flex;
+            /* align-items: center; */
+            /* justify-content: center; */
             gap: 2rem;
         }
 
@@ -55,8 +68,17 @@
             width: 40%;
         }
 
-        .image-container img {
+        .section .map-image-container {
+            width: 20%;
+        }
+
+        img {
             width: 100%;
+        }
+
+
+        .the-president-section {
+            /* border: 2px solid red; */
         }
     </style>
 
@@ -73,7 +95,8 @@
             <ui:include src="./components/public/nav-bar.xhtml" />
             <div class="hero-content-container">
                 <div class="hero-content">
-                    <h1 data-aos="fade-up" data-aos-delay="600" data-aos-duration="2000" class="title">#{msg.welcomeToAngola}</h1>
+                    <h1 data-aos="fade-up" data-aos-delay="600" data-aos-duration="2000" class="title">
+                        #{msg.welcomeToAngola}</h1>
                     <!-- <span data-aos="fade-right" data-aos-delay="700">
                         <p:button value="#{msg.discover}" styleClass=" descover-button" />
                     </span> -->
@@ -82,55 +105,127 @@
             </div>
         </div>
     </div>
-    <section class="section about-angola">
-
+    <section class="section about-angola" data-aos="fade-up">
+        <div class="content-container">
+            <div class="content">
+                <h1>#{msg.aboutAngola}</h1>
+                <p class="text">
+                    Angola is a country on the west-central coast of Africa. It is the second-largest Lusophone country
+                    and the seventh-largest country in Africa. Known for its vast natural resources, including oil and
+                    diamonds, Angola is a nation of incredible cultural diversity and stunning landscapes.
+                </p>
+            </div>
+            <div class="map-image-container">
+                <img src="./resources/imgs/map.png" alt="President of Angola" />
+            </div>
+        </div>
     </section>
-    <section class="section our-history">
-        <h1>Our History</h1>
-       <div class="content-container">
-             <div class="image-container">
-            <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="" />
 
-        </div>
-        <div class="content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque voluptatum perferendis tempore voluptas
-            rerum suscipit dolorem, esse ab nisi. Sit, aspernatur eos quo porro libero, eveniet doloremque perspiciatis
-            distinctio, saepe autem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit illum sunt explicabo
-            quod, et natus officiis quaerat dolor molestiae quia ex sapiente veritatis commodi dolores, nesciunt dolorum
-            porro quam adipisci minima sed vero quos nostrum! Repudiandae omnis soluta voluptates voluptatem!
-            reprehenderit iusto assumenda hic atque recusandae dignissimos facere ut impedit!
-            Voluptate dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab necessitatibus animi amet fuga
-            accusamus, vitae velit, recusandae et delectus ipsum neque cumque modi reiciendis, officia fugit illum enim
-            culpa id dolorem ipsam eos ad ipsa ut totam! Vitae quae reprehenderit, quia illo deserunt rem laboriosam
-            iste rerum molestias expedita repellendus et suscipit ullam earum mollitia nostrum nam nisi reiciendis quod
-            laudantium fuga magnam aliquid delectus facere! Voluptate fugit repellat corporis! Neque ipsum, dignissimos
-            cupiditate tenetur porro iste quisquam perspiciatis eos ex. A officia alias molestias recusandae sunt. Nisi
-        </div>
-       </div>
-    </section>
-    <section class="section our-history">
-        <h1>Our History</h1>
-       <div class="content-container">
-             <div class="image-container">
-            <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="" />
+    <section class="section the-president-section" data-aos="fade-up">
+        <h1 style="padding-bottom: 2rem;">O Presidente</h1>
+        <!-- <div class="content-container"> -->
+        <!-- <div class="image-container">
+                <img src="./resources/imgs/governement/g1.jpeg" alt="President of Angola" />
+            </div> -->
+        <!-- <div class="content"> -->
+        <h3>João Lourenço</h3>
+        <p class="text" style="width: 60%; margin: 2rem 0;">
+            Since 2017, João Lourenço has served as the President of Angola. His administration focuses on
+            economic diversification, fighting corruption, and strengthening international relations to
+            position Angola as a regional leader in Southern Africa.
+        </p>
+           <div class="quick-links-embassadors-section ">
 
-        </div>
-        <div class="content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque voluptatum perferendis tempore voluptas
-            rerum suscipit dolorem, esse ab nisi. Sit, aspernatur eos quo porro libero, eveniet doloremque perspiciatis
-            distinctio, saepe autem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit illum sunt explicabo
-            quod, et natus officiis quaerat dolor molestiae quia ex sapiente veritatis commodi dolores, nesciunt dolorum
-            porro quam adipisci minima sed vero quos nostrum! Repudiandae omnis soluta voluptates voluptatem!
-            reprehenderit iusto assumenda hic atque recusandae dignissimos facere ut impedit!
-            Voluptate dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab necessitatibus animi amet fuga
-            accusamus, vitae velit, recusandae et delectus ipsum neque cumque modi reiciendis, officia fugit illum enim
-            culpa id dolorem ipsam eos ad ipsa ut totam! Vitae quae reprehenderit, quia illo deserunt rem laboriosam
-            iste rerum molestias expedita repellendus et suscipit ullam earum mollitia nostrum nam nisi reiciendis quod
-            laudantium fuga magnam aliquid delectus facere! Voluptate fugit repellat corporis! Neque ipsum, dignissimos
-            cupiditate tenetur porro iste quisquam perspiciatis eos ex. A officia alias molestias recusandae sunt. Nisi
-        </div>
-       </div>
+                            <div class="embassador-link-container" data-aos="fade-right" data-aos-delay="300">
+                                <a href="/president-biography.xhtml" class="embassador-card">
+                                    <div class="embassador-content">
+                                        <div class="ambassador-info">
+                                            <h2 style="font-size: 1.2rem;" class="link-title">#{msg.biographyOfThePresidentOfTheRepublic}</h2>
+
+                                        </div>
+                                        <div class="embassador-action">
+                                            <span class="action-text">#{msg.view} </span>
+                                            <i class="pi pi-arrow-right icon-container"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+        <!-- <p:button value="#{msg.readMore}" outcome="index" style="margin-top: 1rem;" /> -->
+        <!-- </div> -->
+        <!-- </div> -->
     </section>
+
+    <section style="margin: 0 0 0 auto;
+    width: 60%;" class="section government" data-aos="fade-up">
+        <h1>#{msg.government}</h1>
+        <!-- <div class="content"> -->
+        <p class="text">
+            The Government of Angola operates under a presidential system where the President is both Head of State
+            and Head of Government. The executive branch is supported by a Council of Ministers that oversees
+            the development and implementation of national policies.
+        </p>
+        <!-- </div> -->
+    </section>
+
+    <section class="section history" data-aos="fade-up">
+        <!-- <div class="content-container"> -->
+        <!-- <div class="content"> -->
+        <h1>Our history</h1>
+        <p class="text">
+            From the ancient kingdoms like the Kingdom of Kongo to the colonial era and the struggle for
+            independence achieved in 1975, Angola's history is a testament to resilience. Today, the nation
+            celebrates its peace and reconstruction efforts since 2002.
+        </p>
+        <!-- </div> -->
+        <div class="image-container" style="width: 100%; height: 60vh;">
+            <img style="height: 100%; object-fit: cover;" src="./resources/imgs/governement/g1.jpeg"
+                alt="President of Angola" />
+        </div>
+        <!-- </div> -->
+    </section>
+
+    <section class="section" style="display: flex; gap: 4rem;" data-aos="fade-up">
+        <div style="flex: 1;">
+            <h1>#{msg.economics}</h1>
+            <p class="text">Angola is one of Africa’s fastest-growing economies, heavily centered on the petroleum sector, with
+                emerging growth in agriculture, mining, and telecommunications.</p>
+        </div>
+        <div style="flex: 1;">
+            <h1>#{msg.education}</h1>
+            <p class="text">Investment in human capital is a priority, with the government expanding access to primary, secondary,
+                and higher education across all 18 provinces.</p>
+        </div>
+    </section>
+
+    <section class="section symbols-infographics" data-aos="fade-up">
+        <!-- <h1>#{msg.symbolsAndInfographics}</h1> -->
+        <div class="content-container">
+            <div class="content">
+                <h3>National Symbols</h3>
+                <p class="text">The Flag (Red, Black, and Gold), the National Anthem "Angola Avante!", and the Coat of Arms represent
+                    the blood shed for independence and the wealth of the land.</p>
+            </div>
+            <div class="image-container" style="text-align: center;">
+                <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="President of Angola" />
+
+                <!-- <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" style="width: 200px;" alt="Flag" /> -->
+                <p class="text"><em>#{msg.viewInfographics}</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section speech" data-aos="fade-up" style="background-color: #f9f9f9;">
+        <h1 style="text-align: center;">#{msg.presidentialSpeech}</h1>
+        <div class="content" style="width: 80%; margin: 0 auto; font-style: italic; text-align: center;">
+            <p class="text">
+                "Angola is a land of opportunities. Our mission is to build a prosperous, inclusive, and modern nation
+                for all Angolans, ensuring peace and stability for future generations."
+            </p>
+            <p class="text"><strong>- Presidential Address, 2024</strong></p>
+        </div>
+    </section>
+
     <ui:include src="./components/public/footer.xhtml" />
 </h:body>
 
