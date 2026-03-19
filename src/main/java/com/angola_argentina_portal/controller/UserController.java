@@ -128,15 +128,10 @@ public class UserController implements Serializable {
             sessionMap.put("loggedUser", authenticatedUser);
             loggedUser = authenticatedUser;
 
-            // Configurar cookie de "lembrar-me" se necessário
+            // Configurar cookie "lembrar-me"
             if (rememberMe) {
-                // Aqui você implementaria a lógica para cookie
                 logger.info("Lembrar-me ativado para usuário: {}", authenticatedUser.getEmail());
             }
-
-            // Registrar login no log
-            logger.info("Usuário autenticado com sucesso: {} (ID: {})",
-                    authenticatedUser.getEmail(), authenticatedUser.getPkUser());
 
             // Limpar campos
             resetLoginFields();
@@ -150,23 +145,13 @@ public class UserController implements Serializable {
             // Adicionar mensagem de sucesso
             addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Login realizado com sucesso!");
 
-            // Redirecionar para página principal
-            try {
-                externalContext.redirect(externalContext.getRequestContextPath() + "/dashboard.xhtml");
-            } catch (IOException e) {
-                logger.error("Erro ao redirecionar após login", e);
-            }
-
-            // loadUserPermissions();
-
+            // → Apenas retornar string de navegação com redirect
             return "/dashboard.xhtml?faces-redirect=true";
 
         } catch (RuntimeException e) {
             logger.error("Falha no login para email: {}", loginEmail, e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
-                    "Email ou senha invalidos. Por favor, tente novamente.");
-
-            // Limpar senha por segurança
+                    "Email ou senha inválidos. Por favor, tente novamente.");
             loginPassword = null;
         } catch (Exception e) {
             logger.error("Erro inesperado durante login", e);
@@ -176,6 +161,79 @@ public class UserController implements Serializable {
 
         return null;
     }
+    // public String login() {
+    // try {
+    // logger.info("Tentativa de login com email: {}", loginEmail);
+
+    // validateLoginData();
+
+    // // Criar DTO de login
+    // UserDTO.LoginDTO loginDTO = new UserDTO.LoginDTO();
+    // loginDTO.setEmail(loginEmail.trim());
+    // loginDTO.setPassword(loginPassword);
+
+    // // Autenticar
+    // UserDTO.UserResponseDTO authenticatedUser =
+    // userService.authenticate(loginDTO);
+
+    // // Armazenar usuário na sessão
+    // ExternalContext externalContext =
+    // FacesContext.getCurrentInstance().getExternalContext();
+    // Map<String, Object> sessionMap = externalContext.getSessionMap();
+    // sessionMap.put("loggedUser", authenticatedUser);
+    // loggedUser = authenticatedUser;
+
+    // // Configurar cookie de "lembrar-me" se necessário
+    // if (rememberMe) {
+    // // Aqui você implementaria a lógica para cookie
+    // logger.info("Lembrar-me ativado para usuário: {}",
+    // authenticatedUser.getEmail());
+    // }
+
+    // // Registrar login no log
+    // logger.info("Usuário autenticado com sucesso: {} (ID: {})",
+    // authenticatedUser.getEmail(), authenticatedUser.getPkUser());
+
+    // // Limpar campos
+    // resetLoginFields();
+
+    // // Fechar dialog se estiver aberto
+    // if (loginDialogVisible) {
+    // PrimeFaces.current().executeScript("PF('loginDialog').hide()");
+    // loginDialogVisible = false;
+    // }
+
+    // // Adicionar mensagem de sucesso
+    // addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Login realizado com
+    // sucesso!");
+
+    // // Redirecionar para página principal
+    // try {
+    // externalContext.redirect(externalContext.getRequestContextPath() +
+    // "/dashboard.xhtml");
+    // } catch (IOException e) {
+    // logger.error("Erro ao redirecionar após login", e);
+    // }
+
+    // // loadUserPermissions();
+
+    // return "/dashboard.xhtml?faces-redirect=true";
+
+    // } catch (RuntimeException e) {
+    // logger.error("Falha no login para email: {}", loginEmail, e);
+    // addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
+    // "Email ou senha invalidos. Por favor, tente novamente.");
+
+    // // Limpar senha por segurança
+    // loginPassword = null;
+    // } catch (Exception e) {
+    // logger.error("Erro inesperado durante login", e);
+    // addMessage(FacesMessage.SEVERITY_FATAL, "Erro do Sistema",
+    // "Ocorreu um erro inesperado. Por favor, contate o administrador.");
+    // }
+
+    // return null;
+    // }
 
     // public void loadUserPermissions() {
     // try {

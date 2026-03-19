@@ -1,0 +1,61 @@
+[ {
+  "id" : 1,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+}, {
+  "id" : 2,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+}, {
+  "id" : 3,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+}, {
+  "id" : 4,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+}, {
+  "id" : 5,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+}, {
+  "id" : 6,
+  "name" : "Paulimno",
+  "logoUrl" : "default.png",
+  "city" : "Luanda",
+  "address" : null,
+  "phone" : "924259557",
+  "email" : null,
+  "website" : "angolaOline.co.co",
+  "services" : null
+} ]
