@@ -20,20 +20,29 @@
                     onclick="PF('createDialog').show()" />
             </h:panelGroup>
 
-            <p:dataTable styleClass="table" value="#{governmentController.lazyModel}" var="item" lazy="true" paginator="true"
-                paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
+            <p:dataTable styleClass="table" value="#{governmentController.lazyModel}" var="item" lazy="true"
+                paginator="true" paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                 rowsPerPageTemplate="5,10,20">
 
-              
+
                 <p:column headerText="Id">
                     <h:outputText value="#{item.id}" />
                 </p:column>
-                <p:column headerText="#{item.name}">
+                <p:column headerText="#{msg.name}">
                     <h:outputText value="#{item.fullName}" />
                 </p:column>
-                <p:column headerText="#{item.type}">
+
+                <p:column headerText="Preview" exportable="false">
+                    <p:graphicImage value="/government_entities_images/#{item.imageGovernment}"
+                        rendered="#{not empty item.imageGovernment}"
+                        style="width: 100%; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageGovernment}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column>
+
+                <p:column headerText="#{msg.type}">
                     <h:outputText value="#{item.type}" />
                 </p:column>
                 <p:column headerText="#{msg.title}">
@@ -49,7 +58,7 @@
                     <h:outputText value="#{item.description}" />
                 </p:column>
 
-                
+
                 <p:column headerText="#{msg.actions}">
                     <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
 
@@ -60,7 +69,7 @@
 
             </p:dataTable>
         </h:form>
-        <ui:include src="./documents/document-create.xhtml" />
+        <ui:include src="./government/government-create.xhtml" />
 
 
     </ui:define>
