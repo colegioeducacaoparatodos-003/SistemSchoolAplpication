@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
@@ -49,7 +50,8 @@ public class DocumentController implements Serializable {
     private UserController loginController;
 
     private Integer selectedId;
-    private String selectedType;
+    private String documentType;
+    private List<DocumentTableDTO> documents;
 
     // Método loadDocument para Renderização
     public String loadDocument() {
@@ -245,11 +247,43 @@ public class DocumentController implements Serializable {
         this.selectedId = selectedId;
     }
 
-    public String getSelectedType() {
-        return this.selectedType;
+    public void setLazyModel(LazyDataModel<DocumentTableDTO> lazyModel) {
+        this.lazyModel = lazyModel;
+    }
+    public void setFileToDownload(StreamedContent fileToDownload) {
+        this.fileToDownload = fileToDownload;
     }
 
-    public void setSelectedType(String selectedType) {
-        this.selectedType = selectedType;
+    public DocumentService getService() {
+        return this.service;
     }
+
+    public void setService(DocumentService service) {
+        this.service = service;
+    }
+
+    public UserController getLoginController() {
+        return this.loginController;
+    }
+
+    public void setLoginController(UserController loginController) {
+        this.loginController = loginController;
+    }
+
+    public String getSearchDocumentType() {
+        return this.documentType;
+    }
+
+    public void setSearchDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public List<DocumentTableDTO> getDocuments() {
+        return this.documents;
+    }
+
+    public void setDocuments(List<DocumentTableDTO> documents) {
+        this.documents = documents;
+    }
+
 }

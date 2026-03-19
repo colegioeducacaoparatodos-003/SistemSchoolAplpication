@@ -14,4 +14,6 @@ public interface GovernmentTableProjection {
 
     String getDescription();
 
+    String getImageGovernment();
+
 }

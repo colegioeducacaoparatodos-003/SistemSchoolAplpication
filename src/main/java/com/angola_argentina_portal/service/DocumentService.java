@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,7 +61,20 @@ public class DocumentService {
     public void delete(int id) {
         repository.deleteById(id);
     }
+    public List<DocumentTableDTO> searchByDocumentType(String documentType) {
+        List<Document> documents = repository.findByDocumentType(documentType);
 
+        return documents.stream()
+                .map(d -> new DocumentTableDTO(
+                        d.getPkDocument(),
+                        d.getDocumentType(),
+                        d.getFileName(),
+                        d.getContentType(),
+                        d.getFileSize(),
+                        d.getUploadDate()
+                ))
+                .collect(Collectors.toList());
+    }
     public Page<DocumentTableDTO> findLazy(int page, int size, Sort sort) {
 
         Pageable pageable = PageRequest.of(page, size, sort);
