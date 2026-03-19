@@ -1,88 +1,93 @@
-<ui:composition template="../components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:fn="http://xmlns.jcp.org/jsf/functions">
+<ui:composition template="../components/dashboard/dashboard-layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:fn="http://xmlns.jcp.org/jsf/functions">
 
-    <!-- <a href=""></a> -->
     <ui:define name="titulo">
         #{msg.travelAgencies}
     </ui:define>
 
     <ui:define name="content">
-        <style>
-           
-        </style>
+
         <h:form id="dashboardTable" class="dashboard-form">
             <p:growl id="msg" />
-           
-        <h:panelGroup class="table-header">
+
+            <!-- HEADER -->
+            <h:panelGroup class="table-header">
                 <h1 class="table-title">#{msg.travelAgencies}</h1>
 
-                <p:commandButton styleClass="create-button" value="Create New" type="button"
-                    onclick="PF('createDialog').show()" />
+                <p:commandButton styleClass="create-button"
+                                 value="Create Travel Agency"
+                                 type="button"
+                                 onclick="PF('createDialogAgency').show()" />
             </h:panelGroup>
 
-            <p:dataTable  
-    id="travelAgencyTable"
-    styleClass="table"
-    value="#{travelAgencyController.lazyModel}"
-    var="t"
-    lazy="true"
-    paginator="true"
-    rows="10"
-    responsiveLayout="scroll"
-    paginatorPosition="bottom"
-    emptyMessage="No travel agency found..."
-    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-    currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-    rowsPerPageTemplate="5,10,20">
+            <!-- TABLE -->
+            <p:dataTable
+                id="travelAgencyTable"
+                styleClass="table"
+                value="#{travelAgencyController.lazyModel}"
+                var="a"
+                lazy="true"
+                paginator="true"
+                rows="10"
+                responsiveLayout="scroll"
+                paginatorPosition="bottom"
+                emptyMessage="No travel agencies found..."
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                rowsPerPageTemplate="5,10,20">
 
-    <!-- Image -->
- <!--    <p:column headerText="Image">
-        <p:graphicImage value="/hotel_images/#{t.logoUrl}" width="80"/>
-    </p:column> -->
+                <!-- IMAGE -->
+                <p:column headerText="Image">
+                    <p:graphicImage value="/travel_agency_images/#{a.logoUrl}" width="80"/>
+                </p:column>
 
-    <!-- Name -->
-    <!-- <p:column headerText="Name">
-        #{t.name}
-    </p:column> -->
+                <!-- NAME -->
+                <p:column headerText="Name">
+                    #{a.name}
+                </p:column>
 
-    <!-- City -->
-    <!-- <p:column headerText="City">
-        #{t.city}
-    </p:column>
- -->
-    <!-- Address -->
-   <!--  <p:column headerText="website">
-        #{t.website}
-    </p:column> -->
+                <!-- CITY -->
+                <p:column headerText="City">
+                    #{a.city}
+                </p:column>
 
-    <!-- Phone -->
-  <!--   <p:column headerText="Phone">
-        #{t.phone}
-    </p:column>
- -->
+                <!-- WEBSITE -->
+                <p:column headerText="Website">
+                    #{a.website}
+                </p:column>
 
-    <!-- Actions -->
-    <p:column headerText="Actions">
+                <!-- PHONE -->
+                <p:column headerText="Phone">
+                    #{a.phone}
+                </p:column>
 
-        <p:commandButton icon="pi pi-pencil"
-                        
-                         oncomplete="PF('createDialog').show()"
-                         action="#{travelAgencyController.setAgency(t)}"
-                         styleClass="ui-button-warning"/>
+                <!-- ACTIONS -->
+                <p:column headerText="Actions">
 
-        <p:commandButton icon="pi pi-trash"
-                         action="#{travelAgencyController.delete(t.id)}"
-                         update="travelAgencyTable"
-                         styleClass="ui-button-danger"/>
+                    <!-- EDIT -->
+                    <p:commandButton icon="pi pi-pencil"
+                                     action="#{travelAgencyController.setAgency(a)}"
+                                     oncomplete="PF('createDialogAgency').show()"
+                                     styleClass="ui-button-warning"/>
 
-    </p:column>
+                    <!-- DELETE -->
+                    <p:commandButton icon="pi pi-trash"
+                                     action="#{travelAgencyController.delete(a.id)}"
+                                     update="travelAgencyTable"
+                                     styleClass="ui-button-danger"/>
+
+                </p:column>
 
             </p:dataTable>
-           
-        </h:form>
-        <ui:include src="./travel-agency/travel-agency-create.xhtml" />
 
+        </h:form>
+
+        <ui:include src="./travel-agency/travel-agency-create.xhtml" />
 
     </ui:define>
 </ui:composition>
