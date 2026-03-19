@@ -12,40 +12,39 @@
 </h:head>
 
 <h:body>
-<h:form>
-    <h:panelGrid columns="3">
 
-        <h:outputLabel value="Tipo de Documento:" />
+    <h:form>
 
-        <h:selectOneMenu value="#{documentController.documentType}">
-            <f:selectItem itemLabel="Selecione" itemValue="" />
-            <f:selectItem itemLabel="DECLARATION" itemValue="DECLARATION" />
-            <f:selectItem itemLabel="VISAS" itemValue="VISAS" />
-            <f:selectItem itemLabel="LIABILITY AGREEMENT" itemValue="LIABILITY AGREEMENT" />
-            <f:selectItem itemLabel="LAWS" itemValue="LAWS" />
-            <f:selectItem itemLabel="OTHER" itemValue="OTHER" />
-        </h:selectOneMenu>
+        <p:dataTable value="#{documentController.lazyModel}" var="doc" lazy="true" paginator="true" rows="10"
+            rowKey="#{doc.loadDocumentsType}">
 
-        <h:commandButton value="Buscar" action="#{documentController.loadDocumentsType}" />
-    </h:panelGrid>
+            <p:column headerText="Nome do Arquivo">
+                #{doc.fileName}
+            </p:column>
 
-    <h:dataTable value="#{documentController.documents}" var="doc">
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{doc.fileName}
-        </h:column>
+            <p:column headerText="Tipo">
+                #{doc.documentType}
+            </p:column>
 
-        <h:column>
-            <f:facet name="header">Tipo</f:facet>
-            #{doc.documentType}
-        </h:column>
+            <p:column headerText="Tamanho">
+                #{doc.fileSize} bytes
+            </p:column>
 
-        <h:column>
-            <f:facet name="header">Data</f:facet>
-            #{doc.uploadDate}
-        </h:column>
-    </h:dataTable>
-</h:form>
+            <p:column headerText="Upload Date">
+                #{doc.uploadDate}
+            </p:column>
+
+            <p:column headerText="Ações">
+                <!-- Botão de download -->
+                <p:commandButton value="Download" icon="pi pi-download" update="@form">
+                    <p:ajax listener="#{documentController.prepareDownload(doc.pkDocument)}" />
+                    <p:fileDownload value="#{documentController.fileToDownload}" />
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+
 </h:body>
-
 </html>
