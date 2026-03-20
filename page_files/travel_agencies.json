@@ -38,14 +38,4 @@
   "email" : null,
   "website" : "tq",
   "services" : null
-}, {
-  "id" : 5,
-  "name" : "Paulimno",
-  "logoUrl" : "default.png",
-  "city" : "Luanda",
-  "address" : null,
-  "phone" : "924259557",
-  "email" : null,
-  "website" : "angolaOline.co.co",
-  "services" : null
 } ]
