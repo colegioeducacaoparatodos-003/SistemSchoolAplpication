@@ -28,6 +28,8 @@
     --primary-font-family: 'Arial', sans-serif;
 
     --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    --link-text-size: 1.2rem;
 }
 
 body {
@@ -512,7 +514,7 @@ HERO SECTION
 }
 
 .home-section .subtitle {
-    font-size: 1.2rem;
+    font-size: var(--link-text-size);
     width: 90%;
 }
 
@@ -976,7 +978,7 @@ NEWS CARDS
 }
 
 .news-section .card .title span .pi {
-    font-size: 1.2rem;
+    font-size: var(--link-text-size);
 }
 
 .title-icon {
@@ -1156,7 +1158,7 @@ DIALOGS
 
 
 .check-boxes-container .ui-chkbox {
-    font-size: 1.2rem;
+    font-size: var(--link-text-size);
     width: 100%;
 }
 
@@ -1282,7 +1284,7 @@ INDEX SERVICES
     justify-content: space-between;
     align-items: center;
     flex: 30%;
-    font-size: 1.2rem;
+    font-size: var(--link-text-size);
     padding: 2rem 4rem;
     display: flex;
     border: 1px solid var(--thiner-border-sec);
@@ -1481,7 +1483,7 @@ FOOTER
 .footer-section .links-container a {
     color: var(--white-color);
     text-decoration: none;
-    font-size: 1.2rem;
+   font-size: var(--link-text-size);
 }
 
 .footer-section .links {
@@ -1845,7 +1847,7 @@ body .ui-breadcrumb {
 }
 
 .show-news-page .header-container .top {
-    font-size: 1.2rem;
+    font-size: var(--link-text-size);
     /* border: 2px solid blue; */
     display: flex;
     justify-content: space-between;
@@ -2448,7 +2450,9 @@ DIALOGS
 }
 
 .link-title {
-    font-size: 1.4rem;
+    font-size: var(--link-text-size);
+    font-weight: 400;
+    color: var(--title-gray);
 }
 
 .embassador-card {
@@ -2464,13 +2468,15 @@ DIALOGS
 }
 
 .embassador-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+    /* transform: translateY(-2px); */
+    text-decoration: underline;
     background: transparent !important;
 }
 
 .embassador-content {
-    padding: 24px;
+    /* border: 3px solid red; */
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

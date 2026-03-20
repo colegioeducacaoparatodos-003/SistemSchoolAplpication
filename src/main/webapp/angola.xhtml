@@ -25,10 +25,9 @@
             padding-bottom: 1rem;
         }
 
-        /* .angola-page .text {
-            font-size: 1.2rem;
-            letter-spacing: .8px;
-        } */
+        .angola-page .quick-link {
+            padding: 8rem 6rem;
+        }
 
         .angola-page .hero-content {
             margin: 0 auto;
@@ -70,7 +69,7 @@
             width: 50%;
         }
 
-        .history-step {
+        .section-step {
             height: 80vh;
             margin-bottom: 120px;
             padding: 20px;
@@ -82,11 +81,11 @@
             display: none;
         }
 
-        .history-step.active {
+        .section-step.active {
             border-color: #c19b6c;
         }
 
-        .history-step h3 {
+        .section-step h3 {
             margin-bottom: 10px;
         }
 
@@ -147,7 +146,7 @@ Disable sticky behavior
             <div class="history-content">
 
                 <!-- Card 1: About Angola -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/angola-page/Angola-economic-map.png" />
                     <h1 class="title">About Angola</h1>
                     <p class="text">
@@ -158,7 +157,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Card 2: The President -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/angola-page/pr.jpeg" />
                     <h1 class="title">The President</h1>
                     <p class="text">
@@ -166,16 +165,44 @@ Disable sticky behavior
                         power,
                         national policy direction, and international representation.
                     </p>
-                     <p:link outcome="/president-biography">
-                         Learn More
+                    <p class="text">
+                        The President of Angola is both the Head of State and Government, responsible for executive
+                        power,
+                        national policy direction, and international representation.
+                    </p>
+                    <p class="text">
+                        The President of Angola is both the Head of State and Government, responsible for executive
+                        power,
+                        national policy direction, and international representation.
+                    </p>
+                    <!-- <p:link outcome="/president-biography">
+                        Learn More
 
-                     </p:link>
+                    </p:link> -->
+
+                    <div class="quick-links-embassadors-section ">
+
+                        <div class="embassador-link-container">
+                            <a href="/president-biography" target="_blank" class="embassador-card">
+                                <div class="embassador-content">
+                                    <div class="ambassador-info">
+                                        <h2 class="link-title">#{msg.biographyOfThePresidentOfTheRepublic}</h2>
+
+                                    </div>
+                                    <div class="embassador-action">
+                                        <span class="action-text">Visitar</span>
+                                        <i class="pi pi-arrow-right icon-container"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                     <!-- <a href="president-biography.xhtml" class="btn-primary">
                     </a> -->
                 </div>
 
                 <!-- Government -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g5.jpeg" />
                     <h1 class="title">The Government</h1>
                     <p class="text">
@@ -186,7 +213,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- History -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g6.jpeg" />
                     <h1 class="title">History</h1>
                     <p class="text">
@@ -196,7 +223,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Economics -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g4.jpeg" />
                     <h1 class="title">Economics</h1>
                     <p class="text">
@@ -206,7 +233,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Education -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g3.jpeg" />
                     <h1 class="title">Education</h1>
                     <p class="text">
@@ -216,7 +243,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Symbols -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/embassies/Flag_of_Angola.svg.png" />
                     <h1 class="title">National Symbols</h1>
                     <p class="text">
@@ -226,7 +253,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Infographics -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g6.jpeg" />
                     <h1 class="title">Infographics</h1>
                     <p class="text">
@@ -236,7 +263,7 @@ Disable sticky behavior
                 </div>
 
                 <!-- Speech -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/culture/c3.webp" />
 
                     <h1 class="title">Our Culture</h1>
@@ -246,7 +273,7 @@ Disable sticky behavior
                     </p>
                 </div>
                 <!-- Speech -->
-                <div class="history-step">
+                <div class="section-step">
                     <img class="step-image" src="./resources/imgs/governement/g4.jpeg" />
                     <h1 class="title">Presidential Speech</h1>
                     <p class="text">
@@ -270,9 +297,27 @@ Disable sticky behavior
         <p class="text"><strong>- Presidential Address, 2024</strong></p>
 
     </section>
+
+    <div class="quick-links-embassadors-section quick-link">
+
+        <div class="embassador-link-container" data-aos="fade-right" data-aos-delay="300">
+            <a href="https://governo.gov.ao/" target="_blank" class="embassador-card">
+                <div class="embassador-content">
+                    <div class="ambassador-info">
+                        <h2 class="link-title">Portal oficial do Governo de Angola</h2>
+
+                    </div>
+                    <div class="embassador-action">
+                        <span class="action-text">Visitar</span>
+                        <i class="pi pi-arrow-right icon-container"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
     <ui:include src="./components/public/footer.xhtml" />
     <script>
-        const steps = document.querySelectorAll('.history-step');
+        const steps = document.querySelectorAll('.section-step');
         const mainImage = document.getElementById('historyImage');
 
         // Store initial image (important for fallback)
