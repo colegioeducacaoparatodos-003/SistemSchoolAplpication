@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <ui:insert name="titulo">#{msg.angola}</ui:insert>
+    </title>
+
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <h:outputScript name="general.js" library="js" />
+    <style>
+        .angola-page .hero-content-container {
+            text-align: center;
+            /* border: 2px solid red; */
+            height: 70%;
+
+        }
+
+        .angola-page {
+            /* color: #0a314d; */
+        }
+
+        .angola-page .title {
+            /* color: #0a314d; */
+            font-size: 4rem;
+        }
+
+        .angola-page .text{
+            /* font-size: 1.4rem; */
+            letter-spacing: .8px;
+            
+        }
+
+        .angola-page .hero-content {
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .hero-section {
+            /* border: 2px solid blue; */
+        }
+
+        .section {
+            padding: 6rem;
+            /* border: 2px solid red; */
+        }
+
+        .content-container {
+            display: flex;
+            /* align-items: center; */
+            /* justify-content: center; */
+            gap: 2rem;
+        }
+
+        .angola-page .text{
+            font-size: 1.2rem;
+            /* color: #0a314d; */
+
+        }
+        .section .content {
+            width: 60%;
+        }
+
+        .section .image-container {
+            width: 40%;
+        }
+
+        .section .map-image-container {
+            width: 20%;
+        }
+
+        img {
+            width: 100%;
+        }
+
+
+        .the-president-section {
+            /* border: 2px solid red; */
+        }
+    </style>
+
+</h:head>
+
+<h:body class="angola-page">
+    <div class="hero-section">
+        <video autoplay="autoplay" muted="muted" loop="loop" id="hero-video">
+            <source src="#{resource['videos:hero-bg.mp4']}" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay">
+            <ui:include src="./components/public/nav-bar.xhtml" />
+            <div class="hero-content-container">
+                <div class="hero-content">
+                    <h1 data-aos="fade-up" data-aos-delay="600" data-aos-duration="2000" class="title">
+                        #{msg.welcomeToAngola}</h1>
+                    <!-- <span data-aos="fade-right" data-aos-delay="700">
+                        <p:button value="#{msg.discover}" styleClass=" descover-button" />
+                    </span> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <section class="section about-angola" data-aos="fade-up">
+        <div class="content-container">
+            <div class="content">
+                <h1>#{msg.aboutAngola}</h1>
+                <p class="text">
+                    Angola is a country on the west-central coast of Africa. It is the second-largest Lusophone country
+                    and the seventh-largest country in Africa. Known for its vast natural resources, including oil and
+                    diamonds, Angola is a nation of incredible cultural diversity and stunning landscapes.
+                </p>
+            </div>
+            <div class="map-image-container">
+                <img src="./resources/imgs/map.png" alt="President of Angola" />
+            </div>
+        </div>
+    </section>
+
+    <section class="section the-president-section" data-aos="fade-up">
+        <h1 >O Presidente</h1>
+        <!-- <div class="content-container"> -->
+        <!-- <div class="image-container">
+                <img src="./resources/imgs/governement/g1.jpeg" alt="President of Angola" />
+            </div> -->
+        <!-- <div class="content"> -->
+        <!-- <h3>João Lourenço</h3> -->
+        <p class="text" style="width: 60%; margin: 2rem 0;">
+            Since 2017, João Lourenço has served as the President of Angola. His administration focuses on
+            economic diversification, fighting corruption, and strengthening international relations to
+            position Angola as a regional leader in Southern Africa.
+        </p>
+           <div class="quick-links-embassadors-section ">
+
+                            <div class="embassador-link-container" data-aos="fade-right" data-aos-delay="300">
+                                <a href="/president-biography.xhtml" class="embassador-card">
+                                    <div class="embassador-content">
+                                        <div class="ambassador-info">
+                                            <h2 style="font-size: 1.2rem;" class="link-title">#{msg.biographyOfThePresidentOfTheRepublic}</h2>
+
+                                        </div>
+                                        <div class="embassador-action">
+                                            <span class="action-text">#{msg.view} </span>
+                                            <i class="pi pi-arrow-right icon-container"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+        <!-- <p:button value="#{msg.readMore}" outcome="index" style="margin-top: 1rem;" /> -->
+        <!-- </div> -->
+        <!-- </div> -->
+    </section>
+
+    <section style="margin: 0 0 0 auto;
+    width: 60%;" class="section government" data-aos="fade-up">
+        <h1>#{msg.government}</h1>
+        <!-- <div class="content"> -->
+        <p class="text">
+            The Government of Angola operates under a presidential system where the President is both Head of State
+            and Head of Government. The executive branch is supported by a Council of Ministers that oversees
+            the development and implementation of national policies.
+        </p>
+        <!-- </div> -->
+    </section>
+
+    <section class="section history" data-aos="fade-up">
+        <!-- <div class="content-container"> -->
+        <!-- <div class="content"> -->
+        <h1>Our history</h1>
+        <p class="text">
+            From the ancient kingdoms like the Kingdom of Kongo to the colonial era and the struggle for
+            independence achieved in 1975, Angola's history is a testament to resilience. Today, the nation
+            celebrates its peace and reconstruction efforts since 2002.
+        </p>
+        <!-- </div> -->
+        <div class="image-container" style="width: 100%; height: 60vh;">
+            <img style="height: 100%; object-fit: cover;" src="./resources/imgs/governement/g1.jpeg"
+                alt="President of Angola" />
+        </div>
+        <!-- </div> -->
+    </section>
+
+    <section class="section" style="display: flex; gap: 4rem;" data-aos="fade-up">
+        <div style="flex: 1;">
+            <h1>Economia</h1>
+            <p class="text">Angola is one of Africa’s fastest-growing economies, heavily centered on the petroleum sector, with
+                emerging growth in agriculture, mining, and telecommunications.</p>
+        </div>
+        <div style="flex: 1;">
+            <h1>#{msg.education}</h1>
+            <p class="text">Investment in human capital is a priority, with the government expanding access to primary, secondary,
+                and higher education across all 18 provinces.</p>
+        </div>
+    </section>
+
+    <section class="section symbols-infographics" data-aos="fade-up">
+        <!-- <h1>#{msg.symbolsAndInfographics}</h1> -->
+        <div class="content-container">
+            <div class="content">
+                <h3>National Symbols</h3>
+                <p class="text">The Flag (Red, Black, and Gold), the National Anthem "Angola Avante!", and the Coat of Arms represent
+                    the blood shed for independence and the wealth of the land.</p>
+
+                    <!-- <ul style="margin: 2rem 0; font-size: 1.2rem;">
+                        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor excepturi ipsa molestiae.</li>
+                        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor excepturi ipsa molestiae.</li>
+                        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor excepturi ipsa molestiae.</li>
+                    </ul> -->
+            </div>
+            <div class="image-container" style="text-align: center;">
+                <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" alt="President of Angola" />
+
+                <!-- <img src="./resources/imgs/embassies/Flag_of_Angola.svg.png" style="width: 200px;" alt="Flag" /> -->
+                <p class="text"><em>#{msg.viewInfographics}</em></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section speech" data-aos="fade-up" style="background-color: #f9f9f9;">
+        <h1 style="text-align: center;">Discurso Presidencial</h1>
+        <div class="content" style="width: 80%; margin: 0 auto; font-style: italic; text-align: center;">
+            <p class="text">
+                "Angola is a land of opportunities. Our mission is to build a prosperous, inclusive, and modern nation
+                for all Angolans, ensuring peace and stability for future generations."
+            </p>
+            <p class="text"><strong>- Presidential Address, 2024</strong></p>
+        </div>
+    </section>
+
+    <ui:include src="./components/public/footer.xhtml" />
+</h:body>
+
+</html>
