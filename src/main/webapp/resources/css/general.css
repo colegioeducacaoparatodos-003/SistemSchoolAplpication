@@ -2704,6 +2704,10 @@ STYLE that is used to all pages of the travel in angola menu
     border-bottom-color: var(--angola-red);
 }
 
+.home-section.random-subjects-section.in-destiantion{
+    height: 75vh !important;
+}
+
 /* end */
 
 
@@ -2915,11 +2919,17 @@ body .ui-datascroller .ui-datascroller-content {
 travel-to-angola footer of navigation
 --------------------------
 */
+.container-section-travel-to-angola{
+    padding: 7rem 0;
+}
 .explore-section-travel-to-angola {
     padding: 50px 10px;
     background: #f8f8f8;
     text-align: center;
     width: 85%;
+    margin: auto;
+    display: block;
+
 
 
     /* TITLE */

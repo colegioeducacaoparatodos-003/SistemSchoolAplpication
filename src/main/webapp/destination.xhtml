@@ -262,7 +262,7 @@
                 </section>
                 <!-- <ui:include src="./components/public/discover-falandula-falls.xhtml" /> -->
 
-                <main class="home-section random-subjects-section in-destiantion" >
+                <main class="home-section random-subjects-section in-destiantion">
                     <div class="buttons-container">
                         <h1 class="title">
                             Onde ficar
@@ -329,31 +329,32 @@
 
                 </main>
 
-                <section class="explore-section-travel-to-angola"
-                    style=" margin: auto; display: block; margin-bottom: 4rem;">
-                    <h3 class="explore-title">#{msg.travelingToAngola}</h3>
+                <div class="container-section-travel-to-angola">
+                    <section class="explore-section-travel-to-angola">
+                        <h3 class="explore-title">#{msg.travelingToAngola}</h3>
 
-                    <div class="explore-grid">
+                        <div class="explore-grid">
 
-                        <p:commandLink action="#{travelAgencyController.loadTravelAgenciesPage}"
-                            styleClass="explore-card">
-                            <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
-                            <span class="explore-text">#{msg.travelAgencies}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{travelAgencyController.loadTravelAgenciesPage}"
+                                styleClass="explore-card">
+                                <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
+                                <span class="explore-text">#{msg.travelAgencies}</span>
+                            </p:commandLink>
 
-                        <p:commandLink action="#{airlineController.loadAirlinesPage}" styleClass="explore-card">
-                            <img src="../../resources/imgs/taag.png" class="explore-img" />
-                            <span class="explore-text">#{msg.airlines}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{airlineController.loadAirlinesPage}" styleClass="explore-card">
+                                <img src="../../resources/imgs/taag.png" class="explore-img" />
+                                <span class="explore-text">#{msg.airlines}</span>
+                            </p:commandLink>
 
-                        <p:commandLink action="#{hotelController.loadHotelsPage}" styleClass="explore-card">
-                            <img src="../../resources/imgs/intercontinental.png" class="explore-img" />
-                            <span class="explore-text">#{msg.hotels}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{hotelController.loadHotelsPage}" styleClass="explore-card">
+                                <img src="../../resources/imgs/intercontinental.png" class="explore-img" />
+                                <span class="explore-text">#{msg.hotels}</span>
+                            </p:commandLink>
 
 
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
 
             </h:form>
 

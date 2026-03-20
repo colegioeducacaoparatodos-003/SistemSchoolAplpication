@@ -91,36 +91,33 @@
 
                 </section>
 
-                
-                <section class="explore-section-travel-to-angola"
-                    style="width: 80%; margin: auto; display: block; margin-bottom: 4rem;">
-                    <h3 class="explore-title">#{msg.travelingToAngola}</h3>
+                <div class="container-section-travel-to-angola">
+                    <section class="explore-section-travel-to-angola">
+                        <h3 class="explore-title">#{msg.travelingToAngola}</h3>
 
-                    <div class="explore-grid">
+                        <div class="explore-grid">
 
-                        <p:commandLink action="#{travelAgencyController.loadTravelAgenciesPage}"
-                            styleClass="explore-card">
-                            <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
-                            <span class="explore-text">#{msg.travelAgencies}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{travelAgencyController.loadTravelAgenciesPage}"
+                                styleClass="explore-card">
+                                <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
+                                <span class="explore-text">#{msg.travelAgencies}</span>
+                            </p:commandLink>
 
-                        <p:commandLink action="#{airlineController.loadAirlinesPage}" styleClass="explore-card">
-                            <img src="../../resources/imgs/taag.png" class="explore-img" />
-                            <span class="explore-text">#{msg.airlines}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{hotelController.loadHotelsPage}" styleClass="explore-card">
+                                <img src="../../resources/imgs/intercontinental.png" class="explore-img" />
+                                <span class="explore-text">#{msg.hotels}</span>
+                            </p:commandLink>
 
-                        <p:commandLink action="#{hotelController.loadHotelsPage}" styleClass="explore-card">
-                            <img src="../../resources/imgs/intercontinental.png" class="explore-img" />
-                            <span class="explore-text">#{msg.hotels}</span>
-                        </p:commandLink>
+                            <p:commandLink action="#{destinationController.loadDestinationPage}"
+                                styleClass="explore-card">
+                                <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
+                                <span class="explore-text">#{msg.destinations}</span>
+                            </p:commandLink>
 
-                        <p:commandLink action="#{destinationController.loadDestinationPage}" styleClass="explore-card">
-                            <img src="../../resources/imgs/gir-travelling.jpg" class="explore-img" />
-                            <span class="explore-text">#{msg.destinations}</span>
-                        </p:commandLink>
+                        </div>
+                    </section>
+                </div>
 
-                    </div>
-                </section>
             </h:form>
             <ui:include src="./components/public/footer.xhtml" />
         </h:body>
