@@ -16,63 +16,45 @@
     <h:form id="dashboardTable" class="dashboard-form">
         <p:growl id="msg" />
 
-        <!-- HEADER -->
-        <h:panelGroup class="table-header">
-            <h1 class="table-title">#{msg.travelAgencies}</h1>
-
-            <p:commandButton styleClass="create-button" value="Create Travel Agency" type="button"
-                onclick="PF('createDialog').show()" />
-        </h:panelGroup>
-
-        <!-- TABLE -->
-        <p:dataTable id="travelAgencyTable" styleClass="table" value="#{documentController.lazyModel}" var="a"
-            lazy="true" paginator="true" rows="10" responsiveLayout="scroll" paginatorPosition="bottom"
-            emptyMessage="No travel agencies found..."
+        <p:dataTable styleClass="table" ajax="false" value="#{announcementController.lazyModel}" var="item" lazy="true" paginator="true"
+            paginatorPosition="bottom" rows="10" emptyMessage="No data found..."
             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
             rowsPerPageTemplate="5,10,20">
 
-            <!-- IMAGE -->
+            <!-- <p:column headerText="Preview" exportable="false">
+                    <p:graphicImage value="/news_images/#{item.imageUrl}" rendered="#{not empty item.imageUrl}"
+                        style="width: 100%; height: auto; border-radius: 4px;" />
+                    <h:outputText value="No Image" rendered="#{empty item.imageUrl}"
+                        style="color: #ccc; font-style: italic" />
+                </p:column> -->
+            <p:column headerText="Id">
+                <h:outputText value="#{item.pkDocument}" />
+            </p:column>
+            <p:column headerText="Title">
+                <h:outputText value="#{item.titel}" />
+            </p:column>
+            <p:column headerText="Content">
+                <h:outputText value="#{item.content}" />
+            </p:column>
             <p:column headerText="Image">
-                <p:graphicImage value="/travel_agencies_images/#{a.logoUrl}" width="80" />
+                <h:outputText value="#{item.imageUrl}" />
+            </p:column>
+            <p:column headerText="Id">
+                <h:outputText value="#{item.pkDocument}" />
             </p:column>
 
-            <!-- NAME -->
-            <p:column headerText="Name">
-                #{a.name}
-            </p:column>
-
-            <!-- CITY -->
-            <p:column headerText="City">
-                #{a.city}
-            </p:column>
-
-            <!-- WEBSITE -->
-            <p:column headerText="Website">
-                #{a.website}
-            </p:column>
-
-            <!-- PHONE -->
-            <p:column headerText="Phone">
-                #{a.phone}
-            </p:column>
-
-            <!-- ACTIONS -->
             <p:column headerText="Actions">
+                <p:button icon="pi pi-pencil" styleClass="rounded-button ui-button-flat ui-button-warning" />
 
-                <!-- EDIT -->
-                <p:commandButton icon="pi pi-pencil" action="#{travelAgencyController.setAgency(a)}"
-                    oncomplete="PF('createDialogAgency').show()" styleClass="ui-button-warning" />
+                <p:button icon="pi pi-trash" styleClass="rounded-button ui-button-flat ui-button-danger" />
 
-                <!-- DELETE -->
-                <p:commandButton icon="pi pi-trash" action="#{travelAgencyController.delete(a.id)}"
-                    update="travelAgencyTable" styleClass="ui-button-danger" />
-
+                <p:button icon="pi pi-eye" styleClass="rounded-button ui-button-flat ui-button-secondary" />
             </p:column>
 
         </p:dataTable>
-
     </h:form>
+
 </h:body>
 
 </html>
