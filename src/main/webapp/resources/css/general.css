@@ -2376,12 +2376,14 @@ DIALOGS
 }
 
 /* the text about the president */
-.president-biography .bio-text {
+.president-biography .bio-text,
+.angola-page .text
+ {
     line-height: 1.8;
     text-align: justify;
     color: var(--angola-black);
     font-size: 1.1rem;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 .president-biography .profile-header {

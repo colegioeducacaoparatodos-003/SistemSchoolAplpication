@@ -20,21 +20,27 @@
             height: 70%;
         }
 
-        .angola-page .text {
-            letter-spacing: .8px;
+        .angola-page .title {
+            font-size: 3rem;
+            padding-bottom: 1rem;
         }
+
+        /* .angola-page .text {
+            font-size: 1.2rem;
+            letter-spacing: .8px;
+        } */
 
         .angola-page .hero-content {
             margin: 0 auto;
             justify-content: center;
         }
 
-        .our-history-section {
+        .scrolly-telling-section {
             /* border: 2px solid blue; */
             padding: 4rem 6rem;
         }
 
-        /* .our-history-section {
+        /* .scrolly-telling-section {
     padding: 60px 10%;
 } */
 
@@ -69,18 +75,28 @@
             margin-bottom: 120px;
             padding: 20px;
             border-left: 3px solid #ddd;
-            cursor: pointer;
+            /* cursor: pointer; */
         }
 
-        .step-image{
+        .step-image {
             display: none;
         }
+
         .history-step.active {
             border-color: #c19b6c;
         }
 
         .history-step h3 {
             margin-bottom: 10px;
+        }
+
+
+        .speech-section {
+            padding: 12rem 6rem;
+            margin: 0 auto;
+            font-style: italic;
+            text-align: center;
+            background-color: #f9f9f9;
         }
     </style>
 
@@ -115,7 +131,7 @@ Disable sticky behavior
         </div>
     </div>
 
-    <section class="our-history-section">
+    <section class="scrolly-telling-section">
 
         <!-- <h1>Our History</h1> -->
 
@@ -124,7 +140,7 @@ Disable sticky behavior
             <!-- LEFT: Sticky Image -->
             <!-- the first image must be equall to the first one, so the observer does not change it -->
             <div class="history-images">
-                <img id="historyImage" src="./resources/imgs/governement/g4.jpeg" />
+                <img id="historyImage" src="./resources/imgs/angola-page/Angola-economic-map.png" />
             </div>
 
             <!-- RIGHT: Scroll Content -->
@@ -132,9 +148,9 @@ Disable sticky behavior
 
                 <!-- Card 1: About Angola -->
                 <div class="history-step">
-                    <img class="step-image" src="./resources/imgs/governement/g4.jpeg" />
-                    <h3>About Angola</h3>
-                    <p>
+                    <img class="step-image" src="./resources/imgs/angola-page/Angola-economic-map.png" />
+                    <h1 class="title">About Angola</h1>
+                    <p class="text">
                         Angola is a Southern African country rich in natural resources, cultural diversity, and history.
                         It features vast landscapes, from Atlantic coastlines to inland plateaus, and plays an important
                         role in regional economic and political dynamics.
@@ -143,23 +159,26 @@ Disable sticky behavior
 
                 <!-- Card 2: The President -->
                 <div class="history-step">
-                    <img class="step-image" src="./resources/imgs/governement/g3.jpeg" />
-                    <h3>The President</h3>
-                    <p>
+                    <img class="step-image" src="./resources/imgs/angola-page/pr.jpeg" />
+                    <h1 class="title">The President</h1>
+                    <p class="text">
                         The President of Angola is both the Head of State and Government, responsible for executive
                         power,
                         national policy direction, and international representation.
                     </p>
-                    <a href="president.xhtml" class="btn-primary">
-                        Learn More
-                    </a>
+                     <p:link outcome="/president-biography">
+                         Learn More
+
+                     </p:link>
+                    <!-- <a href="president-biography.xhtml" class="btn-primary">
+                    </a> -->
                 </div>
 
                 <!-- Government -->
                 <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g5.jpeg" />
-                    <h3>The Government</h3>
-                    <p>
+                    <h1 class="title">The Government</h1>
+                    <p class="text">
                         Angola operates under a presidential system. The government is composed of executive,
                         legislative,
                         and judicial branches, ensuring governance, law-making, and justice administration.
@@ -169,8 +188,8 @@ Disable sticky behavior
                 <!-- History -->
                 <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g6.jpeg" />
-                    <h3>History</h3>
-                    <p>
+                    <h1 class="title">History</h1>
+                    <p class="text">
                         Angola's history spans pre-colonial kingdoms, Portuguese colonization, independence in 1975,
                         and a long civil war that ended in 2002, shaping the modern nation.
                     </p>
@@ -179,8 +198,8 @@ Disable sticky behavior
                 <!-- Economics -->
                 <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g4.jpeg" />
-                    <h3>Economics</h3>
-                    <p>
+                    <h1 class="title">Economics</h1>
+                    <p class="text">
                         Angola's economy is driven largely by oil and gas exports, with growing diversification in
                         agriculture, mining, and infrastructure development.
                     </p>
@@ -189,8 +208,8 @@ Disable sticky behavior
                 <!-- Education -->
                 <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g3.jpeg" />
-                    <h3>Education</h3>
-                    <p>
+                    <h1 class="title">Education</h1>
+                    <p class="text">
                         The education system in Angola continues to expand, focusing on improving access, literacy,
                         and higher education to support national development.
                     </p>
@@ -198,9 +217,9 @@ Disable sticky behavior
 
                 <!-- Symbols -->
                 <div class="history-step">
-                    <img class="step-image" src="./resources/imgs/governement/g5.jpeg" />
-                    <h3>National Symbols</h3>
-                    <p>
+                    <img class="step-image" src="./resources/imgs/embassies/Flag_of_Angola.svg.png" />
+                    <h1 class="title">National Symbols</h1>
+                    <p class="text">
                         Angola’s national symbols include the flag, emblem, and anthem, representing the country's
                         history, independence struggle, and national identity.
                     </p>
@@ -209,8 +228,8 @@ Disable sticky behavior
                 <!-- Infographics -->
                 <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g6.jpeg" />
-                    <h3>Infographics</h3>
-                    <p>
+                    <h1 class="title">Infographics</h1>
+                    <p class="text">
                         Key statistics about Angola, including population, GDP, natural resources, and development
                         indicators, provide a quick visual understanding of the country.
                     </p>
@@ -218,9 +237,19 @@ Disable sticky behavior
 
                 <!-- Speech -->
                 <div class="history-step">
+                    <img class="step-image" src="./resources/imgs/culture/c3.webp" />
+
+                    <h1 class="title">Our Culture</h1>
+                    <p class="text">
+                        Official speeches highlight government priorities, national achievements, and future plans,
+                        reflecting Angola’s strategic direction.
+                    </p>
+                </div>
+                <!-- Speech -->
+                <div class="history-step">
                     <img class="step-image" src="./resources/imgs/governement/g4.jpeg" />
-                    <h3>Presidential Speech</h3>
-                    <p>
+                    <h1 class="title">Presidential Speech</h1>
+                    <p class="text">
                         Official speeches highlight government priorities, national achievements, and future plans,
                         reflecting Angola’s strategic direction.
                     </p>
@@ -231,6 +260,16 @@ Disable sticky behavior
 
     </section>
 
+
+    <section class="speech-section" data-aos="fade-up">
+        <h1 class="title">Discurso Presidencial</h1>
+        <p class="text">
+            "Angola is a land of opportunities. Our mission is to build a prosperous, inclusive, and modern nation
+            for all Angolans, ensuring peace and stability for future generations."
+        </p>
+        <p class="text"><strong>- Presidential Address, 2024</strong></p>
+
+    </section>
     <ui:include src="./components/public/footer.xhtml" />
     <script>
         const steps = document.querySelectorAll('.history-step');
