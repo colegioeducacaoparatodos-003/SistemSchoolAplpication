@@ -73,6 +73,7 @@ body .ui-breadcrumb .ui-breadcrumb-items li:not(.ui-breadcrumb-chevron):not(.ui-
     font-size: .8rem;
 }
 
+.scrolly-telling-section,
 .official-representation-section,
 .president-biography-page-container,
 .news-section,
@@ -1483,7 +1484,7 @@ FOOTER
 .footer-section .links-container a {
     color: var(--white-color);
     text-decoration: none;
-   font-size: var(--link-text-size);
+    font-size: var(--link-text-size);
 }
 
 .footer-section .links {
@@ -2379,8 +2380,7 @@ DIALOGS
 
 /* the text about the president */
 .president-biography .bio-text,
-.angola-page .text
- {
+.angola-page .text {
     line-height: 1.8;
     text-align: justify;
     color: var(--angola-black);
@@ -2712,7 +2712,7 @@ STYLE that is used to all pages of the travel in angola menu
     border-bottom-color: var(--angola-red);
 }
 
-.home-section.random-subjects-section.in-destiantion{
+.home-section.random-subjects-section.in-destiantion {
     height: 75vh !important;
 }
 
@@ -2927,9 +2927,10 @@ body .ui-datascroller .ui-datascroller-content {
 travel-to-angola footer of navigation
 --------------------------
 */
-.container-section-travel-to-angola{
+.container-section-travel-to-angola {
     padding: 7rem 0;
 }
+
 .explore-section-travel-to-angola {
     padding: 50px 10px;
     background: #f8f8f8;
@@ -3059,4 +3060,91 @@ hero section, this serve to hotels, arlines
     .hero-btn:hover {
         background: var(--angola-red-hover);
     }
+}
+
+
+
+/* ANGOLA PAGE */
+
+.angola-page .hero-content-container {
+    text-align: center;
+    height: 70%;
+}
+
+.angola-page .title {
+    font-size: 3rem;
+    padding-bottom: 1rem;
+}
+
+.angola-page .quick-link {
+    padding: 8rem 6rem;
+}
+
+.angola-page .hero-content {
+    margin: 0 auto;
+    justify-content: center;
+}
+
+
+.angola-page .content-container {
+    display: flex;
+    gap: 50px;
+}
+
+
+/* LEFT SIDE */
+.angola-page .scrolly-telling-images {
+    width: 50%;
+    position: sticky;
+    top: 100px;
+    height: 600px;
+}
+
+.angola-page .scrolly-telling-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: opacity 0.5s ease;
+}
+
+/* RIGHT SIDE */
+.angola-page .scrolly-telling-content {
+    width: 50%;
+}
+
+.angola-page .section-step {
+    height: 80vh;
+    margin-bottom: 120px;
+    padding: 20px;
+    border-left: 3px solid #ddd;
+    /* cursor: pointer; */
+}
+
+.angola-page .step-image {
+    display: none;
+}
+
+
+
+.angola-page .section-step h3 {
+    margin-bottom: 10px;
+}
+
+
+.angola-page .speech-section {
+    padding: 12rem 6rem;
+    margin: 0 auto;
+    font-style: italic;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.angola-page .speech-section p{
+   width: 60%;
+   margin: 0 auto;
+   text-align: justify;
+}
+
+.angola-page .section-step.active {
+    border-color: var(--angola-yellow);
 }
