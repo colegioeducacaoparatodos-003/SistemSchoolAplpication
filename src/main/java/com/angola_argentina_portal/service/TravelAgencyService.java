@@ -107,7 +107,7 @@ public class TravelAgencyService {
 
             List<TravelAgency> agencies = findAll();
 
-            agencies.removeIf(a -> a.getId().equals(id));
+            agencies.removeIf(a -> a.getId() != null && a.getId().longValue() == id);
 
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File(FILE_PATH), agencies);
