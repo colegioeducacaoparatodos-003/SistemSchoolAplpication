@@ -1,0 +1,262 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <style>
+        .sc-dialog-create .ui-dialog-content {
+            padding: 0 !important;
+            background: var(--surface-2, #f7f7f8);
+            overflow-x: hidden;
+        }
+
+        .sc-create-body {
+            max-height: 75vh;
+            overflow-y: auto;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            box-sizing: border-box;
+        }
+
+        .sc-create-body::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sc-create-body::-webkit-scrollbar-thumb {
+            background: var(--border-dk, #cfcfd3);
+            border-radius: 99px;
+        }
+
+        .sc-section {
+            background: var(--surface, #ffffff);
+            border: 1px solid var(--border, #e6e6e8);
+            border-radius: var(--radius, 10px);
+            padding: 1.1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(20, 20, 20, .04);
+        }
+
+        .sc-section.accent {
+            background: linear-gradient(180deg, rgba(200, 16, 46, 0.03), rgba(255, 255, 255, 0.95));
+        }
+
+        .sc-section-title {
+            font-size: .88rem;
+            font-weight: 700;
+            color: var(--black, #141414);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border, #e6e6e8);
+            padding-bottom: .6rem;
+        }
+
+        .sc-section-title i {
+            color: var(--red, #c8102e);
+            font-size: .95rem;
+        }
+
+        .sc-label {
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--text, #141414) !important;
+            display: block;
+            margin-bottom: .35rem;
+        }
+
+        .sc-label.req::after {
+            content: " *";
+            color: var(--red, #c8102e);
+        }
+
+        .sc-create-body .ui-inputtext,
+        .sc-create-body .ui-selectonemenu,
+        .sc-create-body .ui-datepicker,
+        .sc-create-body .ui-inputtextarea,
+        .sc-create-body .ui-inputnumber {
+            width: 100% !important;
+        }
+
+        .sc-create-body .ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-cell {
+            padding: .45rem .5rem !important;
+        }
+
+        .sc-create-body .ui-fileupload {
+            width: 100%;
+        }
+
+        .sc-create-footer {
+            background: var(--surface, #ffffff);
+            border-top: 1px solid var(--border, #e6e6e8);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .sc-btn-cancel,
+        .sc-btn-save {
+            border-radius: var(--radius-sm, 6px) !important;
+            font-size: .82rem !important;
+            font-weight: 600 !important;
+            padding: .55rem 1.1rem !important;
+        }
+
+        .sc-btn-cancel {
+            background: var(--surface-2, #f7f7f8) !important;
+            color: var(--text, #141414) !important;
+            border: 1px solid var(--border, #e6e6e8) !important;
+        }
+
+        .sc-btn-save {
+            background: linear-gradient(135deg, var(--black, #141414) 0%, var(--red, #c8102e) 100%) !important;
+            border: none !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .sc-create-body {
+                padding: .85rem;
+            }
+
+            .sc-section {
+                padding: .9rem;
+            }
+
+            .sc-create-footer {
+                justify-content: stretch;
+            }
+
+            .sc-create-footer .ui-button {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+
+    <p:dialog id="createStudentDialog" widgetVar="createStudentDialog" header="#{msg.newStudent}" modal="true"
+        showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-create" width="1000"
+        onshow="document.getElementById('studentCreateForm').reset();" dynamic="true" resizable="false"
+        appendTo="@(body)" responsive="true">
+
+        <h:form id="studentCreateForm" styleClass="ui-fluid" enctype="multipart/form-data">
+            <div class="sc-create-body">
+                <p:messages id="msgs" showDetail="true" closable="true" />
+
+                <!-- 1 · IDENTIFICAÇÃO DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-user"></i> #{msg.studentIdentification}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="studentNumber" value="#{msg.studentNumber}" styleClass="sc-label" />
+                        <p:inputText id="studentNumber" value="#{studentController.student.sudentNumber}"
+                            readonly="true" styleClass="sc-readonly-field" />
+                        <p:outputLabel for="firstName" value="#{msg.firstName}" styleClass="sc-label req" />
+                        <p:inputText id="firstName" value="#{studentController.student.fristName}" required="true" />
+
+                        <p:outputLabel for="lastName" value="#{msg.lastName}" styleClass="sc-label req" />
+                        <p:inputText id="lastName" value="#{studentController.student.lastName}" required="true" />
+
+                        <p:outputLabel for="gender" value="#{msg.gender}" styleClass="sc-label req" />
+                        <p:selectOneMenu id="gender" value="#{studentController.student.gender}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{studentController.genders}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="nascDate" value="#{msg.birthDate}" styleClass="sc-label req" />
+                        <p:datePicker id="nascDate" value="#{studentController.student.nascDate}" pattern="dd/MM/yyyy"
+                            showIcon="true" required="true" />
+                    </p:panelGrid>
+                </div>
+
+                <!-- 2 · DOCUMENTOS E CONTACTO DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-id-card"></i> #{msg.documentsAndContact}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="biNumber" value="#{msg.idCardNumber}" styleClass="sc-label" />
+                        <p:inputText id="biNumber" value="#{studentController.student.biNumber}" required="true"
+                            maxlength="14" placeholder="#{msg.idCardPlaceholder}">
+                            <p:ajax event="blur" listener="#{studentController.validarBI}" process="@this"
+                                update=":formStudents:messages" />
+                        </p:inputText>
+
+                        <p:outputLabel for="biExpiry" value="#{msg.idCardExpiryDate}" styleClass="sc-label" />
+                        <p:datePicker id="biExpiry" value="#{studentController.student.biExpiryData}"
+                            pattern="dd/MM/yyyy" showIcon="true" />
+
+                        <p:outputLabel for="email" value="#{msg.email}" styleClass="sc-label" />
+                        <p:inputText id="email" value="#{studentController.student.email}"
+                            placeholder="aluno@escola.ao" />
+
+                        <p:outputLabel for="phone1" value="#{msg.phone1}" styleClass="sc-label" />
+                        <p:inputText id="phone1" value="#{studentController.student.phone_1}" />
+
+                        <p:outputLabel for="phone2" value="#{msg.phone2}" styleClass="sc-label" />
+                        <p:inputText id="phone2" value="#{studentController.student.phone_2}" />
+                    </p:panelGrid>
+                </div>
+
+                <!-- 3 · MORADA DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-map-marker"></i> #{msg.residentialAddress}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-8, p-col-12 p-md-4">
+                        <p:outputLabel for="addressStreet" value="#{msg.addressStreet}" styleClass="sc-label" />
+                        <p:inputText id="addressStreet" value="#{studentController.student.addressStreet}" />
+
+                        <p:outputLabel for="province" value="#{msg.province}" styleClass="sc-label" />
+                        <p:inputText id="province" value="#{studentController.student.addressProvice}" />
+                    </p:panelGrid>
+                </div>
+
+                <!-- 4 · FILIAÇÃO -->
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-users"></i> #{msg.affiliation}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="fatherName" value="#{msg.fatherName}" styleClass="sc-label" />
+                        <p:inputText id="fatherName" value="#{studentController.student.nameFather}" />
+
+                        <p:outputLabel for="motherName" value="#{msg.motherName}" styleClass="sc-label" />
+                        <p:inputText id="motherName" value="#{studentController.student.nameMather}" />
+                    </p:panelGrid>
+                </div>
+
+                <!-- 5 · STATUS, FOTO E NOTAS -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-check-circle"></i> #{msg.registrationFinalization}
+                    </div>
+                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:outputLabel for="status" value="#{msg.status}" styleClass="sc-label req" />
+                        <p:selectOneMenu id="status" value="#{studentController.student.status}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{studentController.studentStatuses}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="photo" value="#{msg.studentPhoto}" styleClass="sc-label" />
+                        <p:fileUpload id="photo" value="#{studentController.uploadedPhoto}" mode="simple"
+                            skinSimple="true" label="#{msg.choose}" styleClass="p-button-sm" />
+                        <div class="text-muted small mt-1">#{msg.photoFormats}</div>
+
+                        <p:outputLabel for="notes" value="#{msg.notes}" styleClass="sc-label" />
+                        <p:inputTextarea id="notes" value="#{studentController.student.obs}" rows="3"
+                            placeholder="#{msg.additionalNotesPlaceholder}" />
+                    </p:panelGrid>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times" styleClass="sc-btn-cancel" type="button"
+                    onclick="PF('createStudentDialog').hide()" />
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save" styleClass="sc-btn-save"
+                    action="#{studentController.saveStudent}" ajax="false" update=":formStudents:dt-students msgs"
+                    oncomplete="if (!args.validationFailed) { PF('createStudentDialog').hide(); }" />
+
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

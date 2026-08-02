@@ -1,0 +1,566 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">#{msg['financialMovements']}</ui:define>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputStylesheet name="general.css" library="css" />
+    <h:outputScript name="general.js" library="js" />
+
+    <ui:define name="content">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap');
+
+            :root {
+                --black: #141414;
+                --black-mid: #262626;
+                --black-lt: #3a3a3a;
+                --red: #c8102e;
+                --red-lt: #e63946;
+                --red-pale: #fdecee;
+                --yellow: #f5b400;
+                --yellow-lt: #ffd23f;
+                --yellow-pale: #fff8e1;
+                --green: #1e8e3e;
+                --green-pale: #e6f4ea;
+                --blue: #1a5fb4;
+                --blue-pale: #eaf1fb;
+                --surface: #ffffff;
+                --surface-2: #f7f7f8;
+                --border: #e6e6e8;
+                --border-dk: #cfcfd3;
+                --text: #141414;
+                --text-muted: #666a70;
+                --text-faint: #9a9ea4;
+                --radius-sm: 6px;
+                --radius: 10px;
+                --radius-lg: 14px;
+                --shadow-sm: 0 1px 4px rgba(20, 20, 20, .08);
+                --shadow: 0 4px 20px rgba(20, 20, 20, .12);
+                --font: 'DM Sans', system-ui, sans-serif;
+                --font-mono: 'DM Mono', monospace;
+            }
+
+            body {
+                background: var(--surface-2);
+                font-family: var(--font);
+            }
+
+            .page-scroll-wrapper {
+                height: calc(100vh - 72px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 1.6rem 1.8rem 2.5rem;
+                box-sizing: border-box;
+                scroll-behavior: smooth;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-thumb {
+                background: var(--border-dk);
+                border-radius: 99px;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+                background: var(--black-lt);
+            }
+
+            .page-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .page-header-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .page-header-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: var(--radius);
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--yellow);
+                font-size: 1.25rem;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(20, 20, 20, .3);
+            }
+
+            .page-header-title h1 {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--black);
+                margin: 0 0 .2rem;
+            }
+
+            .page-header-title span {
+                font-size: .78rem;
+                color: var(--text-muted);
+            }
+
+            .breadcrumb-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: var(--yellow-pale);
+                border: 1px solid rgba(245, 180, 0, .35);
+                color: #8a6400;
+                border-radius: 99px;
+                padding: 3px 12px;
+                font-size: .72rem;
+                font-weight: 600;
+            }
+
+            .stats-row {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: .9rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .stat-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: .9rem;
+                box-shadow: var(--shadow-sm);
+                transition: all .2s;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--radius-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .95rem;
+            }
+
+            .stat-icon.total {
+                background: var(--yellow-pale);
+                color: #8a6400;
+            }
+
+            .stat-icon.income {
+                background: var(--green-pale);
+                color: var(--green);
+            }
+
+            .stat-icon.expense {
+                background: var(--red-pale);
+                color: var(--red);
+            }
+
+            .stat-icon.balance {
+                background: var(--black);
+                color: var(--yellow);
+            }
+
+            .stat-label {
+                font-size: .72rem;
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+
+            .stat-value {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--black);
+                line-height: 1;
+            }
+
+            .main-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow);
+                overflow: hidden;
+            }
+
+            .card-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: .9rem 1.2rem;
+                border-bottom: 1px solid var(--border);
+                gap: .8rem;
+                flex-wrap: wrap;
+            }
+
+            .toolbar-left {
+                display: flex;
+                align-items: center;
+                gap: 2.5rem;
+            }
+
+            .toolbar-title {
+                font-size: .85rem;
+                font-weight: 700;
+                color: var(--black);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .search-wrap {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+
+            .search-wrap .pi-search {
+                position: absolute;
+                left: 9px;
+                color: var(--text-faint);
+                font-size: .75rem;
+            }
+
+            .search-input {
+                padding: 6px 10px 6px 28px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                font-size: .8rem;
+                width: 200px;
+                background: var(--surface-2);
+                outline: none;
+            }
+
+            .search-input:focus {
+                border-color: var(--red);
+                box-shadow: 0 0 0 3px rgba(200, 16, 46, .1);
+            }
+
+            .btn-new {
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                color: #fff;
+                border: none;
+                border-radius: var(--radius-sm);
+                padding: 7px 16px;
+                font-size: .8rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .btn-new:hover {
+                filter: brightness(1.08);
+            }
+
+            .sc-table.p-datatable .p-datatable-thead>tr>th {
+                background: var(--black) !important;
+                color: var(--yellow-lt) !important;
+                font-size: .7rem !important;
+                text-transform: uppercase !important;
+                padding: .7rem 1rem !important;
+                border-color: var(--black) !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody>tr>td {
+                font-size: .82rem !important;
+                padding: .72rem 1rem !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody>tr:hover {
+                background: var(--surface-2) !important;
+            }
+
+            .t-num {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                background: var(--black-mid);
+                color: var(--yellow);
+                border-radius: 5px;
+                padding: 3px 9px;
+                font-family: var(--font-mono);
+                font-size: .75rem;
+            }
+
+            .t-amount {
+                font-family: var(--font-mono);
+                font-weight: 700;
+            }
+
+            .t-amount.income {
+                color: var(--green);
+            }
+
+            .t-amount.expense {
+                color: var(--red);
+            }
+
+            .type-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 10px;
+                border-radius: 99px;
+                font-size: .72rem;
+                font-weight: 700;
+            }
+
+            .type-INCOME {
+                background: var(--green-pale);
+                color: var(--green);
+                border: 1px solid rgba(30, 142, 62, .3);
+            }
+
+            .type-EXPENSE {
+                background: var(--red-pale);
+                color: var(--red);
+                border: 1px solid rgba(200, 16, 46, .25);
+            }
+
+            .status-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 10px;
+                border-radius: 99px;
+                font-size: .72rem;
+                font-weight: 700;
+            }
+
+            .status-ACTIVE {
+                background: var(--yellow-pale);
+                color: #8a6400;
+                border: 1px solid rgba(245, 180, 0, .4);
+            }
+
+            .status-CANCELLED {
+                background: var(--black);
+                color: #fff;
+            }
+
+            .status-PENDING {
+                background: var(--blue-pale);
+                color: var(--blue);
+                border: 1px solid rgba(26, 95, 180, .25);
+            }
+
+            .actions-cell {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                justify-content: center;
+            }
+
+            .act-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .75rem;
+            }
+
+            .act-btn.edit {
+                color: #8a6400;
+                background: var(--yellow-pale);
+            }
+
+            .act-btn.delete {
+                color: var(--red);
+                background: var(--red-pale);
+            }
+        </style>
+
+        <div class="page-scroll-wrapper">
+            <h:form id="formMovements">
+                <p:growl id="messages" showDetail="true" life="4000" />
+
+                <!-- ── Page Header ── -->
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <div class="page-header-icon"><i class="pi pi-wallet" /></div>
+                        <div class="page-header-title">
+                            <h1>#{msg['financialMovements']}</h1>
+                            <span>#{msg.financialMovementManagement}</span>
+                        </div>
+                    </div>
+                    <span class="breadcrumb-pill">
+                        <i class="pi pi-home" style="font-size:.65rem" /> #{msg.management} › #{msg.financialMovements}
+                    </span>
+                </div>
+
+                <!-- ── Stat Cards ── -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon total"><i class="pi pi-list" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.totalMovements}</div>
+                            <div class="stat-value">#{financialMovementController.totalMovementCount}</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon income"><i class="pi pi-arrow-down" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.totalIncome}</div>
+                            <div class="stat-value">
+                                <h:outputText value="#{financialMovementController.totalIncome}">
+                                    <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon expense"><i class="pi pi-arrow-up" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.totalExpense}</div>
+                            <div class="stat-value">
+                                <h:outputText value="#{financialMovementController.totalExpense}">
+                                    <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon balance"><i class="pi pi-chart-line" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.balance}</div>
+                            <div class="stat-value">
+                                <h:outputText value="#{financialMovementController.balance}">
+                                    <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Main Card ── -->
+                <div class="main-card">
+                    <div class="card-toolbar">
+                        <div class="toolbar-left filter-zone">
+                            <span class="toolbar-title"><i class="pi pi-list" style="color:var(--red)" />
+                                #{msg.registration}</span>
+                            <div class="search-wrap">
+                                <input type="text" class="search-input" placeholder=" #{msg.searchMovement}"
+                                    onkeyup="PF('dtMovements').filter(this.value, 'global', 'contains')" />
+                            </div>
+                        </div>
+                        <p:commandButton value="#{msg.newMovement}" icon="pi pi-plus" styleClass="btn-new"
+                            actionListener="#{financialMovementController.prepareNewMovement}" process="@this"
+                            update=":movementCreateForm" oncomplete="PF('createMovementDialog').show()" />
+                    </div>
+
+                    <p:dataTable id="dtMovements" widgetVar="dtMovements" styleClass="sc-table"
+                        value="#{financialMovementController.lazyModel}" lazy="true" var="movement" paginator="true"
+                        rows="10" paginatorPosition="bottom" reflow="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" emptyMessage="#{msg.noMovementFound}">
+
+                        <p:column headerText="#{msg.movementNumber}" sortBy="#{movement.movementNumber}"
+                            style="width:140px">
+                            <span class="t-num">
+                                <i class="pi pi-hashtag" style="font-size:.65rem" />
+                                <h:outputText value="#{movement.movementNumber}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.cashBox}" sortBy="#{movement.cashBoxNumber}">
+                            <div class="small"><i class="pi pi-inbox me-1 text-muted" />
+                                <h:outputText value="#{movement.cashBoxNumber}" />
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="#{msg.payment}" sortBy="#{movement.pagamentoNumeroDocumento}">
+                            <div class="small">
+                                <i class="pi pi-credit-card me-1 text-muted" />
+                                <h:outputText value="#{movement.pagamentoNumeroDocumento}"
+                                    rendered="#{not empty movement.pagamentoNumeroDocumento}" />
+                                <h:outputText value="—" rendered="#{empty movement.pagamentoNumeroDocumento}" />
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="#{msg.description}" sortBy="#{movement.description}">
+                            <h:outputText value="#{movement.description}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.amount}" sortBy="#{movement.amount}" style="width:130px">
+                            <h:outputText value="#{movement.amount}"
+                                styleClass="t-amount #{movement.type == 'INCOME' ? 'income' : 'expense'}">
+                                <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg.type}" sortBy="#{movement.type}" style="width:110px">
+                            <span class="type-badge type-#{movement.type}">
+                                <h:outputText value="#{movement.type}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.category}" sortBy="#{movement.category}">
+                            <h:outputText value="#{movement.category}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.status}" sortBy="#{movement.status}" style="width:120px">
+                            <span class="status-badge status-#{movement.status}">
+                                <h:outputText value="#{movement.status}" />
+                            </span>
+                        </p:column>
+
+
+
+                        <p:column headerText="#{msg.movementDate}" sortBy="#{movement.movementDate}" style="width:120px">
+                            <h:outputText value="#{movement.movementDate}"
+                                rendered="#{not empty movement.movementDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                            </h:outputText>
+                            <h:outputText value="-" rendered="#{empty movement.movementDate}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.actions}" style="width:110px; text-align:center" exportable="false">
+                            <div class="actions-cell">
+                                <p:commandButton styleClass="act-btn edit" icon="pi pi-pencil" title="Editar"
+                                    action="#{financialMovementController.openEditDialog(movement.phMovement)}"
+                                    process="@this" update=":movementEditForm"
+                                    oncomplete="PF('editMovementDialog').show()" />
+
+                                <p:commandButton styleClass="act-btn delete" icon="pi pi-trash" title="Excluir"
+                                    action="#{financialMovementController.delete(movement.phMovement)}" process="@this"
+                                    update=":formMovements:dtMovements :formMovements:messages"
+                                    onclick="return confirm('#{msg.deleteMovement}')" />
+                            </div>
+                        </p:column>
+
+                        <f:facet name="emptyMessage">
+                            <div class="text-center p-5 text-muted">
+                                <i class="pi pi-wallet d-block mb-2" style="font-size:2rem; opacity:.2" />
+                                #{msg.noMovementFound}
+                            </div>
+                        </f:facet>
+                    </p:dataTable>
+                </div>
+
+            </h:form>
+
+            <ui:include src="movement/movement-create.xhtml" />
+            <ui:include src="movement/movement-edit.xhtml" />
+        </div>
+    </ui:define>
+
+</ui:composition>

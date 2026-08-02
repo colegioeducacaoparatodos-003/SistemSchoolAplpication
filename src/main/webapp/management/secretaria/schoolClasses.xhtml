@@ -1,0 +1,614 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">#{msg.schoolClassList}</ui:define>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputStylesheet name="general.css" library="css" />
+    <h:outputScript name="general.js" library="js" />
+
+    <ui:define name="content">
+ <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap');
+
+            :root {
+                --black: #141414;
+                --black-mid: #262626;
+                --black-lt: #3a3a3a;
+                --red: #c8102e;
+                --red-lt: #e63946;
+                --red-pale: #fdecee;
+                --yellow: #f5b400;
+                --yellow-lt: #ffd23f;
+                --yellow-pale: #fff8e1;
+                --blue: #1a5fb4;
+                --blue-pale: #eaf1fb;
+                --surface: #ffffff;
+                --surface-2: #f7f7f8;
+                --border: #e6e6e8;
+                --border-dk: #cfcfd3;
+                --text: #141414;
+                --text-muted: #666a70;
+                --text-faint: #9a9ea4;
+                --radius-sm: 6px;
+                --radius: 10px;
+                --radius-lg: 14px;
+                --shadow-sm: 0 1px 4px rgba(20, 20, 20, .08);
+                --shadow: 0 4px 20px rgba(20, 20, 20, .12);
+                --font: 'DM Sans', system-ui, sans-serif;
+                --font-mono: 'DM Mono', monospace;
+            }
+
+            body {
+                background: var(--surface-2);
+                font-family: var(--font);
+            }
+
+            .page-scroll-wrapper {
+                height: calc(100vh - 72px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 1.2rem;
+                box-sizing: border-box;
+                scroll-behavior: smooth;
+            }
+
+            @media (min-width: 768px) {
+                .page-scroll-wrapper {
+                    padding: 1.6rem 1.8rem 2.5rem;
+                }
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar { width: 5px; }
+            .page-scroll-wrapper::-webkit-scrollbar-track { background: transparent; }
+            .page-scroll-wrapper::-webkit-scrollbar-thumb { background: var(--border-dk); border-radius: 99px; }
+            .page-scroll-wrapper::-webkit-scrollbar-thumb:hover { background: var(--black-lt); }
+
+            .page-header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1.2rem;
+            }
+
+            @media (min-width: 576px) {
+                .page-header {
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .page-header-left { display: flex; align-items: center; gap: 1rem; }
+
+            .page-header-icon {
+                width: 42px;
+                height: 42px;
+                border-radius: var(--radius);
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--yellow);
+                font-size: 1.1rem;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(20, 20, 20, .3);
+            }
+
+            @media (min-width: 768px) {
+                .page-header-icon {
+                    width: 48px;
+                    height: 48px;
+                    font-size: 1.25rem;
+                }
+            }
+
+            .page-header-title h1 { 
+                font-size: 1.15rem; 
+                font-weight: 700; 
+                color: var(--black); 
+                margin: 0 0 .15rem; 
+            }
+
+            @media (min-width: 768px) {
+                .page-header-title h1 { font-size: 1.35rem; }
+            }
+
+            .page-header-title span { font-size: .75rem; color: var(--text-muted); }
+
+            .breadcrumb-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: var(--yellow-pale);
+                border: 1px solid rgba(245, 180, 0, .35);
+                color: #8a6400;
+                border-radius: 99px;
+                padding: 3px 12px;
+                font-size: .7rem;
+                font-weight: 600;
+            }
+
+            /* ── Stat cards ── */
+            .stat-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: .8rem;
+                margin-bottom: 1.2rem;
+            }
+
+            @media (min-width: 576px) {
+                .stat-row {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (min-width: 992px) {
+                .stat-row {
+                    grid-template-columns: repeat(4, 1fr);
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .stat-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                padding: .9rem 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: .8rem;
+            }
+
+            .stat-card .stat-label {
+                font-size: .72rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: .03em;
+                display: block;
+                margin-bottom: .2rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--black);
+                font-family: var(--font-mono);
+            }
+
+            @media (min-width: 768px) {
+                .stat-card .stat-value { font-size: 1.5rem; }
+            }
+
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: var(--radius);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+
+            @media (min-width: 768px) {
+                .stat-icon {
+                    width: 42px;
+                    height: 42px;
+                    font-size: 1.1rem;
+                }
+            }
+
+            .stat-icon.total { background: var(--black); color: var(--yellow); }
+            .stat-icon.new { background: var(--yellow-pale); color: #8a6400; }
+            .stat-icon.classes { background: var(--blue-pale); color: var(--blue); }
+            .stat-icon.students { background: var(--red-pale); color: var(--red); }
+
+            /* ── Main card / table ── */
+            .main-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow);
+                overflow: hidden;
+            }
+
+            .card-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: .8rem 1rem;
+                border-bottom: 1px solid var(--border);
+                gap: .8rem;
+                flex-wrap: wrap;
+            }
+
+            .toolbar-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            @media (min-width: 768px) {
+                .toolbar-left {
+                    gap: 2rem;
+                    width: auto;
+                }
+            }
+
+            .toolbar-title {
+                font-size: .82rem;
+                font-weight: 700;
+                color: var(--black);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .toolbar-right {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            @media (min-width: 768px) {
+                .toolbar-right {
+                    width: auto;
+                }
+            }
+
+            .search-wrap { position: relative; display: flex; align-items: center; width: 100%; }
+
+            @media (min-width: 576px) {
+                .search-wrap { width: auto; }
+            }
+
+            .search-wrap .pi-search {
+                position: absolute;
+                left: 9px;
+                color: var(--text-faint);
+                font-size: .75rem;
+            }
+
+            .search-input {
+                padding: 6px 10px 6px 28px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                font-size: .8rem;
+                width: 100%;
+                background: var(--surface-2);
+                outline: none;
+            }
+
+            @media (min-width: 576px) {
+                .search-input { width: 200px; }
+            }
+
+            .search-input:focus {
+                border-color: var(--red);
+                box-shadow: 0 0 0 3px rgba(200, 16, 46, .1);
+            }
+
+            .btn-new {
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                color: #fff;
+                border: none;
+                border-radius: var(--radius-sm);
+                padding: 7px 16px;
+                font-size: .8rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .btn-new:hover { filter: brightness(1.08); }
+
+            .btn-ghost {
+                background: var(--surface-2);
+                color: var(--text);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                padding: 7px 12px;
+                font-size: .8rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .btn-ghost:hover { background: var(--border); }
+
+            .sc-table.p-datatable .p-datatable-thead > tr > th {
+                background: var(--black) !important;
+                color: var(--yellow-lt) !important;
+                font-size: .7rem !important;
+                text-transform: uppercase !important;
+                padding: .7rem 1rem !important;
+                border-color: var(--black) !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody > tr > td {
+                font-size: .82rem !important;
+                padding: .72rem 1rem !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody > tr:hover { background: var(--surface-2) !important; }
+
+            .t-num {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                background: var(--black-mid);
+                color: var(--yellow);
+                border-radius: 5px;
+                padding: 3px 9px;
+                font-family: var(--font-mono);
+                font-size: .75rem;
+            }
+
+            .t-cell { display: flex; align-items: center; gap: 10px; }
+
+            .t-avatar {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: var(--black);
+                color: var(--yellow);
+                font-size: .78rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .t-sub { font-size: .72rem; color: var(--text-muted); }
+
+            .class-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 10px;
+                border-radius: 99px;
+                font-size: .72rem;
+                font-weight: 700;
+                background: var(--blue-pale);
+                color: var(--blue);
+                border: 1px solid rgba(26, 95, 180, .3);
+            }
+
+            .shift-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 10px;
+                border-radius: 99px;
+                font-size: .72rem;
+                font-weight: 700;
+                background: var(--yellow-pale);
+                color: #8a6400;
+                border: 1px solid rgba(245, 180, 0, .4);
+            }
+
+            .actions-cell { display: flex; align-items: center; gap: 4px; justify-content: center; }
+
+            .act-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .75rem;
+                cursor: pointer;
+            }
+
+            .act-btn.edit { color: #8a6400; background: var(--yellow-pale); }
+            .act-btn.delete { color: var(--red); background: var(--red-pale); }
+            .act-btn.print { color: var(--blue); background: var(--blue-pale); }
+            .act-btn.print:hover { filter: brightness(0.95); }
+        </style>
+
+
+        <div class="page-scroll-wrapper">
+            <h:form id="formSchoolClasses">
+                <p:growl id="messages" showDetail="true" life="4000" />
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <div class="page-header-icon"><i class="pi pi-sitemap" /></div>
+                        <div class="page-header-title">
+                            <h1>#{msg.schoolClassList}</h1>
+                            <span>#{msg.classManagement}</span>
+                        </div>
+                    </div>
+                    <span class="breadcrumb-pill">
+                        <i class="pi pi-home" style="font-size:.65rem" /> #{msg.schoolManagement} &#8250;
+                        #{msg.schoolClassList}
+                    </span>
+                </div>
+
+                <!-- Stat cards -->
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.totalClasses}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{schoolClassController.totalSchoolClassCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon total"><i class="pi pi-sitemap" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.activeClasses}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{schoolClassController.activeSchoolClassCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon active"><i class="pi pi-check-circle" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.distinctShifts}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{schoolClassController.distinctTurnosCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon turnos"><i class="pi pi-clock" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.totalCapacity}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{schoolClassController.totalCapacityCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon capacity"><i class="pi pi-users" /></div>
+                    </div>
+                </div>
+
+                <!-- Main Card -->
+                <div class="main-card">
+                    <div class="card-toolbar">
+                        <div class="toolbar-left filter-zone">
+                            <span class="toolbar-title"><i class="pi pi-list" style="color:var(--red)" />
+                                #{msg.record}</span>
+                            <div class="search-wrap">
+                                <i class="pi pi-search" />
+                                <input type="text" class="search-input" placeholder="#{msg.search}"
+                                    onkeyup="PF('dtSchoolClasses').filter(this.value, 'global', 'contains')" />
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <p:commandButton icon="pi pi-filter-slash" title="#{msg.clearFilters}"
+                                styleClass="btn-ghost" actionListener="#{schoolClassController.lazyModel.clearFilters}"
+                                update="dtSchoolClasses" />
+                            <p:commandButton value="#{msg.export}" icon="pi pi-file-export" styleClass="btn-ghost" />
+                            <p:commandButton value="#{msg.newSchoolClass}" icon="pi pi-plus" styleClass="btn-new"
+                                oncomplete="PF('createSchoolClassDialog').show()" update=":schoolClassCreateForm"
+                                process="@this" />
+                        </div>
+                    </div>
+
+                    <p:dataTable id="dtSchoolClasses" widgetVar="dtSchoolClasses" styleClass="sc-table"
+                        var="schoolClass" value="#{schoolClassController.lazyModel}" lazy="true" paginator="true"
+                        rows="10" paginatorPosition="bottom" reflow="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registos"
+                        rowsPerPageTemplate="5,10,15,30" emptyMessage="#{msg.noSchoolClassFound}">
+
+                        <p:column headerText="#{msg.classCode}" sortBy="#{schoolClass.classCode}" style="width:110px">
+                            <span class="t-num">
+                                <i class="pi pi-hashtag" style="font-size:.65rem" />
+                                <h:outputText value="#{schoolClass.classCode}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.className}" sortBy="#{schoolClass.className}">
+                            <div class="t-cell">
+                                <div class="t-avatar">
+                                    <h:outputText value="#{schoolClass.className.substring(0,1)}" />
+                                </div>
+                                <div style="min-width:0; overflow:hidden;">
+                                    <div class="fw-bold text-dark text-truncate">
+                                        <h:outputText value="#{schoolClass.className}" />
+                                    </div>
+                                    <div class="t-sub">Sala
+                                        <h:outputText value="#{schoolClass.room}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </p:column>
+
+                        <p:column headerText="#{msg.shift}" sortBy="#{schoolClass.turno}"
+                            style="width:130px; text-align:center">
+                            <span class="shift-badge">
+                                <i class="pi pi-clock" style="font-size:.65rem" />
+                                <h:outputText value="#{schoolClass.turno}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.academicYear}" sortBy="#{schoolClass.anoLectivo}"
+                            style="width:120px; text-align:center">
+                            <h:outputText value="#{schoolClass.anoLectivo}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.capacity}" sortBy="#{schoolClass.capacidade}"
+                            style="width:100px; text-align:center">
+                            <h:outputText value="#{schoolClass.capacidade}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.status}" sortBy="#{schoolClass.status}"
+                            style="width:120px; text-align:center">
+                            <span
+                                class="status-badge #{schoolClass.status.isACTIVE() ? 'active' : (schoolClass.status.isINACTIVE() ? 'inactive' : (schoolClass.status.isCANCELED() ? 'canceled' : 'deceased'))}">
+                                <i class="pi pi-circle-fill" style="font-size:.55rem" />
+                                <h:outputText value="#{schoolClass.status}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.actions}" style="width:110px; text-align:center" exportable="false">
+                            <div class="actions-cell">
+                                <p:commandButton styleClass="act-btn edit" icon="pi pi-pencil" title="#{msg.edit}"
+                                    actionListener="#{schoolClassController.openEditDialog}"
+                                    oncomplete="PF('editSchoolClassDialog').show()" update=":schoolClassEditForm">
+                                    <f:setPropertyActionListener value="#{schoolClass.pkSchoolClass}"
+                                        target="#{schoolClassController.selectedId}" />
+                                </p:commandButton>
+
+                                <p:commandButton styleClass="act-btn delete" icon="pi pi-trash" title="Excluir"
+                                    process="@this" oncomplete="PF('deleteSchoolClassDialog').show()">
+                                    <f:setPropertyActionListener value="#{schoolClass.pkSchoolClass}"
+                                        target="#{schoolClassController.selectedId}" />
+                                </p:commandButton>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+                <!-- Confirm delete dialog -->
+                <p:dialog widgetVar="deleteSchoolClassDialog" modal="true" resizable="false"
+                    header="#{msg.confirmDelete}" width="90%" style="max-width: 380px;" closable="true">
+                    <div style="padding: .5rem 0 1rem; display:flex; gap:.8rem; align-items:flex-start;">
+                        <i class="pi pi-exclamation-triangle"
+                            style="color: var(--red); font-size: 1.6rem; flex-shrink:0;" />
+                        <span style="font-size:.88rem; color: var(--text);">#{msg.deleteQuestion}</span>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:.6rem;">
+                        <p:commandButton value="#{msg.no}" type="button" onclick="PF('deleteSchoolClassDialog').hide()"
+                            styleClass="btn-ghost" />
+                        <p:commandButton value="#{msg.yes}" icon="pi pi-trash"
+                            actionListener="#{schoolClassController.delete}" process="@this"
+                            update=":formSchoolClasses:dtSchoolClasses :formSchoolClasses:messages"
+                            oncomplete="PF('deleteSchoolClassDialog').hide()" styleClass="btn-new" />
+                    </div>
+                </p:dialog>
+            </h:form>
+
+            <ui:include src="schoolClass/schoolClass-create.xhtml" />
+            <ui:include src="schoolClass/schoolClass-edit.xhtml" />
+        </div>
+    </ui:define>
+</ui:composition>

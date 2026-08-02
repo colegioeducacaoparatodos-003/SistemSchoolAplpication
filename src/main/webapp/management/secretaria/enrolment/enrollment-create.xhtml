@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="createEnrollmentDialog" widgetVar="createEnrollmentDialog" header="#{msg.newEnrollment}"
+        modal="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-create"
+        width="800" dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="enrollmentCreateForm" styleClass="ui-fluid">
+            <div class="sc-create-body">
+                <p:messages id="msgsCreate" showDetail="true" closable="true" globalOnly="true" />
+
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-id-card"></i> #{msg.enrollmentDetails}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+
+                        <p:outputLabel for="enrolmentNumer" value="#{msg.enrollmentNumber}" styleClass="sc-label req" />
+                        <p:inputText id="enrolmentNumer" value="#{enrolmentController.enrolment.enrolmentNumer}"
+                            readonly="true" styleClass="sc-readonly-field" title="#{msg.enrollmentNumber}" />
+
+                        <p:outputLabel for="student" value="#{msg.student}" styleClass="sc-label req" />
+                        <h:panelGroup layout="block">
+                            <p:selectOneMenu id="student" value="#{enrolmentController.selectedStudentId}"
+                                required="true" requiredMessage="#{msg.student} — #{msg.fieldRequired}"
+                                filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}"
+                                    noSelectionOption="true" />
+                                <f:selectItems value="#{enrolmentController.students}" var="st"
+                                    itemLabel="#{st.fullName} (#{st.sudentNumber})" itemValue="#{st.pkStudent}" />
+                            </p:selectOneMenu>
+                            <p:message for="student" display="text" styleClass="sc-field-msg" />
+                        </h:panelGroup>
+
+                        <p:outputLabel for="schoolClass" value="#{msg.classCode}" styleClass="sc-label req" />
+                        <h:panelGroup layout="block">
+                            <p:selectOneMenu id="schoolClass" value="#{enrolmentController.selectedSchoolClassId}"
+                                required="true" requiredMessage="#{msg.classCode} — #{msg.fieldRequired}"
+                                filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}"
+                                    noSelectionOption="true" />
+                                <f:selectItems value="#{enrolmentController.schoolClasses}" var="sc"
+                                    itemLabel="#{sc.classCode} — #{sc.className}" itemValue="#{sc.pkSchoolClass}" />
+                            </p:selectOneMenu>
+                            <p:message for="schoolClass" display="text" styleClass="sc-field-msg" />
+                        </h:panelGroup>
+
+                        <p:outputLabel for="shift" value="#{msg.shift}" styleClass="sc-label req" />
+                        <h:panelGroup layout="block">
+                            <p:selectOneMenu id="shift" value="#{enrolmentController.enrolment.shift}"
+                                required="true" requiredMessage="#{msg.shift} — #{msg.fieldRequired}">
+                                <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}"
+                                    noSelectionOption="true" />
+                                <f:selectItems value="#{enrolmentController.shifts}" var="sh" itemLabel="#{sh}"
+                                    itemValue="#{sh}" />
+                            </p:selectOneMenu>
+                            <p:message for="shift" display="text" styleClass="sc-field-msg" />
+                        </h:panelGroup>
+
+                        <p:outputLabel for="enrolmentType" value="#{msg.enrollmentType}" styleClass="sc-label req" />
+                        <h:panelGroup layout="block">
+                            <p:selectOneMenu id="enrolmentType" value="#{enrolmentController.enrolment.enrolmentType}"
+                                required="true" requiredMessage="#{msg.enrollmentType} — #{msg.fieldRequired}">
+                                <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}"
+                                    noSelectionOption="true" />
+                                <f:selectItems value="#{enrolmentController.enrolmentTypes}" var="et"
+                                    itemLabel="#{et}" itemValue="#{et}" />
+                            </p:selectOneMenu>
+                            <p:message for="enrolmentType" display="text" styleClass="sc-field-msg" />
+                        </h:panelGroup>
+
+                        <p:outputLabel for="enrolmentData" value="#{msg.enrollmentDate}" styleClass="sc-label" />
+                        <p:datePicker id="enrolmentData" value="#{enrolmentController.enrolment.enrolmentData}"
+                            pattern="dd/MM/yyyy" showIcon="true" />
+
+                    </p:panelGrid>
+                </div>
+
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-info-circle"></i> #{msg.additionalInformation}</div>
+                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:outputLabel for="notes" value="#{msg.notes}" styleClass="sc-label" />
+                        <p:inputTextarea id="notes" value="#{enrolmentController.enrolment.obs}" rows="3"
+                            maxlength="500" counter="notesCounter" counterTemplate="{0} / 500"
+                            placeholder="#{msg.additionalNotesPlaceholder}" />
+                        <h:outputText id="notesCounter" styleClass="sc-char-counter" />
+                    </p:panelGrid>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times" styleClass="sc-btn-cancel" type="button"
+                    onclick="PF('createEnrollmentDialog').hide()" />
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save" styleClass="sc-btn-save"
+                    action="#{enrolmentController.saveEnrolment}" process="@form"
+                    update=":enrollmentCreateForm:msgsCreate :formEnrollments:dtEnrollments :formEnrollments:messages"
+                    oncomplete="if (!args.validationFailed) { PF('createEnrollmentDialog').hide(); }" />
+            </div>
+        </h:form>
+    </p:dialog>
+
+    <style>
+        .sc-field-msg { display: block; margin-top: 4px; font-size: 12px; color: var(--sc-red, #c0392b); }
+        .sc-char-counter { display: block; text-align: right; font-size: 11px; color: #888; margin-top: 2px; }
+        .sc-label.req::after { content: " *"; color: var(--sc-red, #c0392b); }
+    </style>
+
+</ui:composition>

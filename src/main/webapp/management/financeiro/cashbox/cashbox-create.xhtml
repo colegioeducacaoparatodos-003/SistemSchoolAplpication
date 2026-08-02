@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="createCashBoxDialog" widgetVar="createCashBoxDialog" header="#{msg.newCashBox}" modal="true"
+              showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-create" width="700"
+              dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="cashBoxCreateForm" styleClass="ui-fluid">
+            <div class="sc-create-body">
+                <p:messages id="msgs" showDetail="true" closable="true"/>
+
+                <!-- 1 · IDENTIFICAÇÃO DO CAIXA -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-hashtag"></i> #{msg.cashBoxIdentification}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="cashBoxNumber" value="#{msg.cashBoxNumber}" styleClass="sc-label req"/>
+                        <p:inputText id="cashBoxNumber" value="#{cashBoxController.cashBox.cashBoxNumber}"
+                                     required="true" placeholder="Ex: CX-2026-001"/>
+
+                        <p:outputLabel for="operator" value="#{msg.responsible}" styleClass="sc-label"/>
+                        <p:inputText id="operator" value="#{cashBoxController.cashBox.operator}"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 2 · DETALHES DO CAIXA -->
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-money-bill"></i> #{msg.cashBoxDetails}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="openingDate" value="#{msg.openingDate}" styleClass="sc-label"/>
+                        <p:datePicker id="openingDate" value="#{cashBoxController.cashBox.openingDate}"
+                                      pattern="dd/MM/yyyy" showIcon="true"/>
+
+                        <p:outputLabel for="openingBalance" value="#{msg.openingBalance}" styleClass="sc-label"/>
+                        <p:inputNumber id="openingBalance" value="#{cashBoxController.cashBox.openingBalance}"
+                                       symbol="Kz " symbolPosition="p" decimalPlaces="2"/>
+
+                        <p:outputLabel for="status" value="#{msg.status}" styleClass="sc-label"/>
+                        <p:selectOneMenu id="status" value="#{cashBoxController.cashBox.status}">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{cashBoxController.statuses}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:outputLabel for="observation" value="#{msg.observation}" styleClass="sc-label"/>
+                    <p:inputTextarea id="observation" value="#{cashBoxController.cashBox.observation}" rows="3"
+                                     placeholder="#{msg.additionalNotesPlaceholder}"/>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times"
+                                 styleClass="sc-btn-cancel"
+                                 type="button"
+                                 onclick="PF('createCashBoxDialog').hide()"/>
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save"
+                                 styleClass="sc-btn-save"
+                                 action="#{cashBoxController.saveCashBox}"
+                                 process="@form"
+                                 update=":formCashBoxes:dtCashBoxes msgs :formCashBoxes:messages"
+                                 oncomplete="if (!args.validationFailed) { PF('createCashBoxDialog').hide(); }"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

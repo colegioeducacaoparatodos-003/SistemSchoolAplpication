@@ -1,0 +1,672 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">#{msg['payments']}</ui:define>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputStylesheet name="general.css" library="css" />
+    <h:outputScript name="general.js" library="js" />
+
+    <ui:define name="content">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap');
+
+            :root {
+                --black: #141414;
+                --black-mid: #262626;
+                --black-lt: #3a3a3a;
+                --red: #c8102e;
+                --red-lt: #e63946;
+                --red-pale: #fdecee;
+                --yellow: #f5b400;
+                --yellow-lt: #ffd23f;
+                --yellow-pale: #fff8e1;
+                --green: #1e8e3e;
+                --green-pale: #e6f4ea;
+                --blue: #1a5fb4;
+                --blue-pale: #eaf1fb;
+                --surface: #ffffff;
+                --surface-2: #f7f7f8;
+                --border: #e6e6e8;
+                --border-dk: #cfcfd3;
+                --text: #141414;
+                --text-muted: #666a70;
+                --text-faint: #9a9ea4;
+                --radius-sm: 6px;
+                --radius: 10px;
+                --radius-lg: 14px;
+                --shadow-sm: 0 1px 4px rgba(20, 20, 20, .08);
+                --shadow: 0 4px 20px rgba(20, 20, 20, .12);
+                --font: 'DM Sans', system-ui, sans-serif;
+                --font-mono: 'DM Mono', monospace;
+            }
+
+            body {
+                background: var(--surface-2);
+                font-family: var(--font);
+            }
+
+            .page-scroll-wrapper {
+                height: calc(100vh - 72px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: clamp(1rem, 2vw, 1.8rem);
+                box-sizing: border-box;
+                scroll-behavior: smooth;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-thumb {
+                background: var(--border-dk);
+                border-radius: 99px;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+                background: var(--black-lt);
+            }
+
+            .page-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .page-header-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                min-width: 0;
+            }
+
+            .page-header-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: var(--radius);
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--yellow);
+                font-size: 1.25rem;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(20, 20, 20, .3);
+            }
+
+            .page-header-title {
+                min-width: 0;
+            }
+
+            .page-header-title h1 {
+                font-size: clamp(1.1rem, 2vw, 1.35rem);
+                font-weight: 700;
+                color: var(--black);
+                margin: 0 0 .2rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .page-header-title span {
+                font-size: .78rem;
+                color: var(--text-muted);
+            }
+
+            .filter-bar {
+                display: flex;
+                align-items: flex-end;
+                gap: .75rem;
+                min-width: 0;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: .15rem;
+            }
+
+            .filter-item {
+                flex: 1 1 0;
+                min-width: 110px;
+            }
+
+            .filter-item .ui-inputfield,
+            .filter-item .ui-selectonemenu,
+            .filter-item .ui-calendar,
+            .filter-item .ui-inputfield.ui-state-default {
+                width: 100% !important;
+                min-width: 0;
+            }
+
+            .filter-actions {
+                display: flex;
+                gap: .5rem;
+                flex: 0 0 auto;
+            }
+
+            .filter-actions .ui-button {
+                min-width: 94px;
+                white-space: nowrap;
+            }
+
+            .filter-exports {
+                display: flex;
+                gap: .5rem;
+                flex-wrap: nowrap;
+                align-items: center;
+            }
+
+            .filter-exports .ui-button {
+                white-space: nowrap;
+            }
+
+            @media (max-width: 992px) {
+                .filter-bar {
+                    flex-wrap: wrap;
+                }
+
+                .filter-item {
+                    min-width: 160px;
+                }
+
+                .filter-actions,
+                .filter-exports {
+                    flex-wrap: wrap;
+                    width: 100%;
+                }
+            }
+
+            .breadcrumb-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: var(--yellow-pale);
+                border: 1px solid rgba(245, 180, 0, .35);
+                color: #8a6400;
+                border-radius: 99px;
+                padding: 3px 12px;
+                font-size: .72rem;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            /* Estatísticas responsivas em Grid Fluido */
+            .stats-row {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: .9rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .stat-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                display: flex;
+                align-items: center;
+                gap: .9rem;
+                box-shadow: var(--shadow-sm);
+                transition: all .2s;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: var(--radius-sm);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .95rem;
+                flex-shrink: 0;
+            }
+
+            .stat-icon.total {
+                background: var(--yellow-pale);
+                color: #8a6400;
+            }
+
+            .stat-icon.confirmed {
+                background: var(--green-pale);
+                color: var(--green);
+            }
+
+            .stat-icon.amount {
+                background: var(--black);
+                color: var(--yellow);
+            }
+
+            .stat-label {
+                font-size: .72rem;
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+
+            .stat-value {
+                font-size: clamp(1.1rem, 2vw, 1.35rem);
+                font-weight: 700;
+                color: var(--black);
+                line-height: 1;
+                word-break: break-word;
+            }
+
+            .main-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow);
+                overflow: hidden;
+            }
+
+            .card-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: .9rem 1.2rem;
+                border-bottom: 1px solid var(--border);
+                gap: .8rem;
+                flex-wrap: wrap;
+            }
+
+            .toolbar-left {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                flex: 1;
+            }
+
+            .toolbar-right {
+                display: flex;
+                align-items: center;
+                gap: .6rem;
+                flex-wrap: wrap;
+            }
+
+            .btn-ghost {
+                background: var(--surface-2);
+                color: var(--black);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                padding: 7px 12px;
+                font-size: .78rem;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .btn-ghost:hover {
+                background: var(--border);
+            }
+
+            .toolbar-title {
+                font-size: .85rem;
+                font-weight: 700;
+                color: var(--black);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+            }
+
+            .search-wrap {
+                position: relative;
+                display: flex;
+                align-items: center;
+                flex: 1;
+                min-width: 180px;
+                max-width: 300px;
+            }
+
+            .search-wrap .pi-search {
+                position: absolute;
+                left: 9px;
+                color: var(--text-faint);
+                font-size: .75rem;
+            }
+
+            .search-input {
+                padding: 6px 10px 6px 28px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                font-size: .8rem;
+                width: 100%;
+                background: var(--surface-2);
+                outline: none;
+            }
+
+            .search-input:focus {
+                border-color: var(--red);
+                box-shadow: 0 0 0 3px rgba(200, 16, 46, .1);
+            }
+
+            .btn-new {
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                color: #fff;
+                border: none;
+                border-radius: var(--radius-sm);
+                padding: 7px 16px;
+                font-size: .8rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+            }
+
+            .btn-new:hover {
+                filter: brightness(1.08);
+            }
+
+            .sc-table.p-datatable .p-datatable-thead>tr>th {
+                background: var(--black) !important;
+                color: var(--yellow-lt) !important;
+                font-size: .7rem !important;
+                text-transform: uppercase !important;
+                padding: .7rem 1rem !important;
+                border-color: var(--black) !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody>tr>td {
+                font-size: .82rem !important;
+                padding: .72rem 1rem !important;
+            }
+
+            .sc-table.p-datatable .p-datatable-tbody>tr:hover {
+                background: var(--surface-2) !important;
+            }
+
+            .t-code {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                background: var(--black-mid);
+                color: var(--yellow);
+                border-radius: 5px;
+                padding: 3px 9px;
+                font-family: var(--font-mono);
+                font-size: .75rem;
+            }
+
+            .t-amount {
+                font-family: var(--font-mono);
+                font-weight: 700;
+                color: var(--green);
+            }
+
+            .status-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 10px;
+                border-radius: 99px;
+                font-size: .72rem;
+                font-weight: 700;
+            }
+
+            .status-PAGO {
+                background: var(--green-pale);
+                color: var(--green);
+                border: 1px solid rgba(30, 142, 62, .3);
+            }
+
+            .status-PENDENTE {
+                background: var(--blue-pale);
+                color: var(--blue);
+                border: 1px solid rgba(26, 95, 180, .25);
+            }
+
+            .status-PARCIAL {
+                background: var(--yellow-pale);
+                color: #8a6400;
+                border: 1px solid rgba(245, 180, 0, .35);
+            }
+
+            .status-VENCIDO {
+                background: var(--red-pale);
+                color: var(--red);
+                border: 1px solid rgba(200, 16, 46, .3);
+            }
+
+            .status-CANCELADO {
+                background: var(--black);
+                color: #fff;
+            }
+
+            .actions-cell {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .act-btn {
+                width: 28px;
+                height: 28px;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .75rem;
+            }
+
+            .act-btn.print { 
+                color: var(--blue);
+                background: var(--blue-pale);
+            }
+            .act-btn.download { 
+                color: var(--red); 
+                background: var(--red-pale); 
+            }
+
+            .act-btn.edit {
+                color: #8a6400;
+                background: var(--yellow-pale);
+            }
+
+            .act-btn.delete {
+                color: var(--red);
+                background: var(--red-pale);
+            }
+
+            /* Media queries auxiliares para ajustes finos em mobile */
+            @media (max-width: 768px) {
+                .card-toolbar {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .toolbar-left {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: .8rem;
+                }
+                .search-wrap {
+                    max-width: 100%;
+                }
+                .btn-new {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        </style>
+
+        <div class="page-scroll-wrapper">
+            <h:form id="formPagamentos">
+                <p:growl id="messages" showDetail="true" life="4000" />
+
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <div class="page-header-icon"><i class="pi pi-credit-card" /></div>
+                        <div class="page-header-title">
+                            <h1>#{msg['payments']}</h1>
+                            <span>#{msg.paymentManagement}</span>
+                        </div>
+                    </div>
+                    <span class="breadcrumb-pill">
+                        <i class="pi pi-home" style="font-size:.65rem" /> #{msg.management} › #{msg['payments']}
+                    </span>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon total"><i class="pi pi-list" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.totalPayments}</div>
+                            <div class="stat-value">#{pagamentoController.totalPagamentoCount}</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon confirmed"><i class="pi pi-check-circle" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.confirmedPayments}</div>
+                            <div class="stat-value">#{pagamentoController.confirmadoCount}</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon amount"><i class="pi pi-wallet" /></div>
+                        <div>
+                            <div class="stat-label">#{msg.totalConfirmedAmount}</div>
+                            <div class="stat-value">
+                                <h:outputText value="#{pagamentoController.totalConfirmadoAmount}">
+                                    <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-card">
+                    <p:panel header="Filtrar Pagamentos" style="margin: 1rem 1rem 0; border-radius: 12px;">
+                        <div class="filter-bar">
+                            <div class="filter-item">
+                                <p:inputText value="#{pagamentoController.filtroNumeroDocumento}" placeholder="Nº Documento" style="width:100%" />
+                            </div>
+                            <div class="filter-item">
+                                <p:inputText value="#{pagamentoController.filtroStudentName}" placeholder="Aluno" style="width:100%" />
+                            </div>
+                            <div class="filter-item">
+                                <p:selectOneMenu value="#{pagamentoController.filtroFormaPagamento}" style="width:100%">
+                                    <f:selectItem itemLabel="Todas" itemValue="#{null}" />
+                                    <f:selectItems value="#{pagamentoController.formasPagamento}" var="fp"
+                                                   itemLabel="#{fp.descricao}" itemValue="#{fp}" />
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="filter-item">
+                                <p:calendar value="#{pagamentoController.filtroDataInicio}" pattern="dd/MM/yyyy" placeholder="De" style="width:100%" />
+                            </div>
+                            <div class="filter-item">
+                                <p:calendar value="#{pagamentoController.filtroDataFim}" pattern="dd/MM/yyyy" placeholder="Até" style="width:100%" />
+                            </div>
+                            <div class="filter-actions">
+                                <p:commandButton value="Filtrar" update=":formPagamentos:dtPagamentos" process="@form" style="width:100%" />
+                                <p:commandButton value="Limpar" actionListener="#{pagamentoController.limparFiltros}" update=":formPagamentos:dtPagamentos" process="@form" style="width:100%" />
+                            </div>
+                        </div>
+
+                        <div class="filter-exports mt-3">
+                            <p:commandButton value="Baixar PDF" ajax="false" actionListener="#{pagamentoController.baixarListaPdf}" />
+                            <p:commandButton value="Imprimir" ajax="false" actionListener="#{pagamentoController.imprimirListaPdf}" />
+                            <p:menuButton value="#{msg.export}" icon="pi pi-file-export" styleClass="btn-ghost">
+                                <p:menuitem value="Exportar lista PDF" action="#{pagamentoController.exportPagamentoListPdf}" ajax="false" icon="pi pi-file-pdf" />
+                            </p:menuButton>
+                            <p:commandButton value="#{msg.newPayment}" icon="pi pi-plus" styleClass="btn-new"
+                                process="@this" update=":pagamentoCreateForm"
+                                oncomplete="PF('createPagamentoDialog').show()" />
+                        </div>
+                    </p:panel>
+
+                    <p:dataTable id="dtPagamentos" widgetVar="dtPagamentos" styleClass="sc-table"
+                        value="#{pagamentoController.lazyModel}" lazy="true" var="pagamento" paginator="true" rows="10"
+                        paginatorPosition="bottom" reflow="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="5,10,15" emptyMessage="#{msg.noPaymentFound}">
+
+                        <p:column headerText="#{msg.paymentNumber}" sortBy="#{pagamento.numeroDocumento}"
+                            style="width:140px">
+                            <span class="t-code">
+                                <i class="pi pi-hashtag" style="font-size:.65rem" />
+                                <h:outputText value="#{pagamento.numeroDocumento}" />
+                            </span>
+                        </p:column>
+                        
+                        <p:column headerText="#{msg.student}" sortBy="#{pagamento.studentFullName}">
+                            <h:outputText value="#{pagamento.studentFullName}" />
+                        </p:column>
+                        
+                        <p:column headerText="#{msg.amount}" sortBy="#{pagamento.total}" style="width:120px">
+                            <h:outputText value="#{pagamento.total}" styleClass="t-amount">
+                                <f:convertNumber type="currency" currencySymbol="Kz " groupingUsed="true" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="#{msg.paymentMethod}" sortBy="#{pagamento.formaPagamento}"
+                            style="width:130px">
+                            <h:outputText value="#{pagamento.formaPagamento}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.status}" sortBy="#{pagamento.estado}" style="width:120px">
+                            <span class="status-badge status-#{pagamento.estado}">
+                                <h:outputText value="#{pagamento.estado}" />
+                            </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.paymentDate}" sortBy="#{pagamento.dataPagamento}"
+                            style="width:120px">
+                            <h:outputText value="#{pagamento.dataPagamento}"
+                                rendered="#{not empty pagamento.dataPagamento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="localDateTime" />
+                            </h:outputText>
+                            <h:outputText value="-" rendered="#{empty pagamento.dataPagamento}" />
+                        </p:column>
+
+                        <p:column headerText="#{msg.actions}" style="width:150px; text-align:center" exportable="false">
+                            <div class="actions-cell">
+                                <h:commandLink styleClass="act-btn print" title="Imprimir"
+                                    action="#{pagamentoController.imprimirPdf(pagamento.pkPagamento)}" ajax="false"
+                                    target="_blank">
+                                    <i class="pi pi-print" />
+                                </h:commandLink>
+
+                                <h:commandLink styleClass="act-btn download" title="Baixar PDF"
+                                    action="#{pagamentoController.baixarPdf(pagamento.pkPagamento)}" ajax="false">
+                                    <i class="pi pi-file-pdf" />
+                                </h:commandLink>
+
+                                <p:commandButton styleClass="act-btn edit" icon="pi pi-pencil" title="Editar"
+                                    action="#{pagamentoController.openEditDialog(pagamento.pkPagamento)}"
+                                    process="@this" update=":pagamentoEditForm"
+                                    oncomplete="PF('editPagamentoDialog').show()" />
+
+                                <p:commandButton styleClass="act-btn delete" icon="pi pi-trash" title="Excluir"
+                                    action="#{pagamentoController.delete(pagamento.pkPagamento)}" process="@this"
+                                    update=":formPagamentos:dtPagamentos :formPagamentos:messages"
+                                    onclick="return confirm('#{msg.deletePayment}')" />
+                            </div>
+                        </p:column>
+
+                        <f:facet name="emptyMessage">
+                            <div class="text-center p-5 text-muted">
+                                <i class="pi pi-credit-card d-block mb-2" style="font-size:2rem; opacity:.2" />
+                                #{msg.noPaymentFound}
+                            </div>
+                        </f:facet>
+                    </p:dataTable>
+                </div>
+
+            </h:form>
+
+            <ui:include src="pagamento/pagamento-create.xhtml" />
+            <ui:include src="pagamento/pagamento-edit.xhtml" />
+        </div>
+    </ui:define>
+
+</ui:composition>

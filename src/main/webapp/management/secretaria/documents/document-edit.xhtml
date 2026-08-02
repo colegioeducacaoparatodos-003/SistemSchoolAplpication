@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!--
+        IMPORTANTE: este ui:include NÃO pode ficar dentro do <h:form id="formDocuments">
+        da página pai — mesma observação do createDocumentDialog.xhtml.
+    -->
+
+    <p:dialog id="editDocumentDialog" widgetVar="editDocumentDialog" header="#{msg.editDocument}" modal="true"
+        showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="doc-dialog-edit" width="800" dynamic="true"
+        resizable="false" appendTo="@(body)">
+
+        <h:form id="documentEditForm" styleClass="ui-fluid" enctype="multipart/form-data">
+            <div class="sc-create-body">
+                <p:messages id="msgsEdit" showDetail="true" closable="true" globalOnly="true" />
+
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-file"></i> #{msg.documentDetails}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"
+                        columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+
+                        <p:outputLabel for="student" value="#{msg.student}" styleClass="sc-label" />
+                        <p:inputText id="student" value="#{documentController.editDto.studentName}" disabled="true" />
+
+                        <p:outputLabel for="documentNumber" value="#{msg.documentNumber}" styleClass="sc-label req" />
+                        <p:inputText id="documentNumber" value="#{documentController.editDto.documentNumber}"
+                            required="true" />
+
+                        <p:outputLabel for="documentType" value="#{msg.documentType}" styleClass="sc-label req" />
+                        <p:selectOneMenu id="documentType" value="#{documentController.editDto.documentType}"
+                            required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true" />
+                            <f:selectItems value="#{documentController.tiposDocumento}" var="t"
+                                itemLabel="#{t.descricao}" itemValue="#{t}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="issueDate" value="#{msg.issueDate}" styleClass="sc-label" />
+                        <p:datePicker id="issueDate" value="#{documentController.editDto.issueDate}"
+                            pattern="dd/MM/yyyy" showIcon="true" />
+
+                        <p:outputLabel for="expiryDate" value="#{msg.expiryDate}" styleClass="sc-label" />
+                        <p:datePicker id="expiryDate" value="#{documentController.editDto.expiryDate}"
+                            pattern="dd/MM/yyyy" showIcon="true" />
+
+                    </p:panelGrid>
+                </div>
+
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-file-o"></i> #{msg.currentFile}</div>
+                    <div style="display:flex; align-items:center; gap:.6rem; padding:.4rem 0;">
+                        <i class="pi pi-paperclip" style="color:var(--text-muted)" />
+                        <h:outputText value="#{documentController.editDto.fileName}"
+                            style="font-size:.85rem; color:var(--text);" />
+                    </div>
+                    <div class="sc-section-title" style="margin-top:.8rem;"><i class="pi pi-upload"></i>
+                        #{msg.replaceFile}</div>
+                    <p:fileUpload id="upload" listener="#{documentController.handleFileUpload}" mode="advanced"
+                        auto="true" dragDropSupport="true" multiple="false" label="#{msg.chooseFile}"
+                        uploadLabel="#{msg.upload}" cancelLabel="#{msg.cancel}"
+                        update=":documentEditForm:msgsEdit"
+                        process="@this">
+                        <p:validateFile sizeLimit="10000000" allowTypes="/(\.|\/)(pdf|jpe?g|png|docx?)$/" />
+                    </p:fileUpload>
+                </div>
+
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-info-circle"></i> #{msg.additionalInformation}</div>
+                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:outputLabel for="notes" value="#{msg.notes}" styleClass="sc-label" />
+                        <p:inputTextarea id="notes" value="#{documentController.editDto.obs}" rows="3"
+                            placeholder="#{msg.additionalNotesPlaceholder}" />
+                    </p:panelGrid>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times" styleClass="sc-btn-cancel" type="button"
+                    onclick="PF('editDocumentDialog').hide()" />
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save" styleClass="sc-btn-save"
+                    action="#{documentController.saveUpdate}" process="@form"
+                    update=":documentEditForm:msgsEdit :formDocuments:dtDocuments"
+                    oncomplete="if (!args.validationFailed) { PF('editDocumentDialog').hide(); }" />
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

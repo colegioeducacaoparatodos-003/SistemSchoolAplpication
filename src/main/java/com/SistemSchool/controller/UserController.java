@@ -4,15 +4,17 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.SistemSchool.dto.UserDTO;
+import com.SistemSchool.config.SessionBean;
 import com.SistemSchool.dto.PersonDTO.PersonResponseDTO;
+import com.SistemSchool.dto.UserDTO;
+import com.SistemSchool.io.Perfil;
 import com.SistemSchool.service.UserService;
+import com.SistemSchool.util.PerfilNotDefinedException;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
@@ -22,34 +24,31 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named // Marks this class as a managed bean that is automatically instantiated and
-       // available for use in the JSF context.
-@ViewScoped // Ensures that the bean is available during the view lifecycle, meaning it
-            // remains active as long as the user is on the current page.
+@Named
+@ViewScoped
 public class UserController implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    private static final String[] AVATAR_COLORS = {
+            "#F44336", "#E91E63", "#9C27B0", "#673AB7",
+            "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
+            "#009688", "#4CAF50", "#8BC34A", "#CDDC39",
+            "#FFC107", "#FF9800", "#FF5722"
+    };
+
     @Inject
     private transient UserService userService;
 
-    // @Inject
-    // //private transient PersonService personService;
-
-    // @Inject
-    // private PermissionService permissionService;
-
-    // private Permission selectedPermission;
-    // private List<Permission> availablePermissions;
-    // private List<Permission> userPermissions;
-    private List<Integer> selectedPermissionIds;
-    private Integer selectedUserId;
+    @Inject
+    private SessionBean sessionBean;
 
     // Dados para login
     private String loginEmail;
     private String loginPassword;
     private boolean rememberMe;
+    private boolean loginDialogVisible;
 
     // Dados para novo usuário
     private String newFirstName;
@@ -59,249 +58,111 @@ public class UserController implements Serializable {
     private String newUserPassword;
     private String newUserConfirmPassword;
     private Integer newUserFkPerson = 0;
-    private Integer newUserFkUserType = 0;
+    private Perfil newUserPerfil;
     private boolean newUserActive = true;
     private String newUserDeviceToken;
+    private boolean registerDialogVisible;
+    private String firstName;
+    private String lastName;
+    private String imagePerson;
 
     // Dados para edição
     private UserDTO.UserResponseDTO selectedUser;
     private String editUserEmail;
     private String editUserDeviceToken;
     private boolean editUserActive;
-    private Integer editUserFkUserType = 0;
+    private Perfil editUserPerfil;
+    private boolean editMode;
 
     // Listas e estado
     private List<UserDTO.UserResponseDTO> users = new ArrayList<>();
     private List<UserDTO.UserResponseDTO> filteredUsers;
-    private UserDTO.UserResponseDTO loggedUser;
 
     // Filtros
     private String filterEmail;
-    private Integer filterUserType;
+    private Perfil filterPerfil;
     private Boolean filterActive;
-
-    // Estado da UI
-    private boolean editMode;
-    private boolean loginDialogVisible;
-    private boolean registerDialogVisible;
-
-    private String firstName;
-    private String lastName;
-    private String image_person;
-    //private List<PersonDTO.PersonResponseDTO> personCache;
-
-    //private PersonDTO.PersonResponseDTO selectedPersonDTO;
 
     @PostConstruct
     public void init() {
         logger.info("Inicializando UserController");
-        // loadUsers();
         resetLoginFields();
         resetNewUserFields();
         resetEditFields();
-
-        // Verificar se há usuário logado na sessão
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-        loggedUser = (UserDTO.UserResponseDTO) sessionMap.get("loggedUser");
     }
 
-    // ========== MÉTODO DE LOGIN ==========
+    // ========== AUTENTICAÇÃO ==========
+
     public String login() {
         try {
             logger.info("Tentativa de login com email: {}", loginEmail);
 
-            validateLoginData();
+            if (!isLoginDataValid()) {
+                return null;
+            }
 
-            // Criar DTO de login
             UserDTO.LoginDTO loginDTO = new UserDTO.LoginDTO();
             loginDTO.setEmail(loginEmail.trim());
             loginDTO.setPassword(loginPassword);
 
-            // Autenticar
             UserDTO.UserResponseDTO authenticatedUser = userService.authenticate(loginDTO);
+            sessionBean.setLoggedUser(authenticatedUser);
 
-            // Armazenar usuário na sessão
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            Map<String, Object> sessionMap = externalContext.getSessionMap();
-            sessionMap.put("loggedUser", authenticatedUser);
-            loggedUser = authenticatedUser;
-
-            // Configurar cookie "lembrar-me"
             if (rememberMe) {
                 logger.info("Lembrar-me ativado para usuário: {}", authenticatedUser.getEmail());
             }
 
-            // Limpar campos
             resetLoginFields();
 
-            // Fechar dialog se estiver aberto
             if (loginDialogVisible) {
                 PrimeFaces.current().executeScript("PF('loginDialog').hide()");
                 loginDialogVisible = false;
             }
 
-            // Adicionar mensagem de sucesso
+            String redirectUrl = redirectByPerfil(authenticatedUser.getPerfil());
             addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Login realizado com sucesso!");
+            return redirectUrl;
 
-            // → Apenas retornar string de navegação com redirect
-            return "/dashboard.xhtml?faces-redirect=true";
+        } catch (PerfilNotDefinedException e) {
+            logger.error("Usuário sem perfil definido tentou fazer login: {}", loginEmail, e);
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Acesso",
+                    "Sua conta não possui um perfil de acesso definido. Contate o administrador.");
+            sessionBean.clear();
+            loginPassword = null;
 
         } catch (RuntimeException e) {
             logger.error("Falha no login para email: {}", loginEmail, e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
                     "Email ou senha inválidos. Por favor, tente novamente.");
             loginPassword = null;
+
         } catch (Exception e) {
             logger.error("Erro inesperado durante login", e);
             addMessage(FacesMessage.SEVERITY_FATAL, "Erro do Sistema",
                     "Ocorreu um erro inesperado. Por favor, contate o administrador.");
         }
 
-        return null;
-    }
-    // public String login() {
-    // try {
-    // logger.info("Tentativa de login com email: {}", loginEmail);
-
-    // validateLoginData();
-
-    // // Criar DTO de login
-    // UserDTO.LoginDTO loginDTO = new UserDTO.LoginDTO();
-    // loginDTO.setEmail(loginEmail.trim());
-    // loginDTO.setPassword(loginPassword);
-
-    // // Autenticar
-    // UserDTO.UserResponseDTO authenticatedUser =
-    // userService.authenticate(loginDTO);
-
-    // // Armazenar usuário na sessão
-    // ExternalContext externalContext =
-    // FacesContext.getCurrentInstance().getExternalContext();
-    // Map<String, Object> sessionMap = externalContext.getSessionMap();
-    // sessionMap.put("loggedUser", authenticatedUser);
-    // loggedUser = authenticatedUser;
-
-    // // Configurar cookie de "lembrar-me" se necessário
-    // if (rememberMe) {
-    // // Aqui você implementaria a lógica para cookie
-    // logger.info("Lembrar-me ativado para usuário: {}",
-    // authenticatedUser.getEmail());
-    // }
-
-    // // Registrar login no log
-    // logger.info("Usuário autenticado com sucesso: {} (ID: {})",
-    // authenticatedUser.getEmail(), authenticatedUser.getPkUser());
-
-    // // Limpar campos
-    // resetLoginFields();
-
-    // // Fechar dialog se estiver aberto
-    // if (loginDialogVisible) {
-    // PrimeFaces.current().executeScript("PF('loginDialog').hide()");
-    // loginDialogVisible = false;
-    // }
-
-    // // Adicionar mensagem de sucesso
-    // addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Login realizado com
-    // sucesso!");
-
-    // // Redirecionar para página principal
-    // try {
-    // externalContext.redirect(externalContext.getRequestContextPath() +
-    // "/dashboard.xhtml");
-    // } catch (IOException e) {
-    // logger.error("Erro ao redirecionar após login", e);
-    // }
-
-    // // loadUserPermissions();
-
-    // return "/dashboard.xhtml?faces-redirect=true";
-
-    // } catch (RuntimeException e) {
-    // logger.error("Falha no login para email: {}", loginEmail, e);
-    // addMessage(FacesMessage.SEVERITY_ERROR, "Erro de Autenticação",
-    // "Email ou senha invalidos. Por favor, tente novamente.");
-
-    // // Limpar senha por segurança
-    // loginPassword = null;
-    // } catch (Exception e) {
-    // logger.error("Erro inesperado durante login", e);
-    // addMessage(FacesMessage.SEVERITY_FATAL, "Erro do Sistema",
-    // "Ocorreu um erro inesperado. Por favor, contate o administrador.");
-    // }
-
-    // return null;
-    // }
-
-    // public void loadUserPermissions() {
-    // try {
-    // if (selectedUser != null) {
-    // userPermissions =
-    // permissionService.findPermissionsByUser(selectedUser.getPkUser());
-    // } else {
-    // userPermissions = new ArrayList<>();
-    // }
-    // } catch (Exception e) {
-    // FacesMessageUtil.errorMessage("Erro ao carregar permissões do usuário");
-    // e.printStackTrace();
-    // }
-    // }
-
-    public String getUserInitials() {
-        StringBuilder sb = new StringBuilder();
-
-        if (firstName != null && !firstName.isBlank()) {
-            sb.append(firstName.substring(0, 1).toUpperCase());
-        }
-
-        if (lastName != null && !lastName.isBlank()) {
-            sb.append(lastName.substring(0, 1).toUpperCase());
-        }
-
-        return sb.toString();
+        return "/components/public/dashboard.xhtml?faces-redirect=true";
     }
 
-    // THIS METHODS IS A MIDDLEWARE THAT CHECKS IF THE USER IS AUTHENTICATED
-    public void ensureLoggedIn() {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-
-        if (sessionMap.get("loggedUser") == null) {
-            try {
-                externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
-            } catch (IOException e) {
-                logger.error("Erro ao redirecionar usuário não autenticado", e);
-            }
+    private String redirectByPerfil(Perfil perfil) {
+        if (perfil == null) {
+            throw new PerfilNotDefinedException("Usuário autenticado sem perfil definido: " + loginEmail);
         }
-    }
 
-    private void validateLoginData() {
-        // Validar campos
-        if (loginEmail == null || loginEmail.trim().isEmpty()) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Email é obrigatório");
-            return;
-        } else if (loginPassword == null || loginPassword.trim().isEmpty()) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Senha é obrigatória");
-            return;
-        }
+        return "/components/public/dashboard.xhtml?faces-redirect=true";
     }
 
     public void logout() {
         try {
-            if (loggedUser != null) {
-                logger.info("Usuário fazendo logout: {} (ID: {})",
-                        loggedUser.getEmail(), loggedUser.getPkUser());
+            UserDTO.UserResponseDTO current = sessionBean.getLoggedUser();
+            if (current != null) {
+                logger.info("Usuário fazendo logout: {} (ID: {})", current.getEmail(), current.getPkUser());
             }
 
-            // Invalidar sessão
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            sessionBean.clear();
             externalContext.invalidateSession();
-
-            // Limpar usuário logado
-            loggedUser = null;
-
-            // Redirecionar para página de login
             externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
 
         } catch (IOException e) {
@@ -309,7 +170,28 @@ public class UserController implements Serializable {
         }
     }
 
-    // ========== MÉTODOS AUXILIARES DE LOGIN ==========
+    public void ensureLoggedIn() {
+        if (!sessionBean.isLoggedIn()) {
+            try {
+                ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+                externalContext.redirect(externalContext.getRequestContextPath() + "/login.xhtml");
+            } catch (IOException e) {
+                logger.error("Erro ao redirecionar usuário não autenticado", e);
+            }
+        }
+    }
+
+    private boolean isLoginDataValid() {
+        if (loginEmail == null || loginEmail.trim().isEmpty()) {
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Email é obrigatório");
+            return false;
+        }
+        if (loginPassword == null || loginPassword.trim().isEmpty()) {
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Senha é obrigatória");
+            return false;
+        }
+        return true;
+    }
 
     public void showLoginDialog() {
         resetLoginFields();
@@ -317,90 +199,55 @@ public class UserController implements Serializable {
         PrimeFaces.current().executeScript("PF('loginDialog').show()");
     }
 
-    public void checkAutoLogin() {
-        // Aqui você pode implementar lógica para verificar cookie de "lembrar-me"
-        // e fazer login automático se necessário
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> sessionMap = externalContext.getSessionMap();
-
-        if (sessionMap.containsKey("autoLoginToken")) {
-            // Lógica para login automático
-            logger.info("Verificando login automático");
-        }
-    }
-
     public boolean isUserLoggedIn() {
-        return loggedUser != null;
+        return sessionBean.isLoggedIn();
     }
 
-    // public boolean hasPermission(String permission) {
-    // if (loggedUser == null) return false;
-    // return permissionService.userHasPermission(loggedUser.getPkUser(),
-    // permission);
-    // }
+    // ========== HELPERS DE PERFIL ==========
 
-    // public void loadAvailablePermissions(int targetUserId) {
-    // this.availablePermissions =
-    // permissionService.findAvailablePermissionsByUser(targetUserId);
-    // }
+    public Perfil[] getPerfis() {
+        return Perfil.values();
+    }
 
-    // public void saveUserPermissions() {
-    // try {
-    // permissionService.saveUserPermissions(
-    // selectedUser.getPkUser(),
-    // selectedPermissionIds
-    // );
-    // FacesMessageUtil.infoMessage("Permissions saved.");
-    // selectedPermissionIds = null;
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // FacesMessageUtil.errorMessage("Error saving permissions: " + e.getMessage());
-    // }
-    // }
+    public String getPerfilLabel(Perfil perfil) {
+        if (perfil == null) {
+            return "";
+        }
+        return switch (perfil) {
+            case ADMIN -> "Administrador";
+            case SECRETARY -> "Secretaria";
+            case FINANCIAL -> "Financeiro";
+            case PEDAGOGICAL -> "Pedagógico";
+        };
+    }
 
-    // ========== MÉTODOS CRUD ==========
+    // ========== CRUD DE USUÁRIOS ==========
 
     public String createUser() {
         try {
             logger.info("Criando novo usuário com email: {}", newUserEmail);
-            validateNewUserData();
+
+            if (!isNewUserDataValid()) {
+                return null;
+            }
 
             UserDTO.CreateUserDTO createUserDTO = new UserDTO.CreateUserDTO();
             createUserDTO.setEmail(newUserEmail.trim());
             createUserDTO.setPassword(newUserPassword);
             createUserDTO.setFkPerson(newUserFkPerson);
-            createUserDTO.setFkUserType(newUserFkUserType);
+            createUserDTO.setPerfil(newUserPerfil);
             createUserDTO.setActive(newUserActive);
             createUserDTO.setDeviceToken(newUserDeviceToken);
 
-            // PersonDTO.CreatePersonDTO createPersonDTO = new PersonDTO.CreatePersonDTO();
-            // createPersonDTO.setFirstName(newFirstName);
-            // createPersonDTO.setMiddleName(newMiddleName);
-            // createPersonDTO.setLastName(newLastName);
-            // createPersonDTO.setEmail(newUserEmail.trim());
-            // createPersonDTO.setImagePerson(this.image_person);
-
             UserDTO.UserResponseDTO createdUser = userService.createUser(createUserDTO);
-            // createPersonDTO.setFkUser(createdUser.getPkUser());
-            // PersonDTO.PersonResponseDTO createdPerson =
-            // personService.createPerson(createPersonDTO);
-            // userService.updateFkPerson(createdUser.getPkUser(),
-            // createdPerson.getPkPerson());
-
-            // if (selectedPermissionIds != null && !selectedPermissionIds.isEmpty()) {
-            // permissionService.saveUserPermissions(createdUser.getPkUser(),
-            // selectedPermissionIds);
-            // }
-
             users.add(createdUser);
 
-            // Limpar campos e fechar dialog
             resetNewUserFields();
             PrimeFaces.current().executeScript("PF('createUserDialog').hide()");
-
             addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário criado com sucesso!");
 
             return "/dashboard.xhtml?faces-redirect=true";
+
         } catch (RuntimeException e) {
             logger.error("Erro ao criar usuário", e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro", e.getMessage());
@@ -408,43 +255,36 @@ public class UserController implements Serializable {
         return null;
     }
 
-    private void validateNewUserData() {
-        if (!newUserPassword.equals(newUserConfirmPassword)) {
+    private boolean isNewUserDataValid() {
+        if (newUserPassword == null || !newUserPassword.equals(newUserConfirmPassword)) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "As senhas não coincidem");
-            return;
+            return false;
         }
         if (newUserEmail == null || newUserEmail.trim().isEmpty()) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Email é obrigatório");
-            return;
+            return false;
         }
+        return true;
     }
 
     public void updateUser() {
-        try {
-            if (selectedUser == null) {
-                addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Nenhum usuário selecionado");
-                return;
-            }
+        if (selectedUser == null) {
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Nenhum usuário selecionado");
+            return;
+        }
 
+        try {
             logger.info("Atualizando usuário ID: {}", selectedUser.getPkUser());
 
-            // Criar DTO de atualização
             UserDTO.UpdateUserDTO updateUserDTO = new UserDTO.UpdateUserDTO();
             updateUserDTO.setPkUser(selectedUser.getPkUser());
             updateUserDTO.setEmail(editUserEmail);
-            updateUserDTO.setFkUserType(editUserFkUserType);
+            updateUserDTO.setPerfil(editUserPerfil);
             updateUserDTO.setActive(editUserActive);
             updateUserDTO.setDeviceToken(editUserDeviceToken);
 
-            // Chamar serviço
             UserDTO.UserResponseDTO updatedUser = userService.updateUser(updateUserDTO);
 
-            // if (selectedPermissionIds != null) {
-            // permissionService.saveUserPermissions(updatedUser.getPkUser(),
-            // selectedPermissionIds);
-            // }
-
-            // Atualizar na lista
             for (int i = 0; i < users.size(); i++) {
                 if (users.get(i).getPkUser() == updatedUser.getPkUser()) {
                     users.set(i, updatedUser);
@@ -452,11 +292,9 @@ public class UserController implements Serializable {
                 }
             }
 
-            // Limpar seleção e fechar dialog
             selectedUser = null;
             resetEditFields();
             PrimeFaces.current().executeScript("PF('editUserDialog').hide()");
-
             addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário atualizado com sucesso!");
 
         } catch (RuntimeException e) {
@@ -473,10 +311,8 @@ public class UserController implements Serializable {
 
         try {
             logger.info("Desativando usuário ID: {}", selectedUser.getPkUser());
-
             userService.updateUserStatus(selectedUser.getPkUser(), false);
 
-            // Remover da lista
             users.removeIf(user -> user.getPkUser() == selectedUser.getPkUser());
             selectedUser = null;
 
@@ -488,28 +324,18 @@ public class UserController implements Serializable {
         }
     }
 
-    // public void prepareEditUser(UserDTO.UserResponseDTO user) {
-    // this.selectedUser = user;
-    // this.editUserEmail = user.getEmail();
-    // this.editUserFkUserType = user.getFkUserType();
-    // this.editUserActive = user.isActive();
-    // this.editUserDeviceToken = user.getDeviceToken();
-    // this.editMode = true;
-
-    // List<Permission> userPermissions =
-    // permissionService.findPermissionsByUser(user.getPkUser());
-    // this.selectedPermissionIds = userPermissions.stream()
-    // .map(Permission::getPkPermission)
-    // .collect(Collectors.toList());
-    // }
-
     public void showRegisterDialog() {
         resetNewUserFields();
         registerDialogVisible = true;
         PrimeFaces.current().executeScript("PF('registerDialog').show()");
     }
 
-    // ========== MÉTODOS DE RESET ==========
+    public String openSignUpPage() {
+        resetNewUserFields();
+        return "/sign_in.xhtml?faces-redirect=true";
+    }
+
+    // ========== RESET DE CAMPOS ==========
 
     private void resetLoginFields() {
         loginEmail = null;
@@ -525,26 +351,23 @@ public class UserController implements Serializable {
         newUserPassword = null;
         newUserConfirmPassword = null;
         newUserFkPerson = 0;
-        newUserFkUserType = 0;
+        newUserPerfil = null;
         newUserActive = true;
         newUserDeviceToken = null;
-        // selectedPermission = null;
-        image_person = "";
+        imagePerson = "";
         firstName = "";
         lastName = "";
-        this.selectedPermissionIds = new ArrayList<>();
     }
 
     private void resetEditFields() {
         editUserEmail = null;
         editUserDeviceToken = null;
         editUserActive = true;
-        editUserFkUserType = 0;
+        editUserPerfil = null;
         editMode = false;
-        this.selectedPermissionIds = new ArrayList<>();
     }
 
-    // ========== MÉTODOS DE FILTRO ==========
+    // ========== FILTROS ==========
 
     public void filterUsers() {
         if (users == null) {
@@ -560,8 +383,8 @@ public class UserController implements Serializable {
                 matches = user.getEmail().toLowerCase().contains(filterEmail.toLowerCase());
             }
 
-            if (matches && filterUserType != null) {
-                matches = user.getFkUserType() == filterUserType;
+            if (matches && filterPerfil != null) {
+                matches = user.getPerfil() == filterPerfil;
             }
 
             if (matches && filterActive != null) {
@@ -574,103 +397,54 @@ public class UserController implements Serializable {
         }
     }
 
-    // public List<Permission> getAllAvailablePermissions() {
-    // return permissionService.findAvailablePermissionsByUser(selectedUserId);
-    // }
-
-    public String getInitials(String fullName) {
-        if (fullName == null || fullName.isEmpty())
-            return "?";
-        String[] parts = fullName.split(" ");
-        String initials = "";
-        for (int i = 0; i < Math.min(parts.length, 2); i++) {
-            initials += parts[i].substring(0, 1).toUpperCase();
-        }
-        return initials;
-    }
-
-    private final String[] avatarColors = new String[] {
-            "#F44336", "#E91E63", "#9C27B0", "#673AB7",
-            "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
-            "#009688", "#4CAF50", "#8BC34A", "#CDDC39",
-            "#FFC107", "#FF9800", "#FF5722"
-    };
-
-    /*
-     * public String avatarClass(PersonResponseDTO emp) {
-     * // garante que não seja null ou vazio
-     * String name = emp.getFullSearchName();
-     * if (name == null || name.isEmpty()) {
-     * name = "unknown"; // valor padrão
-     * }
-     * 
-     * // calcula o índice baseado no hash
-     * int index = Math.abs(name.hashCode() % avatarColors.length);
-     * 
-     * return "avatar-color-" + index;
-     * }
-     */
-
-    // public String avatarClass(ContractDTO.ExpiringThisMonthDTO item) {
-    // if (item == null || item.getFullName() == null ||
-    // item.getFullName().isEmpty()) {
-    // return "avatar-color-0";
-    // }
-
-    // int index = Math.abs(item.getFullName().hashCode() % avatarColors.length);
-    // return "avatar-color-" + index;
-    // }
-
-    public String avatarClass(PersonResponseDTO emp) {
-        // garante que não seja null ou vazio
-        String name = emp.getFullSearchName();
-        if (name == null || name.isEmpty()) {
-            name = "unknown"; // valor padrão
-        }
-
-        // calcula o índice baseado no hash
-        int index = Math.abs(name.hashCode() % avatarColors.length);
-
-        return "avatar-color-" + index;
-    }
-
     public void clearFilters() {
         filterEmail = null;
-        filterUserType = null;
+        filterPerfil = null;
         filterActive = null;
         filteredUsers = null;
     }
 
-    // ========== MÉTODOS DE MENSAGEM ==========
+    // ========== HELPERS DE APRESENTAÇÃO ==========
 
-    private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-        FacesContext.getCurrentInstance()
-                .addMessage(null, new FacesMessage(severity, summary, detail));
-
-        // Para atualizar componentes específicos
-        PrimeFaces.current().ajax().update(":messages");
+    public String getUserInitials() {
+        StringBuilder sb = new StringBuilder();
+        if (firstName != null && !firstName.isBlank()) {
+            sb.append(firstName.substring(0, 1).toUpperCase());
+        }
+        if (lastName != null && !lastName.isBlank()) {
+            sb.append(lastName.substring(0, 1).toUpperCase());
+        }
+        return sb.toString();
     }
 
-    // public void createAvatar() {
-    // Integer userId = loggedUser.getPkUser(); //
+    public String getInitials(String fullName) {
+        if (fullName == null || fullName.isEmpty()) {
+            return "?";
+        }
+        String[] parts = fullName.split(" ");
+        StringBuilder initials = new StringBuilder();
+        for (int i = 0; i < Math.min(parts.length, 2); i++) {
+            initials.append(parts[i].substring(0, 1).toUpperCase());
+        }
+        return initials.toString();
+    }
 
-    // PersonDTO.PersonResponseDTO person = personService.findByUserId(userId);
+    public String avatarClass(PersonResponseDTO person) {
+        String name = person.getFullSearchName();
+        if (name == null || name.isEmpty()) {
+            name = "unknown";
+        }
+        int index = Math.abs(name.hashCode() % AVATAR_COLORS.length);
+        return "avatar-color-" + index;
+    }
 
-    // if (person != null) {
-    // this.firstName = person.getFirstName();
-    // this.lastName = person.getLastName();
-    // this.image_person = person.getImagePerson();
-    // } else {
-    // this.image_person = "default.png";
-    // }
-    // }
+    // ========== MENSAGENS ==========
 
-    /*
-     * Obsolete method for permission autocomplete
-     */
-    // public List<Permission> completePermission(String query) {
-    // return new ArrayList<Permission>();
-    // }
+    private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
+
+        // PrimeFaces.current().ajax().update(":messages");
+    }
 
     // ========== GETTERS E SETTERS ==========
 
@@ -696,6 +470,38 @@ public class UserController implements Serializable {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+    }
+
+    public boolean isLoginDialogVisible() {
+        return loginDialogVisible;
+    }
+
+    public void setLoginDialogVisible(boolean loginDialogVisible) {
+        this.loginDialogVisible = loginDialogVisible;
+    }
+
+    public String getNewFirstName() {
+        return newFirstName;
+    }
+
+    public void setNewFirstName(String newFirstName) {
+        this.newFirstName = newFirstName;
+    }
+
+    public String getNewMiddleName() {
+        return newMiddleName;
+    }
+
+    public void setNewMiddleName(String newMiddleName) {
+        this.newMiddleName = newMiddleName;
+    }
+
+    public String getNewLastName() {
+        return newLastName;
+    }
+
+    public void setNewLastName(String newLastName) {
+        this.newLastName = newLastName;
     }
 
     public String getNewUserEmail() {
@@ -730,12 +536,12 @@ public class UserController implements Serializable {
         this.newUserFkPerson = newUserFkPerson;
     }
 
-    public Integer getNewUserFkUserType() {
-        return newUserFkUserType;
+    public Perfil getNewUserPerfil() {
+        return newUserPerfil;
     }
 
-    public void setNewUserFkUserType(Integer newUserFkUserType) {
-        this.newUserFkUserType = newUserFkUserType;
+    public void setNewUserPerfil(Perfil newUserPerfil) {
+        this.newUserPerfil = newUserPerfil;
     }
 
     public boolean isNewUserActive() {
@@ -752,6 +558,38 @@ public class UserController implements Serializable {
 
     public void setNewUserDeviceToken(String newUserDeviceToken) {
         this.newUserDeviceToken = newUserDeviceToken;
+    }
+
+    public boolean isRegisterDialogVisible() {
+        return registerDialogVisible;
+    }
+
+    public void setRegisterDialogVisible(boolean registerDialogVisible) {
+        this.registerDialogVisible = registerDialogVisible;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getImagePerson() {
+        return imagePerson;
+    }
+
+    public void setImagePerson(String imagePerson) {
+        this.imagePerson = imagePerson;
     }
 
     public UserDTO.UserResponseDTO getSelectedUser() {
@@ -786,12 +624,20 @@ public class UserController implements Serializable {
         this.editUserActive = editUserActive;
     }
 
-    public Integer getEditUserFkUserType() {
-        return editUserFkUserType;
+    public Perfil getEditUserPerfil() {
+        return editUserPerfil;
     }
 
-    public void setEditUserFkUserType(Integer editUserFkUserType) {
-        this.editUserFkUserType = editUserFkUserType;
+    public void setEditUserPerfil(Perfil editUserPerfil) {
+        this.editUserPerfil = editUserPerfil;
+    }
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
     }
 
     public List<UserDTO.UserResponseDTO> getUsers() {
@@ -803,10 +649,7 @@ public class UserController implements Serializable {
     }
 
     public List<UserDTO.UserResponseDTO> getFilteredUsers() {
-        if (filteredUsers != null) {
-            return filteredUsers;
-        }
-        return users;
+        return filteredUsers != null ? filteredUsers : users;
     }
 
     public void setFilteredUsers(List<UserDTO.UserResponseDTO> filteredUsers) {
@@ -814,11 +657,7 @@ public class UserController implements Serializable {
     }
 
     public UserDTO.UserResponseDTO getLoggedUser() {
-        return loggedUser;
-    }
-
-    public void setLoggedUser(UserDTO.UserResponseDTO loggedUser) {
-        this.loggedUser = loggedUser;
+        return sessionBean.getLoggedUser();
     }
 
     public String getFilterEmail() {
@@ -829,12 +668,12 @@ public class UserController implements Serializable {
         this.filterEmail = filterEmail;
     }
 
-    public Integer getFilterUserType() {
-        return filterUserType;
+    public Perfil getFilterPerfil() {
+        return filterPerfil;
     }
 
-    public void setFilterUserType(Integer filterUserType) {
-        this.filterUserType = filterUserType;
+    public void setFilterPerfil(Perfil filterPerfil) {
+        this.filterPerfil = filterPerfil;
     }
 
     public Boolean getFilterActive() {
@@ -843,125 +682,5 @@ public class UserController implements Serializable {
 
     public void setFilterActive(Boolean filterActive) {
         this.filterActive = filterActive;
-    }
-
-    public boolean isEditMode() {
-        return editMode;
-    }
-
-    public void setEditMode(boolean editMode) {
-        this.editMode = editMode;
-    }
-
-    public boolean isLoginDialogVisible() {
-        return loginDialogVisible;
-    }
-
-    public void setLoginDialogVisible(boolean loginDialogVisible) {
-        this.loginDialogVisible = loginDialogVisible;
-    }
-
-    public boolean isRegisterDialogVisible() {
-        return registerDialogVisible;
-    }
-
-    public void setRegisterDialogVisible(boolean registerDialogVisible) {
-        this.registerDialogVisible = registerDialogVisible;
-    }
-
-    public String getNewFirstName() {
-        return newFirstName;
-    }
-
-    public void setNewFirstName(String newFirstName) {
-        this.newFirstName = newFirstName;
-    }
-
-    public String getNewMiddleName() {
-        return newMiddleName;
-    }
-
-    public void setNewMiddleName(String newMiddleName) {
-        this.newMiddleName = newMiddleName;
-    }
-
-    public String getNewLastName() {
-        return newLastName;
-    }
-
-    public void setNewLastName(String newLastName) {
-        this.newLastName = newLastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getImage_person() {
-        return image_person;
-    }
-
-    public void setImage_person(String image_person) {
-        this.image_person = image_person;
-    }
-
-    /*public List<PersonResponseDTO> getPersonCache() {
-        return personCache;
-    }
-
-    public void setPersonCache(List<PersonResponseDTO> personCache) {
-        this.personCache = personCache;
-    }
-
-    public PersonResponseDTO getSelectedPersonDTO() {
-        return selectedPersonDTO;
-    }
-
-    public void setSelectedPersonDTO(PersonResponseDTO selectedPersonDTO) {
-        this.selectedPersonDTO = selectedPersonDTO;
-    }*/
-
-    // public Permission getSelectedPermission() {
-    // return selectedPermission;
-    // }
-
-    // public void setSelectedPermission(Permission selectedPermission) {
-    // this.selectedPermission = selectedPermission;
-    // }
-
-    public List<Integer> getSelectedPermissionIds() {
-        return selectedPermissionIds;
-    }
-
-    public void setSelectedPermissionIds(List<Integer> selectedPermissionIds) {
-        this.selectedPermissionIds = selectedPermissionIds;
-    }
-
-    // public List<Permission> getAvailablePermissions() {
-    // return availablePermissions;
-    // }
-
-    // public void setAvailablePermissions(List<Permission> availablePermissions) {
-    // this.availablePermissions = availablePermissions;
-    // }
-
-    public Integer getSelectedUserId() {
-        return selectedUserId;
-    }
-
-    public void setSelectedUserId(Integer selectedUserId) {
-        this.selectedUserId = selectedUserId;
     }
 }

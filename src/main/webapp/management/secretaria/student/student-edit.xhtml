@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="editStudentDialog" widgetVar="editStudentDialog" header="#{msg.editStudent}" modal="true"
+              showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-edit" width="1000"
+              dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="studentEditForm" styleClass="ui-fluid" enctype="multipart/form-data">
+            <div class="sc-create-body">
+                <p:messages id="msgsEdit" showDetail="true" closable="true"/>
+
+                <!-- 1 · IDENTIFICAÇÃO DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-user"></i> #{msg.studentIdentification}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="studentNumber" value="#{msg.studentNumber}" styleClass="sc-label"/>
+                        <p:inputText id="studentNumber" value="#{studentController.editDto.sudentNumber}" />
+
+                        <p:outputLabel for="firstName" value="#{msg.firstName}" styleClass="sc-label req"/>
+                        <p:inputText id="firstName" value="#{studentController.editDto.fristName}" required="true"/>
+
+                        <p:outputLabel for="lastName" value="#{msg.lastName}" styleClass="sc-label req"/>
+                        <p:inputText id="lastName" value="#{studentController.editDto.lastName}" required="true"/>
+
+                        <p:outputLabel for="gender" value="#{msg.gender}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="gender" value="#{studentController.editDto.gender}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{studentController.genders}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="nascDate" value="#{msg.birthDate}" styleClass="sc-label req"/>
+                        <p:datePicker id="nascDate" value="#{studentController.editDto.nascDate}" pattern="dd/MM/yyyy" showIcon="true" required="true"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 2 · DOCUMENTOS E CONTACTO DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-id-card"></i> #{msg.documentsAndContact}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="biNumber" value="#{msg.idCardNumber}" styleClass="sc-label"/>
+                        <p:inputText id="biNumber" value="#{studentController.editDto.biNumber}"/>
+
+                        <p:outputLabel for="biExpiry" value="#{msg.idCardExpiryDate}" styleClass="sc-label"/>
+                        <p:datePicker id="biExpiry" value="#{studentController.editDto.biExpiryData}" pattern="dd/MM/yyyy" showIcon="true"/>
+
+                        <p:outputLabel for="email" value="#{msg.email}" styleClass="sc-label"/>
+                        <p:inputText id="email" value="#{studentController.editDto.email}" placeholder="aluno@escola.ao"/>
+
+                        <p:outputLabel for="phone1" value="#{msg.phone1}" styleClass="sc-label"/>
+                        <p:inputText id="phone1" value="#{studentController.editDto.phone_1}"/>
+
+                        <p:outputLabel for="phone2" value="#{msg.phone2}" styleClass="sc-label"/>
+                        <p:inputText id="phone2" value="#{studentController.editDto.phone_2}"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 3 · MORADA DO ALUNO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-map-marker"></i> #{msg.residentialAddress}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-8, p-col-12 p-md-4">
+                        <p:outputLabel for="addressStreet" value="#{msg.addressStreet}" styleClass="sc-label"/>
+                        <p:inputText id="addressStreet" value="#{studentController.editDto.addressStreet}"/>
+
+                        <p:outputLabel for="province" value="#{msg.province}" styleClass="sc-label"/>
+                        <p:inputText id="province" value="#{studentController.editDto.addressProvice}"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 4 · FILIAÇÃO -->
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-users"></i> #{msg.affiliation}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="fatherName" value="#{msg.fatherName}" styleClass="sc-label"/>
+                        <p:inputText id="fatherName" value="#{studentController.editDto.nameFather}"/>
+
+                        <p:outputLabel for="motherName" value="#{msg.motherName}" styleClass="sc-label"/>
+                        <p:inputText id="motherName" value="#{studentController.editDto.nameMather}"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 5 · STATUS, FOTO E NOTAS -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-check-circle"></i> #{msg.registrationFinalization}</div>
+                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:outputLabel for="status" value="#{msg.status}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="status" value="#{studentController.editDto.status}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{studentController.studentStatuses}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="photo" value="#{msg.studentPhoto}" styleClass="sc-label"/>
+                        <p:fileUpload id="photo" value="#{studentController.uploadedPhoto}" mode="simple" skinSimple="true"
+                                      label="#{msg.choose}" styleClass="p-button-sm"/>
+                        <div class="text-muted small mt-1">JPG, PNG ou WEBP (Máx 2MB)</div>
+
+                        <p:outputLabel for="notes" value="#{msg.notes}" styleClass="sc-label"/>
+                        <p:inputTextarea id="notes" value="#{studentController.editDto.obs}" rows="3"
+                                         placeholder="#{msg.additionalNotesPlaceholder}"/>
+                    </p:panelGrid>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times"
+                                 styleClass="sc-btn-cancel"
+                                 type="button"
+                                 onclick="PF('editStudentDialog').hide()"/>
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save"
+                                 styleClass="sc-btn-save"
+                                 action="#{studentController.saveUpdate}"
+                                 ajax="false"
+                                 update=":formStudents:dtStudents messages"
+                                 oncomplete="if (!args.validationFailed) { PF('editStudentDialog').hide(); }"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

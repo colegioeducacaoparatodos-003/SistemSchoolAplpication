@@ -1,0 +1,27 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">#{msg.profile}</ui:define>
+
+    <ui:define name="content">
+        <div class="p-4">
+            <h1 class="h3 mb-3">#{msg.profile}</h1>
+            <p:card header="#{msg.profile}">
+                <div class="d-flex flex-column gap-2">
+                    <div>
+                        <strong>Email:</strong>
+                        <h:outputText value="#{sessionBean.loggedUser.email}" />
+                    </div>
+                    <div>
+                        <strong>Perfil:</strong>
+                        <h:outputText value="#{msg[sessionBean.loggedUser.perfil.toString()]}" />
+                    </div>
+                </div>
+            </p:card>
+        </div>
+    </ui:define>
+</ui:composition>

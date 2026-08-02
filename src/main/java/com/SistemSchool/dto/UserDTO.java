@@ -3,12 +3,14 @@ package com.SistemSchool.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.SistemSchool.io.Perfil;
+
 public class UserDTO {
 
     // Para criação (sem senha)
     public static class CreateUserDTO {
         private int fkPerson;
-        private int fkUserType;
+        private Perfil perfil;
         private int fkCustomer;
         private String email;
         private String password;
@@ -24,12 +26,12 @@ public class UserDTO {
             this.fkPerson = fkPerson;
         }
 
-        public int getFkUserType() {
-            return fkUserType;
+        public Perfil getPerfil() {
+            return perfil;
         }
 
-        public void setFkUserType(int fkUserType) {
-            this.fkUserType = fkUserType;
+        public void setPerfil(Perfil perfil) {
+            this.perfil = perfil;
         }
 
         public int getFkCustomer() {
@@ -79,7 +81,7 @@ public class UserDTO {
         private String email;
         private boolean active;
         private String deviceToken;
-        private Integer fkUserType;
+        private Perfil perfil;
         private String password;
         private String salt;
 
@@ -116,12 +118,12 @@ public class UserDTO {
             this.deviceToken = deviceToken;
         }
 
-        public Integer getFkUserType() {
-            return fkUserType;
+        public Perfil getPerfil() {
+            return perfil;
         }
 
-        public void setFkUserType(Integer fkUserType) {
-            this.fkUserType = fkUserType;
+        public void setPerfil(Perfil perfil) {
+            this.perfil = perfil;
         }
 
         public String getPassword() {
@@ -146,7 +148,7 @@ public class UserDTO {
         private int pkUser;
         private int fkPerson;
         private int fkCustomer;
-        private int fkUserType;
+        private Perfil perfil;
         private String email;
         private boolean active;
         private String deviceToken;
@@ -178,12 +180,12 @@ public class UserDTO {
             this.fkPerson = fkPerson;
         }
 
-        public int getFkUserType() {
-            return fkUserType;
+        public Perfil getPerfil() {
+            return perfil;
         }
 
-        public void setFkUserType(int fkUserType) {
-            this.fkUserType = fkUserType;
+        public void setPerfil(Perfil perfil) {
+            this.perfil = perfil;
         }
 
         public String getEmail() {

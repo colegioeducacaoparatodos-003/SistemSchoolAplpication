@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="closeCashBoxDialog" widgetVar="closeCashBoxDialog" header="#{msg.closeCashBox}" modal="true"
+              showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-create" width="500"
+              dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="cashBoxCloseForm" styleClass="ui-fluid">
+            <div class="sc-create-body">
+                <p:messages id="msgsClose" showDetail="true" closable="true"/>
+
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-lock"></i> #{msg.closeCashBoxDetails}</div>
+
+                    <p:outputLabel for="closingBalanceInput" value="#{msg.closingBalance}" styleClass="sc-label req"/>
+                    <p:inputNumber id="closingBalanceInput" value="#{cashBoxController.closingBalanceInput}"
+                                   symbol="Kz " symbolPosition="p" decimalPlaces="2" required="true"/>
+
+                    <p:outputLabel for="closingObservationInput" value="#{msg.observation}" styleClass="sc-label" style="margin-top:.8rem; display:block"/>
+                    <p:inputTextarea id="closingObservationInput" value="#{cashBoxController.closingObservationInput}" rows="3"
+                                     placeholder="#{msg.additionalNotesPlaceholder}"/>
+                </div>
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times"
+                                 styleClass="sc-btn-cancel"
+                                 type="button"
+                                 onclick="PF('closeCashBoxDialog').hide()"/>
+
+                <p:commandButton value="#{msg.confirmClose}" icon="pi pi-lock"
+                                 styleClass="sc-btn-save"
+                                 action="#{cashBoxController.closeCashBox}"
+                                 process="@form"
+                                 update=":formCashBoxes:dtCashBoxes msgsClose :formCashBoxes:messages"
+                                 oncomplete="if (!args.validationFailed) { PF('closeCashBoxDialog').hide(); }"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

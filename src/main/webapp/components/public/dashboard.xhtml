@@ -1,0 +1,493 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    id="mainDashboard">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userController.ensureLoggedIn}" />
+    </f:metadata>
+
+    <ui:define name="titulo">
+        Dashboard Geral
+    </ui:define>
+
+    <ui:define name="content">
+        <style>
+            :root {
+                --bg-page: #f3f4f6;
+                --bg-card: #ffffff;
+                --bg-card-alt: #f8fafc;
+                --border-subtle: #dbe3ec;
+                --text-primary: #111827;
+                --text-muted: #6b7280;
+                --accent-cyan: #06b6d4;
+                --accent-blue: #2563eb;
+                --accent-purple: #9333ea;
+                --accent-green: #059669;
+                --accent-gold: #d97706;
+            }
+
+            .dashboard-page {
+                padding: 1.5rem;
+                background: var(--bg-page);
+                color: var(--text-primary);
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                min-height: 100vh;
+            }
+
+            @media (min-width: 768px) {
+                .dashboard-page { padding: 2rem; }
+            }
+
+            .dashboard-header {
+                margin-bottom: 2rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.75rem;
+                font-weight: 800;
+                color: var(--text-primary);
+                letter-spacing: -0.02em;
+                margin-bottom: 0.375rem;
+            }
+
+            .dashboard-header p {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+            }
+
+            /* ===== Cards estatísticos do topo ===== */
+            .dashboard-cards {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            @media (min-width: 576px) { .dashboard-cards { grid-template-columns: repeat(2, 1fr); } }
+            @media (min-width: 992px) { .dashboard-cards { grid-template-columns: repeat(5, 1fr); } }
+
+            .stat-card {
+                background: var(--bg-card);
+                border-radius: 14px;
+                padding: 1.1rem 1.4rem;
+                border: 1px solid var(--border-subtle);
+                border-top: 3px solid var(--accent-cyan);
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                position: relative;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.08);
+            }
+
+            .stat-card--cyan   { border-top-color: var(--accent-cyan); }
+            .stat-card--green  { border-top-color: var(--accent-green); }
+            .stat-card--gold   { border-top-color: var(--accent-gold); }
+            .stat-card--purple { border-top-color: var(--accent-purple); }
+            .stat-card--blue   { border-top-color: var(--accent-blue); }
+
+            .stat-card__label {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+            }
+
+            .stat-card__label .pi {
+                font-size: 0.9rem;
+                color: var(--text-muted);
+            }
+
+            .stat-card__value {
+                font-size: 1.7rem;
+                font-weight: 800;
+                color: var(--text-primary);
+                line-height: 1.1;
+            }
+
+            /* ===== Linha de gráficos: gráfico principal + painel lateral ===== */
+            .dashboard-charts-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                align-items: stretch;
+                margin-bottom: 2rem;
+            }
+
+            @media (min-width: 1024px) {
+                .dashboard-charts-row { grid-template-columns: 2fr 1fr; }
+            }
+
+            .dashboard-chart-panel,
+            .dashboard-legend-panel {
+                background: var(--bg-card);
+                border-radius: 14px;
+                padding: 1.5rem;
+                border: 1px solid var(--border-subtle);
+            }
+
+            .dashboard-legend-panel { display: flex; flex-direction: column; }
+
+            .dashboard-chart-panel h3,
+            .dashboard-legend-panel h3 {
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--text-primary);
+                margin-bottom: 0.15rem;
+                letter-spacing: -0.01em;
+            }
+
+            .dashboard-chart-panel .panel-subtitle,
+            .dashboard-legend-panel .panel-subtitle {
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                margin-bottom: 1.25rem;
+            }
+
+            /* Correção para evitar gráfico "fusco" / esticado em alta definição */
+            .dashboard-chart-panel .ui-chart {
+                width: 100% !important;
+                display: flex;
+                justify-content: center;
+            }
+
+            .dashboard-chart-panel .ui-chart canvas {
+                max-height: 280px !important;
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            .dashboard-legend-panel ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                max-height: 260px;
+                overflow-y: auto;
+                scrollbar-width: thin;
+                scrollbar-color: var(--accent-cyan) var(--bg-card-alt);
+            }
+
+            .dashboard-legend-panel li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.7rem 0;
+                border-bottom: 1px solid var(--border-subtle);
+            }
+
+            .dashboard-legend-panel li:last-child { border-bottom: none; }
+
+            .legend-name {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 0.85rem;
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+
+            .legend-avatar {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: rgba(147, 51, 234, 0.15);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                font-weight: 800;
+                color: var(--accent-purple);
+                flex-shrink: 0;
+            }
+
+            .legend-count {
+                font-weight: 700;
+                color: var(--accent-cyan);
+                background: rgba(34, 211, 238, 0.12);
+                padding: 0.2rem 0.65rem;
+                border-radius: 9999px;
+                font-size: 0.75rem;
+            }
+
+            /* ===== Cards adicionais inferiores ===== */
+            .dashboard-additional-cards {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            @media (min-width: 768px) {
+                .dashboard-additional-cards { grid-template-columns: repeat(2, 1fr); }
+            }
+
+            @media (min-width: 1200px) {
+                .dashboard-additional-cards { grid-template-columns: repeat(3, 1fr); }
+            }
+
+            .matricula-card,
+            .payments-card {
+                background: var(--bg-card);
+                border-radius: 14px;
+                padding: 1.25rem 1.5rem;
+                border: 1px solid var(--border-subtle);
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .matricula-card__header,
+            .payments-card__header {
+                display: flex;
+                flex-direction: column;
+                gap: 0.15rem;
+            }
+
+            .card-title-sm {
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+
+            .card-subtitle-sm {
+                font-size: 0.72rem;
+                color: var(--text-muted);
+            }
+
+            .matricula-card__bars {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 0.4rem;
+            }
+
+            .matricula-bar-row {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-size: 0.7rem;
+                color: var(--text-muted);
+                font-weight: 600;
+            }
+
+            .matricula-bar-row span:first-child { width: 55px; flex-shrink: 0; }
+
+            .matricula-bar-track {
+                flex-grow: 1;
+                background-color: var(--bg-card-alt);
+                height: 8px;
+                border-radius: 9999px;
+                overflow: hidden;
+            }
+
+            .matricula-bar-fill {
+                height: 100%;
+                border-radius: 9999px;
+                background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            }
+
+            .matricula-bar-value {
+                font-weight: 700;
+                color: var(--accent-cyan);
+                background: rgba(34, 211, 238, 0.12);
+                padding: 0.05rem 0.45rem;
+                border-radius: 9999px;
+                font-size: 0.7rem;
+                min-width: 26px;
+                text-align: center;
+            }
+
+            .payments-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+
+            .mini-pie-chart {
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                background: conic-gradient(
+                    var(--accent-purple) 0deg 90deg,
+                    var(--accent-gold) 90deg 180deg,
+                    var(--accent-blue) 180deg 270deg,
+                    var(--accent-green) 270deg 360deg
+                );
+                flex-shrink: 0;
+                box-shadow: inset 0 0 0 6px var(--bg-card);
+            }
+
+            .payments-legend-mini {
+                display: flex;
+                flex-direction: column;
+                gap: 0.3rem;
+                font-size: 0.72rem;
+                color: var(--text-muted);
+            }
+
+            .payments-legend-item {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+
+            .payments-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+        </style>
+
+        <div class="dashboard-page">
+
+            <div class="dashboard-header" data-aos="fade-up">
+                <h1>Dashboard Geral</h1>
+                <p>Visão geral da secretaria, financeiro e utilizadores do sistema.</p>
+            </div>
+
+            <!-- Cards Estatísticos do Topo -->
+            <h:panelGroup layout="block" styleClass="dashboard-cards" id="dashboardCards">
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--cyan" data-aos="fade-up">
+                    <span class="stat-card__label"><span class="pi pi-graduation-cap"></span> Alunos Ativos</span>
+                    <span class="stat-card__value">#{dashboardController.stats.totalStudents}</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--green" data-aos="fade-up" data-aos-delay="50">
+                    <span class="stat-card__label"><span class="pi pi-users"></span> Professores</span>
+                    <span class="stat-card__value">#{dashboardController.stats.totalTeachers}</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--purple" data-aos="fade-up" data-aos-delay="100">
+                    <span class="stat-card__label"><span class="pi pi-sitemap"></span> Turmas Ativas</span>
+                    <span class="stat-card__value">#{dashboardController.stats.totalClasses}</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--gold" data-aos="fade-up" data-aos-delay="150">
+                    <span class="stat-card__label"><span class="pi pi-wallet"></span> Receita do Mês</span>
+                    <span class="stat-card__value">#{dashboardController.stats.revenueThisMonthFormatted} Kz</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--blue" data-aos="fade-up" data-aos-delay="200">
+                    <span class="stat-card__label"><span class="pi pi-exclamation-triangle"></span> Pendente a Receber</span>
+                    <span class="stat-card__value">#{dashboardController.stats.pendingAmountFormatted} Kz</span>
+                </h:panelGroup>
+
+            </h:panelGroup>
+
+            <!-- Gráfico principal + painel lateral -->
+            <div class="dashboard-charts-row" data-aos="fade-up" data-aos-delay="100">
+                
+                <h:panelGroup layout="block" styleClass="dashboard-chart-panel">
+                    <h3>Distribuição por Função</h3>
+                    <p class="panel-subtitle">Utilizadores agrupados por perfil</p>
+                    <p:chart type="bar" value="#{dashboardController.usersByProfileChartJson}"
+                             style="width: 100%; height: 260px;" />
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="dashboard-legend-panel">
+                    <h3>Resumo por Perfil</h3>
+                    <p class="panel-subtitle">Total de utilizadores por função</p>
+                    <ul>
+                        <ui:repeat value="#{dashboardController.usersByProfile}" var="perfil">
+                            <li>
+                                <span class="legend-name">
+                                    <span class="legend-avatar">#{fn:substring(perfil.perfil.name(), 0, 1)}</span>
+                                    #{perfil.perfil}
+                                </span>
+                                <span class="legend-count">#{perfil.total}</span>
+                            </li>
+                        </ui:repeat>
+                    </ul>
+                </h:panelGroup>
+
+            </div>
+
+            <!-- Cards adicionais inferiores -->
+            <h:panelGroup layout="block" styleClass="dashboard-additional-cards" id="additionalCards" data-aos="fade-up" data-aos-delay="200">
+
+                <h:panelGroup layout="block" styleClass="matricula-card">
+                    <div class="matricula-card__header">
+                        <span class="card-title-sm">Novas Matrículas</span>
+                        <span class="card-subtitle-sm">Últimas 4 semanas</span>
+                    </div>
+                    <div class="matricula-card__bars">
+                        <div class="matricula-bar-row">
+                            <span>Sem 1</span>
+                            <div class="matricula-bar-track"><div class="matricula-bar-fill" style="width: 65%;"></div></div>
+                            <span class="matricula-bar-value">32</span>
+                        </div>
+                        <div class="matricula-bar-row">
+                            <span>Sem 2</span>
+                            <div class="matricula-bar-track"><div class="matricula-bar-fill" style="width: 85%;"></div></div>
+                            <span class="matricula-bar-value">48</span>
+                        </div>
+                        <div class="matricula-bar-row">
+                            <span>Sem 3</span>
+                            <div class="matricula-bar-track"><div class="matricula-bar-fill" style="width: 50%;"></div></div>
+                            <span class="matricula-bar-value">24</span>
+                        </div>
+                        <div class="matricula-bar-row">
+                            <span>Sem 4</span>
+                            <div class="matricula-bar-track"><div class="matricula-bar-fill" style="width: 95%;"></div></div>
+                            <span class="matricula-bar-value">56</span>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="payments-card">
+                    <div class="payments-card__header">
+                        <span class="card-title-sm">Pagamentos Confirmados</span>
+                        <span class="card-subtitle-sm">Distribuição por tipo</span>
+                    </div>
+                    <div class="payments-content">
+                        <div class="mini-pie-chart" title="Distribuição em 4 partes"></div>
+                        <div class="payments-legend-mini">
+                            <div class="payments-legend-item"><span class="payments-dot" style="background:var(--accent-purple);"></span> Propina (25%)</div>
+                            <div class="payments-legend-item"><span class="payments-dot" style="background:var(--accent-gold);"></span> Matrícula (25%)</div>
+                            <div class="payments-legend-item"><span class="payments-dot" style="background:var(--accent-blue);"></span> Multas (25%)</div>
+                            <div class="payments-legend-item"><span class="payments-dot" style="background:var(--accent-green);"></span> Outros (25%)</div>
+                        </div>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--cyan">
+                    <span class="stat-card__label"><span class="pi pi-user-plus"></span> Utilizadores Ativos</span>
+                    <span class="stat-card__value">#{fn:length(dashboardController.usersByProfile)}</span>
+                </h:panelGroup>
+
+                <!-- Novos Cards de Documentos -->
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--blue" data-aos="fade-up" data-aos-delay="250">
+                    <span class="stat-card__label"><span class="pi pi-folder-open"></span> Total de Documentos</span>
+                    <span class="stat-card__value">#{documentController.totalDocumentCount}</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--gold" data-aos="fade-up" data-aos-delay="300">
+                    <span class="stat-card__label"><span class="pi pi-clock"></span> Docs. a Expirar (30d)</span>
+                    <span class="stat-card__value">#{documentController.expiringSoonCount}</span>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="stat-card stat-card--purple" data-aos="fade-up" data-aos-delay="350">
+                    <span class="stat-card__label"><span class="pi pi-calendar-times"></span> Documentos Expirados</span>
+                    <span class="stat-card__value">#{documentController.expiredCount}</span>
+                </h:panelGroup>
+            </h:panelGroup>
+
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,68 +1,44 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
-<h:head>
-
-    <meta charset="UTF-8" />
-    <title>
-        <ui:insert name="titulo">Dashboard</ui:insert>
-    </title>
-
-    <h:outputStylesheet name="general.css" library="css" />
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <h:outputScript name="general.js" library="js" />
-
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
-
-    <script>
-
-
-    </script>
-</h:head>
-
-<f:view locale="#{languageController.locale}">
     <h:head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <h:outputStylesheet name="general.css" library="css" />
+        <title><ui:insert name="titulo">Dashboard</ui:insert></title>
 
+        <h:outputStylesheet name="general.css" library="css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
         <h:outputScript name="general.js" library="js" />
-
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     </h:head>
 
-    <h:body>
-
-        <div class="dashbord-layout">
-            <div class="layout-side-bar-container">
-                <ui:include src="../dashboard/side-bar.xhtml" />
-            </div>
-
-            <div class="layout-content-container">
-                <div class="layout-menu-container">
-                    <ui:include src="./menu.xhtml" />
+    <f:view locale="#{languageController.locale}">
+        <h:body>
+            <div class="dashbord-layout">
+                <div class="layout-side-bar-container">
+                    <ui:include src="side-bar.xhtml" />
                 </div>
-                <div class="layout-children-container">
-                    <div id="loaderContainer" class="loader_container">
-                        <div class="loader">
 
-                            <i class="pi pi-spin pi-spinner-dotted" style="font-size: 6rem"></i>
-
-                        </div>
+                <div class="layout-content-container">
+                    <div class="layout-menu-container">
+                        <ui:include src="menu.xhtml" />
                     </div>
-                    <ui:insert name="content" />
+                    <div class="layout-children-container">
+                        <div id="loaderContainer" class="loader_container">
+                            <div class="loader">
+                                <i class="pi pi-spin pi-spinner-dotted" style="font-size: 6rem"></i>
+                            </div>
+                        </div>
+                        <ui:insert name="content" />
+                    </div>
                 </div>
             </div>
-        </div>
-    </h:body>
-</f:view>
-
-</html>
+        </h:body>
+    </f:view>
+</ui:composition>

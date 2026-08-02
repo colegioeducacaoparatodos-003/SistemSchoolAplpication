@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="editMovementDialog" widgetVar="editMovementDialog" header="#{msg.editMovement}" modal="true"
+              showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-edit" width="800"
+              dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="movementEditForm" styleClass="ui-fluid">
+            <div class="sc-create-body">
+                <p:messages id="msgsEdit" showDetail="true" closable="true"/>
+
+                <!-- 1 · IDENTIFICAÇÃO DO MOVIMENTO -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-hashtag"></i> #{msg.movementIdentification}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="movementNumber" value="#{msg.movementNumber}" styleClass="sc-label req"/>
+                        <p:inputText id="movementNumber" value="#{financialMovementController.editDto.movementNumber}" required="true"/>
+
+                        <p:outputLabel for="movementDate" value="#{msg.movementDate}" styleClass="sc-label"/>
+                        <p:datePicker id="movementDate" value="#{financialMovementController.editDto.movementDate}"
+                                      pattern="dd/MM/yyyy HH:mm" showTime="true" showIcon="true"/>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 2 · VÍNCULOS -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-link"></i> #{msg.linkedRecords}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="cashBox" value="#{msg.cashBox}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="cashBox" value="#{financialMovementController.selectedCashBoxId}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{financialMovementController.cashBoxes}" var="cb"
+                                           itemLabel="#{cb.cashBoxNumber}" itemValue="#{cb.phCashBox}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="payment" value="#{msg.payment}" styleClass="sc-label"/>
+                        <p:selectOneMenu id="payment" value="#{financialMovementController.selectedPaymentId}">
+                            <f:selectItem itemLabel="— #{msg.none} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{financialMovementController.payments}" var="pm"
+                                           itemLabel="#{pm.paymentNumber}" itemValue="#{pm.phPayment}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 3 · DETALHES DO MOVIMENTO -->
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-money-bill"></i> #{msg.movementDetails}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="description" value="#{msg.description}" styleClass="sc-label req"/>
+                        <p:inputText id="description" value="#{financialMovementController.editDto.description}" required="true"/>
+
+                        <p:outputLabel for="amount" value="#{msg.amount}" styleClass="sc-label req"/>
+                        <p:inputNumber id="amount" value="#{financialMovementController.editDto.amount}"
+                                       symbol="Kz " symbolPosition="p" decimalPlaces="2" required="true"/>
+
+                        <p:outputLabel for="type" value="#{msg.type}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="type" value="#{financialMovementController.editDto.type}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{financialMovementController.types}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="category" value="#{msg.category}" styleClass="sc-label"/>
+                        <p:inputText id="category" value="#{financialMovementController.editDto.category}"/>
+
+                        <p:outputLabel for="responsible" value="#{msg.responsible}" styleClass="sc-label"/>
+                        <p:inputText id="responsible" value="#{financialMovementController.editDto.responsible}"/>
+
+                        <p:outputLabel for="status" value="#{msg.status}" styleClass="sc-label"/>
+                        <p:selectOneMenu id="status" value="#{financialMovementController.editDto.status}">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{financialMovementController.statuses}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:outputLabel for="observation" value="#{msg.observation}" styleClass="sc-label"/>
+                    <p:inputTextarea id="observation" value="#{financialMovementController.editDto.observation}" rows="3"/>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times"
+                                 styleClass="sc-btn-cancel"
+                                 type="button"
+                                 onclick="PF('editMovementDialog').hide()"/>
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save"
+                                 styleClass="sc-btn-save"
+                                 action="#{financialMovementController.saveUpdate}"
+                                 process="@form"
+                                 update=":formMovements:dtMovements msgsEdit :formMovements:messages"
+                                 oncomplete="if (!args.validationFailed) { PF('editMovementDialog').hide(); }"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>

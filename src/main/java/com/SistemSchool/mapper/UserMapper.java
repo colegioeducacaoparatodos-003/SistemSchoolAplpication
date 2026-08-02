@@ -7,7 +7,6 @@ import com.SistemSchool.dto.UserDTO;
 import com.SistemSchool.model.User;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Component
 public class UserMapper {
@@ -21,7 +20,7 @@ public class UserMapper {
         UserDTO.UserResponseDTO dto = new UserDTO.UserResponseDTO();
         dto.setPkUser(user.getPkUser());
         dto.setFkPerson(user.getFkPerson());
-        dto.setFkUserType(user.getFkUserType());
+        dto.setPerfil(user.getPerfil());
         dto.setEmail(user.getEmail());
         dto.setActive(user.isActive());
         dto.setDeviceToken(user.getDeviceToken());
@@ -39,7 +38,7 @@ public class UserMapper {
 
         User user = new User();
         user.setFkPerson(dto.getFkPerson());
-        user.setFkUserType(dto.getFkUserType());
+        user.setPerfil(dto.getPerfil());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword()); // Será hash posteriormente
         user.setActive(dto.isActive());
@@ -61,8 +60,8 @@ public class UserMapper {
             user.setEmail(dto.getEmail());
         }
 
-        if (dto.getFkUserType() != null) {
-            user.setFkUserType(dto.getFkUserType());
+        if (dto.getPerfil() != null) {
+            user.setPerfil(dto.getPerfil());
         }
 
         user.setActive(dto.isActive());

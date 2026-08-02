@@ -1,0 +1,665 @@
+<ui:composition template="/components/dashboard/dashboard-layout.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">#{msg.documentList}</ui:define>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputStylesheet name="general.css" library="css" />
+    <h:outputScript name="general.js" library="js" />
+
+    <ui:define name="content">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;family=DM+Mono:wght@400;500&amp;display=swap');
+
+            :root {
+                --black: #141414;
+                --black-mid: #262626;
+                --black-lt: #3a3a3a;
+                --red: #c8102e;
+                --red-lt: #e63946;
+                --red-pale: #fdecee;
+                --yellow: #f5b400;
+                --yellow-lt: #ffd23f;
+                --yellow-pale: #fff8e1;
+                --blue: #1a5fb4;
+                --blue-pale: #eaf1fb;
+                --green: #1e824c;
+                --green-pale: #e9f7ef;
+                --surface: #ffffff;
+                --surface-2: #f7f7f8;
+                --border: #e6e6e8;
+                --border-dk: #cfcfd3;
+                --text: #141414;
+                --text-muted: #666a70;
+                --text-faint: #9a9ea4;
+                --radius-sm: 6px;
+                --radius: 10px;
+                --radius-lg: 14px;
+                --shadow-sm: 0 1px 4px rgba(20, 20, 20, .08);
+                --shadow: 0 4px 20px rgba(20, 20, 20, .12);
+                --font: 'DM Sans', system-ui, sans-serif;
+                --font-mono: 'DM Mono', monospace;
+            }
+
+            body {
+                background: var(--surface-2);
+                font-family: var(--font);
+            }
+
+            .page-scroll-wrapper {
+                height: calc(100vh - 72px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 1.2rem;
+                box-sizing: border-box;
+                scroll-behavior: smooth;
+            }
+
+            @media (min-width: 768px) {
+                .page-scroll-wrapper {
+                    padding: 1.6rem 1.8rem 2.5rem;
+                }
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .page-scroll-wrapper::-webkit-scrollbar-thumb {
+                background: var(--border-dk);
+                border-radius: 99px;
+            }
+
+            .page-header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 1.2rem;
+            }
+
+            @media (min-width: 576px) {
+                .page-header {
+                    align-items: center;
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .page-header-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .page-header-icon {
+                width: 42px;
+                height: 42px;
+                border-radius: var(--radius);
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--yellow);
+                font-size: 1.1rem;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(20, 20, 20, .3);
+            }
+
+            @media (min-width: 768px) {
+                .page-header-icon {
+                    width: 48px;
+                    height: 48px;
+                    font-size: 1.25rem;
+                }
+            }
+
+            .page-header-title h1 {
+                font-size: 1.15rem;
+                font-weight: 700;
+                color: var(--black);
+                margin: 0 0 .15rem;
+            }
+
+            @media (min-width: 768px) {
+                .page-header-title h1 {
+                    font-size: 1.35rem;
+                }
+            }
+
+            .page-header-title span {
+                font-size: .75rem;
+                color: var(--text-muted);
+            }
+
+            .breadcrumb-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                background: var(--yellow-pale);
+                border: 1px solid rgba(245, 180, 0, .35);
+                color: #8a6400;
+                border-radius: 99px;
+                padding: 3px 12px;
+                font-size: .7rem;
+                font-weight: 600;
+            }
+
+            /* Stat Row Grid Responsiva */
+            .stat-row {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: .8rem;
+                margin-bottom: 1.2rem;
+            }
+
+            @media (min-width: 576px) {
+                .stat-row {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (min-width: 992px) {
+                .stat-row {
+                    grid-template-columns: repeat(4, 1fr);
+                    margin-bottom: 1.5rem;
+                }
+            }
+
+            .stat-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                padding: .9rem 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: .8rem;
+            }
+
+            .stat-card .stat-label {
+                font-size: .72rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: .03em;
+                display: block;
+                margin-bottom: .2rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: var(--black);
+                font-family: var(--font-mono);
+            }
+
+            @media (min-width: 768px) {
+                .stat-card .stat-value {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .stat-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: var(--radius);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+
+            @media (min-width: 768px) {
+                .stat-icon {
+                    width: 42px;
+                    height: 42px;
+                    font-size: 1.1rem;
+                }
+            }
+
+            .stat-icon.total { background: var(--black); color: var(--yellow); }
+            .stat-icon.expiring { background: var(--yellow-pale); color: #8a6400; }
+            .stat-icon.expired { background: var(--red-pale); color: var(--red); }
+            .stat-icon.students { background: var(--blue-pale); color: var(--blue); }
+
+            .main-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow);
+                overflow: hidden;
+            }
+
+            .card-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: .8rem 1rem;
+                border-bottom: 1px solid var(--border);
+                gap: .8rem;
+                flex-wrap: wrap;
+            }
+
+            .toolbar-left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            @media (min-width: 768px) {
+                .toolbar-left {
+                    gap: 2rem;
+                    width: auto;
+                }
+            }
+
+            .toolbar-title {
+                font-size: .82rem;
+                font-weight: 700;
+                color: var(--black);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .toolbar-right {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            @media (min-width: 768px) {
+                .toolbar-right {
+                    width: auto;
+                }
+            }
+
+            .search-wrap {
+                position: relative;
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+            }
+
+            @media (min-width: 768px) {
+                .search-wrap {
+                    flex-grow: 0;
+                }
+            }
+
+            .search-wrap .pi-search {
+                position: absolute;
+                left: 10px;
+                color: var(--text-faint);
+                font-size: .75rem;
+            }
+
+            .search-input {
+                padding: 6px 10px 6px 30px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-sm);
+                font-size: .8rem;
+                width: 100%;
+                background: var(--surface-2);
+                outline: none;
+            }
+
+            @media (min-width: 768px) {
+                .search-input {
+                    width: 220px;
+                }
+            }
+
+            .search-input:focus {
+                border-color: var(--red);
+                box-shadow: 0 0 0 3px rgba(200, 16, 46, .1);
+            }
+
+            .btn-new, .btn-ghost {
+                border-radius: var(--radius-sm);
+                padding: 6px 12px;
+                font-size: .78rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+            }
+
+            .btn-new {
+                background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%);
+                color: #fff;
+                border: none;
+            }
+
+            .btn-new:hover { filter: brightness(1.08); }
+
+            .btn-ghost {
+                background: var(--surface-2);
+                color: var(--text);
+                border: 1px solid var(--border);
+            }
+
+            .btn-ghost:hover { background: var(--border); }
+
+            /* Tabela Otimizada */
+            .doc-table.p-datatable .p-datatable-thead>tr>th {
+                background: var(--black) !important;
+                color: var(--yellow-lt) !important;
+                font-size: .68rem !important;
+                text-transform: uppercase !important;
+                padding: .6rem .8rem !important;
+                border-color: var(--black) !important;
+            }
+
+            .doc-table.p-datatable .p-datatable-tbody>tr>td {
+                font-size: .8rem !important;
+                padding: .65rem .8rem !important;
+            }
+
+            .doc-table.p-datatable .p-datatable-tbody>tr:hover {
+                background: var(--surface-2) !important;
+            }
+
+            .t-num {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                background: var(--black-mid);
+                color: var(--yellow);
+                border-radius: 5px;
+                padding: 2px 7px;
+                font-family: var(--font-mono);
+                font-size: .72rem;
+            }
+
+            .t-cell {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .t-avatar {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: var(--black);
+                color: var(--yellow);
+                font-size: .72rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .t-sub {
+                font-size: .7rem;
+                color: var(--text-muted);
+                max-width: 150px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            @media (min-width: 992px) {
+                .t-sub {
+                    max-width: 250px;
+                }
+            }
+
+            .doc-type-badge, .expiry-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 2px 8px;
+                border-radius: 99px;
+                font-size: .7rem;
+                font-weight: 700;
+            }
+
+            .doc-type-badge {
+                background: var(--blue-pale);
+                color: var(--blue);
+                border: 1px solid rgba(26, 95, 180, .3);
+            }
+
+            .expiry-badge.ok { background: var(--green-pale); color: var(--green); border: 1px solid rgba(30, 130, 76, .3); }
+            .expiry-badge.soon { background: var(--yellow-pale); color: #8a6400; border: 1px solid rgba(245, 180, 0, .4); }
+            .expiry-badge.expired { background: var(--red-pale); color: var(--red); border: 1px solid rgba(200, 16, 46, .3); }
+            .expiry-badge.none { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+
+            .actions-cell {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                justify-content: center;
+            }
+
+            .act-btn {
+                width: 26px;
+                height: 26px;
+                border-radius: var(--radius-sm);
+                border: 1px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: .7rem;
+                cursor: pointer;
+            }
+
+            .act-btn.download { color: var(--blue); background: var(--blue-pale); }
+            .act-btn.edit { color: #8a6400; background: var(--yellow-pale); }
+            .act-btn.delete { color: var(--red); background: var(--red-pale); }
+        </style>
+
+        <div class="page-scroll-wrapper">
+            <h:form id="formDocuments">
+                <p:growl id="messages" showDetail="true" life="4000" />
+
+                <!-- ── Page Header ── -->
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <div class="page-header-icon"><i class="pi pi-file" /></div>
+                        <div class="page-header-title">
+                            <h1>#{msg.documentList}</h1>
+                            <span>#{msg.documentDescription}</span>
+                        </div>
+                    </div>
+                    <span class="breadcrumb-pill d-none d-sm-inline-flex">
+                        <i class="pi pi-home" style="font-size:.6rem" /> #{msg.management} &#8250; #{msg.documents}
+                    </span>
+                </div>
+
+                <!-- ── Stat cards ── -->
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.totalDocuments}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{documentController.totalDocumentCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon total"><i class="pi pi-file" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.expiringSoon}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{documentController.expiringSoonCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon expiring"><i class="pi pi-exclamation-triangle" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.expiredDocuments}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{documentController.expiredCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon expired"><i class="pi pi-times-circle" /></div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <span class="stat-label">#{msg.studentsWithDocuments}</span>
+                            <div class="stat-value">
+                                <h:outputText value="#{documentController.distinctStudentsCount}">
+                                    <f:convertNumber pattern="#,##0" />
+                                </h:outputText>
+                            </div>
+                        </div>
+                        <div class="stat-icon students"><i class="pi pi-users" /></div>
+                    </div>
+                </div>
+
+                <!-- ── Main Card ── -->
+                <div class="main-card">
+                    <div class="card-toolbar">
+                        <div class="toolbar-left filter-zone">
+                            <span class="toolbar-title"><i class="pi pi-list" style="color:var(--red)" /> #{msg.record}</span>
+                            <div class="search-wrap">
+                                <input type="text" class="search-input" placeholder="#{msg.search}"
+                                    onkeyup="PF('dtDocuments').filter(this.value, 'global', 'contains')" />
+                            </div>
+                        </div>
+                        <div class="toolbar-right">
+                            <p:commandButton icon="pi pi-filter-slash" title="#{msg.clearFilters}" styleClass="btn-ghost"
+                                actionListener="#{documentController.lazyModel.clearFilters}" update="dtDocuments" />
+                            <p:commandButton value="#{msg.newDocument}" icon="pi pi-plus" styleClass="btn-new"
+                                actionListener="#{documentController.openCreateDialog}"
+                                oncomplete="PF('createDocumentDialog').show()" update=":documentCreateForm"
+                                process="@this" />
+                        </div>
+                    </div>
+
+                    <p:dataTable id="dtDocuments" widgetVar="dtDocuments" styleClass="doc-table" var="document"
+                        value="#{documentController.lazyModel}" lazy="true" paginator="true" rows="10"
+                        paginatorPosition="bottom" reflow="true"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registos"
+                        rowsPerPageTemplate="5,10,15,30" emptyMessage="#{msg.noDocumentFound}">
+
+                        <p:column headerText="#{msg.documentNumber}" sortBy="#{document.documentNumber}"
+                            style="width:120px">
+                            <span class="t-num">
+                                <i class="pi pi-hashtag" style="font-size:.6rem" />
+                                <h:outputText value="#{document.documentNumber}" />
+                          </span>
+                        </p:column>
+
+                        <p:column headerText="#{msg.student}" sortBy="#{document.studentName}">
+                            <div class="t-cell">
+                                <div class="t-avatar">
+                                    <h:outputText value="#{document.studentName.substring(0,1)}" />
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 140px;">
+                                        <h:outputText value="#{document.studentName}" />
+                                    </div>
+                                    <div class="t-sub">
+                                        <h:outputText value="#{document.fileName}" />
+                                    </div>
+                                </div>
+                          </div>
+                      </p:column>
+
+                        <p:column headerText="#{msg.documentType}" sortBy="#{document.documentType}"
+                            style="width:150px; text-align:center">
+                            <span class="doc-type-badge">
+                                <i class="pi pi-file" style="font-size:.6rem" />
+                                <h:outputText value="#{document.documentType.descricao}" />
+                            </span>
+                      </p:column>
+
+                        <p:column headerText="#{msg.issueDate}" sortBy="#{document.issueDate}"
+                            style="width:110px; text-align:center">
+                            <h:outputText value="#{document.issueDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                          </h:outputText>
+                      </p:column>
+
+                        <p:column headerText="#{msg.expiryDate}" sortBy="#{document.expiryDate}"
+                            style="width:125px; text-align:center">
+                            <h:panelGroup rendered="#{document.expiryDate != null}">
+                                <span class="expiry-badge #{documentController.expiryStatus(document.expiryDate)}">
+                                    <i class="pi pi-clock" style="font-size:.5rem" />
+                                    <h:outputText value="#{document.expiryDate}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" type="localDate" />
+                                    </h:outputText>
+                                </span>
+                          </h:panelGroup>
+                          <h:panelGroup rendered="#{document.expiryDate == null}">
+                                <span class="expiry-badge none">—</span>
+                          </h:panelGroup>
+                      </p:column>
+
+                        <p:column headerText="#{msg.actions}" style="width:110px; text-align:center" exportable="false">
+                            <div class="actions-cell">
+                                <p:commandButton styleClass="act-btn download" icon="pi pi-download"
+                                    title="#{msg.download}" ajax="false"
+                                    action="#{documentController.downloadDocumento}">
+                                    <f:param name="documentId" value="#{document.phDocument}" />
+                              </p:commandButton>
+
+                                <p:commandButton styleClass="act-btn edit" icon="pi pi-pencil" title="#{msg.edit}"
+                                    action="#{documentController.openEditDialog(document.phDocument)}"
+                                    oncomplete="PF('editDocumentDialog').show()" update=":documentEditForm" />
+
+                                <p:commandButton styleClass="act-btn delete" icon="pi pi-trash" title="#{msg.delete}"
+                                    process="@this" oncomplete="PF('deleteDocumentDialog').show()">
+                                    <f:setPropertyActionListener value="#{document.phDocument}"
+                                        target="#{documentController.selectedId}" />
+                              </p:commandButton>
+                          </div>
+                      </p:column>
+                    </p:dataTable>
+                </div>
+
+                <!-- ── Confirm delete dialog ── -->
+                <p:dialog widgetVar="deleteDocumentDialog" modal="true" resizable="false" header="#{msg.confirmDeleteDocument}"
+                    width="90%" style="max-width: 380px;" closable="true" styleClass="confirm-delete-dialog">
+                    <div style="padding: .5rem 0 1rem; display:flex; gap:.8rem; align-items:flex-start;">
+                        <i class="pi pi-exclamation-triangle"
+                            style="color: var(--red); font-size: 1.6rem; flex-shrink:0;" />
+                        <span style="font-size:.85rem; color: var(--text);">
+                            #{msg.deleteDocumentQuestion}
+                        </span>
+                  </div>
+                  <div style="display:flex; justify-content:flex-end; gap:.6rem;">
+                      <p:commandButton value="#{msg.no}" type="button" onclick="PF('deleteDocumentDialog').hide()"
+                          style="background: var(--surface-2); color: var(--text); border:1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 14px; font-size:.78rem;" />
+                      <p:commandButton value="#{msg.yes}" icon="pi pi-trash"
+                          actionListener="#{documentController.delete}" process="@this"
+                          update=":formDocuments:dtDocuments :formDocuments:messages"
+                          oncomplete="PF('deleteDocumentDialog').hide()"
+                          style="background: linear-gradient(135deg, var(--black) 0%, var(--red) 100%); color:#fff; border:none; border-radius: var(--radius-sm); padding: 6px 14px; font-size:.78rem;" />
+              </div>
+            </p:dialog>
+          </h:form>
+        </div>
+
+        <ui:include src="documents/document-create.xhtml" />
+        <ui:include src="documents/document-edit.xhtml" />
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <p:dialog id="createFeeDialog" widgetVar="createFeeDialog" header="#{msg.newFee}" modal="true"
+              showEffect="fade" hideEffect="fade" closeOnEscape="true" styleClass="sc-dialog-create" width="800"
+              dynamic="true" resizable="false" appendTo="@(body)">
+
+        <h:form id="feeCreateForm" styleClass="ui-fluid">
+            <div class="sc-create-body">
+                <p:messages id="msgs" showDetail="true" closable="true"/>
+
+                <!-- 1 · IDENTIFICAÇÃO DA PROPINA -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-hashtag"></i> #{msg.feeIdentification}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="feeCode" value="#{msg.feeCode}" styleClass="sc-label req"/>
+                        <p:inputText id="feeCode" value="#{feeController.fee.feeCode}"
+                                     required="true" placeholder="Ex: PROP-2026-001"/>
+
+                        <p:outputLabel for="status" value="#{msg.status}" styleClass="sc-label"/>
+                        <p:selectOneMenu id="status" value="#{feeController.fee.status}">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{feeController.statuses}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 2 · VÍNCULOS -->
+                <div class="sc-section">
+                    <div class="sc-section-title"><i class="pi pi-link"></i> #{msg.linkedRecords}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="schoolClass" value="#{msg.schoolClass}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="schoolClass" value="#{feeController.selectedSchoolClassId}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{feeController.schoolClasses}" var="sc"
+                                           itemLabel="#{sc.classCode} — #{sc.className}" itemValue="#{sc.pkSchoolClass}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="enrolment" value="#{msg.enrolment}" styleClass="sc-label req"/>
+                        <p:selectOneMenu id="enrolment" value="#{feeController.selectedEnrolmentId}" required="true">
+                            <f:selectItem itemLabel="— #{msg.select} —" itemValue="#{null}" noSelectionOption="true"/>
+                            <f:selectItems value="#{feeController.enrolments}" var="en"
+                                           itemLabel="#{en.enrolmentNumer}" itemValue="#{en.phEnrolment}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </div>
+
+                <!-- 3 · DETALHES DA PROPINA -->
+                <div class="sc-section accent">
+                    <div class="sc-section-title"><i class="pi pi-money-bill"></i> #{msg.feeDetails}</div>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="p-col-12 p-md-6, p-col-12 p-md-6">
+                        <p:outputLabel for="description" value="#{msg.description}" styleClass="sc-label req"/>
+                        <p:inputText id="description" value="#{feeController.fee.description}" required="true"/>
+
+                        <p:outputLabel for="amount" value="#{msg.amount}" styleClass="sc-label req"/>
+                        <p:inputNumber id="amount" value="#{feeController.fee.amount}"
+                                       symbol="Kz " symbolPosition="p" decimalPlaces="2" required="true"/>
+
+                        <p:outputLabel for="schoolYear" value="#{msg.schoolYear}" styleClass="sc-label"/>
+                        <p:inputNumber id="schoolYear" value="#{feeController.fee.schoolYear}"
+                                       decimalPlaces="0" thousandSeparator="" placeholder="Ex: 2026"/>
+
+                        <p:outputLabel for="startDate" value="#{msg.startDate}" styleClass="sc-label"/>
+                        <p:datePicker id="startDate" value="#{feeController.fee.startDate}"
+                                      pattern="dd/MM/yyyy" showIcon="true"/>
+
+                        <p:outputLabel for="endDate" value="#{msg.endDate}" styleClass="sc-label"/>
+                        <p:datePicker id="endDate" value="#{feeController.fee.endDate}"
+                                      pattern="dd/MM/yyyy" showIcon="true"/>
+                    </p:panelGrid>
+
+                    <p:outputLabel for="observation" value="#{msg.observation}" styleClass="sc-label"/>
+                    <p:inputTextarea id="observation" value="#{feeController.fee.obs}" rows="3"
+                                     placeholder="#{msg.additionalNotesPlaceholder}"/>
+                </div>
+
+            </div>
+
+            <div class="sc-create-footer">
+                <p:commandButton value="#{msg.cancel}" icon="pi pi-times"
+                                 styleClass="sc-btn-cancel"
+                                 type="button"
+                                 onclick="PF('createFeeDialog').hide()"/>
+
+                <p:commandButton value="#{msg.save}" icon="pi pi-save"
+                                 styleClass="sc-btn-save"
+                                 action="#{feeController.saveFee}"
+                                 process="@form"
+                                 update=":formFees:dtFees msgs :formFees:messages"
+                                 oncomplete="if (!args.validationFailed) { PF('createFeeDialog').hide(); }"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+</ui:composition>
