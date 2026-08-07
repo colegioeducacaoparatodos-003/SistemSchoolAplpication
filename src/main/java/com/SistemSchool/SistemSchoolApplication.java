@@ -39,7 +39,7 @@ public class SistemSchoolApplication {
         return servletContext -> {
             // Configurações ESSENCIAIS do JSF
             servletContext.setInitParameter("jakarta.faces.PROJECT_STAGE", "Development");
-            servletContext.setInitParameter("jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML", "true");
+            //servletContext.setInitParameter("jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML", "true");
             servletContext.setInitParameter("jakarta.faces.FACELETS_SKIP_COMMENTS", "true");
 
             // Configurações para DESATIVAR CDI
