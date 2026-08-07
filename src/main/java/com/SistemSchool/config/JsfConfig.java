@@ -19,6 +19,7 @@ public class JsfConfig {
         registration.setServlet(new FacesServlet());
         registration.addUrlMappings("*.xhtml", "*.jsf");
         registration.setLoadOnStartup(1);
+        registration.setName("FacesServlet");
         return registration;
     }
 
@@ -32,6 +33,8 @@ public class JsfConfig {
             }
         });
         registration.addUrlMappings("/");
+        registration.setName("RootRedirect");
+        registration.setLoadOnStartup(2);
         return registration;
     }
 }
