@@ -12,6 +12,7 @@
     <groupId>com.SistemSchool</groupId>
     <artifactId>SistemSchool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>SistemSchool</name>
     <description>Sistem School</description>
     <url/>
@@ -86,7 +87,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -221,5 +222,18 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- INCLUI webapp/ no JAR automaticamente -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
