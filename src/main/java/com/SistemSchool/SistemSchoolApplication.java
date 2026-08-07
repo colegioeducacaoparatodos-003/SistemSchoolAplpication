@@ -1,10 +1,12 @@
 package com.SistemSchool;
 
 import jakarta.faces.webapp.FacesServlet;
-import jakarta.servlet.ServletRegistration;
+import org.apache.myfaces.webapp.StartupServletContextListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
@@ -15,14 +17,18 @@ public class SistemSchoolApplication {
     }
 
     @Bean
-    public ServletContextInitializer jsfInitializer() {
-        return servletContext -> {
-            // Registra o FacesServlet DIRETAMENTE no Tomcat (antes do MyFaces inicializar)
-            ServletRegistration.Dynamic facesServlet = servletContext.addServlet("FacesServlet", FacesServlet.class);
-            facesServlet.addMapping("*.xhtml", "*.jsf");
-            facesServlet.setLoadOnStartup(1);
+    public ServletRegistrationBean<FacesServlet> facesServlet() {
+        return new ServletRegistrationBean<>(new FacesServlet(), "*.xhtml", "*.jsf");
+    }
 
-            // Parâmetros do JSF/MyFaces
+    @Bean
+    public ServletListenerRegistrationBean<StartupServletContextListener> myFacesStartupListener() {
+        return new ServletListenerRegistrationBean<>(new StartupServletContextListener());
+    }
+
+    @Bean
+    public ServletContextInitializer initializer() {
+        return servletContext -> {
             servletContext.setInitParameter("jakarta.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("jakarta.faces.DEFAULT_SUFFIX", ".xhtml");
             servletContext.setInitParameter("primefaces.THEME", "saga");
