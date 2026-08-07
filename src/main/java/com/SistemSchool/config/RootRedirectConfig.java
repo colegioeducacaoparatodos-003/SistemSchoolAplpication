@@ -22,15 +22,12 @@ public class RootRedirectConfig {
                     throws IOException, ServletException {
                 HttpServletRequest req = (HttpServletRequest) request;
                 HttpServletResponse res = (HttpServletResponse) response;
-
                 String uri = req.getRequestURI();
-                String context = req.getContextPath();
-
-                if (uri.equals(context + "/") || uri.equals("/")) {
+                
+                if (uri.equals(req.getContextPath() + "/") || uri.equals("/")) {
                     res.sendRedirect("/login.xhtml");
                     return;
                 }
-
                 chain.doFilter(request, response);
             }
         });
