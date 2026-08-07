@@ -4,52 +4,42 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
                              https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  PRIMEFACES                                                     -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
     </context-param>
-    <context-param>
-        <param-name>primefaces.FONT_AWESOME</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>primefaces.CSP</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  JSF / MYFACES                                                  -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <context-param>
-        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
-        <param-value>Production</param-value>
-    </context-param>
-
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+    <locale-encoding-mapping-list>
+        <locale-encoding-mapping>
+            <locale>pt</locale>
+            <encoding>UTF-8</encoding>
+        </locale-encoding-mapping>
+    </locale-encoding-mapping-list>
     <context-param>
         <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
 
     <context-param>
-        <param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
-        <param-value>-1</param-value>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
     </context-param>
-
-    <!-- Silencia logs de desenvolvimento -->
-    <context-param>
-        <param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <!-- Cache de views -->
+    <!-- Aumentar o tempo de sessão -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <!-- MyFaces: guardar mais views em memória -->
     <context-param>
         <param-name>org.apache.myfaces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
         <param-value>25</param-value>
@@ -58,84 +48,4 @@
         <param-name>org.apache.myfaces.NUMBER_OF_SEQUENTIAL_VIEWS_IN_SESSION</param-name>
         <param-value>5</param-value>
     </context-param>
-
-    <!-- Cache de recursos -->
-    <context-param>
-        <param-name>org.apache.myfaces.RESOURCE_HANDLER_CACHE_ENABLED</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <!-- Segurança view state -->
-    <context-param>
-        <param-name>org.apache.myfaces.AUTOCOMPLETE_OFF_VIEW_STATE</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  SERVLET DO JSF                                                 -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  PÁGINA DE BOAS-VINDAS                                          -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
-        <welcome-file>login.xhtml</welcome-file>
-    </welcome-file-list>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  SESSÃO                                                         -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <session-config>
-        <session-timeout>30</session-timeout>
-        <cookie-config>
-            <http-only>true</http-only>
-            <secure>true</secure>
-        </cookie-config>
-        <tracking-mode>COOKIE</tracking-mode>
-    </session-config>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  PÁGINAS DE ERRO                                                -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <error-page>
-        <error-code>404</error-code>
-        <location>/error/404.xhtml</location>
-    </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error/500.xhtml</location>
-    </error-page>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  MIME TYPES                                                     -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <mime-mapping>
-        <extension>woff2</extension>
-        <mime-type>font/woff2</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>woff</extension>
-        <mime-type>font/woff</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>ttf</extension>
-        <mime-type>font/ttf</mime-type>
-    </mime-mapping>
-
 </web-app>
