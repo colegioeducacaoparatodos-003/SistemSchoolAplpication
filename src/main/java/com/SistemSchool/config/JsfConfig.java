@@ -1,29 +1,37 @@
 package com.SistemSchool.config;
 
 import jakarta.faces.webapp.FacesServlet;
-import jakarta.servlet.ServletContextListener;
-import org.apache.myfaces.webapp.StartupServletContextListener;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.IOException;
 
 @Configuration
 public class JsfConfig {
 
     @Bean
-    public ServletRegistrationBean<FacesServlet> facesServletRegistration() {
-        ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>(
-                new FacesServlet(), "*.xhtml");
+    public ServletRegistrationBean<FacesServlet> facesServlet() {
+        ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>();
+        registration.setServlet(new FacesServlet());
+        registration.addUrlMappings("*.xhtml", "*.jsf");
         registration.setLoadOnStartup(1);
         return registration;
     }
 
     @Bean
-    public ServletListenerRegistrationBean<ServletContextListener> jsfListenerRegistration() {
-        ServletListenerRegistrationBean<ServletContextListener> registration = 
-                new ServletListenerRegistrationBean<>();
-        registration.setListener(new StartupServletContextListener());
+    public ServletRegistrationBean<HttpServlet> rootRedirectServlet() {
+        ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
+        registration.setServlet(new HttpServlet() {
+            @Override
+            protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+                resp.sendRedirect("/login.xhtml");
+            }
+        });
+        registration.addUrlMappings("/");
         return registration;
     }
 }

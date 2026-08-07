@@ -16,11 +16,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/index.xhtml")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/login.xhtml")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/*.xhtml")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login.xhtml")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/resources/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/components/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll()
                 .anyRequest().authenticated()
             )
