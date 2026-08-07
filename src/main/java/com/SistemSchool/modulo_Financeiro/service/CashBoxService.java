@@ -17,10 +17,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
 public class CashBoxService {
+
+    private static final Logger LOGGER = Logger.getLogger(CashBoxService.class.getName());
 
     private final CashBoxRepository repository;
 
@@ -33,6 +37,9 @@ public class CashBoxService {
     // ─────────────────────────────────────────────────────────────
 
     public CashBox save(CashBox cashBox) {
+        if (cashBox.getCashBoxNumber() == null || cashBox.getCashBoxNumber().isBlank()) {
+            cashBox.setCashBoxNumber(generateNextCashBoxNumber());
+        }
 
         if (repository.existsByCashBoxNumber(cashBox.getCashBoxNumber())) {
             throw new RuntimeException("Número de caixa já existe: " + cashBox.getCashBoxNumber());
@@ -46,7 +53,6 @@ public class CashBoxService {
     }
 
     public void update(CashBoxDTO dto) {
-
         CashBox cashBox = repository.findById(dto.getPhCashBox())
                 .orElseThrow(() -> new RuntimeException("Caixa não encontrado com id: " + dto.getPhCashBox()));
 
@@ -63,12 +69,76 @@ public class CashBoxService {
     }
 
     public void delete(Long id) {
-
         if (!repository.existsById(id)) {
             throw new RuntimeException("Caixa não encontrado com id: " + id);
         }
-
         repository.deleteById(id);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // GERAÇÃO AUTOMÁTICA DE NÚMERO
+    // ─────────────────────────────────────────────────────────────
+
+    private String generateNextCashBoxNumber() {
+        String year = String.valueOf(LocalDate.now().getYear());
+        String prefix = "CX-" + year + "-";
+
+        String lastNumber = repository.findLastCashBoxNumberOfCurrentYear();
+
+        int nextSequence = 1;
+        if (lastNumber != null && !lastNumber.isBlank()) {
+            try {
+                String seqPart = lastNumber.substring(lastNumber.lastIndexOf('-') + 1);
+                nextSequence = Integer.parseInt(seqPart) + 1;
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                LOGGER.log(Level.WARNING, "Erro ao parsear último número de caixa: {0}", lastNumber);
+            }
+        }
+
+        return prefix + String.format("%03d", nextSequence);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // MOVIMENTAÇÃO DE SALDO
+    // ─────────────────────────────────────────────────────────────
+
+    public CashBox creditarValor(Long cashBoxPk, BigDecimal valor) {
+        if (cashBoxPk == null) {
+            throw new RuntimeException("É necessário indicar o caixa para creditar o valor.");
+        }
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("O valor a creditar deve ser maior que zero.");
+        }
+
+        CashBox cashBox = repository.findById(cashBoxPk)
+                .orElseThrow(() -> new RuntimeException("Caixa não encontrado com id: " + cashBoxPk));
+
+        if (cashBox.getStatus() != CashBoxStatus.OPEN) {
+            throw new RuntimeException(
+                    "Não é possível registar entradas num caixa fechado (" + cashBox.getCashBoxNumber() + ").");
+        }
+
+        BigDecimal atual = cashBox.getTotalIncome() != null ? cashBox.getTotalIncome() : BigDecimal.ZERO;
+        cashBox.setTotalIncome(atual.add(valor));
+
+        return repository.save(cashBox);
+    }
+
+    public CashBox debitarValor(Long cashBoxPk, BigDecimal valor) {
+        if (cashBoxPk == null || valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            return null;
+        }
+
+        CashBox cashBox = repository.findById(cashBoxPk).orElse(null);
+        if (cashBox == null) {
+            LOGGER.log(Level.WARNING, "Tentativa de estornar valor de um caixa inexistente: {0}", cashBoxPk);
+            return null;
+        }
+
+        BigDecimal atual = cashBox.getTotalIncome() != null ? cashBox.getTotalIncome() : BigDecimal.ZERO;
+        cashBox.setTotalIncome(atual.subtract(valor));
+
+        return repository.save(cashBox);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -76,7 +146,6 @@ public class CashBoxService {
     // ─────────────────────────────────────────────────────────────
 
     public void closeCashBox(Long id, BigDecimal closingBalance, String observation) {
-
         CashBox cashBox = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Caixa não encontrado com id: " + id));
 
@@ -96,7 +165,19 @@ public class CashBoxService {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // BUSCAR TODOS (lista completa com DTO)
+    // SALDO ATUAL (para pré-preencher fecho)
+    // ─────────────────────────────────────────────────────────────
+
+    public BigDecimal getCurrentBalance(Long cashBoxId) {
+        if (cashBoxId == null) {
+            return BigDecimal.ZERO;
+        }
+        BigDecimal balance = repository.getCurrentBalanceById(cashBoxId);
+        return balance != null ? balance : BigDecimal.ZERO;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // BUSCAR TODOS
     // ─────────────────────────────────────────────────────────────
 
     public List<CashBoxDTO> getAllCashBoxes() {
@@ -104,19 +185,23 @@ public class CashBoxService {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // LAZY LOADING PARA TABELA
+    // LAZY LOADING PARA TABELA (com filtros)
     // ─────────────────────────────────────────────────────────────
 
     public Page<CashBoxDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
-
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<CashBoxTableProjection> projections = repository.findAllForTable(pageable);
+        String cashBoxNumber = getFilterString(filters, "cashBoxNumber");
+        String operator = getFilterString(filters, "operator");
+        String status = getFilterString(filters, "status");
+        LocalDate startDate = getFilterDate(filters, "startDate");
+        LocalDate endDate = getFilterDate(filters, "endDate");
+
+        Page<CashBoxTableProjection> projections = repository.findAllForTable(
+                cashBoxNumber, operator, status, startDate, endDate, pageable);
 
         return projections.map(p -> {
-
             CashBoxDTO dto = new CashBoxDTO();
-
             dto.setPhCashBox(p.getPhCashBox());
             dto.setCashBoxNumber(p.getCashBoxNumber());
             dto.setOperator(p.getOperator());
@@ -129,9 +214,30 @@ public class CashBoxService {
             dto.setClosingDate(p.getClosingDate());
             dto.setCreatedAt(p.getCreatedAt());
             dto.setUpdatedAt(p.getUpdatedAt());
-
             return dto;
         });
+    }
+
+    private String getFilterString(Map<String, Object> filters, String key) {
+        if (filters == null || !filters.containsKey(key)) {
+            return null;
+        }
+        Object value = filters.get(key);
+        if (value instanceof String s) {
+            return s.isBlank() ? null : s;
+        }
+        return value != null ? value.toString() : null;
+    }
+
+    private LocalDate getFilterDate(Map<String, Object> filters, String key) {
+        if (filters == null || !filters.containsKey(key)) {
+            return null;
+        }
+        Object value = filters.get(key);
+        if (value instanceof LocalDate d) {
+            return d;
+        }
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────

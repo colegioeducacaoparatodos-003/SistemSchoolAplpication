@@ -32,15 +32,11 @@ public interface PagamentoTableProjection {
 
     BigDecimal getValor();
 
-    BigDecimal getDesconto();
-
     BigDecimal getMulta();
 
     BigDecimal getTotal();
 
     LocalDateTime getDataEmissao();
-
-    LocalDateTime getDataVencimento();
 
     LocalDateTime getDataPagamento();
 

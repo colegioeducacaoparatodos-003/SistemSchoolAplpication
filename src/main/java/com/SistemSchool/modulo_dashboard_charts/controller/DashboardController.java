@@ -76,8 +76,8 @@ public class DashboardController implements Serializable {
     public void limparFiltro() {
         this.filter = new DashboardFilterDTO();
         this.filter.setStartDate(LocalDate.now().withDayOfMonth(1));
-        this.filter.setEndDate(LocalDate.now());  
-        
+        this.filter.setEndDate(LocalDate.now());
+
         aplicarFiltro();
     }
 
@@ -138,6 +138,13 @@ public class DashboardController implements Serializable {
         };
     }
 
+    public String getFilterPeriodLabel() {
+        if (filter == null || filter.getStartDate() == null || filter.getEndDate() == null) {
+            return "";
+        }
+        java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return filter.getStartDate().format(fmt) + " – " + filter.getEndDate().format(fmt);
+    }
     // =====================================================
     // Gráfico: total por categoria (Pie)
     // =====================================================

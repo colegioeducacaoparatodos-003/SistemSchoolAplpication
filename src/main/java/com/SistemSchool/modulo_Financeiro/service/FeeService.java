@@ -3,38 +3,37 @@ package com.SistemSchool.modulo_Financeiro.service;
 import com.SistemSchool.modulo_Financeiro.dto.FeeDTO;
 import com.SistemSchool.modulo_Financeiro.interfaces.FeeTableProjection;
 import com.SistemSchool.modulo_Financeiro.io.FeeStatus;
+import com.SistemSchool.modulo_Financeiro.io.FeeType;
 import com.SistemSchool.modulo_Financeiro.model.Fee;
 import com.SistemSchool.modulo_Financeiro.repository.FeeRepository;
-import com.SistemSchool.modulo_secrtaria.model.Enrolment;
 import com.SistemSchool.modulo_secrtaria.model.SchoolClass;
-import com.SistemSchool.modulo_secrtaria.repository.EnrolmentRepository;
 import com.SistemSchool.modulo_secrtaria.repository.SchoolClassRepository;
 
-import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class FeeService {
 
+    private static final String FEE_CODE_PREFIX = "PROP";
+
     private final FeeRepository repository;
-    private final EnrolmentRepository enrolmentRepository;
     private final SchoolClassRepository schoolClassRepository;
 
     public FeeService(FeeRepository repository,
-            EnrolmentRepository enrolmentRepository,
             SchoolClassRepository schoolClassRepository) {
         this.repository = repository;
-        this.enrolmentRepository = enrolmentRepository;
         this.schoolClassRepository = schoolClassRepository;
     }
 
@@ -46,22 +45,23 @@ public class FeeService {
             throw new RuntimeException("Código de propina já existe: " + fee.getFeeCode());
         }
         if (fee.getSchoolClass() == null || fee.getSchoolClass().getPkSchoolClass() == null) {
-            throw new RuntimeException("É necessário indicar a turma para a propina.");
+            throw new RuntimeException("É necessário indicar a turma para a taxa.");
         }
-        if (fee.getEnrolment() == null || fee.getEnrolment().getPhEnrolment() == null) {
-            throw new RuntimeException("É necessário indicar a matrícula para a propina.");
+        if (fee.getFeeType() == null) {
+            throw new RuntimeException("É necessário indicar o tipo de taxa.");
         }
 
         Long schoolClassPk = fee.getSchoolClass().getPkSchoolClass();
         SchoolClass schoolClass = schoolClassRepository.findById(schoolClassPk)
                 .orElseThrow(() -> new RuntimeException("Turma não encontrada com id: " + schoolClassPk));
+
+        if (repository.existsBySchoolClass_PkSchoolClassAndFeeTypeAndSchoolYear(
+                schoolClassPk, fee.getFeeType(), fee.getSchoolYear())) {
+            throw new RuntimeException(
+                    "Já existe uma taxa do tipo " + fee.getFeeType() + " para esta turma neste ano letivo.");
+        }
+
         fee.setSchoolClass(schoolClass);
-
-        Long enrolmentPk = fee.getEnrolment().getPhEnrolment();
-        Enrolment enrolment = enrolmentRepository.findById(enrolmentPk)
-                .orElseThrow(() -> new RuntimeException("Matrícula não encontrada com id: " + enrolmentPk));
-        fee.setEnrolment(enrolment);
-
         return repository.save(fee);
     }
 
@@ -70,7 +70,8 @@ public class FeeService {
                 .orElseThrow(() -> new RuntimeException("Propina não encontrada com id: " + dto.getPhFee()));
 
         if (dto.getSchoolClassPk() != null
-                && !dto.getSchoolClassPk().equals(fee.getSchoolClass().getPkSchoolClass())) {
+                && (fee.getSchoolClass() == null
+                        || !dto.getSchoolClassPk().equals(fee.getSchoolClass().getPkSchoolClass()))) {
             SchoolClass schoolClass = schoolClassRepository.findById(dto.getSchoolClassPk())
                     .orElseThrow(() -> new RuntimeException("Turma não encontrada com id: " + dto.getSchoolClassPk()));
             fee.setSchoolClass(schoolClass);
@@ -91,13 +92,6 @@ public class FeeService {
 
     /**
      * Elimina uma propina.
-     *
-     * IMPORTANTE: Fee possui um relacionamento de FK a partir de Invoice
-     * (fk_invoice_fee). Se existirem faturas emitidas para esta propina, o
-     * banco de dados recusa o DELETE (constraint violation). Aqui capturamos
-     * essa violação e convertemos numa mensagem amigável para o utilizador,
-     * em vez de deixar a DataIntegrityViolationException/stacktrace SQL
-     * crua subir até a view.
      */
     public void delete(Long id) {
         if (!repository.existsById(id)) {
@@ -108,15 +102,44 @@ public class FeeService {
             repository.flush();
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException(
-                    "Não é possível eliminar esta propina porque já existem faturas associadas a ela. "
-                    + "Elimine ou reatribua essas faturas antes de tentar novamente.");
+                    "Não é possível eliminar esta propina porque já existem registros associados a ela (ex: faturas). "
+                            + "Elimine ou reatribua os registros vinculados antes de tentar novamente.");
         }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // GERAÇÃO AUTOMÁTICA DO FEE CODE
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Gera o próximo feeCode disponível para o ano letivo informado, no
+     * formato PROP-{ano}-{sequência com 4 dígitos}, ex: PROP-2026-0001.
+     * Se schoolYear vier nulo, usa o ano corrente como fallback.
+     */
+    @Transactional(readOnly = true)
+    public String generateNextFeeCode(Integer schoolYear) {
+        int year = schoolYear != null ? schoolYear : java.time.Year.now().getValue();
+        String prefix = FEE_CODE_PREFIX + "-" + year + "-";
+
+        Optional<String> lastOpt = repository.findLastFeeCodeByPrefix(prefix + "%");
+
+        int nextSeq = 1;
+        if (lastOpt.isPresent()) {
+            String seqPart = lastOpt.get().substring(prefix.length());
+            try {
+                nextSeq = Integer.parseInt(seqPart) + 1;
+            } catch (NumberFormatException e) {
+                nextSeq = 1; // fallback se o formato mudar
+            }
+        }
+        return prefix + String.format("%04d", nextSeq);
     }
 
     // ─────────────────────────────────────────────────────────────
     // BUSCAR TODOS (lista completa com DTO)
     // ─────────────────────────────────────────────────────────────
 
+    @Transactional(readOnly = true)
     public List<FeeDTO> getAllFees() {
         return repository.findAllFeesDTO();
     }
@@ -124,6 +147,7 @@ public class FeeService {
     // ─────────────────────────────────────────────────────────────
     // LAZY LOADING PARA TABELA
     // ─────────────────────────────────────────────────────────────
+    @Transactional(readOnly = true)
     public Page<FeeDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
         Pageable pageable = PageRequest.of(page, size, sort);
 
@@ -131,7 +155,8 @@ public class FeeService {
         if (filters == null || filters.isEmpty()) {
             projections = repository.findAllForTable(pageable);
         } else {
-            // TODO: usar Specification ou query JPQL com os filtros (ex.: feeCode, status)
+            // TODO: implementar Specification ou JPQL personalizada com os filtros
+            // recebidos
             projections = repository.findAllForTable(pageable);
         }
 
@@ -139,6 +164,7 @@ public class FeeService {
                 p.getPhFee(),
                 p.getFeeCode(),
                 p.getDescription(),
+                p.getFeeType() != null ? FeeType.valueOf(p.getFeeType()) : null,
                 p.getSchoolClassPk(),
                 p.getSchoolClassName(),
                 p.getSchoolYear(),
@@ -155,36 +181,28 @@ public class FeeService {
     // QUERIES UTILITÁRIAS
     // ─────────────────────────────────────────────────────────────
 
+    @Transactional(readOnly = true)
     public List<Fee> getByStatus(FeeStatus status) {
         return repository.findByStatus(status);
     }
 
+    @Transactional(readOnly = true)
     public List<Fee> getBySchoolYear(Integer schoolYear) {
         return repository.findBySchoolYear(schoolYear);
     }
 
+    @Transactional(readOnly = true)
     public List<Fee> getByEndDate(LocalDateTime endDate) {
         return repository.findByEndDate(endDate);
     }
 
-    public List<Fee> getByEnrolment(Long enrolmentPk) {
-        return repository.findByEnrolment_PhEnrolment(enrolmentPk);
-    }
-
-    public List<Fee> getByStudent(Long studentPk) {
-        return repository.findByEnrolment_Student_PkStudent(studentPk);
-    }
-
+    @Transactional(readOnly = true)
     public List<Fee> getBySchoolClass(Long schoolClassPk) {
         return repository.findBySchoolClass_PkSchoolClass(schoolClassPk);
     }
 
+    @Transactional(readOnly = true)
     public Fee getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Propina não encontrada com id: " + id));
-    }
-
-    public Fee findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Propina não encontrada com id: " + id));
     }

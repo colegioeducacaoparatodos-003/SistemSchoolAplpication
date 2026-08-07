@@ -26,7 +26,9 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,22 +50,24 @@ public class DocumentController implements Serializable {
     private DocumentDTO editDto = new DocumentDTO();
     private Long selectedId;
 
-    // Id do aluno escolhido no dropdown/autocomplete do formulário
     private Long selectedStudentId;
-
-    // Lista de alunos para a view (dropdown), carregada uma vez
     private List<StudentDTO> students = new ArrayList<>();
 
-    // Conteúdo do ficheiro lido para memória IMEDIATAMENTE no handleFileUpload().
-    // Não guardamos a referência ao UploadedFile: o ficheiro temporário criado
-    // pelo Tomcat para essa requisição de upload é apagado assim que ela
-    // termina, então tentar ler o InputStream mais tarde (ex: no clique de
-    // "Guardar", que é outra requisição ajax) lança NoSuchFileException.
     private byte[] uploadedFileBytes;
     private String uploadedFileName;
 
     // ─────────────────────────────────────────────────────────────
-    // ESTATÍSTICAS (calculadas uma única vez em init(), não a cada getter)
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    private DocumentType filterDocumentType;
+    private String filterExpiryStatus;
+    private LocalDate filterIssueStartDate;
+    private LocalDate filterIssueEndDate;
+    private String filterStudentName;
+
+    // ─────────────────────────────────────────────────────────────
+    // ESTATÍSTICAS
     // ─────────────────────────────────────────────────────────────
 
     private long totalDocumentCount;
@@ -94,11 +98,6 @@ public class DocumentController implements Serializable {
         computeStatistics();
     }
 
-    /**
-     * Carrega a lista de alunos para a view (dropdown de seleção de aluno no
-     * formulário de documento). Chamado no init() para evitar que o getter
-     * dispare uma query à BD a cada chamada do EL.
-     */
     private void loadStudents() {
         try {
             students = studentService.getAllStudents();
@@ -108,11 +107,6 @@ public class DocumentController implements Serializable {
         }
     }
 
-    /**
-     * Calcula os indicadores mostrados nos cards de estatística da view.
-     * Executado uma única vez em init()/load() para não recalcular a cada
-     * chamada do EL.
-     */
     private void computeStatistics() {
         try {
             totalDocumentCount = documentService.getTotalDocumentCount();
@@ -131,7 +125,7 @@ public class DocumentController implements Serializable {
 
     public String load() {
         try {
-            init(); // Recarrega o lazy model, a lista de alunos e as estatísticas
+            init();
         } catch (Exception e) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao carregar documentos", e.getMessage());
             LOGGER.log(Level.SEVERE, "Erro ao carregar a listagem de documentos", e);
@@ -141,6 +135,39 @@ public class DocumentController implements Serializable {
 
     public DocumentLazyModel getLazyModel() {
         return lazyModel;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    public void applyFilters() {
+        Map<String, Object> filters = new HashMap<>();
+        if (filterDocumentType != null) {
+            filters.put("documentType", filterDocumentType.name());
+        }
+        if (filterExpiryStatus != null && !filterExpiryStatus.isBlank()) {
+            filters.put("expiryStatus", filterExpiryStatus);
+        }
+        if (filterIssueStartDate != null) {
+            filters.put("issueStartDate", filterIssueStartDate);
+        }
+        if (filterIssueEndDate != null) {
+            filters.put("issueEndDate", filterIssueEndDate);
+        }
+        if (filterStudentName != null && !filterStudentName.isBlank()) {
+            filters.put("studentName", filterStudentName.trim().toLowerCase());
+        }
+        lazyModel.setFilters(filters);
+    }
+
+    public void clearFilters() {
+        filterDocumentType = null;
+        filterExpiryStatus = null;
+        filterIssueStartDate = null;
+        filterIssueEndDate = null;
+        filterStudentName = null;
+        lazyModel.setFilters(new HashMap<>());
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -166,13 +193,6 @@ public class DocumentController implements Serializable {
     // CRUD
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * Prepara o diálogo de criação com um formulário limpo. Chamar isto
-     * no actionListener do botão "Novo" (antes de abrir o dialog), senão
-     * o formulário reaproveita dados deixados por uma edição anterior —
-     * novoDocumento e selectedStudentId são campos do bean ViewScoped e
-     * não são limpos automaticamente entre aberturas do diálogo.
-     */
     public void openCreateDialog() {
         this.novoDocumento = new Document();
         this.uploadedFileBytes = null;
@@ -180,16 +200,6 @@ public class DocumentController implements Serializable {
         this.selectedStudentId = null;
     }
 
-    /**
-     * IMPORTANTE: este método é chamado por um p:commandButton AJAX
-     * (process="@form", update="..."). Por isso NÃO deve devolver um
-     * outcome de navegação com faces-redirect: disparar um redirect de
-     * página inteira dentro de uma resposta ajax parcial do PrimeFaces
-     * impede o oncomplete do botão (fechar o dialog) e os updates
-     * (mensagens + tabela) de serem aplicados corretamente. A
-     * atualização da tabela e das mensagens já é feita via ajax pelo
-     * próprio update do botão no XHTML.
-     */
     public void salvarDocumento() {
         try {
             if (uploadedFileBytes == null) {
@@ -213,7 +223,7 @@ public class DocumentController implements Serializable {
                     uploadBaseDir);
 
             resetCreateForm();
-            init(); // Recarrega o lazy model e as estatísticas
+            init();
 
             addMessage(FacesMessage.SEVERITY_INFO, "Documento", "Documento carregado com sucesso");
 
@@ -224,20 +234,33 @@ public class DocumentController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // EDIT / UPDATE / DELETE
+    // VIEW / EDIT / UPDATE / DELETE
     // ─────────────────────────────────────────────────────────────
 
-    public void openEditDialog() {
-        if (selectedId == null) {
+    public void openViewDialog(Long id) {
+        if (id == null) {
             addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento selecionado!", "");
             return;
         }
-
+        this.selectedId = id;
         try {
-            Document document = documentService.getById(selectedId);
-            this.editDto = DocumentDTO.fromEntity(document);
+            this.editDto = documentService.getDocumentDTOById(id);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro ao carregar documento para visualização", e);
+            addMessage(FacesMessage.SEVERITY_WARN, "Documento não encontrado", "");
+        }
+    }
+
+    public void openEditDialog(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento selecionado!", "");
+            return;
+        }
+        this.selectedId = id;
+        try {
+            this.editDto = documentService.getDocumentDTOById(id);
             this.selectedStudentId = editDto.getStudentId();
-            this.uploadedFileBytes = null; // limpa qualquer ficheiro pendente de outra ação
+            this.uploadedFileBytes = null;
             this.uploadedFileName = null;
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao carregar documento para edição", e);
@@ -247,7 +270,6 @@ public class DocumentController implements Serializable {
 
     public void saveUpdate() {
         try {
-            // se o utilizador escolheu um novo ficheiro no diálogo de edição, substitui primeiro
             if (uploadedFileBytes != null) {
                 String uploadBaseDir = resolveUploadDir();
                 documentService.replaceDocumentFile(
@@ -268,13 +290,28 @@ public class DocumentController implements Serializable {
             editDto = new DocumentDTO();
             selectedId = null;
             selectedStudentId = null;
-            init(); // Recarrega o lazy model e as estatísticas
+            init();
 
             addMessage(FacesMessage.SEVERITY_INFO, "Documento", "Documento atualizado com sucesso");
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao atualizar documento", e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Documento", e.getMessage());
+        }
+    }
+
+    public void prepareDelete(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhum documento selecionado!", "");
+            return;
+        }
+        this.selectedId = id;
+        try {
+            Document document = documentService.getById(id);
+            this.editDto = DocumentDTO.fromEntity(document);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro ao carregar documento para eliminação", e);
+            addMessage(FacesMessage.SEVERITY_WARN, "Documento não encontrado", "");
         }
     }
 
@@ -286,7 +323,7 @@ public class DocumentController implements Serializable {
         try {
             documentService.delete(selectedId, resolveUploadDir());
             selectedId = null;
-            init(); // Recarrega o lazy model e as estatísticas
+            init();
             addMessage(FacesMessage.SEVERITY_INFO, "Documento", "Documento eliminado com sucesso");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao eliminar documento", e);
@@ -295,17 +332,9 @@ public class DocumentController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // DOWNLOAD (botão com ajax="false")
+    // DOWNLOAD
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * Lê o id via request parameter (f:param "documentId") em vez de receber
-     * o id como argumento de EL resolvido a partir de #{document.phDocument}.
-     * Num p:dataTable lazy com botão ajax="false" (postback completo), a
-     * variável de linha nem sempre está confiavelmente populada no momento
-     * do decode/invoke_application — ler o parâmetro HTTP diretamente evita
-     * essa dependência.
-     */
     public void downloadDocumento() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
@@ -386,97 +415,54 @@ public class DocumentController implements Serializable {
     // GETTERS E SETTERS
     // ─────────────────────────────────────────────────────────────
 
-    public Document getNovoDocumento() {
-        return novoDocumento;
-    }
+    public Document getNovoDocumento() { return novoDocumento; }
+    public void setNovoDocumento(Document novoDocumento) { this.novoDocumento = novoDocumento; }
 
-    public void setNovoDocumento(Document novoDocumento) {
-        this.novoDocumento = novoDocumento;
-    }
+    public DocumentDTO getEditDto() { return editDto; }
+    public void setEditDto(DocumentDTO editDto) { this.editDto = editDto; }
 
-    public DocumentDTO getEditDto() {
-        return editDto;
-    }
+    public Long getSelectedId() { return selectedId; }
+    public void setSelectedId(Long selectedId) { this.selectedId = selectedId; }
 
-    public void setEditDto(DocumentDTO editDto) {
-        this.editDto = editDto;
-    }
+    public Long getSelectedStudentId() { return selectedStudentId; }
+    public void setSelectedStudentId(Long selectedStudentId) { this.selectedStudentId = selectedStudentId; }
 
-    public Long getSelectedId() {
-        return selectedId;
-    }
+    public void setLazyModel(DocumentLazyModel lazyModel) { this.lazyModel = lazyModel; }
 
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
-    }
-
-    public Long getSelectedStudentId() {
-        return selectedStudentId;
-    }
-
-    public void setSelectedStudentId(Long selectedStudentId) {
-        this.selectedStudentId = selectedStudentId;
-    }
-
-    public void setLazyModel(DocumentLazyModel lazyModel) {
-        this.lazyModel = lazyModel;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // ESTATÍSTICAS — GETTERS (usados pelos cards da view)
-    // ─────────────────────────────────────────────────────────────
-
-    public long getTotalDocumentCount() {
-        return totalDocumentCount;
-    }
-
-    public long getExpiringSoonCount() {
-        return expiringSoonCount;
-    }
-
-    public long getExpiredCount() {
-        return expiredCount;
-    }
-
-    public long getDistinctStudentsCount() {
-        return distinctStudentsCount;
-    }
+    public long getTotalDocumentCount() { return totalDocumentCount; }
+    public long getExpiringSoonCount() { return expiringSoonCount; }
+    public long getExpiredCount() { return expiredCount; }
+    public long getDistinctStudentsCount() { return distinctStudentsCount; }
 
     public String expiryStatus(LocalDate expiryDate) {
-        if (expiryDate == null) {
-            return "none";
-        }
+        if (expiryDate == null) return "none";
         LocalDate today = LocalDate.now();
-        if (expiryDate.isBefore(today)) {
-            return "expired";
-        }
-        if (!expiryDate.isAfter(today.plusDays(30))) {
-            return "soon";
-        }
+        if (expiryDate.isBefore(today)) return "expired";
+        if (!expiryDate.isAfter(today.plusDays(30))) return "soon";
         return "ok";
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // ENUMS E LISTAS PARA DROPDOWNS
-    // ─────────────────────────────────────────────────────────────
+    public DocumentType[] getTiposDocumento() { return DocumentType.values(); }
+    public List<StudentDTO> getStudents() { return students; }
 
-    public DocumentType[] getTiposDocumento() {
-        return DocumentType.values();
-    }
+    public void refreshStudents() { loadStudents(); }
 
-    public List<StudentDTO> getStudents() {
-        return students;
-    }
+    public List<DocumentDTO> getDocuments() { return documentService.getAllDocuments(); }
 
-    /**
-     * Permite à view forçar a recarga da lista de alunos, por exemplo
-     * depois de um novo aluno ser registado noutro ecrã/diálogo.
-     */
-    public void refreshStudents() {
-        loadStudents();
-    }
+    // ─── FILTROS GETTERS / SETTERS ───
 
-    public List<DocumentDTO> getDocuments() {
-        return documentService.getAllDocuments();
-    }
+    public DocumentType getFilterDocumentType() { return filterDocumentType; }
+    public void setFilterDocumentType(DocumentType filterDocumentType) { this.filterDocumentType = filterDocumentType; }
+
+    public String getFilterExpiryStatus() { return filterExpiryStatus; }
+    public void setFilterExpiryStatus(String filterExpiryStatus) { this.filterExpiryStatus = filterExpiryStatus; }
+
+    public LocalDate getFilterIssueStartDate() { return filterIssueStartDate; }
+    public void setFilterIssueStartDate(LocalDate filterIssueStartDate) { this.filterIssueStartDate = filterIssueStartDate; }
+
+    public LocalDate getFilterIssueEndDate() { return filterIssueEndDate; }
+    public void setFilterIssueEndDate(LocalDate filterIssueEndDate) { this.filterIssueEndDate = filterIssueEndDate; }
+
+    public String getFilterStudentName() { return filterStudentName; }
+    public void setFilterStudentName(String filterStudentName) { this.filterStudentName = filterStudentName; }
 }

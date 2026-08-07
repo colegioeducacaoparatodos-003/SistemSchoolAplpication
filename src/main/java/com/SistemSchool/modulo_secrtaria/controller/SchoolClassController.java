@@ -41,6 +41,16 @@ public class SchoolClassController implements Serializable {
     private Long selectedId;
 
     // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    private Classe filterClasse;
+    private ShiftType filterTurno;
+    private SchoolClaassStatus filterStatus;
+    private String filterAnoLectivo;
+    private String filterSearchText;
+
+    // ─────────────────────────────────────────────────────────────
     // ESTATÍSTICAS
     // ─────────────────────────────────────────────────────────────
 
@@ -114,6 +124,28 @@ public class SchoolClassController implements Serializable {
     public SchoolClassLazyModel getLazyModel() {
         return lazyModel;
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    public void applyFilters() {
+        lazyModel.setFilterClasse(filterClasse);
+        lazyModel.setFilterTurno(filterTurno);
+        lazyModel.setFilterStatus(filterStatus);
+        lazyModel.setFilterAnoLectivo(filterAnoLectivo);
+        lazyModel.setSearchText(filterSearchText);
+    }
+
+    public void clearFilters() {
+        filterClasse = null;
+        filterTurno = null;
+        filterStatus = null;
+        filterAnoLectivo = null;
+        filterSearchText = null;
+        lazyModel.clearFilters();
+    }
+
     // ─────────────────────────────────────────────────────────────
     // CRUD
     // ─────────────────────────────────────────────────────────────
@@ -273,6 +305,50 @@ public class SchoolClassController implements Serializable {
 
     public void setLazyModel(SchoolClassLazyModel lazyModel) {
         this.lazyModel = lazyModel;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS — GETTERS / SETTERS
+    // ─────────────────────────────────────────────────────────────
+
+    public Classe getFilterClasse() {
+        return filterClasse;
+    }
+
+    public void setFilterClasse(Classe filterClasse) {
+        this.filterClasse = filterClasse;
+    }
+
+    public ShiftType getFilterTurno() {
+        return filterTurno;
+    }
+
+    public void setFilterTurno(ShiftType filterTurno) {
+        this.filterTurno = filterTurno;
+    }
+
+    public SchoolClaassStatus getFilterStatus() {
+        return filterStatus;
+    }
+
+    public void setFilterStatus(SchoolClaassStatus filterStatus) {
+        this.filterStatus = filterStatus;
+    }
+
+    public String getFilterAnoLectivo() {
+        return filterAnoLectivo;
+    }
+
+    public void setFilterAnoLectivo(String filterAnoLectivo) {
+        this.filterAnoLectivo = filterAnoLectivo;
+    }
+
+    public String getFilterSearchText() {
+        return filterSearchText;
+    }
+
+    public void setFilterSearchText(String filterSearchText) {
+        this.filterSearchText = filterSearchText;
     }
 
     // ─────────────────────────────────────────────────────────────

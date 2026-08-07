@@ -1,77 +1,91 @@
 package com.SistemSchool.modulo_secrtaria.lazy;
 
 import com.SistemSchool.modulo_secrtaria.dto.SchoolClassDTO;
+import com.SistemSchool.modulo_secrtaria.io.Classe;
+import com.SistemSchool.modulo_secrtaria.io.SchoolClaassStatus;
+import com.SistemSchool.modulo_secrtaria.io.ShiftType;
 import com.SistemSchool.modulo_secrtaria.service.SchoolClassService;
+
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
-import org.primefaces.model.FilterMeta;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class SchoolClassLazyModel extends LazyDataModel<SchoolClassDTO> {
 
-    private static final long serialVersionUID = 1L;
+    private final SchoolClassService service;
+    private String searchText;
+    private Classe filterClasse;
+    private ShiftType filterTurno;
+    private SchoolClaassStatus filterStatus;
+    private String filterAnoLectivo;
 
-    private final SchoolClassService schoolClassService;
-
-    public SchoolClassLazyModel(SchoolClassService schoolClassService) {
-        this.schoolClassService = schoolClassService;
+    public SchoolClassLazyModel(SchoolClassService service) {
+        this.service = service;
     }
 
-    @Override
-    public List<SchoolClassDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy,
-            Map<String, FilterMeta> filterBy) {
-        int page = first / pageSize;
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+    public void setFilterClasse(Classe filterClasse) {
+        this.filterClasse = filterClasse;
+    }
 
-        if (sortBy != null && !sortBy.isEmpty()) {
-            SortMeta sortMeta = sortBy.values().iterator().next();
-            Sort.Direction direction = sortMeta.getOrder().isAscending()
-                    ? Sort.Direction.ASC
-                    : Sort.Direction.DESC;
-            sort = Sort.by(direction, sortMeta.getField());
-        }
+    public void setFilterTurno(ShiftType filterTurno) {
+        this.filterTurno = filterTurno;
+    }
 
-        Page<SchoolClassDTO> result = schoolClassService.findLazy(page, pageSize, sort, null);
+    public void setFilterStatus(SchoolClaassStatus filterStatus) {
+        this.filterStatus = filterStatus;
+    }
 
-        setRowCount((int) result.getTotalElements());
+    public void setFilterAnoLectivo(String filterAnoLectivo) {
+        this.filterAnoLectivo = filterAnoLectivo;
+    }
 
-        return result.getContent();
+    public void clearFilters() {
+        this.searchText = null;
+        this.filterClasse = null;
+        this.filterTurno = null;
+        this.filterStatus = null;
+        this.filterAnoLectivo = null;
     }
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
-        Map<String, Object> filters = new HashMap<>();
-        if (filterBy != null) {
-            for (FilterMeta meta : filterBy.values()) {
-                Object value = meta.getFilterValue();
-                if (value != null && !value.toString().isBlank()) {
-                    filters.put(meta.getField(), value);
-                }
+        // Carrega uma página com tamanho 0 para obter apenas o total de elementos
+        List<Order> orders = new ArrayList<>();
+        Sort sort = Sort.unsorted();
+        Page<SchoolClassDTO> result = service.findLazyWithFilters(
+            0, Integer.MAX_VALUE, sort, searchText, filterClasse, filterTurno, filterStatus, filterAnoLectivo);
+        return (int) result.getTotalElements();
+    }
+
+    @Override
+    public List<SchoolClassDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
+        List<Order> orders = new ArrayList<>();
+        if (sortBy != null && !sortBy.isEmpty()) {
+            for (SortMeta meta : sortBy.values()) {
+                String field = meta.getField();
+                Sort.Direction direction = meta.getOrder().isAscending() ? Sort.Direction.ASC : Sort.Direction.DESC;
+                orders.add(new Order(direction, field));
             }
         }
-        Page<SchoolClassDTO> page = schoolClassService.findLazy(0, 1, Sort.unsorted(), filters);
-        return (int) page.getTotalElements();
-    }
 
-    @Override
-    public SchoolClassDTO getRowData(String rowKey) {
-        return schoolClassService.getAllSchoolClasses()
-                .stream()
-                .filter(sc -> sc.getPkSchoolClass().toString().equals(rowKey))
-                .findFirst()
-                .orElse(null);
-    }
+        Sort sort = orders.isEmpty() ? Sort.unsorted() : Sort.by(orders);
+        int page = first / pageSize;
 
-    @Override
-    public String getRowKey(SchoolClassDTO schoolClassDTO) {
-        return schoolClassDTO.getPkSchoolClass() != null
-                ? schoolClassDTO.getPkSchoolClass().toString()
-                : null;
+        Page<SchoolClassDTO> result = service.findLazyWithFilters(
+            page, pageSize, sort, searchText, filterClasse, filterTurno, filterStatus, filterAnoLectivo);
+
+        setRowCount((int) result.getTotalElements());
+        return result.getContent();
     }
 }

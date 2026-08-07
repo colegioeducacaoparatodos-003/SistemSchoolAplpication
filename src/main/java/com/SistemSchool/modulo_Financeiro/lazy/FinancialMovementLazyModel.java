@@ -17,9 +17,14 @@ public class FinancialMovementLazyModel extends LazyDataModel<FinancialMovementT
     private static final long serialVersionUID = 1L;
 
     private final FinancialMovementService financialMovementService;
+    private Map<String, Object> externalFilters = new HashMap<>();
 
     public FinancialMovementLazyModel(FinancialMovementService financialMovementService) {
         this.financialMovementService = financialMovementService;
+    }
+
+    public void setExternalFilters(Map<String, Object> externalFilters) {
+        this.externalFilters = externalFilters != null ? externalFilters : new HashMap<>();
     }
 
     @Override
@@ -28,7 +33,6 @@ public class FinancialMovementLazyModel extends LazyDataModel<FinancialMovementT
         int page = first / pageSize;
 
         Sort sort = Sort.by(Sort.Direction.DESC, "movementDate");
-
         if (sortBy != null && !sortBy.isEmpty()) {
             SortMeta sortMeta = sortBy.values().iterator().next();
             Sort.Direction direction = sortMeta.getOrder().isAscending()
@@ -37,27 +41,43 @@ public class FinancialMovementLazyModel extends LazyDataModel<FinancialMovementT
             sort = Sort.by(direction, sortMeta.getField());
         }
 
+        // Mescla filtros da tabela com filtros externos
+        Map<String, Object> mergedFilters = new HashMap<>();
+        if (externalFilters != null) {
+            mergedFilters.putAll(externalFilters);
+        }
+        if (filterBy != null) {
+            for (FilterMeta meta : filterBy.values()) {
+                Object value = meta.getFilterValue();
+                if (value != null && !value.toString().isBlank()) {
+                    mergedFilters.put(meta.getField(), value);
+                }
+            }
+        }
+
         Page<FinancialMovementTableProjection> result =
-                financialMovementService.findLazy(page, pageSize, sort, null);
+                financialMovementService.findLazy(page, pageSize, sort, mergedFilters);
 
         setRowCount((int) result.getTotalElements());
-
         return result.getContent();
     }
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
-        Map<String, Object> filters = new HashMap<>();
+        Map<String, Object> mergedFilters = new HashMap<>();
+        if (externalFilters != null) {
+            mergedFilters.putAll(externalFilters);
+        }
         if (filterBy != null) {
             for (FilterMeta meta : filterBy.values()) {
                 Object value = meta.getFilterValue();
                 if (value != null && !value.toString().isBlank()) {
-                    filters.put(meta.getField(), value);
+                    mergedFilters.put(meta.getField(), value);
                 }
             }
         }
         Page<FinancialMovementTableProjection> page =
-                financialMovementService.findLazy(0, 1, Sort.unsorted(), filters);
+                financialMovementService.findLazy(0, 1, Sort.unsorted(), mergedFilters);
         return (int) page.getTotalElements();
     }
 

@@ -17,9 +17,14 @@ public class DocumentLazyModel extends LazyDataModel<DocumentDTO> {
     private static final long serialVersionUID = 1L;
 
     private final DocumentService documentService;
+    private Map<String, Object> externalFilters = new HashMap<>();
 
     public DocumentLazyModel(DocumentService documentService) {
         this.documentService = documentService;
+    }
+
+    public void setFilters(Map<String, Object> filters) {
+        this.externalFilters = filters != null ? filters : new HashMap<>();
     }
 
     @Override
@@ -37,7 +42,17 @@ public class DocumentLazyModel extends LazyDataModel<DocumentDTO> {
             sort = Sort.by(direction, sortMeta.getField());
         }
 
-        Page<DocumentDTO> result = documentService.findLazy(page, pageSize, sort, null);
+        Map<String, Object> mergedFilters = new HashMap<>(externalFilters);
+        if (filterBy != null) {
+            for (FilterMeta meta : filterBy.values()) {
+                Object value = meta.getFilterValue();
+                if (value != null && !value.toString().isBlank()) {
+                    mergedFilters.put(meta.getField(), value);
+                }
+            }
+        }
+
+        Page<DocumentDTO> result = documentService.findLazy(page, pageSize, sort, mergedFilters);
 
         setRowCount((int) result.getTotalElements());
 
@@ -46,16 +61,16 @@ public class DocumentLazyModel extends LazyDataModel<DocumentDTO> {
 
     @Override
     public int count(Map<String, FilterMeta> filterBy) {
-        Map<String, Object> filters = new HashMap<>();
+        Map<String, Object> mergedFilters = new HashMap<>(externalFilters);
         if (filterBy != null) {
             for (FilterMeta meta : filterBy.values()) {
                 Object value = meta.getFilterValue();
                 if (value != null && !value.toString().isBlank()) {
-                    filters.put(meta.getField(), value);
+                    mergedFilters.put(meta.getField(), value);
                 }
             }
         }
-        Page<DocumentDTO> page = documentService.findLazy(0, 1, Sort.unsorted(), filters);
+        Page<DocumentDTO> page = documentService.findLazy(0, 1, Sort.unsorted(), mergedFilters);
         return (int) page.getTotalElements();
     }
 

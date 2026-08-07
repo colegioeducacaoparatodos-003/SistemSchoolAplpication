@@ -73,14 +73,20 @@ public class SchoolClassService {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // LAZY LOADING PARA TABELA
+    // LAZY LOADING PARA TABELA (com filtros)
     // ─────────────────────────────────────────────────────────────
 
+    public Page<SchoolClassDTO> findLazyWithFilters(int page, int size, Sort sort,
+            String searchText, Classe classe, ShiftType turno,
+            SchoolClaassStatus status, String anoLectivo) {
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return repository.findAllWithFilters(searchText, classe, turno, status, anoLectivo, pageable);
+    }
+
+    // Método legado para compatibilidade
     public Page<SchoolClassDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
         Pageable pageable = PageRequest.of(page, size, sort);
-
         Page<SchoolClassTableProjection> projections = repository.findAllForTable(pageable);
-
         return projections.map(p -> new SchoolClassDTO(
                 p.getPkSchoolClass(),
                 p.getClassCode(),

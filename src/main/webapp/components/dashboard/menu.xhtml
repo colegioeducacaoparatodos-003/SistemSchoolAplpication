@@ -4,24 +4,25 @@
 
     <div class="layout-menu">
         <h:form id="menuForm">
-            <p:toolbar styleClass="dashboard-topbar shadow-sm">
+            <p:toolbar styleClass="dashboard-topbar">
                 <f:facet name="left">
-                    <div class="ui-toolbar-group-left">
-                        <!-- Botão que chama a sidebar visível APENAS em telas mobile/app (esconde em lg e acima) -->
-                        <p:commandButton id="sidebarToggler" icon="pi pi-bars" process="@none"
-                            styleClass="sidebar-toggle-button ui-button-flat d-lg-none" type="button"
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Toggle visível apenas em mobile -->
+                        <p:commandButton id="sidebarToggler" icon="pi pi-bars"
+                            styleClass="sidebar-toggle-button ui-button-flat" type="button"
                             aria-label="#{msg.toggleSidebar}" onclick="toggleSidebar(); return false;" />
-                        <p:button value="#{msg.dashboard}"
-                            outcome="/components/public/dashboard.xhtml"
+
+                        <p:button value="#{msg.dashboard}" outcome="/components/public/dashboard.xhtml"
                             icon="pi pi-home" styleClass="dashboard-nav-button ui-button-flat" />
                     </div>
                 </f:facet>
 
                 <f:facet name="right">
-                    <div class="ui-toolbar-group-right">
-                        <!-- Language Switcher -->
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Language -->
                         <p:commandButton id="langMenuButton" icon="pi pi-globe" type="button"
-                            styleClass="rounded-button ui-button-flat" aria-label="#{msg.toggleLanguageMenu}" />
+                            styleClass="rounded-button ui-button-flat ui-button-outlined"
+                            aria-label="#{msg.toggleLanguageMenu}" />
                         <p:menu overlay="true" trigger="langMenuButton" my="left top" at="left bottom">
                             <p:menuitem value="Português" actionListener="#{languageController.actionPortugues}"
                                 update="@all" />
@@ -29,15 +30,16 @@
                                 update="@all" />
                         </p:menu>
 
-                        <!-- User Menu -->
-                        <p:commandButton id="userAvatar" icon="pi pi-user" styleClass="rounded-button ui-button-flat"
-                            type="button" aria-label="#{msg.toggleUserMenu}" />
+                        <!-- User -->
+                        <p:commandButton id="userAvatar" icon="pi pi-user"
+                            styleClass="rounded-button ui-button-flat ui-button-outlined" type="button"
+                            aria-label="#{msg.toggleUserMenu}" />
                         <p:menu overlay="true" trigger="userAvatar" my="right top" at="right bottom"
                             styleClass="user-dropdown">
                             <f:facet name="header">
-                                <div class="user-dropdown-header p-2">
+                                <div class="user-dropdown-header">
                                     <h:outputText value="#{sessionBean.loggedUser.email}"
-                                        styleClass="fw-bold d-block text-truncate" style="max-width: 180px;" />
+                                        styleClass="fw-bold d-block text-truncate" style="max-width:180px;" />
                                     <h:outputText value="#{msg[sessionBean.loggedUser.perfil.toString()]}"
                                         styleClass="text-muted small" />
                                 </div>
@@ -46,7 +48,7 @@
                             <p:menuitem value="#{msg.status}" icon="pi pi-info-circle" url="#" />
                             <p:divider />
                             <p:menuitem value="#{msg.logout}" icon="pi pi-sign-out" action="#{userController.logout}"
-                                styleClass="logout-item text-danger" />
+                                styleClass="logout-item" />
                         </p:menu>
                     </div>
                 </f:facet>
@@ -55,14 +57,27 @@
     </div>
 
     <h:outputScript>
-        // <![CDATA[
+        //
+        <![CDATA[
         function toggleSidebar() {
-            var layout = document.querySelector('.dashbord-layout');
-            if (layout) {
-                layout.classList.toggle('sidebar-visible');
-            }
+            document.getElementById('mainLayout').classList.toggle('sidebar-visible');
         }
+
+        // Fecha sidebar ao clicar no overlay (mobile)
+        document.addEventListener('click', function(e) {
+            var layout = document.getElementById('mainLayout');
+            var sidebar = document.querySelector('.layout-side-bar-container');
+            var toggler = document.getElementById('menuForm:sidebarToggler');
+            if (!layout || !sidebar) return;
+            if (window.innerWidth > 991) return;
+
+            var isClickInsideSidebar = sidebar.contains(e.target);
+            var isClickOnToggler = toggler && toggler.contains(e.target);
+
+            if (layout.classList.contains('sidebar-visible') && !isClickInsideSidebar && !isClickOnToggler) {
+                layout.classList.remove('sidebar-visible');
+            }
+        });
         // ]]>
     </h:outputScript>
-
 </ui:composition>

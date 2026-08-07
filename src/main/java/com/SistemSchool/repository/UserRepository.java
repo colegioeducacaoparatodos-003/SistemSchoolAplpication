@@ -18,39 +18,39 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query(value = "SELECT * FROM user WHERE email = :email", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_user WHERE email = :email", nativeQuery = true)
     Optional<User> findByEmailNative(@Param("email") String email);
 
-    @Query(value = "SELECT * FROM user WHERE active = true ORDER BY user_creation_date DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_user WHERE active = true ORDER BY user_creation_date DESC", nativeQuery = true)
     List<User> findActiveUsersNative();
 
-    @Query(value = "SELECT * FROM user WHERE perfil = :perfil", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_user WHERE perfil = :perfil", nativeQuery = true)
     List<User> findByPerfilNative(@Param("perfil") String perfil);
 
-    @Query(value = "SELECT * FROM user WHERE fk_person = :personId", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_user WHERE fk_person = :personId", nativeQuery = true)
     Optional<User> findByPersonIdNative(@Param("personId") int personId);
 
-    @Query(value = "SELECT * FROM user WHERE user_creation_date > :date", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_user WHERE user_creation_date > :date", nativeQuery = true)
     List<User> findUsersCreatedAfterDateNative(@Param("date") Date date);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE user SET active = :active, user_modification_date = NOW() WHERE pk_user = :userId", nativeQuery = true)
+    @Query(value = "UPDATE tb_user SET active = :active, user_modification_date = NOW() WHERE pk_user = :userId", nativeQuery = true)
     int updateUserStatusNative(@Param("userId") int userId, @Param("active") boolean active);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE user SET device_token = :deviceToken, user_modification_date = NOW() WHERE pk_user = :userId", nativeQuery = true)
+    @Query(value = "UPDATE tb_user SET device_token = :deviceToken, user_modification_date = NOW() WHERE pk_user = :userId", nativeQuery = true)
     int updateDeviceTokenNative(@Param("userId") int userId, @Param("deviceToken") String deviceToken);
 
-    @Query(value = "SELECT COUNT(*) FROM user WHERE perfil = :perfil AND active = true", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM tb_user WHERE perfil = :perfil AND active = true", nativeQuery = true)
     long countActiveUsersByPerfilNative(@Param("perfil") String perfil);
 
     // Login: já não expomos password/salt separadamente — com BCrypt basta o hash
-    @Query(value = "SELECT pk_user, password FROM user WHERE email = :email AND active = true", nativeQuery = true)
+    @Query(value = "SELECT pk_user, password FROM tb_user WHERE email = :email AND active = true", nativeQuery = true)
     List<Object[]> findUserCredentialsNative(@Param("email") String email);
 
-    @Query(value = "SELECT EXISTS(SELECT 1 FROM user WHERE email = :email)", nativeQuery = true)
+    @Query(value = "SELECT EXISTS(SELECT 1 FROM tb_user WHERE email = :email)", nativeQuery = true)
     int existsByEmailNative(@Param("email") String email);
 
     Optional<User> findByEmail(String email);
@@ -62,7 +62,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByEmail(String email);
 
     @Modifying
-    @Query(value = "UPDATE user u SET u.fk_person = :userId where u.pk_user = :id", nativeQuery = true)
+    @Query(value = "UPDATE tb_user u SET u.fk_person = :userId where u.pk_user = :id", nativeQuery = true)
     void updateFkPerson(@Param("id") int id, @Param("userId") int userId);
 
     @Query("SELECT new com.SistemSchool.modulo_dashboard_charts.dto.ProfileCountDTO(u.perfil, COUNT(u)) " +

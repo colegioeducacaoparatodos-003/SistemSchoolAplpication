@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 public class CashBoxController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private static final Logger LOGGER = Logger.getLogger(CashBoxController.class.getName());
 
     // ─────────────────────────────────────────────────────────────
@@ -34,7 +33,6 @@ public class CashBoxController implements Serializable {
     // ─────────────────────────────────────────────────────────────
 
     private CashBox cashBox = new CashBox();
-
     private CashBoxDTO editDto = new CashBoxDTO();
     private CashBoxDTO selectedCashBox = new CashBoxDTO();
     private Long selectedId;
@@ -42,6 +40,16 @@ public class CashBoxController implements Serializable {
     // Usados no diálogo de fecho de caixa
     private BigDecimal closingBalanceInput;
     private String closingObservationInput;
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    private String filterCashBoxNumber;
+    private String filterOperator;
+    private CashBoxStatus filterStatus;
+    private LocalDate filterStartDate;
+    private LocalDate filterEndDate;
 
     // ─────────────────────────────────────────────────────────────
     // ESTATÍSTICAS
@@ -114,10 +122,50 @@ public class CashBoxController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // PREPARAÇÃO
+    // ─────────────────────────────────────────────────────────────
+
+    public void prepareNewCashBox() {
+        this.cashBox = new CashBox();
+        this.cashBox.setOpeningDate(LocalDate.now());
+        this.cashBox.setStatus(CashBoxStatus.OPEN);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    public void applyFilters() {
+        try {
+            lazyModel = new CashBoxLazyModel(cashBoxService);
+            lazyModel.setFilterCashBoxNumber(filterCashBoxNumber);
+            lazyModel.setFilterOperator(filterOperator);
+            lazyModel.setFilterStatus(filterStatus);
+            lazyModel.setFilterStartDate(filterStartDate);
+            lazyModel.setFilterEndDate(filterEndDate);
+
+            addMessage(FacesMessage.SEVERITY_INFO, "Filtros", "Filtros aplicados com sucesso");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro ao aplicar filtros", e);
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao aplicar filtros", e.getMessage());
+        }
+    }
+
+    public void clearFilters() {
+        filterCashBoxNumber = null;
+        filterOperator = null;
+        filterStatus = null;
+        filterStartDate = null;
+        filterEndDate = null;
+        init();
+        addMessage(FacesMessage.SEVERITY_INFO, "Filtros", "Filtros limpos com sucesso");
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // CRUD
     // ─────────────────────────────────────────────────────────────
 
-    public String saveCashBox() {
+    public void saveCashBox() {
         try {
             if (cashBox.getOpeningDate() == null) {
                 cashBox.setOpeningDate(LocalDate.now());
@@ -131,47 +179,27 @@ public class CashBoxController implements Serializable {
             cashBox = new CashBox();
             init();
 
-            FacesContext.getCurrentInstance()
-                    .getExternalContext()
-                    .getFlash()
-                    .setKeepMessages(true);
-
             addMessage(FacesMessage.SEVERITY_INFO, "Caixa", "Caixa aberto com sucesso");
-
-            return "/management/financeiro/cashboxes.xhtml?faces-redirect=true";
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao gravar caixa", e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Caixa", e.getMessage());
-            return null;
+            FacesContext.getCurrentInstance().validationFailed();
         }
     }
 
     // ─────────────────────────────────────────────────────────────
-    // EDIT / UPDATE / DELETE
+    // EDIT / UPDATE / DELETE / VIEW
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * Recebe o id diretamente como parâmetro do método EL (chamado a partir do
-     * botão de editar: actionListener="#{cashBoxController.openEditDialog(cashBox.phCashBox)}").
-     * Isso evita o problema clássico do JSF em que o actionListener do atributo
-     * dispara antes do f:setPropertyActionListener aninhado, o que deixava o
-     * selectedId desatualizado e o diálogo de edição vazio.
-     */
     public void openEditDialog(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Nenhum caixa selecionado!", "");
             return;
         }
-
         this.selectedId = id;
 
-        CashBoxDTO dto = cashBoxService.getAllCashBoxes()
-                .stream()
-                .filter(c -> id.equals(c.getPhCashBox()))
-                .findFirst()
-                .orElse(null);
-
+        CashBoxDTO dto = findDtoById(id);
         if (dto != null) {
             editDto = new CashBoxDTO();
             mapDtoFields(dto, editDto);
@@ -181,22 +209,33 @@ public class CashBoxController implements Serializable {
         }
     }
 
+    public void viewCashBoxDetails(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhum caixa selecionado!", "");
+            return;
+        }
+        this.selectedId = id;
+        loadSelectedCashBox();
+    }
+
     public void loadSelectedCashBox() {
         if (selectedId == null) {
             return;
         }
-
-        CashBoxDTO dto = cashBoxService.getAllCashBoxes()
-                .stream()
-                .filter(c -> selectedId.equals(c.getPhCashBox()))
-                .findFirst()
-                .orElse(null);
-
+        CashBoxDTO dto = findDtoById(selectedId);
         if (dto != null) {
             mapDtoFields(dto, selectedCashBox);
         } else {
             addMessage(FacesMessage.SEVERITY_WARN, "Caixa não encontrado", "");
         }
+    }
+
+    private CashBoxDTO findDtoById(Long id) {
+        return cashBoxService.getAllCashBoxes()
+                .stream()
+                .filter(c -> id.equals(c.getPhCashBox()))
+                .findFirst()
+                .orElse(null);
     }
 
     private void mapDtoFields(CashBoxDTO source, CashBoxDTO target) {
@@ -225,22 +264,31 @@ public class CashBoxController implements Serializable {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao atualizar caixa", e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Caixa", e.getMessage());
+            FacesContext.getCurrentInstance().validationFailed();
         }
     }
 
-    /**
-     * Prepara o diálogo de fecho de caixa, recebendo o id diretamente como
-     * parâmetro do método EL (mesmo padrão usado em openEditDialog), garantindo
-     * que selectedId esteja correto antes do diálogo ser exibido.
-     */
     public void prepareCloseCashBox(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Nenhum caixa selecionado!", "");
             return;
         }
         this.selectedId = id;
-        this.closingBalanceInput = null;
         this.closingObservationInput = null;
+
+        // Carrega os dados do caixa para exibição no diálogo
+        CashBoxDTO dto = findDtoById(id);
+        if (dto != null) {
+            mapDtoFields(dto, selectedCashBox);
+        }
+
+        try {
+            this.closingBalanceInput = cashBoxService.getCurrentBalance(id);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro ao calcular saldo atual para fecho do caixa", e);
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao preparar fecho", e.getMessage());
+            this.closingBalanceInput = BigDecimal.ZERO;
+        }
     }
 
     public void closeCashBox() {
@@ -258,16 +306,10 @@ public class CashBoxController implements Serializable {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Erro ao fechar caixa", e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Caixa", e.getMessage());
+            FacesContext.getCurrentInstance().validationFailed();
         }
     }
 
-    /**
-     * Recebe o id diretamente como parâmetro do método EL (chamado a partir do
-     * botão de excluir: actionListener="#{cashBoxController.delete(cashBox.phCashBox)}").
-     * Antes, o id era definido via f:setPropertyActionListener separado, que
-     * executava DEPOIS do actionListener do atributo — fazendo o delete rodar
-     * com selectedId desatualizado (ou nulo).
-     */
     public void delete(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_WARN, "Nenhum caixa selecionado!", "");
@@ -285,6 +327,18 @@ public class CashBoxController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // EXPORTAÇÃO (stubs — implementar conforme necessidade)
+    // ─────────────────────────────────────────────────────────────
+
+    public void exportCashBoxListPdf() {
+        addMessage(FacesMessage.SEVERITY_INFO, "Exportar", "Exportação PDF iniciada");
+    }
+
+    public void exportCashBoxListExcel() {
+        addMessage(FacesMessage.SEVERITY_INFO, "Exportar", "Exportação Excel iniciada");
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // UTIL
     // ─────────────────────────────────────────────────────────────
 
@@ -296,87 +350,50 @@ public class CashBoxController implements Serializable {
     // GETTERS E SETTERS
     // ─────────────────────────────────────────────────────────────
 
-    public CashBox getCashBox() {
-        return cashBox;
-    }
+    public CashBox getCashBox() { return cashBox; }
+    public void setCashBox(CashBox cashBox) { this.cashBox = cashBox; }
 
-    public void setCashBox(CashBox cashBox) {
-        this.cashBox = cashBox;
-    }
+    public CashBoxDTO getEditDto() { return editDto; }
+    public void setEditDto(CashBoxDTO editDto) { this.editDto = editDto; }
 
-    public CashBoxDTO getEditDto() {
-        return editDto;
-    }
+    public CashBoxDTO getSelectedCashBox() { return selectedCashBox; }
+    public void setSelectedCashBox(CashBoxDTO selectedCashBox) { this.selectedCashBox = selectedCashBox; }
 
-    public void setEditDto(CashBoxDTO editDto) {
-        this.editDto = editDto;
-    }
+    public Long getSelectedId() { return selectedId; }
+    public void setSelectedId(Long selectedId) { this.selectedId = selectedId; }
 
-    public CashBoxDTO getSelectedCashBox() {
-        return selectedCashBox;
-    }
+    public BigDecimal getClosingBalanceInput() { return closingBalanceInput; }
+    public void setClosingBalanceInput(BigDecimal closingBalanceInput) { this.closingBalanceInput = closingBalanceInput; }
 
-    public void setSelectedCashBox(CashBoxDTO selectedCashBox) {
-        this.selectedCashBox = selectedCashBox;
-    }
+    public String getClosingObservationInput() { return closingObservationInput; }
+    public void setClosingObservationInput(String closingObservationInput) { this.closingObservationInput = closingObservationInput; }
 
-    public Long getSelectedId() {
-        return selectedId;
-    }
+    public void setLazyModel(CashBoxLazyModel lazyModel) { this.lazyModel = lazyModel; }
 
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
-    }
+    // Filtros
+    public String getFilterCashBoxNumber() { return filterCashBoxNumber; }
+    public void setFilterCashBoxNumber(String filterCashBoxNumber) { this.filterCashBoxNumber = filterCashBoxNumber; }
 
-    public BigDecimal getClosingBalanceInput() {
-        return closingBalanceInput;
-    }
+    public String getFilterOperator() { return filterOperator; }
+    public void setFilterOperator(String filterOperator) { this.filterOperator = filterOperator; }
 
-    public void setClosingBalanceInput(BigDecimal closingBalanceInput) {
-        this.closingBalanceInput = closingBalanceInput;
-    }
+    public CashBoxStatus getFilterStatus() { return filterStatus; }
+    public void setFilterStatus(CashBoxStatus filterStatus) { this.filterStatus = filterStatus; }
 
-    public String getClosingObservationInput() {
-        return closingObservationInput;
-    }
+    public LocalDate getFilterStartDate() { return filterStartDate; }
+    public void setFilterStartDate(LocalDate filterStartDate) { this.filterStartDate = filterStartDate; }
 
-    public void setClosingObservationInput(String closingObservationInput) {
-        this.closingObservationInput = closingObservationInput;
-    }
+    public LocalDate getFilterEndDate() { return filterEndDate; }
+    public void setFilterEndDate(LocalDate filterEndDate) { this.filterEndDate = filterEndDate; }
 
-    public void setLazyModel(CashBoxLazyModel lazyModel) {
-        this.lazyModel = lazyModel;
-    }
+    // Estatísticas
+    public long getTotalCashBoxCount() { return totalCashBoxCount; }
+    public long getOpenCashBoxCount() { return openCashBoxCount; }
+    public long getNewCashBoxCountThisMonth() { return newCashBoxCountThisMonth; }
+    public BigDecimal getTotalOpeningBalance() { return totalOpeningBalance; }
 
-    // ─────────────────────────────────────────────────────────────
-    // ESTATÍSTICAS — GETTERS
-    // ─────────────────────────────────────────────────────────────
+    // Enums e Listas
+    public CashBoxStatus[] getStatuses() { return CashBoxStatus.values(); }
 
-    public long getTotalCashBoxCount() {
-        return totalCashBoxCount;
-    }
-
-    public long getOpenCashBoxCount() {
-        return openCashBoxCount;
-    }
-
-    public long getNewCashBoxCountThisMonth() {
-        return newCashBoxCountThisMonth;
-    }
-
-    public BigDecimal getTotalOpeningBalance() {
-        return totalOpeningBalance;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // ENUMS E LISTAS
-    // ─────────────────────────────────────────────────────────────
-
-    public CashBoxStatus[] getStatuses() {
-        return CashBoxStatus.values();
-    }
-
-    public List<CashBoxDTO> getCashBoxes() {
-        return cashBoxService.getAllCashBoxes();
-    }
+    public List<CashBoxDTO> getCashBoxes() { return cashBoxService.getAllCashBoxes(); }
 }

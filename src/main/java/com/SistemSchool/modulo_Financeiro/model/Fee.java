@@ -1,12 +1,11 @@
 package com.SistemSchool.modulo_Financeiro.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.SistemSchool.modulo_Financeiro.io.FeeStatus;
-import com.SistemSchool.modulo_secrtaria.model.Enrolment;
+import com.SistemSchool.modulo_Financeiro.io.FeeType;
 import com.SistemSchool.modulo_secrtaria.model.SchoolClass;
 
 import jakarta.persistence.*;
@@ -19,101 +18,63 @@ public class Fee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long phFee;
 
-    /**
-     * Código da propina
-     * Ex: PROP-2026-001
-     */
+    @Column(name = "fee_code", nullable = false, length = 50)
     private String feeCode;
 
-    /**
-     * Descrição
-     */
+    @Column(name = "description", nullable = false)
     private String description;
 
-    /**
-     * Classe/Turma a que pertence a propina
-     */
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "school_class_pk", nullable = false, foreignKey = @ForeignKey(name = "fk_fee_school_class"))
     private SchoolClass schoolClass;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "enrolment_pk", nullable = false, foreignKey = @ForeignKey(name = "fk_fee_enrolment"))
-    private Enrolment enrolment;
-    /**
-     * Ano letivo
-     */
+    @Column(name = "school_year", nullable = false)
     private Integer schoolYear;
 
-    /**
-     * Valor da propina
-     */
+    @Column(name = "amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal amount;
 
-    /**
-     * Vigência
-     */
+    @Column(name = "start_date")
     private LocalDateTime startDate;
 
+    @Column(name = "end_date")
     private LocalDateTime endDate;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private FeeStatus status;
 
-    /**
-     * Auditoria
-     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "fee_type", nullable = false, length = 30)
+    private FeeType feeType;
+
+    @Column(name = "obs")
     private String obs;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public Fee() {
+    }
 
     @PrePersist
     protected void onCreate() {
-
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-
         if (this.status == null) {
             this.status = FeeStatus.ACTIVE;
         }
-
     }
 
     @PreUpdate
     protected void onUpdate() {
-
         this.updatedAt = LocalDateTime.now();
-
     }
 
-    public Fee() {
-
-    }
-
-    public LocalDateTime getStartDate() {
-        return this.startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return this.endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
+    // Getters e Setters
     public Long getPhFee() {
         return phFee;
     }
@@ -162,12 +123,36 @@ public class Fee {
         this.amount = amount;
     }
 
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
     public FeeStatus getStatus() {
         return status;
     }
 
     public void setStatus(FeeStatus status) {
         this.status = status;
+    }
+
+    public FeeType getFeeType() {
+        return feeType;
+    }
+
+    public void setFeeType(FeeType feeType) {
+        this.feeType = feeType;
     }
 
     public String getObs() {
@@ -182,45 +167,52 @@ public class Fee {
         return createdAt;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
-
         if (this == o)
             return true;
-
         if (!(o instanceof Fee))
             return false;
-
         Fee fee = (Fee) o;
-
         return Objects.equals(phFee, fee.phFee);
-
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(phFee);
-
     }
 
     @Override
     public String toString() {
-
         return description;
-
     }
 
-    public Enrolment getEnrolment() {
-        return enrolment;
+    public String getDisplayLabel() {
+        StringBuilder sb = new StringBuilder();
+        if (description != null) {
+            sb.append(description);
+        }
+        if (amount != null) {
+            if (sb.length() > 0) {
+                sb.append(" — ");
+            }
+            java.text.NumberFormat nf = java.text.NumberFormat.getNumberInstance(new java.util.Locale("pt", "PT"));
+            nf.setMinimumFractionDigits(2);
+            nf.setMaximumFractionDigits(2);
+            sb.append(nf.format(amount)).append(" Kz");
+        }
+        return sb.toString();
     }
-
-    public void setEnrolment(Enrolment enrolment) {
-        this.enrolment = enrolment;
-    }
-
 }

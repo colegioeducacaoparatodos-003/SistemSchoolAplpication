@@ -246,7 +246,7 @@ public class UserController implements Serializable {
             PrimeFaces.current().executeScript("PF('createUserDialog').hide()");
             addMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Usuário criado com sucesso!");
 
-            return "/dashboard.xhtml?faces-redirect=true";
+            return "/login.xhtml?faces-redirect=true";
 
         } catch (RuntimeException e) {
             logger.error("Erro ao criar usuário", e);

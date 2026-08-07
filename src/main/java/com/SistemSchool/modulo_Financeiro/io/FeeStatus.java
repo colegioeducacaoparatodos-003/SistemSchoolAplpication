@@ -2,16 +2,16 @@ package com.SistemSchool.modulo_Financeiro.io;
 
 public enum FeeStatus {
 
-    ACTIVE("Ativa"),
-    INACTIVE("Inativa");
+    ACTIVE("feeStatus.active"),
+    INACTIVE("feeStatus.inactive");
 
-    private final String description;
+    private final String key;
 
-    FeeStatus(String description) {
-        this.description = description;
+    FeeStatus(String key) {
+        this.key = key;
     }
 
-    public String getDescription() {
-        return description;
+    public String getKey() {
+        return key;
     }
 }

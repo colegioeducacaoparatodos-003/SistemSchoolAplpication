@@ -56,9 +56,6 @@ public class Pagamento {
     // Valor da propina
     private BigDecimal valor;
 
-    // Desconto concedido
-    private BigDecimal desconto;
-
     // Multa aplicada
     private BigDecimal multa;
 
@@ -67,9 +64,6 @@ public class Pagamento {
 
     // Data de emissão
     private LocalDateTime dataEmissao;
-
-    // Data de vencimento
-    private LocalDateTime dataVencimento;
 
     // Data do pagamento
     private LocalDateTime dataPagamento;
@@ -123,18 +117,20 @@ public class Pagamento {
     public Pagamento() {
     }
 
-    public Pagamento(Long pkPagamento, String numeroDocumento, Enrolment enrolment, Fee fee, CashBox cashBox, BigDecimal valor, BigDecimal desconto, BigDecimal multa, BigDecimal total, LocalDateTime dataEmissao, LocalDateTime dataVencimento, LocalDateTime dataPagamento, FormaPagamento formaPagamento, EstadoPagamento estado, MesReferencia mesReferencia, String referencia, String observacao, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Pagamento(Long pkPagamento, String numeroDocumento, Enrolment enrolment, 
+        Fee fee, CashBox cashBox, BigDecimal valor, 
+        BigDecimal multa, BigDecimal total, LocalDateTime dataEmissao, LocalDateTime dataPagamento, 
+        FormaPagamento formaPagamento, EstadoPagamento estado, MesReferencia mesReferencia, 
+        String referencia, String observacao, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.pkPagamento = pkPagamento;
         this.numeroDocumento = numeroDocumento;
         this.enrolment = enrolment;
         this.fee = fee;
         this.cashBox = cashBox;
         this.valor = valor;
-        this.desconto = desconto;
         this.multa = multa;
         this.total = total;
         this.dataEmissao = dataEmissao;
-        this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
         this.formaPagamento = formaPagamento;
         this.estado = estado;
@@ -193,14 +189,6 @@ public class Pagamento {
         this.valor = valor;
     }
 
-    public BigDecimal getDesconto() {
-        return this.desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
     public BigDecimal getMulta() {
         return this.multa;
     }
@@ -225,13 +213,6 @@ public class Pagamento {
         this.dataEmissao = dataEmissao;
     }
 
-    public LocalDateTime getDataVencimento() {
-        return this.dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDateTime dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
 
     public LocalDateTime getDataPagamento() {
         return this.dataPagamento;
@@ -327,11 +308,6 @@ public class Pagamento {
         return this;
     }
 
-    public Pagamento desconto(BigDecimal desconto) {
-        setDesconto(desconto);
-        return this;
-    }
-
     public Pagamento multa(BigDecimal multa) {
         setMulta(multa);
         return this;
@@ -344,11 +320,6 @@ public class Pagamento {
 
     public Pagamento dataEmissao(LocalDateTime dataEmissao) {
         setDataEmissao(dataEmissao);
-        return this;
-    }
-
-    public Pagamento dataVencimento(LocalDateTime dataVencimento) {
-        setDataVencimento(dataVencimento);
         return this;
     }
 
@@ -400,14 +371,14 @@ public class Pagamento {
             return false;
         }
         Pagamento pagamento = (Pagamento) o;
-        return Objects.equals(pkPagamento, pagamento.pkPagamento) && Objects.equals(numeroDocumento, pagamento.numeroDocumento) && Objects.equals(enrolment, pagamento.enrolment) && Objects.equals(fee, pagamento.fee) && Objects.equals(cashBox, pagamento.cashBox) && Objects.equals(valor, pagamento.valor) && Objects.equals(desconto, pagamento.desconto) && Objects.equals(multa, pagamento.multa) && Objects.equals(total, pagamento.total) && Objects.equals(dataEmissao, pagamento.dataEmissao) && Objects.equals(dataVencimento, pagamento.dataVencimento) && Objects.equals(dataPagamento, pagamento.dataPagamento) && Objects.equals(formaPagamento, pagamento.formaPagamento) && Objects.equals(estado, pagamento.estado) && Objects.equals(mesReferencia, pagamento.mesReferencia) && Objects.equals(referencia, pagamento.referencia) && Objects.equals(observacao, pagamento.observacao) && Objects.equals(createdAt, pagamento.createdAt) && Objects.equals(updatedAt, pagamento.updatedAt);
+        return Objects.equals(pkPagamento, pagamento.pkPagamento) && Objects.equals(numeroDocumento, pagamento.numeroDocumento) && Objects.equals(enrolment, pagamento.enrolment) && Objects.equals(fee, pagamento.fee) && Objects.equals(cashBox, pagamento.cashBox) && Objects.equals(valor, pagamento.valor) && Objects.equals(multa, pagamento.multa) && Objects.equals(total, pagamento.total) && Objects.equals(dataEmissao, pagamento.dataEmissao) && Objects.equals(dataPagamento, pagamento.dataPagamento) && Objects.equals(formaPagamento, pagamento.formaPagamento) && Objects.equals(estado, pagamento.estado) && Objects.equals(mesReferencia, pagamento.mesReferencia) && Objects.equals(referencia, pagamento.referencia) && Objects.equals(observacao, pagamento.observacao) && Objects.equals(createdAt, pagamento.createdAt) && Objects.equals(updatedAt, pagamento.updatedAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(pkPagamento, numeroDocumento, enrolment, 
-            fee, cashBox, valor, desconto, multa, total, dataEmissao, 
-            dataVencimento, dataPagamento, formaPagamento, estado, 
+            fee, cashBox, valor, multa, total, dataEmissao,
+            dataPagamento, formaPagamento, estado, 
             mesReferencia, referencia, observacao, createdAt, updatedAt);
     }
 
@@ -420,11 +391,9 @@ public class Pagamento {
             ", fee='" + getFee() + "'" +
             ", cashBox='" + getCashBox() + "'" +
             ", valor='" + getValor() + "'" +
-            ", desconto='" + getDesconto() + "'" +
             ", multa='" + getMulta() + "'" +
             ", total='" + getTotal() + "'" +
             ", dataEmissao='" + getDataEmissao() + "'" +
-            ", dataVencimento='" + getDataVencimento() + "'" +
             ", dataPagamento='" + getDataPagamento() + "'" +
             ", formaPagamento='" + getFormaPagamento() + "'" +
             ", estado='" + getEstado() + "'" +

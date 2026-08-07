@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,16 @@ public class EnrolmentService {
             }
         }
         return prefix + String.format("%04d", nextSeq);
+    }
+
+    public String getCurrentSchoolYear() {
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonthValue();
+        if (month >= 9) {
+            return year + "/" + (year + 1);
+        } else {
+            return (year - 1) + "/" + year;
+        }
     }
 
     public List<EnrolmentDTO> getEnrolmentsBySchoolClassDTO(Long schoolClassPk) {
@@ -188,7 +199,8 @@ public class EnrolmentService {
                         case "schoolclasscode" -> contains(dto.getSchoolclasscode(), expected);
                         case "schoolclassnome" -> contains(dto.getSchoolclassnome(), expected);
                         case "shift" -> contains(dto.getShift() != null ? dto.getShift().name() : null, expected);
-                        case "enrolmentType" -> contains(dto.getEnrolmentType() != null ? dto.getEnrolmentType().name() : null, expected);
+                        case "enrolmentType" ->
+                            contains(dto.getEnrolmentType() != null ? dto.getEnrolmentType().name() : null, expected);
                         default -> true;
                     };
 
@@ -226,6 +238,13 @@ public class EnrolmentService {
         return value == null ? "" : value.toString().trim();
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // CONTAGEM
+    // ─────────────────────────────────────────────────────────────
+
+    public long count() {
+        return repository.count();
+    }
     // ─────────────────────────────────────────────────────────────
     // QUERIES UTILITÁRIAS
     // ─────────────────────────────────────────────────────────────

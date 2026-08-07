@@ -81,15 +81,11 @@ public class PdfGeneratorService {
                     pagamento.getFormaPagamento() != null ? pagamento.getFormaPagamento().toString() : "-");
 
             addField(document, "Valor:", formatMoney(pagamento.getValor()));
-            addField(document, "Desconto:", formatMoney(pagamento.getDesconto()));
             addField(document, "Multa:", formatMoney(pagamento.getMulta()));
             addField(document, "Total:", formatMoney(pagamento.getTotal()));
 
             addField(document, "Data de Emissão:",
                     pagamento.getDataEmissao() != null ? pagamento.getDataEmissao().format(DATETIME_FMT) : "-");
-
-            addField(document, "Data de Vencimento:",
-                    pagamento.getDataVencimento() != null ? pagamento.getDataVencimento().format(DATE_FMT) : "-");
 
             addField(document, "Data do Pagamento:",
                     pagamento.getDataPagamento() != null ? pagamento.getDataPagamento().format(DATETIME_FMT) : "-");

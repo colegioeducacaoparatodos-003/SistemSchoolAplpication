@@ -20,6 +20,8 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +31,6 @@ import java.util.logging.Logger;
 public class FinancialMovementController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private static final Logger LOGGER = Logger.getLogger(FinancialMovementController.class.getName());
 
     // ─────────────────────────────────────────────────────────────
@@ -37,7 +38,6 @@ public class FinancialMovementController implements Serializable {
     // ─────────────────────────────────────────────────────────────
 
     private FinancialMovement movement = new FinancialMovement();
-
     private FinancialMovementDTO editDto = new FinancialMovementDTO();
     private FinancialMovementDTO selectedMovement = new FinancialMovementDTO();
     private Long selectedId;
@@ -58,6 +58,17 @@ public class FinancialMovementController implements Serializable {
     private BigDecimal totalIncome = BigDecimal.ZERO;
     private BigDecimal totalExpense = BigDecimal.ZERO;
     private BigDecimal balance = BigDecimal.ZERO;
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    private MovementType filterType;
+    private MovementStatus filterStatus;
+    private String filterCategory;
+    private LocalDate filterStartDate;
+    private LocalDate filterEndDate;
+    private String filterSearchText;
 
     // ─────────────────────────────────────────────────────────────
     // SERVIÇOS
@@ -107,21 +118,12 @@ public class FinancialMovementController implements Serializable {
     private void computeStatistics() {
         try {
             List<FinancialMovementDTO> all = financialMovementService.getAllFinancialMovements();
-
             totalMovementCount = all.size();
-
-            incomeCount = all.stream()
-                    .filter(m -> m.getType() == MovementType.INCOME)
-                    .count();
-
-            expenseCount = all.stream()
-                    .filter(m -> m.getType() == MovementType.EXPENSE)
-                    .count();
-
+            incomeCount = all.stream().filter(m -> m.getType() == MovementType.INCOME).count();
+            expenseCount = all.stream().filter(m -> m.getType() == MovementType.EXPENSE).count();
             totalIncome = financialMovementService.getTotalIncome();
             totalExpense = financialMovementService.getTotalExpense();
             balance = totalIncome.subtract(totalExpense);
-
         } catch (Exception e) {
             totalMovementCount = 0;
             incomeCount = 0;
@@ -149,8 +151,51 @@ public class FinancialMovementController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    public void applyFilters() {
+        lazyModel = new FinancialMovementLazyModel(financialMovementService);
+        // Aplica filtros externos via propriedades do LazyModel
+        lazyModel.setExternalFilters(buildExternalFilters());
+        computeStatistics();
+        addMessage(FacesMessage.SEVERITY_INFO, "Filtros", "Filtros aplicados com sucesso");
+    }
+
+    public void clearFilters() {
+        filterType = null;
+        filterStatus = null;
+        filterCategory = null;
+        filterStartDate = null;
+        filterEndDate = null;
+        filterSearchText = null;
+        lazyModel = new FinancialMovementLazyModel(financialMovementService);
+        computeStatistics();
+        addMessage(FacesMessage.SEVERITY_INFO, "Filtros", "Filtros limpos com sucesso");
+    }
+
+    private java.util.Map<String, Object> buildExternalFilters() {
+        java.util.Map<String, Object> filters = new java.util.HashMap<>();
+        if (filterType != null) filters.put("type", filterType);
+        if (filterStatus != null) filters.put("status", filterStatus);
+        if (filterCategory != null && !filterCategory.isBlank()) filters.put("category", filterCategory);
+        if (filterStartDate != null) filters.put("startDate", filterStartDate.atStartOfDay());
+        if (filterEndDate != null) filters.put("endDate", filterEndDate.atTime(23, 59, 59));
+        if (filterSearchText != null && !filterSearchText.isBlank()) filters.put("global", filterSearchText);
+        return filters;
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // CRUD
     // ─────────────────────────────────────────────────────────────
+
+    public void prepareNewMovement() {
+        movement = new FinancialMovement();
+        movement.setMovementDate(LocalDateTime.now());
+        movement.setStatus(MovementStatus.ACTIVE);
+        selectedCashBoxId = null;
+        selectedPagamentoId = null;
+    }
 
     public String saveMovement() {
         try {
@@ -188,7 +233,6 @@ public class FinancialMovementController implements Serializable {
                     .setKeepMessages(true);
 
             addMessage(FacesMessage.SEVERITY_INFO, "Movimento", "Movimento registado com sucesso");
-
             return "/management/financeiro/movements.xhtml?faces-redirect=true";
 
         } catch (Exception e) {
@@ -199,18 +243,30 @@ public class FinancialMovementController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // EDIT / UPDATE / DELETE
+    // VIEW / EDIT / DELETE
     // ─────────────────────────────────────────────────────────────
+
+    public void viewMovementDetails(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhum movimento selecionado!", "");
+            return;
+        }
+        this.selectedId = id;
+        FinancialMovementDTO dto = findDtoById(id);
+        if (dto != null) {
+            mapDtoFields(dto, selectedMovement);
+        } else {
+            addMessage(FacesMessage.SEVERITY_WARN, "Movimento não encontrado", "");
+        }
+    }
+
     public void openEditDialog(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Nenhum movimento selecionado!", "");
             return;
         }
-
         this.selectedId = id;
-
         FinancialMovementDTO dto = findDtoById(id);
-
         if (dto != null) {
             mapDtoFields(dto, editDto = new FinancialMovementDTO());
             mapDtoFields(dto, selectedMovement);
@@ -221,13 +277,17 @@ public class FinancialMovementController implements Serializable {
         }
     }
 
-    public void loadSelectedMovement() {
-        if (selectedId == null) {
+    public void openDeleteDialog(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhum movimento selecionado!", "");
             return;
         }
+        this.selectedId = id;
+    }
 
+    public void loadSelectedMovement() {
+        if (selectedId == null) return;
         FinancialMovementDTO dto = findDtoById(selectedId);
-
         if (dto != null) {
             mapDtoFields(dto, selectedMovement);
         } else {
@@ -298,6 +358,7 @@ public class FinancialMovementController implements Serializable {
             addMessage(FacesMessage.SEVERITY_ERROR, "Movimento", e.getMessage());
         }
     }
+
     // ─────────────────────────────────────────────────────────────
     // UTIL
     // ─────────────────────────────────────────────────────────────
@@ -310,115 +371,56 @@ public class FinancialMovementController implements Serializable {
     // GETTERS E SETTERS
     // ─────────────────────────────────────────────────────────────
 
-    public FinancialMovement getMovement() {
-        return movement;
-    }
+    public FinancialMovement getMovement() { return movement; }
+    public void setMovement(FinancialMovement movement) { this.movement = movement; }
 
-    public void setMovement(FinancialMovement movement) {
-        this.movement = movement;
-    }
+    public FinancialMovementDTO getEditDto() { return editDto; }
+    public void setEditDto(FinancialMovementDTO editDto) { this.editDto = editDto; }
 
-    public FinancialMovementDTO getEditDto() {
-        return editDto;
-    }
+    public FinancialMovementDTO getSelectedMovement() { return selectedMovement; }
+    public void setSelectedMovement(FinancialMovementDTO selectedMovement) { this.selectedMovement = selectedMovement; }
 
-    public void setEditDto(FinancialMovementDTO editDto) {
-        this.editDto = editDto;
-    }
+    public Long getSelectedId() { return selectedId; }
+    public void setSelectedId(Long selectedId) { this.selectedId = selectedId; }
 
-    public FinancialMovementDTO getSelectedMovement() {
-        return selectedMovement;
-    }
+    public Long getSelectedCashBoxId() { return selectedCashBoxId; }
+    public void setSelectedCashBoxId(Long selectedCashBoxId) { this.selectedCashBoxId = selectedCashBoxId; }
 
-    public void setSelectedMovement(FinancialMovementDTO selectedMovement) {
-        this.selectedMovement = selectedMovement;
-    }
+    public Long getSelectedPagamentoId() { return selectedPagamentoId; }
+    public void setSelectedPagamentoId(Long selectedPagamentoId) { this.selectedPagamentoId = selectedPagamentoId; }
 
-    public Long getSelectedId() {
-        return selectedId;
-    }
+    public void setLazyModel(FinancialMovementLazyModel lazyModel) { this.lazyModel = lazyModel; }
 
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
-    }
+    // Filtros
+    public MovementType getFilterType() { return filterType; }
+    public void setFilterType(MovementType filterType) { this.filterType = filterType; }
+    public MovementStatus getFilterStatus() { return filterStatus; }
+    public void setFilterStatus(MovementStatus filterStatus) { this.filterStatus = filterStatus; }
+    public String getFilterCategory() { return filterCategory; }
+    public void setFilterCategory(String filterCategory) { this.filterCategory = filterCategory; }
+    public LocalDate getFilterStartDate() { return filterStartDate; }
+    public void setFilterStartDate(LocalDate filterStartDate) { this.filterStartDate = filterStartDate; }
+    public LocalDate getFilterEndDate() { return filterEndDate; }
+    public void setFilterEndDate(LocalDate filterEndDate) { this.filterEndDate = filterEndDate; }
+    public String getFilterSearchText() { return filterSearchText; }
+    public void setFilterSearchText(String filterSearchText) { this.filterSearchText = filterSearchText; }
 
-    public Long getSelectedCashBoxId() {
-        return selectedCashBoxId;
-    }
+    // Estatísticas
+    public long getTotalMovementCount() { return totalMovementCount; }
+    public long getIncomeCount() { return incomeCount; }
+    public long getExpenseCount() { return expenseCount; }
+    public BigDecimal getTotalIncome() { return totalIncome; }
+    public BigDecimal getTotalExpense() { return totalExpense; }
+    public BigDecimal getBalance() { return balance; }
 
-    public void setSelectedCashBoxId(Long selectedCashBoxId) {
-        this.selectedCashBoxId = selectedCashBoxId;
-    }
+    // Enums e Listas
+    public MovementType[] getTypes() { return MovementType.values(); }
+    public MovementStatus[] getStatuses() { return MovementStatus.values(); }
+    public List<CashBox> getCashBoxes() { return cashBoxes; }
+    public List<Pagamento> getPagamentos() { return pagamentos; }
+    public List<Pagamento> getPayments() { return pagamentos; }
+    public List<FinancialMovementDTO> getMovements() { return financialMovementService.getAllFinancialMovements(); }
 
-    public Long getSelectedPagamentoId() {
-        return selectedPagamentoId;
-    }
-
-    public void setSelectedPagamentoId(Long selectedPagamentoId) {
-        this.selectedPagamentoId = selectedPagamentoId;
-    }
-
-    public void setLazyModel(FinancialMovementLazyModel lazyModel) {
-        this.lazyModel = lazyModel;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // ESTATÍSTICAS — GETTERS
-    // ─────────────────────────────────────────────────────────────
-
-    public long getTotalMovementCount() {
-        return totalMovementCount;
-    }
-
-    public long getIncomeCount() {
-        return incomeCount;
-    }
-
-    public long getExpenseCount() {
-        return expenseCount;
-    }
-
-    public BigDecimal getTotalIncome() {
-        return totalIncome;
-    }
-
-    public BigDecimal getTotalExpense() {
-        return totalExpense;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // ENUMS E LISTAS
-    // ─────────────────────────────────────────────────────────────
-
-    public MovementType[] getTypes() {
-        return MovementType.values();
-    }
-
-    public MovementStatus[] getStatuses() {
-        return MovementStatus.values();
-    }
-
-    public List<CashBox> getCashBoxes() {
-        return cashBoxes;
-    }
-
-    public List<Pagamento> getPagamentos() {
-        return pagamentos;
-    }
-
-    public void refreshCashBoxes() {
-        loadCashBoxes();
-    }
-
-    public void refreshPagamentos() {
-        loadPagamentos();
-    }
-
-    public List<FinancialMovementDTO> getMovements() {
-        return financialMovementService.getAllFinancialMovements();
-    }
+    public void refreshCashBoxes() { loadCashBoxes(); }
+    public void refreshPagamentos() { loadPagamentos(); }
 }

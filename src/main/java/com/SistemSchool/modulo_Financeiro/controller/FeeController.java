@@ -2,12 +2,11 @@ package com.SistemSchool.modulo_Financeiro.controller;
 
 import com.SistemSchool.modulo_Financeiro.dto.FeeDTO;
 import com.SistemSchool.modulo_Financeiro.io.FeeStatus;
+import com.SistemSchool.modulo_Financeiro.io.FeeType;
 import com.SistemSchool.modulo_Financeiro.lazy.FeeLazyModel;
 import com.SistemSchool.modulo_Financeiro.model.Fee;
 import com.SistemSchool.modulo_Financeiro.service.FeeService;
-import com.SistemSchool.modulo_secrtaria.model.Enrolment;
 import com.SistemSchool.modulo_secrtaria.model.SchoolClass;
-import com.SistemSchool.modulo_secrtaria.repository.EnrolmentRepository;
 import com.SistemSchool.modulo_secrtaria.repository.SchoolClassRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -19,16 +18,20 @@ import jakarta.inject.Named;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Named
 @ViewScoped
 public class FeeController implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     private static final Logger LOGGER = Logger.getLogger(FeeController.class.getName());
 
     // ─────────────────────────────────────────────────────────────
@@ -36,16 +39,22 @@ public class FeeController implements Serializable {
     // ─────────────────────────────────────────────────────────────
 
     private Fee fee = new Fee();
-
     private FeeDTO editDto = new FeeDTO();
     private FeeDTO selectedFee = new FeeDTO();
     private Long selectedId;
-
     private Long selectedSchoolClassId;
-    private Long selectedEnrolmentId;
+    private List<SchoolClass> schoolClasses = new ArrayList<>();
 
-    private List<SchoolClass> schoolClasses = new java.util.ArrayList<>();
-    private List<Enrolment> enrolments = new java.util.ArrayList<>();
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS AVANÇADOS
+    // ─────────────────────────────────────────────────────────────
+
+    private Long filterSchoolClassId;
+    private FeeType filterFeeType;
+    private FeeStatus filterStatus;
+    private LocalDate filterStartDate;
+    private LocalDate filterEndDate;
+    private String filterSearchText;
 
     // ─────────────────────────────────────────────────────────────
     // ESTATÍSTICAS
@@ -65,9 +74,6 @@ public class FeeController implements Serializable {
     @Inject
     private SchoolClassRepository schoolClassRepository;
 
-    @Inject
-    private EnrolmentRepository enrolmentRepository;
-
     private transient FeeLazyModel lazyModel;
 
     // ─────────────────────────────────────────────────────────────
@@ -78,7 +84,6 @@ public class FeeController implements Serializable {
     public void init() {
         lazyModel = new FeeLazyModel(feeService);
         loadSchoolClasses();
-        loadEnrolments();
         computeStatistics();
     }
 
@@ -91,30 +96,17 @@ public class FeeController implements Serializable {
         }
     }
 
-    private void loadEnrolments() {
-        try {
-            enrolments = enrolmentRepository.findAll();
-        } catch (Exception e) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao carregar matrículas", e.getMessage());
-            LOGGER.log(Level.SEVERE, "Erro ao carregar matrículas para o formulário de propina", e);
-        }
-    }
-
     private void computeStatistics() {
         try {
             List<FeeDTO> all = feeService.getAllFees();
-
             totalFeeCount = all.size();
-
             activeFeeCount = all.stream()
                     .filter(f -> f.getStatus() == FeeStatus.ACTIVE)
                     .count();
-
             totalFeeAmount = all.stream()
                     .map(FeeDTO::getAmount)
-                    .filter(java.util.Objects::nonNull)
+                    .filter(Objects::nonNull)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
-
         } catch (Exception e) {
             totalFeeCount = 0;
             activeFeeCount = 0;
@@ -139,6 +131,94 @@ public class FeeController implements Serializable {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // PREPARAÇÃO E VISUALIZAÇÃO
+    // ─────────────────────────────────────────────────────────────
+
+    public void prepareNewFee() {
+        fee = new Fee();
+        selectedSchoolClassId = null;
+    }
+
+    public void viewFeeDetails(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhuma propina selecionada", "");
+            return;
+        }
+        selectedFee = feeService.getAllFees().stream()
+                .filter(f -> id.equals(f.getPhFee()))
+                .findFirst()
+                .orElse(null);
+        if (selectedFee == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Propina não encontrada", "");
+        }
+    }
+
+    public void openDeleteDialog(Long id) {
+        if (id == null) {
+            addMessage(FacesMessage.SEVERITY_WARN, "Nenhuma propina selecionada", "");
+            return;
+        }
+        this.selectedId = id;
+        this.selectedFee = feeService.getAllFees().stream()
+                .filter(f -> id.equals(f.getPhFee()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // FILTROS
+    // ─────────────────────────────────────────────────────────────
+
+    public void applyFilters() {
+        try {
+            List<FeeDTO> all = feeService.getAllFees();
+            Stream<FeeDTO> stream = all.stream();
+
+            if (filterSchoolClassId != null) {
+                stream = stream.filter(f -> filterSchoolClassId.equals(f.getSchoolClassPk()));
+            }
+            if (filterFeeType != null) {
+                stream = stream.filter(f -> filterFeeType.equals(f.getFeeType()));
+            }
+            if (filterStatus != null) {
+                stream = stream.filter(f -> filterStatus.equals(f.getStatus()));
+            }
+            if (filterStartDate != null) {
+                stream = stream.filter(f -> f.getStartDate() != null &&
+                        !f.getStartDate().toLocalDate().isBefore(filterStartDate));
+            }
+            if (filterEndDate != null) {
+                stream = stream.filter(f -> f.getEndDate() != null &&
+                        !f.getEndDate().toLocalDate().isAfter(filterEndDate));
+            }
+            if (filterSearchText != null && !filterSearchText.trim().isEmpty()) {
+                String search = filterSearchText.toLowerCase();
+                stream = stream.filter(f ->
+                    (f.getFeeCode() != null && f.getFeeCode().toLowerCase().contains(search)) ||
+                    (f.getDescription() != null && f.getDescription().toLowerCase().contains(search))
+                );
+            }
+
+            List<FeeDTO> filtered = stream.collect(Collectors.toList());
+            lazyModel = new FeeLazyModel(feeService, filtered);
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro ao aplicar filtros", e);
+            addMessage(FacesMessage.SEVERITY_ERROR, "Erro ao filtrar propinas", e.getMessage());
+        }
+    }
+
+    public void clearFilters() {
+        filterSchoolClassId = null;
+        filterFeeType = null;
+        filterStatus = null;
+        filterStartDate = null;
+        filterEndDate = null;
+        filterSearchText = null;
+        init();
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // CRUD
     // ─────────────────────────────────────────────────────────────
 
@@ -148,10 +228,6 @@ public class FeeController implements Serializable {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Propina", "Selecione uma turma antes de gravar.");
                 return null;
             }
-            if (selectedEnrolmentId == null) {
-                addMessage(FacesMessage.SEVERITY_ERROR, "Propina", "Selecione uma matrícula antes de gravar.");
-                return null;
-            }
 
             SchoolClass schoolClass = schoolClasses.stream()
                     .filter(sc -> selectedSchoolClassId.equals(sc.getPkSchoolClass()))
@@ -159,17 +235,10 @@ public class FeeController implements Serializable {
                     .orElseThrow(() -> new RuntimeException("Turma não encontrada."));
             fee.setSchoolClass(schoolClass);
 
-            Enrolment enrolment = enrolments.stream()
-                    .filter(en -> selectedEnrolmentId.equals(en.getPhEnrolment()))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Matrícula não encontrada."));
-            fee.setEnrolment(enrolment);
-
             feeService.save(fee);
 
             fee = new Fee();
             selectedSchoolClassId = null;
-            selectedEnrolmentId = null;
             init();
 
             FacesContext.getCurrentInstance()
@@ -178,7 +247,6 @@ public class FeeController implements Serializable {
                     .setKeepMessages(true);
 
             addMessage(FacesMessage.SEVERITY_INFO, "Propina", "Propina registada com sucesso");
-
             return "/management/financeiro/fees.xhtml?faces-redirect=true";
 
         } catch (Exception e) {
@@ -192,25 +260,12 @@ public class FeeController implements Serializable {
     // EDIT / UPDATE / DELETE
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * Abre o diálogo de edição para a propina indicada.
-     *
-     * IMPORTANTE: recebe o id diretamente como parâmetro (EL 2.2), em vez de
-     * depender de um "selectedId" setado por <f:setPropertyActionListener>.
-     * Isso evita o bug clássico do JSF em que o listener declarado no
-     * atributo "actionListener" é executado ANTES dos listeners das tags
-     * filhas (<f:setPropertyActionListener>), fazendo este método rodar
-     * com o id da linha clicada anteriormente (ou null na primeira vez) e
-     * deixando o formulário de edição vazio ou com dados errados.
-     */
     public void openEditDialog(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Nenhuma propina selecionada!", "");
             return;
         }
-
         this.selectedId = id;
-
         FeeDTO dto = feeService.getAllFees()
                 .stream()
                 .filter(f -> id.equals(f.getPhFee()))
@@ -230,13 +285,11 @@ public class FeeController implements Serializable {
         if (selectedId == null) {
             return;
         }
-
         FeeDTO dto = feeService.getAllFees()
                 .stream()
                 .filter(f -> selectedId.equals(f.getPhFee()))
                 .findFirst()
                 .orElse(null);
-
         if (dto != null) {
             mapDtoFields(dto, selectedFee);
         } else {
@@ -248,6 +301,7 @@ public class FeeController implements Serializable {
         target.setPhFee(source.getPhFee());
         target.setFeeCode(source.getFeeCode());
         target.setDescription(source.getDescription());
+        target.setFeeType(source.getFeeType());
         target.setSchoolClassPk(source.getSchoolClassPk());
         target.setSchoolClassName(source.getSchoolClassName());
         target.setSchoolYear(source.getSchoolYear());
@@ -277,14 +331,6 @@ public class FeeController implements Serializable {
         }
     }
 
-    /**
-     * Elimina a propina indicada.
-     *
-     * IMPORTANTE: também recebe o id diretamente como parâmetro, pelo mesmo
-     * motivo explicado em {@link #openEditDialog(Long)} — aqui o risco é
-     * ainda mais sério, pois a ordem incorreta poderia eliminar o registo
-     * errado.
-     */
     public void delete(Long id) {
         if (id == null) {
             addMessage(FacesMessage.SEVERITY_WARN, "Nenhuma propina selecionada!", "");
@@ -313,99 +359,51 @@ public class FeeController implements Serializable {
     // GETTERS E SETTERS
     // ─────────────────────────────────────────────────────────────
 
-    public Fee getFee() {
-        return fee;
-    }
+    public Fee getFee() { return fee; }
+    public void setFee(Fee fee) { this.fee = fee; }
 
-    public void setFee(Fee fee) {
-        this.fee = fee;
-    }
+    public FeeDTO getEditDto() { return editDto; }
+    public void setEditDto(FeeDTO editDto) { this.editDto = editDto; }
 
-    public FeeDTO getEditDto() {
-        return editDto;
-    }
+    public FeeDTO getSelectedFee() { return selectedFee; }
+    public void setSelectedFee(FeeDTO selectedFee) { this.selectedFee = selectedFee; }
 
-    public void setEditDto(FeeDTO editDto) {
-        this.editDto = editDto;
-    }
+    public Long getSelectedId() { return selectedId; }
+    public void setSelectedId(Long selectedId) { this.selectedId = selectedId; }
 
-    public FeeDTO getSelectedFee() {
-        return selectedFee;
-    }
+    public Long getSelectedSchoolClassId() { return selectedSchoolClassId; }
+    public void setSelectedSchoolClassId(Long selectedSchoolClassId) { this.selectedSchoolClassId = selectedSchoolClassId; }
 
-    public void setSelectedFee(FeeDTO selectedFee) {
-        this.selectedFee = selectedFee;
-    }
+    public void setLazyModel(FeeLazyModel lazyModel) { this.lazyModel = lazyModel; }
 
-    public Long getSelectedId() {
-        return selectedId;
-    }
+    // Filtros
+    public Long getFilterSchoolClassId() { return filterSchoolClassId; }
+    public void setFilterSchoolClassId(Long filterSchoolClassId) { this.filterSchoolClassId = filterSchoolClassId; }
 
-    public void setSelectedId(Long selectedId) {
-        this.selectedId = selectedId;
-    }
+    public FeeType getFilterFeeType() { return filterFeeType; }
+    public void setFilterFeeType(FeeType filterFeeType) { this.filterFeeType = filterFeeType; }
 
-    public Long getSelectedSchoolClassId() {
-        return selectedSchoolClassId;
-    }
+    public FeeStatus getFilterStatus() { return filterStatus; }
+    public void setFilterStatus(FeeStatus filterStatus) { this.filterStatus = filterStatus; }
 
-    public void setSelectedSchoolClassId(Long selectedSchoolClassId) {
-        this.selectedSchoolClassId = selectedSchoolClassId;
-    }
+    public LocalDate getFilterStartDate() { return filterStartDate; }
+    public void setFilterStartDate(LocalDate filterStartDate) { this.filterStartDate = filterStartDate; }
 
-    public Long getSelectedEnrolmentId() {
-        return selectedEnrolmentId;
-    }
+    public LocalDate getFilterEndDate() { return filterEndDate; }
+    public void setFilterEndDate(LocalDate filterEndDate) { this.filterEndDate = filterEndDate; }
 
-    public void setSelectedEnrolmentId(Long selectedEnrolmentId) {
-        this.selectedEnrolmentId = selectedEnrolmentId;
-    }
+    public String getFilterSearchText() { return filterSearchText; }
+    public void setFilterSearchText(String filterSearchText) { this.filterSearchText = filterSearchText; }
 
-    public void setLazyModel(FeeLazyModel lazyModel) {
-        this.lazyModel = lazyModel;
-    }
+    // Estatísticas
+    public long getTotalFeeCount() { return totalFeeCount; }
+    public long getActiveFeeCount() { return activeFeeCount; }
+    public BigDecimal getTotalFeeAmount() { return totalFeeAmount; }
 
-    // ─────────────────────────────────────────────────────────────
-    // ESTATÍSTICAS — GETTERS
-    // ─────────────────────────────────────────────────────────────
-
-    public long getTotalFeeCount() {
-        return totalFeeCount;
-    }
-
-    public long getActiveFeeCount() {
-        return activeFeeCount;
-    }
-
-    public BigDecimal getTotalFeeAmount() {
-        return totalFeeAmount;
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // ENUMS E LISTAS
-    // ─────────────────────────────────────────────────────────────
-
-    public FeeStatus[] getStatuses() {
-        return FeeStatus.values();
-    }
-
-    public List<SchoolClass> getSchoolClasses() {
-        return schoolClasses;
-    }
-
-    public List<Enrolment> getEnrolments() {
-        return enrolments;
-    }
-
-    public void refreshSchoolClasses() {
-        loadSchoolClasses();
-    }
-
-    public void refreshEnrolments() {
-        loadEnrolments();
-    }
-
-    public List<FeeDTO> getFees() {
-        return feeService.getAllFees();
-    }
+    // Enums e Listas
+    public FeeStatus[] getStatuses() { return FeeStatus.values(); }
+    public List<SchoolClass> getSchoolClasses() { return schoolClasses; }
+    public void refreshSchoolClasses() { loadSchoolClasses(); }
+    public List<FeeDTO> getFees() { return feeService.getAllFees(); }
+    public FeeType[] getFeeTypes() { return FeeType.values(); }
 }

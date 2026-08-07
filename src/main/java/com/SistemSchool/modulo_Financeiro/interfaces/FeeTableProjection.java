@@ -8,19 +8,8 @@ public interface FeeTableProjection {
     Long getPhFee();
     String getFeeCode();
     String getDescription();
-    /**
-     * Dados do aluno (via enrolment)
-     */
-    Long getStudentPk();
-    String getStudentName();
-    /**
-     * Dados da matrícula
-     */
-    Long getEnrolmentPk();
-    String getEnrolmentNumber();
-    /**
-     * Turma (relação direta em Fee)
-     */
+    String getFeeType();               // <-- adicionado
+
     Long getSchoolClassPk();
     String getSchoolClassName();
     Integer getSchoolYear();
@@ -31,5 +20,4 @@ public interface FeeTableProjection {
     String getObs();
     LocalDateTime getCreatedAt();
     LocalDateTime getUpdatedAt();
-
 }

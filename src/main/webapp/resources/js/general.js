@@ -1,15 +1,16 @@
 $(document).ready(function () {
-    AOS.init({
-        duration: 300,
-    });
+    if (window.AOS) {
+        AOS.init({
+            duration: 300,
+        });
+    }
     stickNaveBarOnScroll();
     handleContactForm();
 
     const year = new Date().getFullYear();
     $("#currentYear").text(year);
-
-})
-
+    initGlobalPrimeFacesLoadingOverlay();
+});
 
 function showLoader() {
     $('#loaderContainer').fadeIn(200);
@@ -18,6 +19,53 @@ function showLoader() {
 function hideLoader() {
     $('#loaderContainer').fadeOut(400);
 }
+
+function showScLoading() {
+    showLoader();
+}
+
+function hideScLoading() {
+    hideLoader();
+}
+
+function initGlobalPrimeFacesLoadingOverlay(retryCount = 0) {
+    if (window.PrimeFaces && PrimeFaces.ajax && PrimeFaces.ajax.Queue && !PrimeFaces.ajax.Queue.__scLoadingPatched) {
+        PrimeFaces.ajax.Queue.__scLoadingPatched = true;
+        PrimeFaces.ajax.Queue.originalAdd = PrimeFaces.ajax.Queue.add;
+        PrimeFaces.ajax.Queue.add = function (req) {
+            req.originalOnstart = req.onstart;
+            req.onstart = function (xhr, status, args) {
+                showScLoading();
+                if (req.originalOnstart) {
+                    req.originalOnstart(xhr, status, args);
+                }
+            };
+
+            req.originalOncomplete = req.onsuccess || req.oncomplete;
+            req.onsuccess = function (xhr, status, args) {
+                hideScLoading();
+                if (req.originalOncomplete) {
+                    req.originalOncomplete(xhr, status, args);
+                }
+            };
+
+            req.originalOnerror = req.onerror;
+            req.onerror = function (xhr, status, error) {
+                hideScLoading();
+                if (req.originalOnerror) {
+                    req.originalOnerror(xhr, status, error);
+                }
+            };
+
+            PrimeFaces.ajax.Queue.originalAdd(req);
+        };
+    } else if (retryCount < 6) {
+        setTimeout(function () {
+            initGlobalPrimeFacesLoadingOverlay(retryCount + 1);
+        }, 300);
+    }
+}
+
 //THIS HANDLES THE STICKY NAVBAR ON SCROLL
 function stickNaveBarOnScroll() {
 

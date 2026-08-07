@@ -7,8 +7,12 @@ import com.SistemSchool.modulo_secrtaria.model.Document;
 import com.SistemSchool.modulo_secrtaria.model.Student;
 import com.SistemSchool.modulo_secrtaria.repository.DocumentRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +25,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,6 +37,9 @@ public class DocumentService {
 
     private final DocumentRepository repository;
     private final StudentService studentService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public DocumentService(DocumentRepository repository, StudentService studentService) {
         this.repository = repository;
@@ -48,10 +57,6 @@ public class DocumentService {
         return repository.save(document);
     }
 
-    /**
-     * Atualiza os dados do documento (sem tocar no ficheiro físico).
-     * Para trocar o ficheiro, usa replaceDocumentFile().
-     */
     public void update(DocumentDTO dto) {
         Document document = repository.findById(dto.getPhDocument())
                 .orElseThrow(() -> new RuntimeException("Documento não encontrado com id: " + dto.getPhDocument()));
@@ -68,7 +73,6 @@ public class DocumentService {
             document.setStudent(student);
         }
 
-        // onUpdate() é disparado automaticamente pelo @PreUpdate no flush
         repository.save(document);
     }
 
@@ -93,34 +97,111 @@ public class DocumentService {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // LAZY LOADING PARA TABELA
+    // LAZY LOADING PARA TABELA (COM FILTROS)
     // ─────────────────────────────────────────────────────────────
 
     public Page<DocumentDTO> findLazy(int page, int size, Sort sort, Map<String, Object> filters) {
-        Pageable pageable = PageRequest.of(page, size, sort);
+        StringBuilder jpql = new StringBuilder(
+            "SELECT new com.SistemSchool.modulo_secrtaria.dto.DocumentDTO(" +
+            "d.pkDocument, d.documentNumber, d.fileName, d.filePath, " +
+            "d.student.pkStudent, d.student.fullName, d.documentType, " +
+            "d.issueDate, d.expiryDate, d.obs, d.createdAt, d.updatedAt) " +
+            "FROM Document d WHERE 1=1 "
+        );
+        StringBuilder countJpql = new StringBuilder(
+            "SELECT COUNT(d) FROM Document d WHERE 1=1 "
+        );
 
-        Page<DocumentTableProjection> projections = repository.findAllForTable(pageable);
+        Map<String, Object> params = new HashMap<>();
+        LocalDate today = LocalDate.now();
 
-        // getIssueDate()/getExpiryDate() da projeção já devolvem LocalDate
-        // diretamente (colunas DATE no banco) — não converter de novo aqui.
-        return projections.map(p -> new DocumentDTO(
-                p.getPkDocument(),
-                p.getDocumentNumber(),
-                p.getFileName(),
-                p.getFilePath(),
-                p.getStudentId(),
-                p.getStudentName(),
-                p.getDocumentType() != null ? DocumentType.valueOf(p.getDocumentType()) : null,
-                p.getIssueDate(),
-                p.getExpiryDate(),
-                p.getObs(),
-                p.getCreatedAt(),
-                p.getUpdatedAt()));
+        if (filters != null) {
+            if (filters.get("documentType") != null) {
+                jpql.append("AND d.documentType = :documentType ");
+                countJpql.append("AND d.documentType = :documentType ");
+                params.put("documentType", filters.get("documentType"));
+            }
+            if (filters.get("studentName") != null) {
+                String name = "%" + filters.get("studentName").toString().toLowerCase() + "%";
+                jpql.append("AND LOWER(d.student.fullName) LIKE :studentName ");
+                countJpql.append("AND LOWER(d.student.fullName) LIKE :studentName ");
+                params.put("studentName", name);
+            }
+            if (filters.get("issueStartDate") != null) {
+                jpql.append("AND d.issueDate >= :issueStartDate ");
+                countJpql.append("AND d.issueDate >= :issueStartDate ");
+                params.put("issueStartDate", filters.get("issueStartDate"));
+            }
+            if (filters.get("issueEndDate") != null) {
+                jpql.append("AND d.issueDate <= :issueEndDate ");
+                countJpql.append("AND d.issueDate <= :issueEndDate ");
+                params.put("issueEndDate", filters.get("issueEndDate"));
+            }
+            if (filters.get("expiryStatus") != null) {
+                String status = filters.get("expiryStatus").toString();
+                switch (status) {
+                    case "ok":
+                        jpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate > :expiryThreshold ");
+                        countJpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate > :expiryThreshold ");
+                        params.put("expiryThreshold", today.plusDays(30));
+                        break;
+                    case "soon":
+                        jpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate BETWEEN :today AND :expiryThreshold ");
+                        countJpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate BETWEEN :today AND :expiryThreshold ");
+                        params.put("today", today);
+                        params.put("expiryThreshold", today.plusDays(30));
+                        break;
+                    case "expired":
+                        jpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate < :today ");
+                        countJpql.append("AND d.expiryDate IS NOT NULL AND d.expiryDate < :today ");
+                        params.put("today", today);
+                        break;
+                    case "none":
+                        jpql.append("AND d.expiryDate IS NULL ");
+                        countJpql.append("AND d.expiryDate IS NULL ");
+                        break;
+                }
+            }
+        }
+
+        // ORDER BY
+        if (sort.isSorted()) {
+            jpql.append("ORDER BY ");
+            List<String> orderClauses = new ArrayList<>();
+            for (Sort.Order order : sort) {
+                orderClauses.add("d." + order.getProperty() + " " + order.getDirection().name());
+            }
+            jpql.append(String.join(", ", orderClauses));
+        } else {
+            jpql.append("ORDER BY d.createdAt DESC");
+        }
+
+        TypedQuery<DocumentDTO> query = entityManager.createQuery(jpql.toString(), DocumentDTO.class);
+        TypedQuery<Long> countQuery = entityManager.createQuery(countJpql.toString(), Long.class);
+
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+            countQuery.setParameter(entry.getKey(), entry.getValue());
+        }
+
+        Long total = countQuery.getSingleResult();
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+        List<DocumentDTO> content = query.getResultList();
+
+        return new PageImpl<>(content, PageRequest.of(page, size, sort), total);
     }
 
     // ─────────────────────────────────────────────────────────────
     // QUERIES UTILITÁRIAS
     // ─────────────────────────────────────────────────────────────
+
+    @Transactional
+    public DocumentDTO getDocumentDTOById(Long id) {
+        Document document = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Documento não encontrado com id: " + id));
+        return DocumentDTO.fromEntity(document);
+    }
 
     public List<Document> getByDocumentType(DocumentType documentType) {
         return repository.findByDocumentType(documentType);
@@ -183,11 +264,6 @@ public class DocumentService {
         return save(document);
     }
 
-    /**
-     * Substitui o ficheiro físico de um documento já existente, mantendo o
-     * mesmo registo. Não persiste os outros campos — chama update() à parte
-     * se quiseres também guardar as alterações de texto do formulário.
-     */
     public void replaceDocumentFile(Long documentId, InputStream fileContent, String originalFileName,
             String uploadBaseDir) throws IOException {
 
@@ -250,7 +326,7 @@ public class DocumentService {
             Path filePath = Paths.get(uploadBaseDir, document.getFilePath());
             Files.deleteIfExists(filePath);
         } catch (IOException e) {
-            // não interrompe a operação principal por causa de erro ao apagar o ficheiro físico
+            // não interrompe a operação principal
         }
     }
 }

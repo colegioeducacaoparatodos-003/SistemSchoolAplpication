@@ -42,15 +42,11 @@ public class PagamentoDTO {
 
     private BigDecimal valor;
 
-    private BigDecimal desconto;
-
     private BigDecimal multa;
 
     private BigDecimal total;
 
     private LocalDateTime dataEmissao;
-
-    private LocalDateTime dataVencimento;
 
     private LocalDateTime dataPagamento;
 
@@ -86,12 +82,10 @@ public class PagamentoDTO {
             String cashBoxNumber,
 
             BigDecimal valor,
-            BigDecimal desconto,
             BigDecimal multa,
             BigDecimal total,
 
             LocalDateTime dataEmissao,
-            LocalDateTime dataVencimento,
             LocalDateTime dataPagamento,
 
             FormaPagamento formaPagamento,
@@ -114,11 +108,9 @@ public class PagamentoDTO {
         this.cashBoxPk = cashBoxPk;
         this.cashBoxNumber = cashBoxNumber;
         this.valor = valor;
-        this.desconto = desconto;
         this.multa = multa;
         this.total = total;
         this.dataEmissao = dataEmissao;
-        this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
         this.formaPagamento = formaPagamento;
         this.estado = estado;
@@ -180,12 +172,10 @@ public class PagamentoDTO {
                 cashBoxNumber,
 
                 pagamento.getValor(),
-                pagamento.getDesconto(),
                 pagamento.getMulta(),
                 pagamento.getTotal(),
 
                 pagamento.getDataEmissao(),
-                pagamento.getDataVencimento(),
                 pagamento.getDataPagamento(),
 
                 pagamento.getFormaPagamento(),
@@ -280,14 +270,6 @@ public class PagamentoDTO {
         this.valor = valor;
     }
 
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
     public BigDecimal getMulta() {
         return multa;
     }
@@ -310,14 +292,6 @@ public class PagamentoDTO {
 
     public void setDataEmissao(LocalDateTime dataEmissao) {
         this.dataEmissao = dataEmissao;
-    }
-
-    public LocalDateTime getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(LocalDateTime dataVencimento) {
-        this.dataVencimento = dataVencimento;
     }
 
     public LocalDateTime getDataPagamento() {
