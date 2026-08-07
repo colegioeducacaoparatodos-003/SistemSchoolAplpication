@@ -24,10 +24,9 @@ public class RootRedirectConfig {
                 HttpServletResponse res = (HttpServletResponse) response;
                 
                 String uri = req.getRequestURI();
-                String contextPath = req.getContextPath();
                 
-                if (uri.equals(contextPath + "/")) {
-                    res.sendRedirect("login.xhtml");
+                if (uri.equals("/")) {
+                    res.sendRedirect("/login.xhtml");
                     return;
                 }
                 
