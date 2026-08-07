@@ -17,10 +17,6 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/*.xhtml")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/login.xhtml")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/dashboard.xhtml")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/profile.xhtml")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/status.xhtml")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/resources/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/components/**")).permitAll()

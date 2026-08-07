@@ -22,18 +22,19 @@ public class RootRedirectConfig {
                     throws IOException, ServletException {
                 HttpServletRequest req = (HttpServletRequest) request;
                 HttpServletResponse res = (HttpServletResponse) response;
-                
+
                 String uri = req.getRequestURI();
-                
-                if (uri.equals("/")) {
+                String context = req.getContextPath();
+
+                if (uri.equals(context + "/") || uri.equals("/")) {
                     res.sendRedirect("/login.xhtml");
                     return;
                 }
-                
+
                 chain.doFilter(request, response);
             }
         });
-        registration.addUrlPatterns("/");
+        registration.addUrlPatterns("/*");
         registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registration;
     }
