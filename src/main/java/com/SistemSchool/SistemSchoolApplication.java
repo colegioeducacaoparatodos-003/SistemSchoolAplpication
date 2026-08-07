@@ -1,15 +1,12 @@
 package com.SistemSchool;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.startup.Tomcat;
+import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.ServletRegistration;
+import org.apache.myfaces.webapp.FacesInitializerImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
-
-import jakarta.faces.webapp.FacesServlet;
 
 @SpringBootApplication
 public class SistemSchoolApplication {
@@ -19,22 +16,21 @@ public class SistemSchoolApplication {
     }
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
-        return factory -> factory.addContextCustomizers((Context context) -> {
-            // Registra FacesServlet DIRETAMENTE no Tomcat antes do MyFaces inicializar
-            Tomcat.addServlet(context, "FacesServlet", FacesServlet.class.getName());
-            context.addServletMappingDecoded("*.xhtml", "FacesServlet");
-            context.addServletMappingDecoded("*.jsf", "FacesServlet");
-        });
-    }
-
-    @Bean
-    public ServletContextInitializer jsfParamsInitializer() {
+    public ServletContextInitializer facesContextInitializer() {
         return servletContext -> {
+            // 1. Parâmetros do JSF
             servletContext.setInitParameter("jakarta.faces.PROJECT_STAGE", "Production");
             servletContext.setInitParameter("jakarta.faces.DEFAULT_SUFFIX", ".xhtml");
             servletContext.setInitParameter("primefaces.THEME", "saga");
             servletContext.setInitParameter("primefaces.UPLOADER", "commons");
+
+            // 2. Registra o FacesServlet
+            ServletRegistration.Dynamic facesServlet = servletContext.addServlet("FacesServlet", FacesServlet.class);
+            facesServlet.addMapping("*.xhtml", "*.jsf");
+            facesServlet.setLoadOnStartup(1);
+
+            // 3. INICIALIZA O MYFACES MANUALMENTE (o ServletContainerInitializer não funciona em fat JAR)
+            new FacesInitializerImpl().initFaces(servletContext);
         };
     }
 }
