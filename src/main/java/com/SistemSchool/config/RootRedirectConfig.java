@@ -25,6 +25,7 @@ public class RootRedirectConfig {
                 
                 String uri = req.getRequestURI();
                 
+                // Redireciona raiz para /login.xhtml
                 if (uri.equals("/")) {
                     res.sendRedirect("/login.xhtml");
                     return;
