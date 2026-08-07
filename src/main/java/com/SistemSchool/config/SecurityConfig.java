@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -14,14 +14,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/index.xhtml")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/login.xhtml")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/*.xhtml")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/jakarta.faces.resource/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/resources/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll()
+                .anyRequest().authenticated()
             )
-            .formLogin(AbstractHttpConfigurer::disable)
-            .httpBasic(AbstractHttpConfigurer::disable);
-        
+            .formLogin(form -> form
+                .loginPage("/login.xhtml")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf.disable());
+
         return http.build();
     }
 }
