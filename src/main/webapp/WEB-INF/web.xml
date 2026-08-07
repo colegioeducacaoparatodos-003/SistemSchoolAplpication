@@ -3,14 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
                              https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-         version="6.0"
-         metadata-complete="false">
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  CONFIGURAÇÕES DE ENCODING                                      -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <request-character-encoding>UTF-8</request-character-encoding>
-    <response-character-encoding>UTF-8</response-character-encoding>
+         version="6.0">
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!--  PRIMEFACES                                                     -->
@@ -35,31 +28,28 @@
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!--  JSF / MYFACES                                                  -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- Modo de produção (remove aviso de DESENVOLVIMENTO) -->
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
 
-    <!-- Sufixo padrão das páginas -->
     <context-param>
         <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
 
-    <!-- Desativa refresh automático do Facelets em produção -->
     <context-param>
         <param-name>jakarta.faces.FACELETS_REFRESH_PERIOD</param-name>
         <param-value>-1</param-value>
     </context-param>
 
-    <!-- Skip comentários XML nos scripts -->
+    <!-- Silencia logs de desenvolvimento -->
     <context-param>
-        <param-name>org.apache.myfaces.WRAP_SCRIPT_CONTENT_WITH_XML_COMMENT_TAG</param-name>
+        <param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
         <param-value>false</param-value>
     </context-param>
 
-    <!-- Cache de views em sessão -->
+    <!-- Cache de views -->
     <context-param>
         <param-name>org.apache.myfaces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
         <param-value>25</param-value>
@@ -69,33 +59,13 @@
         <param-value>5</param-value>
     </context-param>
 
-    <!-- Compressão do estado da view no servidor -->
-    <context-param>
-        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <!-- Cache de recursos JSF -->
+    <!-- Cache de recursos -->
     <context-param>
         <param-name>org.apache.myfaces.RESOURCE_HANDLER_CACHE_ENABLED</param-name>
         <param-value>true</param-value>
     </context-param>
-    <context-param>
-        <param-name>org.apache.myfaces.RESOURCE_HANDLER_CACHE_SIZE</param-name>
-        <param-value>500</param-value>
-    </context-param>
 
-    <!-- Cache de ViewId -->
-    <context-param>
-        <param-name>org.apache.myfaces.VIEWID_EXISTS_CACHE_ENABLED</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.apache.myfaces.VIEWID_CACHE_SIZE</param-name>
-        <param-value>500</param-value>
-    </context-param>
-
-    <!-- Desativa autocomplete no campo view state (segurança) -->
+    <!-- Segurança view state -->
     <context-param>
         <param-name>org.apache.myfaces.AUTOCOMPLETE_OFF_VIEW_STATE</param-name>
         <param-value>true</param-value>
@@ -121,28 +91,6 @@
     </servlet-mapping>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  FILTROS                                                        -->
-    <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!-- Filtro de encoding (garante UTF-8 em todas as requisições) -->
-    <filter>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-    <!-- ═══════════════════════════════════════════════════════════════ -->
     <!--  PÁGINA DE BOAS-VINDAS                                          -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <welcome-file-list>
@@ -151,14 +99,13 @@
     </welcome-file-list>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  CONFIGURAÇÃO DE SESSÃO                                         -->
+    <!--  SESSÃO                                                         -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <session-config>
         <session-timeout>30</session-timeout>
         <cookie-config>
             <http-only>true</http-only>
-            <secure>false</secure>
-            <!-- Altere para "true" ao usar HTTPS -->
+            <secure>true</secure>
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
@@ -174,13 +121,9 @@
         <error-code>500</error-code>
         <location>/error/500.xhtml</location>
     </error-page>
-    <error-page>
-        <exception-type>java.lang.Exception</exception-type>
-        <location>/error/erro.xhtml</location>
-    </error-page>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <!--  MIME TYPES ADICIONAIS                                          -->
+    <!--  MIME TYPES                                                     -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <mime-mapping>
         <extension>woff2</extension>
