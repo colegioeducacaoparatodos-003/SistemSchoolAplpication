@@ -26,9 +26,8 @@ public class RootRedirectConfig {
                 String uri = req.getRequestURI();
                 String contextPath = req.getContextPath();
                 
-                // Se acessou exatamente a raiz "/", redireciona para login
                 if (uri.equals(contextPath + "/")) {
-                    res.sendRedirect(contextPath + "/login.xhtml");
+                    res.sendRedirect("login.xhtml");
                     return;
                 }
                 
