@@ -13,8 +13,13 @@ import java.io.IOException;
 @Configuration
 public class JsfConfig {
 
+    public JsfConfig() {
+        System.out.println(">>> JsfConfig FOI INSTANCIADO <<<");
+    }
+
     @Bean
     public ServletRegistrationBean<FacesServlet> facesServlet() {
+        System.out.println(">>> FacesServlet REGISTRADO <<<");
         ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>();
         registration.setServlet(new FacesServlet());
         registration.addUrlMappings("*.xhtml", "*.jsf");
@@ -25,6 +30,7 @@ public class JsfConfig {
 
     @Bean
     public ServletRegistrationBean<HttpServlet> rootRedirectServlet() {
+        System.out.println(">>> RootRedirect REGISTRADO <<<");
         ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
         registration.setServlet(new HttpServlet() {
             @Override
