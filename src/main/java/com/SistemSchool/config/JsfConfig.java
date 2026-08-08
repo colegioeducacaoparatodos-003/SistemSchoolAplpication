@@ -1,5 +1,6 @@
 package com.SistemSchool.config;
 
+import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +12,15 @@ import java.io.IOException;
 
 @Configuration
 public class JsfConfig {
+
+    @Bean
+    public ServletRegistrationBean<FacesServlet> facesServletRegistration() {
+        ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>();
+        registration.setServlet(new FacesServlet());
+        registration.addUrlMappings("*.xhtml");
+        registration.setLoadOnStartup(1);
+        return registration;
+    }
 
     @Bean
     public ServletRegistrationBean<HttpServlet> rootRedirectServlet() {
