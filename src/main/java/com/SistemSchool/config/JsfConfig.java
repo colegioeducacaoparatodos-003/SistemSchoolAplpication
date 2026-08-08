@@ -13,6 +13,7 @@ import java.io.IOException;
 @Configuration
 public class JsfConfig {
 
+    // ADICIONA ISTO:
     @Bean
     public ServletRegistrationBean<FacesServlet> facesServletRegistration() {
         ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>();
@@ -22,6 +23,7 @@ public class JsfConfig {
         return registration;
     }
 
+    // O teu redirect mantém-se:
     @Bean
     public ServletRegistrationBean<HttpServlet> rootRedirectServlet() {
         ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
