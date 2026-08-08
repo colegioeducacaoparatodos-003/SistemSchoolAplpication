@@ -4,7 +4,6 @@ import jakarta.faces.webapp.FacesServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +12,6 @@ import java.io.IOException;
 
 @Configuration
 public class JsfConfig {
-
-    @Bean
-    public DispatcherServletPath dispatcherServletPath() {
-        return () -> "/api";
-    }
 
     @Bean
     public ServletRegistrationBean<FacesServlet> facesServlet() {
