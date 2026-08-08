@@ -1,9 +1,13 @@
 package com.SistemSchool.config;
 
 import jakarta.faces.webapp.FacesServlet;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,24 +17,24 @@ import java.io.IOException;
 @Configuration
 public class JsfConfig {
 
-    public JsfConfig() {
-        System.out.println(">>> JsfConfig FOI INSTANCIADO <<<");
-    }
-
     @Bean
-    public ServletRegistrationBean<FacesServlet> facesServlet() {
-        System.out.println(">>> FacesServlet REGISTRADO <<<");
-        ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>();
-        registration.setServlet(new FacesServlet());
-        registration.addUrlMappings("*.xhtml", "*.jsf");
-        registration.setLoadOnStartup(1);
-        registration.setName("FacesServlet");
-        return registration;
+    public ServletContextInitializer servletContextInitializer() {
+        return new ServletContextInitializer() {
+            @Override
+            public void onStartup(ServletContext servletContext) throws ServletException {
+                System.out.println(">>> REGISTRANDO FacesServlet no ServletContext <<<");
+                
+                ServletRegistration.Dynamic facesServlet = servletContext.addServlet("FacesServlet", FacesServlet.class);
+                facesServlet.addMapping("*.xhtml", "*.jsf");
+                facesServlet.setLoadOnStartup(1);
+                
+                System.out.println(">>> FacesServlet REGISTRADO com sucesso <<<");
+            }
+        };
     }
 
     @Bean
     public ServletRegistrationBean<HttpServlet> rootRedirectServlet() {
-        System.out.println(">>> RootRedirect REGISTRADO <<<");
         ServletRegistrationBean<HttpServlet> registration = new ServletRegistrationBean<>();
         registration.setServlet(new HttpServlet() {
             @Override
